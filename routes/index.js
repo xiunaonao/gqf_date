@@ -11,7 +11,7 @@ let aesMethod=(token,callback)=>{
 
   var decipher = crypto.createDecipheriv('aes-128-cbc', key, iv)
   var decoded = decipher.update(crypted, 'binary', 'utf8')
-  console.log(decoded)
+  console.log(decoded.toString())
   decoded += decipher.final('utf8')
   callback(decoded)
 }
