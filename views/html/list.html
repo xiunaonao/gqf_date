@@ -70,6 +70,7 @@
 	}
 	.member_dl dt{
 		width: 100%;
+		height: 1.5rem;
 	}
 	.member_dl dt img{
 		display: block;
@@ -130,33 +131,14 @@
 </div>
 
 <div class="list_main">
-	<dl class="member_dl">
+	<dl class="member_dl" v-for="obj in news" v-bind:data-id="obj.id" v-on:click="getId(obj.id)">
 		<dt>
-			<img src="/img/list_test.png" alt="" />
+			<img v-if="obj.head_img=='没上传'" src="/img/noheadimg.png" alt="头像未上传" />
+			<img v-if="obj.head_img!='没上传'" v-bind:src="obj.head_img" alt="头像未上传" />
 		</dt>
 		<dd>
-			<p class="member_name">曲文思</p>
-			<p class="member_info"><span class="member_age">23</span>岁<span class="member_stature">165</span>cm/<span class="member_weight">47</span>kg</p>
-			<img class="like_icon" data-like="true" src="/img/like.png" alt="" />
-		</dd>
-	</dl>
-	<dl class="member_dl">
-		<dt>
-			<img src="/img/list_test.png" alt="" />
-		</dt>
-		<dd>
-			<p class="member_name">曲文思</p>
-			<p class="member_info"><span class="member_age">23</span>岁<span class="member_stature">165</span>cm/<span class="member_weight">47</span>kg</p>
-			<img class="like_icon" data-like="false" src="/img/unlike.png" alt="" />
-		</dd>
-	</dl>
-	<dl class="member_dl">
-		<dt>
-			<img src="/img/list_test.png" alt="" />
-		</dt>
-		<dd>
-			<p class="member_name">曲文思</p>
-			<p class="member_info"><span class="member_age">23</span>岁<span class="member_stature">165</span>cm/<span class="member_weight">47</span>kg</p>
+			<p class="member_name">{{obj.member_name}}</p>
+			<p class="member_info"><span class="member_age">{{getAge(obj.day_of_birth)}}</span>岁<span class="member_stature">{{obj.height}}</span>cm/<span class="member_weight">{{obj.weight}}</span>kg</p>
 			<img class="like_icon" data-like="false" src="/img/unlike.png" alt="" />
 		</dd>
 	</dl>
