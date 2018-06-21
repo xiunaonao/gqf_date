@@ -1,1 +1,373 @@
-这里是编辑页面
+<style type="text/css">
+	*{
+		margin: 0;
+		padding: 0;
+	}
+	.editor_main{
+		width: 100%;
+		background: #FFFFFF;
+		position: relative;
+	}
+	.top_img{
+		display: block;
+		width: 100%;
+		margin-bottom: 0.5rem;
+	}
+	.editor_title{
+		display: block;
+		width: 2.22rem;
+		position: absolute;
+		top: 1.22rem;
+		left: 0;
+		right: 0;
+		margin: auto;
+	}
+	
+	.editor_info{
+		width: 100%;
+		padding: 0.18rem 0;
+		border-bottom: 1px solid #DDDDDD;
+	}
+	.editor_info:after{
+		content: '';
+		display: table;
+		clear: both;
+	}
+	.img_up{
+		border-bottom: none;
+	}
+	.info_title{
+		float: left;
+		width: 0.74rem;
+		margin-left: 0.16rem;
+		margin-right: .26rem;
+		font-size: 0.14rem;
+		font-family: "microsoft yahei";
+		font-weight: 600;
+		color: #323232;
+	}
+	.e_img{
+		float: left;
+		padding: 0.2rem 0.3rem;
+		border: 1px dashed #323232;
+		border-radius: 5px;
+	}
+	#e_center{
+		line-height: 1;
+		font-size: 0.6rem;
+		font-family: "microsoft yahei";
+		font-weight: 100;
+	}
+	.info_input{
+		width: 60%;
+		border: none;
+		outline: none;
+		font-size: 0.14rem;
+		font-family: "microsoft yahei";
+		font-weight: 600;
+		color: #323232;
+	}
+	::-webkit-input-placeholder { /* WebKit browsers */
+	    font-weight: 300;
+	}
+	:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+	    font-weight: 300;
+	}
+	::-moz-placeholder { /* Mozilla Firefox 19+ */
+	    font-weight: 300;
+	}
+	:-ms-input-placeholder { /* Internet Explorer 10+ */
+	    font-weight: 300;
+	}
+	.select_text{
+		float: left;
+		font-size: 0.14rem;
+		font-family: "microsoft yahei";
+		font-weight: 600;
+		color: #323232;
+	}
+	
+	.editor_bot{
+		padding-bottom: 0;
+	}
+	.info_top{
+		padding-bottom: 0.18rem;
+	}
+	.info_top:after{
+		content: '';
+		display: table;
+		clear: both;
+	}
+	.open_select{
+		float: right;
+		width: 0.15rem;
+		margin-right: 0.15rem;
+		margin-top: 0.05rem;
+	}
+	.select_div{
+		display: none;
+		clear: both;
+		width:100%;
+		/*padding-top: 0.18rem;*/
+	}
+	.select_div p{
+		padding-left: 1.15rem;
+		line-height: 2;
+		background: #FFB6A0;
+		border-bottom: 1px solid #EEEEEE;
+		color: #FFFFFF;
+	}
+	.select_div p:hover{
+		background: #FF9494;
+	}
+	
+	.choose_title{
+		display: block;
+		width: 2.22rem;
+		margin: 0.15rem auto 0.09rem;
+	}
+	
+	.range_input{
+		float: left;
+		width: 60%;
+	}
+	.range_input span{
+		font-size: 0.14rem;
+		font-family: "microsoft yahei";
+		font-weight: 600;
+		color: #323232;
+	}
+	.range_line{
+		padding-right: 0.06rem;
+	}
+	.range_left,
+	.range_right{
+		width: 21%;
+		border: none;
+		outline: none;
+	}
+	
+	.bottom_text{
+		padding: 0.25rem 0.35rem 0.35rem 0.15rem;
+		text-align: center;
+		font-size: 0.13rem;
+		font-family: "microsoft yahei";
+		font-weight: 500;
+		color: #323232;
+	}
+	.submit_btn{
+		display: block;
+		width: 3.45rem;
+		margin: 0 auto 0.6rem;
+	}
+	.submit_btn img{
+		width: 100%;
+	}
+</style>
+<div class="editor_main">
+	<img class="top_img" src="/img/通栏.png"/>
+	<img class="editor_title" src="/img/联谊活动.png"/>
+	
+	<div class="editor_info img_up">
+        <span class="info_title">上传图片</span>
+        <div class="e_img">
+        	<span id="e_center">+</span>
+        </div>
+    </div>
+    
+    <div class="editor_info">
+        <span class="info_title">姓名</span>
+        <input class="info_input" id="member_name" type="text" value="" placeholder="请输入姓名" />
+    </div>
+    
+    <div class="editor_info editor_bot">
+    	<div class="info_top">
+    		<span class="info_title">年龄</span>
+    		<span class="select_text">男</span>
+    		<img class="open_select" src="/img/展开.png"/>
+    	</div>
+	    <div class="select_div">
+	    	<p value="1">男</p>
+	    	<p value="2">女</p>
+	    </div>
+    </div>
+    
+    <div class="editor_info">
+        <span class="info_title">出生年月</span>
+        <input class="info_input" id="member_birth" type="text" value="" placeholder="例 1990.1.1" />
+    </div>
+    <div class="editor_info">
+        <span class="info_title">身份证号码</span>
+        <input class="info_input" id="member_code" type="number" value="" placeholder="请输入身份证号码" />
+    </div>
+    <div class="editor_info">
+        <span class="info_title">现户籍地</span>
+        <input class="info_input" id="member_address" type="text" value="" placeholder="请输入现户籍地" />
+    </div>
+    <div class="editor_info">
+        <span class="info_title">工作单位</span>
+        <input class="info_input" id="member_company" type="text" value="" placeholder="请输入工作单位" />
+    </div>
+    <div class="editor_info">
+        <span class="info_title">部门职务</span>
+        <input class="info_input" id="member_woke" type="text" value="" placeholder="请输入部门职务" />
+    </div>
+    <div class="editor_info">
+        <span class="info_title">学历</span>
+        <input class="info_input" id="member_education" type="text" value="" placeholder="请输入学历" />
+    </div>
+    
+    <div class="editor_info editor_bot">
+    	<div class="info_top">
+    		<span class="info_title">年收入</span>
+    		<span class="select_text">5-10万</span>
+    		<img class="open_select" src="/img/展开.png"/>
+    	</div>
+	    <div class="select_div">
+            <p value="1">5万以下</p>
+            <p value="2">5-10万</p>
+            <p value="3">10-15万</p>
+            <p value="4">15万以上</p>
+	    </div>
+    </div>
+    
+    <div class="editor_info">
+        <span class="info_title">毕业院校</span>
+        <input class="info_input" id="member_school" type="text" value="" placeholder="请输入毕业院校" />
+    </div>
+    <div class="editor_info">
+        <span class="info_title">健康状况</span>
+        <input class="info_input" id="member_health" type="text" value="" placeholder="请输入健康状况" />
+    </div>
+    <div class="editor_info">
+        <span class="info_title">身高</span>
+        <input class="info_input" id="member_height" type="number" value="" placeholder="请输入身高(cm)" />
+    </div>
+    <div class="editor_info">
+        <span class="info_title">体重</span>
+        <input class="info_input" id="member_weight" type="number" value="" placeholder="请输入体重(kg)" />
+    </div>
+    <div class="editor_info">
+        <span class="info_title">民族</span>
+        <input class="info_input" id="member_nation" type="text" value="" placeholder="请输入民族" />
+    </div>
+    
+    <div class="editor_info editor_bot">
+    	<div class="info_top">
+    		<span class="info_title">住房状况</span>
+    		<span class="select_text">有</span>
+    		<img class="open_select" src="/img/展开.png"/>
+    	</div>
+	    <div class="select_div">
+            <p value="1">有</p>
+            <p value="2">无</p>
+	    </div>
+    </div>
+    <div class="editor_info editor_bot">
+    	<div class="info_top">
+    		<span class="info_title">购车状况</span>
+    		<span class="select_text">有</span>
+    		<img class="open_select" src="/img/展开.png"/>
+    	</div>
+	    <div class="select_div">
+            <p value="1">有</p>
+            <p value="2">无</p>
+	    </div>
+    </div>
+    
+    <div class="editor_info">
+        <span class="info_title">兴趣爱好</span>
+        <input class="info_input" id="member_hobby" type="text" value="" placeholder="请填写兴趣爱好" />
+    </div>
+    <div class="editor_info">
+        <span class="info_title">个人特长</span>
+        <input class="info_input" id="member_specialty" type="text" value="" placeholder="请填写个人特长" />
+    </div>
+    <div class="editor_info">
+        <span class="info_title">联系方式</span>
+        <input class="info_input" id="member_tel" type="text" value="" placeholder="请输入个人联系方式" />
+    </div>
+    
+    <img class="choose_title" src="/img/择偶标准.png" alt="" />
+	
+	<div class="editor_info">
+        <span class="info_title">年龄区间</span>
+        <div class="range_input">
+	        <input class="range_left" id="filter_age01" type="number" value="" placeholder="例 20" />
+	        <span class="range_line">-</span>
+	        <input class="range_right" id="filter_age02" type="number" value="" placeholder="例 30" />
+	        <span>岁</span>
+        </div>
+    </div>
+    <div class="editor_info">
+        <span class="info_title">身高区间</span>
+        <div class="range_input">
+	        <input class="range_left" id="filter_height01" type="number" value="" placeholder="例 160" />
+	        <span class="range_line">-</span>
+	        <input class="range_right" id="filter_height02" type="number" value="" placeholder="例 170" />
+	        <span>cm</span>
+        </div>
+    </div>
+    <div class="editor_info">
+        <span class="info_title">体重区间</span>
+        <div class="range_input">
+	        <input class="range_left" id="filter_weight01" type="number" value="" placeholder="例 60" />
+	        <span class="range_line">-</span>
+	        <input class="range_right" id="filter_weight02" type="number" value="" placeholder="例 70" />
+	        <span>kg</span>
+        </div>
+    </div>
+    
+    <div class="editor_info">
+        <span class="info_title">职业</span>
+        <input class="info_input" id="member_tel" type="text" value="" placeholder="请输入职业" />
+    </div>
+    
+    <div class="editor_info">
+        <span class="info_title">年收入</span>
+        <div class="range_input">
+	        <input class="range_left" id="filter_income01" type="number" value="" placeholder="例 5" />
+	        <span class="range_line">-</span>
+	        <input class="range_right" id="filter_income02" type="number" value="" placeholder="例 10" />
+	        <span>万</span>
+        </div>
+    </div>
+    
+    <div class="editor_info editor_bot">
+    	<div class="info_top">
+    		<span class="info_title">住房</span>
+    		<span class="select_text">有</span>
+    		<img class="open_select" src="/img/展开.png"/>
+    	</div>
+	    <div class="select_div">
+            <p value="1">有</p>
+            <p value="2">无</p>
+	    </div>
+    </div>
+    <div class="editor_info editor_bot">
+    	<div class="info_top">
+    		<span class="info_title">户籍</span>
+    		<span class="select_text">本地</span>
+    		<img class="open_select" src="/img/展开.png"/>
+    	</div>
+	    <div class="select_div">
+            <p value="1">本地</p>
+            <p value="2">外地</p>
+	    </div>
+    </div>
+    
+    <div class="editor_info">
+        <span class="info_title">兴趣爱好</span>
+        <input class="info_input" id="filter_hobby" type="text" value="" placeholder="请输入兴趣爱好" />
+    </div>
+    <div class="editor_info">
+        <span class="info_title">其他</span>
+        <input class="info_input" id="filter_other" type="text" value="" placeholder="请输入" />
+    </div>
+    
+    <p class="bottom_text">特别声明：本人承诺以上资料真实有效，由此带来的一切法律责任由本人自行承担</p>
+    
+    <a class="submit_btn" href="###"><img src="/img/提交.png" alt="" /></a>
+    
+</div>
+

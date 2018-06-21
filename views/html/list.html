@@ -1,1 +1,165 @@
-这里是相亲列表页
+<style type="text/css">
+	*{
+		margin: 0;
+		padding: 0;
+	}
+	.list_top{
+		width: 100%;
+		padding: 0.1rem 0;
+		position: fixed;
+		top: 0;
+		left: 0;
+		right: 0;
+		z-index: 999;
+		border-bottom: 1px solid #DDDDDD;
+		background-color: #FFFFFF;
+	}
+	.list_top:after{
+		content: '';
+		display: table;
+		clear: both;
+	}
+	.member_img{
+		display: block;
+		float: left;
+		width: 0.3rem;
+		margin-left: 0.15rem;
+		border-radius: 50%;
+	}
+	.top_right{
+		float: right;
+		display: block;
+		width: 0.15rem;
+		margin-right: 0.16rem;
+		margin-top: 0.05rem;
+	}
+	.top_right img{
+		width: 100%;
+		z-index: 9;
+	}
+	.list_title{
+		width: 60%;
+		position: absolute;
+		top: 0.17rem;
+		left: 0;
+		right: 0;
+		margin: auto;
+		line-height: 1;
+		text-align: center;
+		font-size: 0.15rem;
+		font-family: "microsoft yahei";
+		font-weight: 600;
+	}
+	
+	.list_main{
+		width: 100%;
+		margin-top: 0.55rem;
+		background-color: #FFFFFF;
+	}
+	.list_main:after{
+		content: "";
+		display: table;
+		clear: both;
+	}
+	.member_dl{
+		float: left;
+		width: 44%;
+		margin: 0.15rem 0 0.15rem 0.15rem;
+		border-radius: 0.05rem;
+		box-shadow:  0px 0px 5px 3px #EEEEEE;
+	}
+	.member_dl dt{
+		width: 100%;
+	}
+	.member_dl dt img{
+		display: block;
+		width: 100%;
+	}
+	.member_dl dd{
+		width: 100%;
+		position: relative;
+	}
+	.member_name{
+		margin-bottom: 0.12rem;
+		padding-top: 0.11rem;
+		padding-left: 0.11rem;
+		font-size: 0.13rem;
+		font-family: "microsoft yahei";
+		font-weight: 500;
+		color: #323232;
+	}
+	.member_info{
+		padding-left: 0.11rem;
+		padding-bottom: 0.14rem;
+		font-size: 0.11rem;
+		font-family: "microsoft yahei";
+		color: #AAAAAA;
+	}
+	.member_info span{
+		font-size: 0.11rem;
+	}
+	.member_stature{
+		padding-left: 0.12rem;
+	}
+	.like_icon{
+		display: block;
+		width: 0.4rem;
+		position: absolute;
+		top: -0.2rem;
+		right: 0.05rem;
+	}
+	
+	.editer_btn{
+		display: block;
+		width: 0.76rem;
+		position: fixed;
+		bottom: 0.25rem;
+		left: 0;
+		right: 0;
+		margin: auto;
+	}
+	.editer_btn img{
+		width: 100%;
+	}
+</style>
+
+<div class="list_top">
+	<a class="top_left" href="#"><img class="member_img" src="/img/头像.png" alt="" /></a>
+	<p class="list_title">会员列表</p>
+	<a class="top_right" href="#filter"><img class="filter_img" src="/img/筛选.png" alt=""></a>
+</div>
+
+<div class="list_main">
+	<dl class="member_dl">
+		<dt>
+			<img src="/img/list_test.png" alt="" />
+		</dt>
+		<dd>
+			<p class="member_name">曲文思</p>
+			<p class="member_info"><span class="member_age">23</span>岁<span class="member_stature">165</span>cm/<span class="member_weight">47</span>kg</p>
+			<img class="like_icon" data-like="true" src="/img/like.png" alt="" />
+		</dd>
+	</dl>
+	<dl class="member_dl">
+		<dt>
+			<img src="/img/list_test.png" alt="" />
+		</dt>
+		<dd>
+			<p class="member_name">曲文思</p>
+			<p class="member_info"><span class="member_age">23</span>岁<span class="member_stature">165</span>cm/<span class="member_weight">47</span>kg</p>
+			<img class="like_icon" data-like="false" src="/img/unlike.png" alt="" />
+		</dd>
+	</dl>
+	<dl class="member_dl">
+		<dt>
+			<img src="/img/list_test.png" alt="" />
+		</dt>
+		<dd>
+			<p class="member_name">曲文思</p>
+			<p class="member_info"><span class="member_age">23</span>岁<span class="member_stature">165</span>cm/<span class="member_weight">47</span>kg</p>
+			<img class="like_icon" data-like="false" src="/img/unlike.png" alt="" />
+		</dd>
+	</dl>
+</div>
+
+<a class="editer_btn" href="#editor"><img src="/img/报名.png" alt="" /></a>

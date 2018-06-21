@@ -15,7 +15,6 @@ $(function(){
 		var pText = $(this).text();
 		console.log("pVal:"+pVal+"--pText:"+pText);
 		$(this).parent().hide("solw");
-		select_flag = false;
 		$(this).parent().parent().find(".select_text").html(pText);
 	});
 })
