@@ -62,7 +62,6 @@ router.post('/insert_or_update',(req,res,next)=>{
 			car_buying:'',
 			hobby:'',
 			special:'',
-			delete_flag:'bool',
 			create_time:'date'
 		}
 	let rows={}
@@ -76,10 +75,10 @@ router.post('/insert_or_update',(req,res,next)=>{
 		}
 		rows[key].type=rowsKey[key]
 	}
+	
 	if(body.id){
 
-	}else{
-		mssql.insert('dating_member_info',rows,(err,result,count)=>{
+		mssql.update('dating_member_info',rows,`id='${body.id}'`,(err,result,count)=>{
 			let json={}
 			if(err){
 				json.success=false
@@ -91,7 +90,47 @@ router.post('/insert_or_update',(req,res,next)=>{
 			}
 			res.json(json)
 		})
+	}else{
+		rows.delete_flag={value:0,type:'bool'}
+		mssql.insert('dating_member_info',rows,(err,result,count,newid)=>{
+			let json={}
+			if(err){
+				json.success=false
+				json.message=err
+			}else{
+				json.success=true
+				json.message='操作成功'
+				json.count=count
+				json.id=newid
+			}
+			res.json(json)
+		})
 	}
 })
+
+
+router.post('/delete',(req,res,next)=>{
+	let body=req.body
+	let json={}
+	if(!body.id)
+	{
+		res.json({success:false,message:'请传递用户ID'})
+		return
+	}
+	let where=` id='${body.id}'`
+	mssql.delete('dating_member_info',where,(err,result,count)=>{
+		if(err){
+			json.success=false
+			json.message=err
+		}else{
+			json.success=true
+			json.message='操作成功'
+			json.count=count
+		}
+		res.json(json)
+	})
+})
+
+
 
 module.exports=router

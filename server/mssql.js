@@ -71,7 +71,10 @@ let sqlServer={
 			where.order_type='desc'
 		where.order_type2=where.order_type=='desc'?'asc':'desc'
 		if(where.filter)
-			where.filter=' where '+where.filter
+			where.filter=' where delete_flag=0 and '+where.filter
+		else
+			where.filter=' where delete_flag=0 '
+
 
 		let strSql=''
 		// let topSql=`select top ${where.size*(where.page-1)} ${where.order} from ${table} ${where.filter}  order by ${where.order} ${where.orderType} `
@@ -99,9 +102,43 @@ let sqlServer={
 	},
 	update:(table,rows,where,callback)=>{
 
+		function valid_null(key){
+			if(!rows[key].value){
+				if(!rows[key].type)
+					rows[key].value=""
+				if(rows[key].type=='num')
+					rows[key].value=0
+				if(rows[key].type=='date')
+					rows[key].value="1970-01-01"
+				if(rows[key].type=='bool')
+					rows[key].value=0
+			}
+			if(!rows[key].type || rows[key].type=='date' || rows[key].type=='id')
+				rows[key].value="'"+rows[key].value+"'"
+			return rows[key].value
+		}
+
+		let rowkey=Object.keys(rows)
+		let colName=rowkey.join(',')
+		let rowValue=''
+		for(let i=0;i<rowkey.length;i++){
+			if(i!=0)
+				rowValue+=","
+			rowValue+=rowkey[i]+'='+valid_null(rowkey[i])
+		}
+
+		strSql=`
+			UPDATE ${table}
+			   SET ${rowValue}
+			 WHERE ${where}
+
+		`
+		sqlServer.exec(strSql,(err,result,count)=>{
+			callback(err,result,count)
+		})
 	},
 	insert:(table,rows,callback)=>{
-
+		let new_id=node_uuid.v1()
 		function valid_null(key){
 			if(!rows[key].value){
 				if(!rows[key].type)
@@ -111,7 +148,7 @@ let sqlServer={
 				if(rows[key].type=='date')
 					rows[key].value="1970-01-01"
 				if(rows[key].type=='id')
-					rows[key].value="'"+node_uuid.v1()+"'"
+					rows[key].value="'"+new_id+"'"
 				if(rows[key].type=='bool')
 					rows[key].value=0
 			}
@@ -135,11 +172,16 @@ let sqlServer={
      		)
 		`
 		sqlServer.exec(strSql,(err,result,count)=>{
-			callback(err,result,count)
+			callback(err,result,count,new_id)
 		})
 	},
 	delete:(table,where,callback)=>{
-
+		strSql=`
+			update ${table} set delete_flag=1 where ${where}
+		`
+		sqlServer.exec(strSql,(err,result,count)=>{
+			callback(err,result,count)
+		})
 	}
 }
 
