@@ -182,6 +182,14 @@ let sqlServer={
 		sqlServer.exec(strSql,(err,result,count)=>{
 			callback(err,result,count)
 		})
+	},
+	querySingle:(table,where,callback)=>{
+		strSql=`
+			select * from ${table} where ${where}
+		`
+		sqlServer.exec(strSql,(err,result,count)=>{
+			callback(err,result,count)
+		})
 	}
 }
 

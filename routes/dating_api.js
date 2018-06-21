@@ -132,5 +132,26 @@ router.post('/delete',(req,res,next)=>{
 })
 
 
+router.get('/detail',(req,res,next)=>{
+	let query=req.query
+	if(!query.id)
+	{
+		res.json({success:false,message:'请传递用户ID'})
+		return
+	}
+	let where=` id='${query.id}'`
+	mssql.querySingle('dating_member_info',where,(err,result,count)=>{
+		let json={}
+		if(err){
+			json.success=false
+			json.message=err
+		}else{
+			json.success=true
+			json.message='操作成功'
+			json.data=result[0]
+		}
+		res.json(json)
+	})
+})
 
 module.exports=router
