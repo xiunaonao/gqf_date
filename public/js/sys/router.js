@@ -1,6 +1,6 @@
 var routes=[
 	{
-		url:'/',
+		url:'home',
 		dom:'home',
 		script:'home.js'
 	},
@@ -29,6 +29,7 @@ var routes=[
 
 window.linkTo=function(url){
 	var hash=location.hash;
+	console.log(hash);
 	for(var i=0;i<routes.length;i++){
 		getData(routes[i]);
 	}
@@ -43,11 +44,11 @@ window.linkTo=function(url){
 				if(i==0)
 					continue;
 				paramObj[param[i].replace('{','').replace('}','')]=hashs.length>(i)?hashs[i]:'';
-				console.log(param[i].replace('{','').replace('}','')+' = '+ (hashs.length>(i)?hashs[i]:''))
 			}
 			window._param=(paramObj);
 
 
+			console.log()
 
 			var xhr= new XMLHttpRequest();
 			xhr.open('GET',obj.dom+'.html',true);
