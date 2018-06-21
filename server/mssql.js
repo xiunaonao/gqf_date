@@ -1,5 +1,6 @@
 let Connection= require('tedious').Connection
 let Request = require('tedious').Request
+let node_uuid=require('node-uuid')
 let connectionCfg = {
     server: '192.168.5.173',  
     userName: 'hm',
@@ -52,7 +53,7 @@ let sqlServer={
 		    conn.execSql(request)
 		})
 	},
-	query:(table,where,callback)=>{
+	query:(table,where,callback,orderName)=>{
 
 		if(!where.size)
 			where.size=20
@@ -60,16 +61,19 @@ let sqlServer={
 			where.page=1
 		if(!where.filter)
 			where.filter=''
-		if(!where.order)
-			where.order='id'
-		if(!where.orderType)
-			where.orderType='desc'
-		where.orderType2=where.orderType=='desc'?'asc':'desc'
+		if(!where.order){
+			if(!orderName)
+				where.order='create_time'
+			else
+				where.order=orderName
+		}
+		if(!where.order_type)
+			where.order_type='desc'
+		where.order_type2=where.order_type=='desc'?'asc':'desc'
 		if(where.filter)
 			where.filter=' where '+where.filter
 
 		let strSql=''
-
 		// let topSql=`select top ${where.size*(where.page-1)} ${where.order} from ${table} ${where.filter}  order by ${where.order} ${where.orderType} `
 		// strSql=`
 		// 	select top ${where.size} * from ${table} where ${where.order}${where.orderType=='aes'?'>=':'<=1'}(select max(${where.order}) from (${topSql}) t)
@@ -79,24 +83,68 @@ let sqlServer={
 		strSql=`
 			select * from ${table} where id in
 			(
-				select top ${where.size} _ID from (select top ${where.size*where.page} ${where.order},_ID=id from ${table} ${where.filter} order by ${where.order} ${where.orderType}) w 
-				order by ${where.order} ${where.orderType2}
+				select top ${where.size} _ID from (select top ${where.size*where.page} ${where.order},_ID=id from ${table} ${where.filter} order by ${where.order} ${where.order_type}) w 
+				order by ${where.order} ${where.order_type2}
 			) 
-			order by ${where.order} ${where.orderType}
-		`
+			order by ${where.order} ${where.order_type}
 
-		console.log(strSql)
+			
+		`
+		strNumber=`select count=count(id) from ${table} ${where.filter}`
+		sqlServer.exec(strSql,(err,result,count)=>{
+			sqlServer.exec(strNumber,(err,result2)=>{
+				callback(err,result,result2[0].count)
+			})
+		})
+	},
+	update:(table,rows,where,callback)=>{
+
+	},
+	insert:(table,rows,callback)=>{
+
+		function valid_null(key){
+			if(!rows[key].value){
+				if(!rows[key].type)
+					rows[key].value=""
+				if(rows[key].type=='num')
+					rows[key].value=0
+				if(rows[key].type=='date')
+					rows[key].value="1970-01-01"
+				if(rows[key].type=='id')
+					rows[key].value="'"+node_uuid.v1()+"'"
+				if(rows[key].type=='bool')
+					rows[key].value=0
+			}
+			if(!rows[key].type || rows[key].type=='date')
+				rows[key].value="'"+rows[key].value+"'"
+			return rows[key].value
+		}
+		let rowkey=Object.keys(rows)
+		let colName=rowkey.join(',')
+		let rowValue=''
+		for(let i=0;i<rowkey.length;i++){
+			if(i!=0)
+				rowValue+=","
+			rowValue+=valid_null(rowkey[i])
+		}
+
+		strSql=`
+			INSERT INTO ${table}(${rowkey}) VALUES
+     		(
+     			${rowValue}
+     		)
+		`
 		sqlServer.exec(strSql,(err,result,count)=>{
 			callback(err,result,count)
 		})
 	},
-	update:()=>{
+	delete:(table,where,callback)=>{
 
 	}
 }
 
-sqlServer.query('Test',{},(err,r,c)=>{
-	console.log(r)
-})
+// sqlServer.query('Test',{},(err,r,c)=>{
+// 	console.log(r)
+// })
 
 module.exports=sqlServer
