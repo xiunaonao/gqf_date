@@ -1,43 +1,60 @@
-$(function(){
-	var like_flag = false;
+jQuery(function(){
+	var like_flag = 0;
 	
-	$(".like_icon").click(function(){
+	$("body").on('click','.like_icon',function(){
 		like_flag = $(this).attr("data-like");
-		if(like_flag=="true"){
+		if(like_flag==1){
 			$(this).attr("src","/img/unlike.png");
-			$(this).attr("data-like","false");
-			console.log("yes");
+			$(this).attr("data-like",0);
+//			console.log("yes");
 		}else{
 			$(this).attr("src","/img/like.png");
-			$(this).attr("data-like","true");
-			console.log("no");
+			$(this).attr("data-like",1);
+//			console.log("no");
 		}
 	});
-	
-	$(".member_dl").click(function(){
-		window.location.href = "#detail";
-	})
 	
 })
 
 	var vapp = new Vue({
 		el:'.list_main',
 		data:{
-			news:[]
+			news:[],
+			like_flag:false
 		},
 		methods:{
-			ready:function(){
-				var getUrl = 'dating_api/list?page=1&size=5&order_type=asc&order=day_of_birth';
-				this.$http.get(getUrl).then(function(data){
-					var dat = data.data;
-					if(typeof dat == 'string'){
-	                    dat=JSON.parse(data.data);
-	                }
-					this.news = dat.data;
-//					console.log(this.news.day_of_birth);
-					console.log("success:"+dat.success);
-					console.log("message:"+dat.message);
-				});
+			init:function(){
+				var listPost = sessionStorage.getItem("listPost");
+				console.log("listPost:"+listPost);
+				if(listPost){
+					var getUrl = 'dating_api/list?page=1&size=5&order_type=asc&order=day_of_birth';
+					this.$http.get(getUrl).then(function(data){
+						var dat = data.data;
+						if(typeof dat == 'string'){
+		                    dat=JSON.parse(data.data);
+		                }
+						this.news = dat.data;
+	//					console.log(this.news.day_of_birth);
+						console.log("success:"+dat.success);
+						console.log("message:"+dat.message);
+					});
+				}else{
+					var listArr = JSON.parse(sessionStorage.listPost);
+					console.log(listArr.age);
+					var getUrl = 'dating_api/list?page=1&size=5&order_type=asc&order=day_of_birth&age='+listArr.age+'&height='+listArr.height+'&education='+listArr.education+'&annual_income='+listArr.annual_income+'&housing='+listArr.housing+'&car_buying='+listArr.car_buying;
+					this.$http.get(getUrl).then(function(data){
+						var dat = data.data;
+						if(typeof dat == 'string'){
+		                    dat=JSON.parse(data.data);
+		                }
+						this.news = dat.data;
+	//					console.log(this.news.day_of_birth);
+						console.log("success:"+dat.success);
+						console.log("message:"+dat.message);
+						//sessionStorage.setItem("listPost","");
+						delete sessionStorage.listPost
+					});
+				}
 			},
 			getAge:function(birthday){         
 			    var returnAge;  
@@ -82,7 +99,29 @@ $(function(){
 			},  
 			getId:function(mId){
 				window.location.href="#detail/"+mId;
+			},
+			getLike:function(res){
+				if(res){
+					$(this).attr("src","/img/like.png");
+				}else{
+					$(this).attr("src","/img/unlike.png");
+				}
+			},
+			sentLike:function(mId,isLike){
+				if(isLike){
+					isLike = 0;
+				}else{
+					isLike = 1;
+				}
+				console.log("mId:"+mId+"--isLike:"+isLike);
+				var sentUrl = '/dating_api/like?id='+mId+'&is_like='+isLike;
+				this.$http.get(sentUrl).then(function(data){
+					var dat = data.data;
+					console.log("success:"+dat.success);
+					console.log("message:"+dat.message);
+				});
 			}
 		}
 	});
-	vapp.ready();
+	vapp.init();
+	

@@ -12,6 +12,7 @@
 		left: 0;
 		right: 0;
 		border-bottom: 1px solid #DDDDDD;
+		z-index: 999;
 	}
 	.detail_top:after{
 		content: '';
@@ -160,15 +161,15 @@
 </style>
 <div class="detail_top">
 	<a class="back_a" href="###" onclick="history.go(-1)"><img src="/img/返回.png" alt="" /></a>
-	<p class="detail_title">会员信息</p>
+	<p class="detail_title">用户信息</p>
 </div>
 
 <div class="detail_main">
 	<div class="main_top">
 		<img class="main_bg" src="/img/背景图.jpg" alt="" />
 		<!--<img class="member_img" src="/img/头像.png" alt="" />-->
-		<img class="member_img" v-if="news.head_img=='没上传'" src="/img/noheadimg.png" alt="头像未上传" />
-		<img class="member_img" v-if="news.head_img!='没上传'" v-bind:src="news.head_img" alt="头像未上传" />
+		<img class="member_img" v-if="news.head_img==''" src="/img/noheadimg.png" alt="头像未上传" />
+		<img class="member_img" v-if="news.head_img!=''" v-bind:src="news.head_img" alt="头像未上传" />
 		<p class="top_name">{{news.member_name}}</p>
 		<p class="top_info"><span class="top_age">{{getAge(news.day_of_birth)}}</span>岁<span class="top_height">{{news.height}}</span>cm/<span class="top_weight">{{news.weight}}</span>kg<span class="top_address">{{news.domicile}}</span></p>
 	</div>
@@ -234,47 +235,51 @@
 		<p class="main_title">择偶标准</p>
 		<div class="main_info">
 			<span class="info_left">身高</span>
-			<span class="info_right" id="f_height">180cm</span>
+			<span class="info_right" id="f_height">{{standardInfo.height_range}}cm</span>
 		</div>
 		<div class="main_info">
 			<span class="info_left">年龄区间</span>
-			<span class="info_right" id="f_age">25-30岁</span>
+			<span class="info_right" id="f_age">{{standardInfo.age_range}}岁</span>
 		</div>
 		<div class="main_info">
 			<span class="info_left">体重</span>
-			<span class="info_right" id="f_weight">70kg</span>
+			<span class="info_right" id="f_weight">{{standardInfo.weight_range}}kg</span>
 		</div>
 		<div class="main_info">
 			<span class="info_left">职业</span>
-			<span class="info_right" id="f_job">警察</span>
+			<span class="info_right" id="f_job">{{standardInfo.job}}</span>
 		</div>
 		<div class="main_info">
 			<span class="info_left">年收入</span>
-			<span class="info_right" id="f_income">8-10万</span>
+			<span class="info_right" id="f_income">{{standardInfo.income_range}}万元</span>
 		</div>
 		<div class="main_info">
 			<span class="info_left">住房</span>
-			<span class="info_right" id="f_house">有</span>
+			<span class="info_right" id="f_house">{{standardInfo.housing}}</span>
+		</div>
+		<div class="main_info">
+			<span class="info_left">购车</span>
+			<span class="info_right" id="f_car">{{standardInfo.car_buying}}</span>
 		</div>
 		<div class="main_info">
 			<span class="info_left">户籍</span>
-			<span class="info_right" id="f_address">本地</span>
+			<span class="info_right" id="f_address">{{standardInfo.house_nature}}</span>
 		</div>
-		<div class="main_info">
+		<!--<div class="main_info">
 			<span class="info_left">兴趣爱好</span>
 			<span class="info_right" id="f_hobby">运动；游泳</span>
 		</div>
 		<div class="main_info">
 			<span class="info_left">其他</span>
 			<span class="info_right" id="f_other">无</span>
-		</div>
+		</div>-->
 	</div>
 	
-	<div class="like_btn">
+	<!--<div class="like_btn">
 		<img src="/img/喜欢.png" alt="" />
 	</div>
 	<div class="unlike_btn">
 		<img src="/img/未喜欢.png" alt="" />
-	</div>
+	</div>-->
 	
 </div>

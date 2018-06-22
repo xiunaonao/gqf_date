@@ -104,9 +104,6 @@
 		width: 3.45rem;
 		margin: 0.5rem auto;
 	}
-	.filter_ok img{
-		width: 100%;
-	}
 </style>
 <div class="filter_top">
 	<a class="back_a" href="###" onclick="history.go(-1)"><img src="/img/返回.png" alt="" /></a>
@@ -117,13 +114,13 @@
     	<div class="info_top">
     		<span class="info_title">年龄</span>
     		<img class="open_select" src="/img/更多.png"/>
-    		<span class="select_text">请选择</span>
+    		<span class="select_text" id="f_age" data-val="">请选择</span>
     	</div>
 	    <div class="select_div">
-            <p value="1">20-30岁</p>
-            <p value="2">30-40岁</p>
-            <p value="3">40-50岁</p>
-            <p value="4">50岁以上</p>
+            <p value="20-30">20-30岁</p>
+            <p value="30-40">30-40岁</p>
+            <p value="40-50">40-50岁</p>
+            <p value="50-100">50岁以上</p>
 	    </div>
     </div>
     
@@ -131,14 +128,15 @@
     	<div class="info_top">
     		<span class="info_title">身高</span>
     		<img class="open_select" src="/img/更多.png"/>
-    		<span class="select_text">请选择</span>
+    		<span class="select_text" id="f_height" data-val="">请选择</span>
     	</div>
 	    <div class="select_div">
-            <p value="1">160cm以下</p>
-            <p value="2">160-170cm</p>
-            <p value="3">170-180cm</p>
-            <p value="4">180-190cm</p>
-            <p value="5">190cm以上</p>
+            <p value="0-150">150cm以下</p>
+            <p value="150-160">150-160cm</p>
+            <p value="160-170">160-170cm</p>
+            <p value="170-180">170-180cm</p>
+            <p value="180-190">180-190cm</p>
+            <p value="190-260">190cm以上</p>
 	    </div>
     </div>
     
@@ -146,17 +144,17 @@
     	<div class="info_top">
     		<span class="info_title">学历</span>
     		<img class="open_select" src="/img/更多.png"/>
-    		<span class="select_text">请选择</span>
+    		<span class="select_text" id="f_education" data-val="">请选择</span>
     	</div>
 	    <div class="select_div">
-            <p value="1">研究生教育</p>
-            <p value="2">大学本科教育</p>
-            <p value="3">大学专科教育</p>
-            <p value="4">中等职业教育</p>
-            <p value="5">普通高级中学教育</p>
-            <p value="6">初级中学教育</p>
-            <p value="7">小学教育</p>
-            <p value="8">其他</p>
+            <p value="0">其他</p>
+            <p value="1">小学</p>
+            <p value="2">初中</p>
+            <p value="3">高中</p>
+            <p value="4">中专</p>
+            <p value="5">大学专科</p>
+            <p value="6">大学本科</p>
+            <p value="7">研究生</p>
 	    </div>
     </div>
     
@@ -164,13 +162,13 @@
     	<div class="info_top">
     		<span class="info_title">年收入</span>
     		<img class="open_select" src="/img/更多.png"/>
-    		<span class="select_text">请选择</span>
+    		<span class="select_text" id="f_income" data-val="">请选择</span>
     	</div>
 	    <div class="select_div">
-            <p value="1">5万以下</p>
-            <p value="2">5-10万</p>
-            <p value="3">10-15万</p>
-            <p value="4">15万以上</p>
+            <p value="0-5">5万以下</p>
+            <p value="5-10">5-10万</p>
+            <p value="10-15">10-15万</p>
+            <p value="15-100">15万以上</p>
 	    </div>
     </div>
     
@@ -178,11 +176,11 @@
     	<div class="info_top">
     		<span class="info_title">住房状况</span>
     		<img class="open_select" src="/img/更多.png"/>
-    		<span class="select_text">有</span>
+    		<span class="select_text" id="f_house" data-val="">有房</span>
     	</div>
 	    <div class="select_div">
-            <p value="1">有</p>
-            <p value="2">无</p>
+            <p value="1">有房</p>
+            <p value="2">无房</p>
 	    </div>
     </div>
     
@@ -190,14 +188,14 @@
     	<div class="info_top">
     		<span class="info_title">购车状况</span>
     		<img class="open_select" src="/img/更多.png"/>
-    		<span class="select_text">有</span>
+    		<span class="select_text" id="f_car" data-val="">有车</span>
     	</div>
 	    <div class="select_div">
-            <p value="1">有</p>
-            <p value="2">无</p>
+            <p value="1">有车</p>
+            <p value="2">无车</p>
 	    </div>
     </div>
     
 </div>
-<a class="filter_ok" href="###"><img src="/img/筛选确定.png" alt="" /></a>
+<img class="filter_ok" src="/img/筛选确定.png" alt="" />
 

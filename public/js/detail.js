@@ -1,27 +1,10 @@
-$(function(){
-	var like_flag = false;
-	
-	if(like_flag){
-		$(".like_btn").show();
-		$(".unlike_btn").hide();
-	}else{
-		$(".like_btn").hide();
-		$(".unlike_btn").show();
-	}
-	$(".unlike_btn").click(function(){
-		$(this).hide();
-		$(".like_btn").show();
-	});
-	$(".like_btn").click(function(){
-		$(this).hide();
-		$(".unlike_btn").show();
-	})
-})
+
 
 	var vapp = new Vue({
 		el:".detail_main",
 		data:{
 			news:[],
+			standardInfo:[],
 			memberId:_param.id,
 			mInfo:{
 				education:""
@@ -37,6 +20,16 @@ $(function(){
 					}
 					this.news = dat.data;
 					this.getEdu();
+				});
+			},
+			getStandard:function(){
+				var getUrl = "/dating_api/standard_detail";
+				this.$http.get(getUrl).then(function(data){
+					var dat = data.data;
+					if(typeof dat=="string"){
+						dat = JSON.parse(data.data);
+					}
+					this.standardInfo = dat.data;
 				});
 			},
 			getAge:function(birthday){         
@@ -108,9 +101,33 @@ $(function(){
 				}else if(eduNum == 7){
 					this.mInfo.education = "研究生";
 				}
-				console.log("education:"+this.mInfo.education);
 			}
 			
 		}
 	});
 	vapp.getMemberInfo();
+	vapp.getStandard();
+
+jQuery(function(){
+	
+	$("body").ready(function(){ 
+		var like_flag = false;
+	　　
+		if(like_flag){
+			$(".like_btn").show();
+			$(".unlike_btn").hide();
+		}else{
+			$(".like_btn").hide();
+			$(".unlike_btn").show();
+		}
+	}); 
+	
+	$(".unlike_btn").click(function(){
+		$(this).hide();
+		$(".like_btn").show();
+	});
+	$(".like_btn").click(function(){
+		$(this).hide();
+		$(".unlike_btn").show();
+	})
+})

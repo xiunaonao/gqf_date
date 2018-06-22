@@ -48,15 +48,28 @@
 	}
 	.e_img{
 		float: left;
-		padding: 0.2rem 0.3rem;
+		width: 1rem;
+		height: 1rem;
 		border: 1px dashed #323232;
 		border-radius: 5px;
+		overflow: hidden;
+	}
+	.e_img img{
+		display: block;
+		/*width: 100%;*/
+		height: 1rem;
 	}
 	#e_center{
+		display: block;
+		margin-top: 0.15rem;
+		text-align: center;
 		line-height: 1;
 		font-size: 0.6rem;
 		font-family: "microsoft yahei";
 		font-weight: 100;
+	}
+	#addTextForm{
+		display: none;
 	}
 	.info_input{
 		width: 60%;
@@ -145,6 +158,10 @@
 		width: 21%;
 		border: none;
 		outline: none;
+		font-size: 0.14rem;
+		font-family: "microsoft yahei";
+		font-weight: 600;
+		color: #323232;
 	}
 	
 	.bottom_text{
@@ -160,9 +177,28 @@
 		width: 3.45rem;
 		margin: 0 auto 0.6rem;
 	}
-	.submit_btn img{
-		width: 100%;
-	}
+	.alert_msg {
+        display: none;
+        width: 40%;
+        padding: 0.18rem 0;
+        position: fixed;
+        top: 36%;
+        left: 0;
+        right: 0;
+        margin: auto;
+        background-color: black;
+        border-radius: 3px;
+        opacity: 0.5;
+        line-height: 1.2;
+        text-align: center;
+        font-size: 0.18rem;
+        color: #fff;
+    }
+    .alert_msg p {
+        padding: 0 0.1rem;
+        word-wrap: break-word;
+        word-break: normal;
+    }
 </style>
 <div class="editor_main">
 	<img class="top_img" src="/img/通栏.png"/>
@@ -170,9 +206,11 @@
 	
 	<div class="editor_info img_up">
         <span class="info_title">上传图片</span>
-        <div class="e_img">
+        <div class="e_img" v-on:click="change_input()">
         	<span id="e_center">+</span>
+        	<img class="head_img" src=""/>
         </div>
+        <form id="addTextForm" v-on:change="setImg($event)"></form>
     </div>
     
     <div class="editor_info">
@@ -182,8 +220,8 @@
     
     <div class="editor_info editor_bot">
     	<div class="info_top">
-    		<span class="info_title">年龄</span>
-    		<span class="select_text">男</span>
+    		<span class="info_title">性别</span>
+    		<span class="select_text" id="member_gender" data-val="1">男</span>
     		<img class="open_select" src="/img/展开.png"/>
     	</div>
 	    <div class="select_div">
@@ -196,10 +234,10 @@
         <span class="info_title">出生年月</span>
         <input class="info_input" id="member_birth" type="text" value="" placeholder="例 1990.1.1" />
     </div>
-    <div class="editor_info">
+    <!--<div class="editor_info">
         <span class="info_title">身份证号码</span>
-        <input class="info_input" id="member_code" type="number" value="" placeholder="请输入身份证号码" />
-    </div>
+        <input class="info_input" id="member_card" type="text" value="" placeholder="请输入身份证号码" />
+    </div>-->
     <div class="editor_info">
         <span class="info_title">现户籍地</span>
         <input class="info_input" id="member_address" type="text" value="" placeholder="请输入现户籍地" />
@@ -212,23 +250,45 @@
         <span class="info_title">部门职务</span>
         <input class="info_input" id="member_woke" type="text" value="" placeholder="请输入部门职务" />
     </div>
-    <div class="editor_info">
+    <!--<div class="editor_info">
         <span class="info_title">学历</span>
         <input class="info_input" id="member_education" type="text" value="" placeholder="请输入学历" />
-    </div>
+    </div>-->
     
     <div class="editor_info editor_bot">
     	<div class="info_top">
-    		<span class="info_title">年收入</span>
-    		<span class="select_text">5-10万</span>
+    		<span class="info_title">学历</span>
+    		<span class="select_text" id="member_education" data-val="">请选择</span>
     		<img class="open_select" src="/img/展开.png"/>
     	</div>
 	    <div class="select_div">
-            <p value="1">5万以下</p>
-            <p value="2">5-10万</p>
-            <p value="3">10-15万</p>
-            <p value="4">15万以上</p>
+            <p value="0">其他</p>
+            <p value="1">小学</p>
+            <p value="2">初中</p>
+            <p value="3">高中</p>
+            <p value="4">中专</p>
+            <p value="5">大学专科</p>
+            <p value="6">大学本科</p>
+            <p value="7">研究生</p>
 	    </div>
+    </div>
+    
+    <!--<div class="editor_info editor_bot">
+    	<div class="info_top">
+    		<span class="info_title">年收入</span>
+    		<span class="select_text" id="member_income" data-val="">请选择</span>
+    		<img class="open_select" src="/img/展开.png"/>
+    	</div>
+	    <div class="select_div">
+            <p value="1">5万元以下</p>
+            <p value="2">5-10万元</p>
+            <p value="3">10-15万元</p>
+            <p value="4">15万元以上</p>
+	    </div>
+    </div>-->
+    <div class="editor_info">
+        <span class="info_title">年收入</span>
+        <input class="info_input" id="member_income" type="number" value="" placeholder="请输入年收入(万元)" />
     </div>
     
     <div class="editor_info">
@@ -255,23 +315,23 @@
     <div class="editor_info editor_bot">
     	<div class="info_top">
     		<span class="info_title">住房状况</span>
-    		<span class="select_text">有</span>
+    		<span class="select_text" id="member_house" data-val="">请选择</span>
     		<img class="open_select" src="/img/展开.png"/>
     	</div>
 	    <div class="select_div">
-            <p value="1">有</p>
-            <p value="2">无</p>
+            <p value="1">有房</p>
+            <p value="2">无房</p>
 	    </div>
     </div>
     <div class="editor_info editor_bot">
     	<div class="info_top">
     		<span class="info_title">购车状况</span>
-    		<span class="select_text">有</span>
+    		<span class="select_text" id="member_car" data-val="">请选择</span>
     		<img class="open_select" src="/img/展开.png"/>
     	</div>
 	    <div class="select_div">
-            <p value="1">有</p>
-            <p value="2">无</p>
+            <p value="1">有车</p>
+            <p value="2">无车</p>
 	    </div>
     </div>
     
@@ -320,7 +380,7 @@
     
     <div class="editor_info">
         <span class="info_title">职业</span>
-        <input class="info_input" id="member_tel" type="text" value="" placeholder="请输入职业" />
+        <input class="info_input" id="filter_job" type="text" value="" placeholder="请输入职业" />
     </div>
     
     <div class="editor_info">
@@ -336,18 +396,29 @@
     <div class="editor_info editor_bot">
     	<div class="info_top">
     		<span class="info_title">住房</span>
-    		<span class="select_text">有</span>
+    		<span class="select_text" id="filter_house">有房</span>
     		<img class="open_select" src="/img/展开.png"/>
     	</div>
 	    <div class="select_div">
-            <p value="1">有</p>
-            <p value="2">无</p>
+            <p value="1">有房</p>
+            <p value="2">无房</p>
+	    </div>
+    </div>
+    <div class="editor_info editor_bot">
+    	<div class="info_top">
+    		<span class="info_title">购车</span>
+    		<span class="select_text" id="filter_car">有车</span>
+    		<img class="open_select" src="/img/展开.png"/>
+    	</div>
+	    <div class="select_div">
+            <p value="1">有车</p>
+            <p value="2">无车</p>
 	    </div>
     </div>
     <div class="editor_info editor_bot">
     	<div class="info_top">
     		<span class="info_title">户籍</span>
-    		<span class="select_text">本地</span>
+    		<span class="select_text" id="filter_address">本地</span>
     		<img class="open_select" src="/img/展开.png"/>
     	</div>
 	    <div class="select_div">
@@ -356,18 +427,21 @@
 	    </div>
     </div>
     
-    <div class="editor_info">
+    <!--<div class="editor_info">
         <span class="info_title">兴趣爱好</span>
         <input class="info_input" id="filter_hobby" type="text" value="" placeholder="请输入兴趣爱好" />
-    </div>
-    <div class="editor_info">
+    </div>-->
+    <!--<div class="editor_info">
         <span class="info_title">其他</span>
         <input class="info_input" id="filter_other" type="text" value="" placeholder="请输入" />
-    </div>
+    </div>-->
     
     <p class="bottom_text">特别声明：本人承诺以上资料真实有效，由此带来的一切法律责任由本人自行承担</p>
     
-    <a class="submit_btn" href="###"><img src="/img/提交.png" alt="" /></a>
+    <img class="submit_btn" v-on:click="allSubmit()" src="/img/提交.png" alt="" />
     
 </div>
 
+<div class="alert_msg">
+    <p></p>
+</div>
