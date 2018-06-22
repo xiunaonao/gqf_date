@@ -55,11 +55,11 @@ router.get('/list',(req,res,next)=>{
 	}
 
 	if(query.housing){
-		where.filter+=` and housing=${(query.housing=='有房'?'有房':'无房')}`
+		where.filter+=` and housing=${(query.housing=="有房"?"'有房'":"'无房'")}`
 	}
 
 	if(query.car_buying){
-		where.filter+=` and car_buying=${(query.car_buying=='有车'?'有车':'无车')}`
+		where.filter+=` and car_buying=${(query.car_buying=='有车'?"'有车'":"'无车'")}`
 	}
 
 
@@ -424,7 +424,7 @@ router.get('/like',(req,res,next)=>{
 			})
 		}else{
 			let where=` member_cardno=${memberNo} and mind_member_cardno=${mindMemberNo}`		
-			mssql.delete('dating_mate_standard',where,(err,result,count)=>{
+			mssql.delete('dating_mind_member',where,(err,result,count)=>{
 				let json={}
 				if(err){
 					json.success=false
