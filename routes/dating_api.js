@@ -34,14 +34,14 @@ router.get('/list',(req,res,next)=>{
 		let minheight=parseInt(query.height.split('-')[0])
 		let maxheight=parseInt(query.height.split('-')[1])
 
-		where.filter+=` and height>='${minheight}'`
-		where.filter+=` and height<='${maxheight}'`
+		where.filter+=` and height>=${minheight}`
+		where.filter+=` and height<=${maxheight}`
 	}
 
 
 	if(query.education){
 		let education=parseInt(query.education)
-		where.filter+=` and education>='${education}'`
+		where.filter+=` and education>=${education}`
 	}
 
 
@@ -50,8 +50,8 @@ router.get('/list',(req,res,next)=>{
 		let min_income=parseInt(query.annual_income.split('-')[0])
 		let max_income=parseInt(query.annual_income.split('-')[1])
 
-		where.filter+=` and annual_income>='${min_income}'`
-		where.filter+=` and annual_income<='${max_income}'`
+		where.filter+=` and annual_income>=${min_income}`
+		where.filter+=` and annual_income<=${max_income}`
 	}
 
 	if(query.housing){
@@ -59,7 +59,7 @@ router.get('/list',(req,res,next)=>{
 	}
 
 	if(query.car_buying){
-		where.filter+=` and car_buying=${(query.car_buying=='有房'?'有房':'无房')}`
+		where.filter+=` and car_buying=${(query.car_buying=='有车'?'有车':'无车')}`
 	}
 
 
