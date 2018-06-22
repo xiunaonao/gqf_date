@@ -1,0 +1,23 @@
+<html>
+	<input type="file" name="upd" id="files" multiple="multiple" />
+	<button id="upload">上传图片</button>
+
+	<form action="http://127.0.0.1:2333/api/upload">
+		<input type="file" name="upd2" id="files2" />
+		<input type="submit" value="提交"/>
+	</form>
+	<script>
+		upload.onclick=()=>{
+			var form=new FormData()
+			for(var i=0;i<files.files.length;i++){
+				form.append('files'+i,files.files[i]);
+			}
+			var xhr=new XMLHttpRequest();
+			xhr.open('POST','http://127.0.0.1:2333/api/upload',true);
+			xhr.send(form);
+			xhr.onreadystatechange=function(){
+				console.log(xhr.responeText);
+			}
+		}
+	</script>
+</html>

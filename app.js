@@ -8,6 +8,7 @@ var logger = require('morgan');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var dating_apiRouter=require('./routes/dating_api')
+var apiRouter=require('./routes/api')
 
 var app = express();
 
@@ -24,9 +25,10 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'views/html')));
 
-app.use('/', indexRouter);
-app.use('/users', usersRouter);
-app.use('/dating_api', dating_apiRouter);
+app.use('/', indexRouter)
+app.use('/users', usersRouter)
+app.use('/dating_api', dating_apiRouter)
+app.use('/api',apiRouter)
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

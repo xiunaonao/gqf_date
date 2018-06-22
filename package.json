@@ -17,6 +17,7 @@
     "multer": "^1.3.0",
     "node-uuid": "^1.4.8",
     "request": "~2.85.0",
-    "tedious": "latest"
+    "tedious": "latest",
+    "multer":"latest"
   }
 }
