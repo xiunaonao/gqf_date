@@ -14,7 +14,7 @@ let sqlServer={
 		conn.on('connect', (err)=>{
 			if(err){
 				console.log('连接失败')
-				console.log(err)
+				callback(null)
 				return
 			}else
 		 		callback(conn)
@@ -27,7 +27,7 @@ let sqlServer={
 			let request = new Request(sqlStr,(err, rowCount)=>{
 		      if (err) {
 		        console.error(err)
-		        callback(err,[]) //创建 request 实例失败
+		        callback(err,[],0) //创建 request 实例失败
 		      }else{
 		      	console.log(rowCount)
 		      	_rowCount=rowCount
@@ -98,7 +98,15 @@ let sqlServer={
 		`
 		strNumber=`select count=count(id) from ${table} ${where.filter}`
 		sqlServer.exec(strSql,(err,result,count)=>{
-			sqlServer.exec(strNumber,(err,result2)=>{
+			if(err){
+				callback(err,[],0)
+				return
+			}
+			sqlServer.exec(strNumber,(err,result2,count)=>{
+				if(err){
+					callback(err,[],0)
+					return
+				}
 				callback(err,result,result2[0].count)
 			})
 		})

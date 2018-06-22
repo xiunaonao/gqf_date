@@ -5,6 +5,10 @@ let mssql=require('../server/mssql')
 
 router.get('/list',(req,res,next)=>{
 	let memberNo=req.cookies['union_user']
+	if(!memberNo){
+		res.json({success:false,message:'登录已过期'})
+		return
+	}
 	let query=req.query
 	let where={
 		size:query.size?parseInt(query.size):20,
@@ -155,7 +159,7 @@ router.get('/detail',(req,res,next)=>{
 	if(!query.id)
 	{
 		if(!memberNo){
-			res.json({success:false,message:'请传递用户ID'})
+			res.json({success:false,message:'登录已过期'})
 			return
 		}
 		where=` member_cardno=${memberNo}`		
@@ -282,12 +286,19 @@ router.post('/insert_or_update_standard',(req,res,next)=>{
 router.get('/like',(req,res,next)=>{
 	let memberNo=req.cookies['union_user']
 	let query=req.query
-	if(!query.memberNo)
-	{
-		res.json({success:false,message:'请传递用户member_cardno'})
+	
+	if(!memberNo){
+		res.json({success:false,message:'登录已过期'})
 		return
 	}
-	let mindMemberNo=query.memberNo
+	if(!query.id)
+	{
+		res.json({success:false,message:'请传递用户ID'})
+		return
+	}
+	let mid=query.id
+
+	dating_total(mid,memberNo)
 
 	let rowsKey={
 		id:'id',
@@ -314,7 +325,7 @@ router.get('/like',(req,res,next)=>{
 		mind_type:{
 			type:'num',
 			value:2
-		},
+		}
 
 	}
 
@@ -346,5 +357,17 @@ router.get('/like',(req,res,next)=>{
 	})
 
 })
+
+function dating_total(mid,cardno,callback){
+	//day_of_birth,job,house_nature,annual_income,housing
+	let strSql=`
+		select top 1 * from dating_member_info where id='${mid}';
+		select top 1 age_range,JOB,income_range,house_nature,housing from dating_mate_standard where member_cardno=${cardno};
+	`
+	mssql.exec(strSql,(err,result,count)=>{
+		console.log(result)
+	})
+
+}
 
 module.exports=router
