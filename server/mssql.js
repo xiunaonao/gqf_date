@@ -53,7 +53,7 @@ let sqlServer={
 		    conn.execSql(request)
 		})
 	},
-	query:(table,where,callback,orderName)=>{
+	query:(table,where,callback,orderName,elseStr)=>{
 
 		if(!where.size)
 			where.size=20
@@ -74,7 +74,10 @@ let sqlServer={
 			where.filter=' where delete_flag=0 and '+where.filter
 		else
 			where.filter=' where delete_flag=0 '
-
+		if(!elseStr)
+			elseStr=''
+		else
+			elseStr=','+elseStr
 
 		let strSql=''
 		// let topSql=`select top ${where.size*(where.page-1)} ${where.order} from ${table} ${where.filter}  order by ${where.order} ${where.orderType} `
@@ -84,7 +87,7 @@ let sqlServer={
 		// `
 
 		strSql=`
-			select * from ${table} where id in
+			select * ${elseStr} from ${table} m_table where id in
 			(
 				select top ${where.size} _ID from (select top ${where.size*where.page} ${where.order},_ID=id from ${table} ${where.filter} order by ${where.order} ${where.order_type}) w 
 				order by ${where.order} ${where.order_type2}

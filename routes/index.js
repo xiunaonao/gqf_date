@@ -23,6 +23,16 @@ router.get('/', function(req, res, next) {
 });
 
 
+router.get('/union_valid',(req,res,next)=>{
+
+	if(req.query.membercardno){
+		var times=new Date(new Date().setDate(new Date().getDate()+7))
+		res.cookie('union_user',req.query.membercardno,{expires:times,httpOnly:true})
+		res.redirect('index.html')
+	}
+	
+})
+
 router.get('/valid',function(req,res,next){
 	var token=req.query.token
 	aesMethod(token,(decoded)=>{
