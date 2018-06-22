@@ -141,13 +141,16 @@ router.get('/detail',(req,res,next)=>{
 	let memberNo=req.cookies['union_user']
 	if(!query.id)
 	{
-		//res.json({success:false,message:'请传递用户ID'})
+		if(!memberNo){
+			res.json({success:false,message:'请传递用户ID'})
+			return
+		}
 		where=` member_cardno=${memberNo}`
+
 		
 	}else{
 		where=` id='${query.id}'`
 	}
-	let 
 	mssql.querySingle('dating_member_info',where,(err,result,count)=>{
 		let json={}
 		if(err){
@@ -156,7 +159,10 @@ router.get('/detail',(req,res,next)=>{
 		}else{
 			json.success=true
 			json.message='操作成功'
-			json.data=result[0]
+			if(result.length==0)
+				json.data=null
+			else
+				json.data=result[0]
 		}
 		res.json(json)
 	})
@@ -203,13 +209,13 @@ router.get('/like',(req,res,next)=>{
 
 	let rowsKey={
 		id:'id',
-		,member_cardno:''
-		,mind_member_cardno:''
-		,mind_type:'num'
-		,mind_degree:'num'
-		,send_msg:'bool'
-		,delete_flag:'num'
-		,'send_time':'date'
+		member_cardno:'',
+		mind_member_cardno:'',
+		mind_type:'num',
+		mind_degree:'num',
+		send_msg:'bool',
+		delete_flag:'num',
+		'send_time':'date'
 	}
 	let rows={
 		id:{
