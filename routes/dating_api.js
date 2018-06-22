@@ -433,7 +433,6 @@ router.get('/like',(req,res,next)=>{
 					json.success=true
 					json.message='操作成功'
 					json.count=count
-					json.id=newid
 				}
 				res.json(json)
 			})
