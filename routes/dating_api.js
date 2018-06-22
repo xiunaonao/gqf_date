@@ -121,14 +121,19 @@ router.post('/insert_or_update',(req,res,next)=>{
 
 
 router.post('/delete',(req,res,next)=>{
-	let body=req.body
 	let json={}
-	if(!body.id)
+	let memberNo=req.cookies['union_user']
+	if(req.query.sys==123){
+		memberNo='-1'
+	}
+
+	if(!memberNo)
 	{
-		res.json({success:false,message:'请传递用户ID'})
+		res.json({success:false,message:'请传递用户member_cardno'})
 		return
 	}
-	let where=` id='${body.id}'`
+
+	let where=` member_cardno='${memberNo}'`
 	mssql.delete('dating_member_info',where,(err,result,count)=>{
 		if(err){
 			json.success=false
@@ -153,9 +158,7 @@ router.get('/detail',(req,res,next)=>{
 			res.json({success:false,message:'请传递用户ID'})
 			return
 		}
-		where=` member_cardno=${memberNo}`
-
-		
+		where=` member_cardno=${memberNo}`		
 	}else{
 		where=` id='${query.id}'`
 	}
@@ -176,15 +179,45 @@ router.get('/detail',(req,res,next)=>{
 	})
 })
 
+router.get('/standard_detail',(req,res,next)=>{
+	let memberNo=req.cookies['union_user']
 
-router.get('/insert_or_update_standard',(req,res,next)=>{
+	if(req.query.sys==123){
+		memberNo='-1'
+	}
+
+	if(!memberNo)
+	{
+		res.json({success:false,message:'请传递用户member_cardno'})
+		return
+	}
+	let where=` member_cardno=${memberNo}`		
+	mssql.querySingle('dating_mate_standard',where,(err,result,count)=>{
+		let json={}
+		if(err){
+			json.success=false
+			json.message=err
+		}else{
+			json.success=true
+			json.message='操作成功'
+			if(result.length==0)
+				json.data=null
+			else
+				json.data=result[0]
+		}
+		res.json(json)
+	})
+
+})
+
+router.post('/insert_or_update_standard',(req,res,next)=>{
 	let body=req.body
 	let memberNo=req.cookies['union_user']
 
 	if(req.query.sys==123){
 		memberNo='-1'
 	}
-	
+
 	let rowsKey={
 		id:'id',
         member_cardno:'num',
@@ -198,6 +231,7 @@ router.get('/insert_or_update_standard',(req,res,next)=>{
         house_nature:'',
         delete_flag:'num'
 	}
+	let rows={}
 	for(let i=0;i<Object.keys(rowsKey).length;i++){
 		let key=Object.keys(rowsKey)[i]
 		rows[key]={}
