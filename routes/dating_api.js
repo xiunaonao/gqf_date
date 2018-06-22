@@ -181,6 +181,10 @@ router.get('/insert_or_update_standard',(req,res,next)=>{
 	let body=req.body
 	let memberNo=req.cookies['union_user']
 
+	if(req.query.sys==123){
+		memberNo='-1'
+	}
+	
 	let rowsKey={
 		id:'id',
         member_cardno:'num',
@@ -200,7 +204,43 @@ router.get('/insert_or_update_standard',(req,res,next)=>{
 		rows[key].value=body[key]
 		rows[key].type=rowsKey[key]
 	}
-	rows.member_cardno={value:memberNo,type:''}
+	rows.member_cardno={value:memberNo,type:'num'}
+
+	mssql.exist('dating_mate_standard',` member_cardno=${memberNo}`,(err,result,count)=>{
+
+		if(count>0){
+			rows.id.value=result[0].id
+			mssql.update('dating_mate_standard',rows,`id='${result[0].id}'`,(err,result,count)=>{
+				let json={}
+				if(err){
+					json.success=false
+					json.message=err
+				}else{
+					json.success=true
+					json.message='操作成功'
+					json.count=count
+					json.id=rows.id.value
+				}
+				res.json(json)
+			})
+		}else{
+			rows.delete_flag={value:0,type:'bool'}
+			mssql.insert('dating_mate_standard',rows,(err,result,count,newid)=>{
+				let json={}
+				if(err){
+					json.success=false
+					json.message=err
+				}else{
+					json.success=true
+					json.message='操作成功'
+					json.count=count
+					json.id=newid
+				}
+				res.json(json)
+			})
+		}
+
+	})
 	
 
 })
