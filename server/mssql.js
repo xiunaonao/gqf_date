@@ -71,9 +71,7 @@ let sqlServer={
 			where.order_type='desc'
 		where.order_type2=where.order_type=='desc'?'asc':'desc'
 		if(where.filter)
-			where.filter=' where delete_flag=0 and '+where.filter
-		else
-			where.filter=' where delete_flag=0 '
+			where.filter=' where delete_flag=0 '+where.filter
 		if(!elseStr)
 			elseStr=''
 		else
