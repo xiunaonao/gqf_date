@@ -31,7 +31,7 @@ router.get('/list',(req,res,next)=>{
 			json.size=where.size
 		}
 		res.json(json)
-	},'',` is_like=(select count(mind_member_cardno) from dating_mind_member where mind_member_cardno=m_table.member_cardno and member_cardno='${memberNo}')`)
+	},'',` is_like=(select count(mind_member_cardno) from dating_mind_member where mind_member_cardno=m_table.member_cardno and member_cardno=${memberNo})`)
 })
 
 
