@@ -38,11 +38,9 @@ router.get('/list',(req,res,next)=>{
 router.post('/insert_or_update',(req,res,next)=>{
 	let body=req.body
 	let memberNo=req.cookies['union_user']
-	if(body.query.sys==123){
-		memberNo='1827938056500000048'
-		console.log('是系统管理员')
+	if(req.query.sys==123){
+		memberNo='-1'
 	}
-	console.log(req.body)
 	let rowsKey=
 		{
 			id:'id',
@@ -82,13 +80,13 @@ router.post('/insert_or_update',(req,res,next)=>{
 		rows[key].type=rowsKey[key]
 	}
 	
-	rows.member_cardno={value:memberNo,type:''}
-
-	msql.exist('dating_member_info',' member_cardno='+rows.member_cardno,(err,result,count)=>{
+	rows.member_cardno={value:memberNo,type:'num'}
+	mssql.exist('dating_member_info',' member_cardno='+rows.member_cardno.value,(err,result,count)=>{
+	
 
 		if(count>0){
-
-			mssql.update('dating_member_info',rows,`id='${body.id}'`,(err,result,count)=>{
+			rows.id.value=result[0].id
+			mssql.update('dating_member_info',rows,`id='${result[0].id}'`,(err,result,count)=>{
 				let json={}
 				if(err){
 					json.success=false
@@ -97,6 +95,7 @@ router.post('/insert_or_update',(req,res,next)=>{
 					json.success=true
 					json.message='操作成功'
 					json.count=count
+					json.id=rows.id.value
 				}
 				res.json(json)
 			})
