@@ -186,6 +186,14 @@ let sqlServer={
 			callback(err,result,count)
 		})
 	},
+	exist:(table,where,callback)=>{
+		let strSql=`
+			select top 1 id from ${table} where ${where}
+		`
+		sqlServer.exec(strSql,(err,result,count)=>{
+			callback(err,result,count)
+		})
+	},
 	querySingle:(table,where,callback)=>{
 		strSql=`
 			select * from ${table} where ${where}
