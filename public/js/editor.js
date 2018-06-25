@@ -38,9 +38,9 @@ var vapp = new Vue({
        
         return  $("#"+add_inputId).click();
       }else{
-        $(".alert_msg p").html("最多选择"+this.imgNum+"张图片");
-        $(".alert_msg").show();
-        setTimeout('$(".alert_msg").hide()', 2000);
+//      $(".alert_msg p").html("最多选择"+this.imgNum+"张图片");
+//      $(".alert_msg").show();
+//      setTimeout('$(".alert_msg").hide()', 2000);
       }
     },
     //当input选择了图片的时候触发,将获得的src赋值到相对应的img
@@ -185,7 +185,7 @@ var vapp = new Vue({
     my_input.attr('id',i);                           //为创建的input添加id
     $('#addTextForm').append(my_input);                     //将生成的input追加到指定的form
     //生成img，默认为1
-    let my_img = $('<div><img src="" v-on:click="deleteImg(e)"></div>');
+    let my_img = $('<div><img src=""></div>');
     my_img.find("img").attr('id', 'img_'+i);  
 //  $('.e_img').find("#e_center").hide();
     $('.e_img').append(my_img); 
@@ -216,6 +216,10 @@ jQuery(function(){
 		select_flag = false;
 		$(this).parent().parent().find(".select_text").html(pText);
 		$(this).parent().parent().find(".select_text").attr("data-val",pVal);
+	});
+	
+	$("body").on("click",".head_img",function(){
+		$(this).hide();
 	});
 	
 	function getBirth(birthday){

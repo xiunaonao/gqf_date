@@ -56,7 +56,7 @@
 	}
 	.e_img img{
 		display: block;
-		/*width: 100%;*/
+		width: 100%;
 		height: 1rem;
 	}
 	#e_center{
@@ -205,11 +205,11 @@
 	<img class="top_img" src="/img/通栏.png"/>
 	<img class="editor_title" src="/img/联谊活动.png"/>
 	
-	<div class="editor_info img_up">
+	<div class="editor_info img_up" v-on:click="change_input()">
         <span class="info_title">上传图片</span>
-        <div class="e_img" v-on:click="change_input()">
+        <div class="e_img" v-on:click="deleteImg($event)">
         	<span id="e_center">+</span>
-        	<img class="head_img" src="" v-on:click="deleteImg(e)"/>
+        	<img class="head_img" src=""/>
         </div>
         <form id="addTextForm" v-on:change="setImg($event)"></form>
     </div>
