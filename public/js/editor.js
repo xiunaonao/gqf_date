@@ -152,7 +152,7 @@ var vapp = new Vue({
   },
       allSubmit(){
       	var scope=this;
-        var uploadSrc = $("#uploadImg img").attr("src");
+        var uploadSrc = $('#addTextForm input').val();
         // srcArr = this.imgUrl.split(",");
         console.log("uploadSrc:"+uploadSrc);
 		
