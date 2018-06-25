@@ -237,9 +237,10 @@ jQuery(function(){
 //		$(this).hide();
 //	});
 	
-	$("body").on(".submit_btn","click",function(){
+	$("img").click(function(){
 		event.stopPropagation();  
         event.preventDefault();
+        console.log("yes");
 	});
 	
 	
