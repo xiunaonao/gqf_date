@@ -33,7 +33,7 @@ $(function(){
 		
 		listPost = JSON.stringify(listPost);
 		sessionStorage.setItem("listPost",listPost);
-		
+		console.log('- - -')
 		window.location.href = "#list";
 	});
 })
