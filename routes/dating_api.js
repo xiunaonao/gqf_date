@@ -64,7 +64,7 @@ router.get('/list',(req,res,next)=>{
 
 
 	mssql.query('dating_member_info',where,(err,result,count)=>{
-		mssql.exec(`select top 1 age_range,job,income_range,house_nature,housing from dating_mate_standard where openid=${openid}`,(err,result2,count2)=>{
+		mssql.exec(`select top 1 age_range,job,income_range,house_nature,housing from dating_mate_standard where openid='${openid}'`,(err,result2,count2)=>{
 
 				for(var i=0;i<result.length;i++){
 					if(result2){
@@ -93,7 +93,7 @@ router.get('/list',(req,res,next)=>{
 			res.json(json)
 
 		})
-	},'',` is_like=(select count(mind_openid) from dating_mind_member where mind_openid=m_table.openid and openid=${openid})`)
+	},'',` is_like=(select count(mind_openid) from dating_mind_member where mind_openid=m_table.openid and openid='${openid}')`)
 })
 
 
@@ -145,7 +145,7 @@ router.post('/insert_or_update',(req,res,next)=>{
 	
 	//rows.member_cardno={value:memberNo,type:'num'}
 	rows.openid={value:openid,type:''}
-	mssql.exist('dating_member_info',' openid='+rows.openid.value,(err,result,count)=>{
+	mssql.exist('dating_member_info',` openid='`+rows.openid.value+`'`,(err,result,count)=>{
 	
 
 		if(count>0){
@@ -223,7 +223,7 @@ router.get('/detail',(req,res,next)=>{
 			res.json({success:false,message:'登录已过期'})
 			return
 		}
-		where=` openid=${opneid}`		
+		where=` openid='${opneid}'`		
 	}else{
 		where=` id='${query.id}'`
 	}
@@ -256,7 +256,7 @@ router.get('/standard_detail',(req,res,next)=>{
 		res.json({success:false,message:'登录已过期'})
 		return
 	}
-	let where=` openid=${openid}`		
+	let where=` openid='${openid}'`		
 	mssql.querySingle('dating_mate_standard',where,(err,result,count)=>{
 		let json={}
 		if(err){
@@ -303,7 +303,7 @@ router.post('/insert_or_update_standard',(req,res,next)=>{
 	rows.member_cardno={value:0,type:'num'}
 	rows.openid={value:openid,type:''}
 	console.log(rows)
-	mssql.exist('dating_mate_standard',` openid=${openid}`,(err,result,count)=>{
+	mssql.exist('dating_mate_standard',` openid='${openid}'`,(err,result,count)=>{
 
 		if(count>0){
 			rows.id.value=result[0].id
@@ -425,7 +425,7 @@ router.get('/like',(req,res,next)=>{
 				res.json(json)
 			})
 		}else{
-			let where=` openid=${openid} and mind_openid=${mind_openid}`		
+			let where=` openid='${openid}' and mind_openid='${mind_openid}'`		
 			mssql.delete('dating_mind_member',where,(err,result,count)=>{
 				let json={}
 				if(err){
@@ -449,8 +449,8 @@ function dating_total(mid,openid,callback){
 	//day_of_birth,job,house_nature,annual_income,housing
 	let strSql=`
 		select top 1 * from dating_member_info where id='${mid}';
-		select top 1 age_range,job,income_range,house_nature,housing from dating_mate_standard where openid=${openid};
-		select liknnum=count(id) from dating_mind_member WHERE openid=${openid} and mind_type=2 and delete_flag=0;
+		select top 1 age_range,job,income_range,house_nature,housing from dating_mate_standard where openid='${openid}';
+		select liknnum=count(id) from dating_mind_member WHERE openid='${openid}' and mind_type=2 and delete_flag=0;
 	`
 	mssql.exec(strSql,(err,result,count)=>{
 		let v=0
