@@ -36,8 +36,7 @@ router.post('/upload',upload.any(),(req,res,next)=>{
 	let readImg=(item,i)=>{
 		//console.log(item.path);
 		if(item){
-			json.rename=item.path
-			imgs.push(item.path.replace('/public',''))
+			imgs.push(item.path.replace('public',''))
 		}
 		if(index==req.files.length-1){
 			
