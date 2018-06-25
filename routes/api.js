@@ -30,18 +30,21 @@ router.post('/upload',upload.any(),(req,res,next)=>{
 	}
 	let imgs=[]
 	let index=0
+	let json={text:'',err:''};
 	let readImg=(item,i)=>{
 		let filename='/public/temp/'+(new Date().getTime()+parseInt(1000000+Math.random()*1000000))+index+item.originalname.substring(item.originalname.lastIndexOf('.'))
-		console.log(i+":"+filename)
+		//console.log(i+":"+filename)
+		json.text+=(i+":"+filename)
 		fs.readFile(item.path,(err,data)=>{
 			fs.writeFile('.'+filename,data,(err)=>{
+				json.err+=err
 				console.log(err)
 				if(!err)
 					imgs.push(filename.replace('/public',''))
 				console.log('------------')
 				console.log(imgs)
 				if(index==req.files.length-1){
-					let json={};
+					
 					if(imgs.length==0){
 						json.success=0
 						json.msg='上传失败'
