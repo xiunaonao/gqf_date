@@ -106,7 +106,7 @@
 		}
 	});
 	vapp.getMemberInfo();
-	vapp.getStandard();
+//	vapp.getStandard();
 
 jQuery(function(){
 	
