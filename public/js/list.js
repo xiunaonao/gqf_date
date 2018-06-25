@@ -27,7 +27,7 @@ jQuery(function(){
 				var listPost = sessionStorage.getItem("listPost");
 				console.log("listPost:"+listPost);
 				if(listPost==null){
-					var getUrl = 'dating_api/list?page=1&size=5&order_type=asc&order=day_of_birth';
+					var getUrl = 'dating_api/list?page=1&size=20&order_type=asc&order=day_of_birth';
 					this.$http.get(getUrl).then(function(data){
 						var dat = data.data;
 						if(typeof dat == 'string'){
@@ -41,7 +41,7 @@ jQuery(function(){
 				}else{
 					var listArr = JSON.parse(sessionStorage.listPost);
 					console.log(listArr.age);
-					var getUrl = 'dating_api/list?page=1&size=5&order_type=asc&order=day_of_birth&age='+listArr.age+'&height='+listArr.height+'&education='+listArr.education+'&annual_income='+listArr.annual_income+'&housing='+listArr.housing+'&car_buying='+listArr.car_buying;
+					var getUrl = 'dating_api/list?page=1&size=20&order_type=asc&order=day_of_birth&age='+listArr.age+'&height='+listArr.height+'&education='+listArr.education+'&annual_income='+listArr.annual_income+'&housing='+listArr.housing+'&car_buying='+listArr.car_buying;
 					this.$http.get(getUrl).then(function(data){
 						var dat = data.data;
 						if(typeof dat == 'string'){
