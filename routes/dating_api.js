@@ -4,7 +4,7 @@ let mssql=require('../server/mssql')
 
 
 router.get('/list',(req,res,next)=>{
-	let memberNo=req.cookies['union_user']
+	let memberNo=req.cookies['union_oid']
 	if(req.query.sys==123){
 		memberNo='-1'
 	}
@@ -64,7 +64,7 @@ router.get('/list',(req,res,next)=>{
 
 
 	mssql.query('dating_member_info',where,(err,result,count)=>{
-		mssql.exec(`select top 1 age_range,job,income_range,house_nature,housing from dating_mate_standard where member_cardno=${memberNo}`,(err,result2,count2)=>{
+		mssql.exec(`select top 1 age_range,job,income_range,house_nature,housing from dating_mate_standard where openid=${openid}`,(err,result2,count2)=>{
 
 				for(var i=0;i<result.length;i++){
 					if(result2){
@@ -93,13 +93,14 @@ router.get('/list',(req,res,next)=>{
 			res.json(json)
 
 		})
-	},'',` is_like=(select count(mind_member_cardno) from dating_mind_member where mind_member_cardno=m_table.member_cardno and member_cardno=${memberNo})`)
+	},'',` is_like=(select count(mind_member_cardno) from dating_mind_member where mind_member_cardno=m_table.member_cardno and openid=${openid})`)
 })
 
 
 router.post('/insert_or_update',(req,res,next)=>{
 	let body=req.body
-	let memberNo=req.cookies['union_user']
+	//let memberNo=req.cookies['union_user']
+	let openid=req.cookies['union_oid']
 	if(req.query.sys==123){
 		memberNo='-1'
 	}
@@ -142,8 +143,9 @@ router.post('/insert_or_update',(req,res,next)=>{
 		rows[key].type=rowsKey[key]
 	}
 	
-	rows.member_cardno={value:memberNo,type:'num'}
-	mssql.exist('dating_member_info',' member_cardno='+rows.member_cardno.value,(err,result,count)=>{
+	//rows.member_cardno={value:memberNo,type:'num'}
+	rows.openid={value:openid,type:''}
+	mssql.exist('dating_member_info',' openid='+rows.openid.value,(err,result,count)=>{
 	
 
 		if(count>0){
@@ -184,14 +186,15 @@ router.post('/insert_or_update',(req,res,next)=>{
 
 router.post('/delete',(req,res,next)=>{
 	let json={}
-	let memberNo=req.cookies['union_user']
+	//let memberNo=req.cookies['union_user']
+	let openid=req.cookies['user_oid']
 	if(req.query.sys==123){
 		memberNo='-1'
 	}
 
 	if(!memberNo)
 	{
-		res.json({success:false,message:'请传递用户member_cardno'})
+		res.json({success:false,message:'用户信息不正确'})
 		return
 	}
 
@@ -275,6 +278,7 @@ router.get('/standard_detail',(req,res,next)=>{
 router.post('/insert_or_update_standard',(req,res,next)=>{
 	let body=req.body
 	let memberNo=req.cookies['union_user']
+	let openid=req.cookies['openid']
 
 	if(req.query.sys==123){
 		memberNo='1827938056500000048'
@@ -283,6 +287,7 @@ router.post('/insert_or_update_standard',(req,res,next)=>{
 	let rowsKey={
 		id:'id',
         member_cardno:'num',
+        openid:'',
         age_range:'',
         height_range:'',
         weight_range:'',
@@ -301,8 +306,9 @@ router.post('/insert_or_update_standard',(req,res,next)=>{
 		rows[key].type=rowsKey[key]
 	}
 	rows.member_cardno={value:memberNo,type:'num'}
+	rows.openid={value:openid,type:''}
 
-	mssql.exist('dating_mate_standard',` member_cardno=${memberNo}`,(err,result,count)=>{
+	mssql.exist('dating_mate_standard',` openid=${openid}`,(err,result,count)=>{
 
 		if(count>0){
 			rows.id.value=result[0].id
@@ -443,12 +449,12 @@ router.get('/like',(req,res,next)=>{
 	})
 })
 
-function dating_total(mid,cardno,callback){
+function dating_total(mid,openid,callback){
 	//day_of_birth,job,house_nature,annual_income,housing
 	let strSql=`
 		select top 1 * from dating_member_info where id='${mid}';
-		select top 1 age_range,job,income_range,house_nature,housing from dating_mate_standard where member_cardno=${cardno};
-		select liknnum=count(id) from dating_mind_member WHERE member_cardno=-1 and mind_type=2 and delete_flag=0;
+		select top 1 age_range,job,income_range,house_nature,housing from dating_mate_standard where openid=${openid};
+		select liknnum=count(id) from dating_mind_member WHERE openid=${openid} and mind_type=2 and delete_flag=0;
 	`
 	mssql.exec(strSql,(err,result,count)=>{
 		let v=0

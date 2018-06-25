@@ -28,7 +28,8 @@ router.get('/union_valid',(req,res,next)=>{
 	if(req.query.membercardno){
 		var times=new Date(new Date().setDate(new Date().getDate()+7))
 		res.cookie('union_user',req.query.membercardno,{expires:times,httpOnly:true})
-		res.redirect('index.html')
+		res.cookie('union_oid',req.query.openid,{expires:times,httpOnly:true})
+		res.redirect('/#home')
 	}
 	
 })
