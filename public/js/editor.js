@@ -80,103 +80,119 @@ var vapp = new Vue({
 			}
 		});
     },
+    textSubmit(){
+   		var scope=this;
+   		var member_name = $("#member_name").val();
+		var sex = $("#member_gender").attr("data-val");
+		var day_of_birth = $("#member_birth").val();
+		var card_number = $("#member_card").val();
+		var domicile = $("#member_address").val();
+		var work_unit = $("#member_company").val();
+		var job = $("#member_woke").val();
+		var education = $("#member_education").attr("data-val");
+		var annual_income = $("#member_income").val();
+		var college = $("#member_school").val();
+		var health = $("#member_health").val();
+		var height = $("#member_height").val();
+		var weight = $("#member_weight").val();
+		var nation = $("#member_nation").val();
+		var housing = $("#member_house").html();
+		var car_buying = $("#member_car").html();
+		var hobby = $("#member_hobby").val();
+		var special = $("#member_specialty").val();
+		var mobile = $("#member_tel").val();
+		if(this.imgUrl==null){
+			var head_img = $(".head_img").attr("src");
+		}else{
+			var head_img = this.imgUrl;
+		}
+		
+		var postData = {member_name: member_name, sex: sex, day_of_birth: day_of_birth, card_number: card_number, domicile: domicile, work_unit: work_unit, job: job, education: education, annual_income: annual_income, college: college, health: health, height: height, weight: weight, nation: nation, housing: housing, car_buying: car_buying, hobby: hobby, special: special, mobile: mobile, head_img: head_img}
+		
+		var age01 = $("#filter_age01").val();
+		var age02 = $("#filter_age02").val();
+		var age_range = age01+"-"+age02;
+		var height01 = $("#filter_height01").val();
+		var height02 = $("#filter_height02").val();
+		var height_range = height01+"-"+height02;
+		var weight01 = $("#filter_weight01").val();
+		var weight02 = $("#filter_weight02").val();
+		var weight_range = weight01+"-"+weight02;
+		var job = $("#filter_job").val();
+		var income01 = $("#filter_income01").val();
+		var income02 = $("#filter_income02").val();
+		var income_range = income01+"-"+income02;
+		var housing = $("#filter_house").html();
+		var car_buying = $("#filter_car").html();
+		var house_nature = $("#filter_address").html();
+		
+		var sentData = {age_range: age_range, height_range: height_range, weight_range: weight_range, job: job, income_range: income_range, housing: housing, car_buying: car_buying, house_nature: house_nature};
+		
+		console.log(postData);
+          		
+		$.ajax({
+			url: "/dating_api/insert_or_update",
+			type: "post",
+			dataType: "json",
+			data: postData,
+			async: false,
+			success:function(data){
+				if(data.success){
+					scope.sentStandard(sentData);
+				}else{
+					$(".alert_msg p").html(data.message);
+	                $(".alert_msg").show();
+	                setTimeout('$(".alert_msg").hide()', 2000);
+	                return;
+				}
+			}
+		});
+  },
       allSubmit(){
       	var scope=this;
         var name = $(".fb_name").val();
         var mobile = $(".fb_tel").val();
         var context = $(".fb_content").val();
-        var uploadSrc = $("#img-wrapper img").attr("src");
+        var uploadSrc = $("#uploadImg img").attr("src");
         // srcArr = this.imgUrl.split(",");
-        console.log(uploadSrc);
+        console.log("uploadSrc:"+uploadSrc);
+		
+		if(uploadSrc==""){
+			scope.textSubmit();
+		}else{
+			
+	        $("#addTextForm").ajaxSubmit({
+	           url: "/api/upload",      
+	           type: "post",
+	           data: {
+	                    'total_price':this.price,
+	                    'descript':this.descript,
+	                },
+	           success:  (data) => {
+		           	this.imgUrl = data.url;
+			       	console.log("this.imgUrl:"+this.imgUrl);
+//			       	var srcArr = this.imgUrl;
+	                if(data.success==1){
+	                	scope.textSubmit();
+	                  
+	                  this.flagNum = 0;
+	                  return;
+	
+	               }else{
+	                  $(".alert_msg p").html(data.msg);
+	                  $(".alert_msg").show();
+	                  setTimeout('$(".alert_msg").hide()', 2000);
+	                  return;
+	               }
+	            }
+	        });
+		}
 
-
-        $("#addTextForm").ajaxSubmit({
-           url: "/api/upload",      
-           type: "post",
-           data: {
-                    'total_price':this.price,
-                    'descript':this.descript,
-                },
-           success:  (data) => {
-                if(data.success==1){
-                  this.imgUrl = data.url;
-                  console.log(this.imgUrl);
-                  var srcArr = this.imgUrl;
-                  var member_name = $("#member_name").val();
-					var sex = $("#member_gender").attr("data-val");
-					var day_of_birth = $("#member_birth").val();
-					var card_number = $("#member_card").val();
-					var domicile = $("#member_address").val();
-					var work_unit = $("#member_company").val();
-					var job = $("#member_woke").val();
-					var education = $("#member_education").attr("data-val");
-					var annual_income = $("#member_income").val();
-					var college = $("#member_school").val();
-					var health = $("#member_health").val();
-					var height = $("#member_height").val();
-					var weight = $("#member_weight").val();
-					var nation = $("#member_nation").val();
-					var housing = $("#member_house").html();
-					var car_buying = $("#member_car").html();
-					var hobby = $("#member_hobby").val();
-					var special = $("#member_specialty").val();
-					var mobile = $("#member_tel").val();
-					
-					var postData = {member_name: member_name, sex: sex, day_of_birth: day_of_birth, card_number: card_number, domicile: domicile, work_unit: work_unit, job: job, education: education, annual_income: annual_income, college: college, health: health, height: height, weight: weight, nation: nation, housing: housing, car_buying: car_buying, hobby: hobby, special: special, mobile: mobile, head_img: srcArr}
-					
-					var age01 = $("#filter_age01").val();
-					var age02 = $("#filter_age02").val();
-					var age_range = age01+"-"+age02;
-					var height01 = $("#filter_height01").val();
-					var height02 = $("#filter_height02").val();
-					var height_range = height01+"-"+height02;
-					var weight01 = $("#filter_weight01").val();
-					var weight02 = $("#filter_weight02").val();
-					var weight_range = weight01+"-"+weight02;
-					var job = $("#filter_job").val();
-					var income01 = $("#filter_income01").val();
-					var income02 = $("#filter_income02").val();
-					var income_range = income01+"-"+income02;
-					var housing = $("#filter_house").html();
-					var car_buying = $("#filter_car").html();
-					var house_nature = $("#filter_address").html();
-					
-					var sentData = {age_range: age_range, height_range: height_range, weight_range: weight_range, job: job, income_range: income_range, housing: housing, car_buying: car_buying, house_nature: house_nature};
-					
-					console.log(postData);
-                      		
-					$.ajax({
-						url: "/dating_api/insert_or_update",
-						type: "post",
-						dataType: "json",
-						data: postData,
-						async: false,
-						success:function(data){
-							if(data.success){
-								scope.sentStandard(sentData);
-							}else{
-								$(".alert_msg p").html(data.message);
-				                $(".alert_msg").show();
-				                setTimeout('$(".alert_msg").hide()', 2000);
-				                return;
-							}
-						}
-					});
-                  this.flagNum = 0;
-                  return;
-
-               }else{
-                  $(".alert_msg p").html(data.msg);
-                  $(".alert_msg").show();
-                  setTimeout('$(".alert_msg").hide()', 2000);
-                  return;
-               }
-            }
-        });
 
         
       }
    },
+   
   //页面加载后执行
   mounted(){
     for(let i=0;i<this.imgNum;i++){
@@ -185,7 +201,7 @@ var vapp = new Vue({
     my_input.attr('id',i);                           //为创建的input添加id
     $('#addTextForm').append(my_input);                     //将生成的input追加到指定的form
     //生成img，默认为1
-    let my_img = $('<div><img src=""></div>');
+    let my_img = $('<div id="uploadImg"><img src=""></div>');
     my_img.find("img").attr('id', 'img_'+i);  
 //  $('.e_img').find("#e_center").hide();
     $('.e_img_inner').append(my_img); 
@@ -243,6 +259,8 @@ jQuery(function(){
 						$("#e_center").hide();
 						$(".head_img").attr("src",data.data.head_img);
 						$(".head_img").show();
+					}else{
+						$(".head_img").hide();
 					}
 					$("#member_name").val(data.data.member_name);
 					if(data.data.sex == 1){
