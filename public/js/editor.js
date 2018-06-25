@@ -237,67 +237,70 @@ jQuery(function(){
 		url:"/dating_api/detail",
 		type:"get",
 		success:function(data){
-			if(data.success){
-				if(data.data.head_img){
-					$("#e_center").hide();
-					$(".head_img").attr("src",data.data.head_img);
-					$(".head_img").show();
+			if(data.data!=null){
+				if(data.success){
+					if(data.data.head_img){
+						$("#e_center").hide();
+						$(".head_img").attr("src",data.data.head_img);
+						$(".head_img").show();
+					}
+					$("#member_name").val(data.data.member_name);
+					if(data.data.sex == 1){
+						$("#member_gender").html("男");
+						$("#member_gender").attr("data-val",1);
+					}else if(data.data.sex == 2){
+						$("#member_gender").html("女");
+						$("#member_gender").attr("data-val",2);
+					}
+					$("#member_birth").val(getBirth(data.data.day_of_birth));
+					$("#member_card").val(data.data.card_number);
+					$("#member_address").val(data.data.domicile);
+					$("#member_company").val(data.data.work_unit);
+					$("#member_woke").val(data.data.job);
+					if(data.data.education == 0){
+						$("#member_education").html("其他");
+						$("#member_education").attr("data-val",0);
+					}else if(data.data.education == 1){
+						$("#member_education").html("小学");
+						$("#member_education").attr("data-val",1);
+					}else if(data.data.education == 2){
+						$("#member_education").html("初中");
+						$("#member_education").attr("data-val",2);
+					}else if(data.data.education == 3){
+						$("#member_education").html("高中");
+						$("#member_education").attr("data-val",3);
+					}else if(data.data.education == 4){
+						$("#member_education").html("中专");
+						$("#member_education").attr("data-val",4);
+					}else if(data.data.education == 5){
+						$("#member_education").html("大学专科");
+						$("#member_education").attr("data-val",5);
+					}else if(data.data.education == 6){
+						$("#member_education").html("大学本科");
+						$("#member_education").attr("data-val",6);
+					}else if(data.data.education == 7){
+						$("#member_education").html("研究生");
+						$("#member_education").attr("data-val",7);
+					}
+					$("#member_income").val(data.data.annual_income);
+					$("#member_school").val(data.data.college);
+					$("#member_health").val(data.data.health);
+					$("#member_height").val(data.data.height);
+					$("#member_weight").val(data.data.weight);
+					$("#member_nation").val(data.data.nation);
+					$("#member_house").html(data.data.housing);
+					$("#member_car").html(data.data.car_buying);
+					$("#member_hobby").val(data.data.hobby);
+					$("#member_specialty").val(data.data.special);
+					$("#member_tel").val(data.data.mobile);
+					
+				}else{
+					$(".alert_msg p").html(data.message);
+	                $(".alert_msg").show();
+	                setTimeout('$(".alert_msg").hide()', 2000);
+	                return;
 				}
-				$("#member_name").val(data.data.member_name);
-				if(data.data.sex == 1){
-					$("#member_gender").html("男");
-					$("#member_gender").attr("data-val",1);
-				}else if(data.data.sex == 2){
-					$("#member_gender").html("女");
-					$("#member_gender").attr("data-val",2);
-				}
-				$("#member_birth").val(getBirth(data.data.day_of_birth));
-				$("#member_card").val(data.data.card_number);
-				$("#member_address").val(data.data.domicile);
-				$("#member_company").val(data.data.work_unit);
-				$("#member_woke").val(data.data.job);
-				if(data.data.education == 0){
-					$("#member_education").html("其他");
-					$("#member_education").attr("data-val",0);
-				}else if(data.data.education == 1){
-					$("#member_education").html("小学");
-					$("#member_education").attr("data-val",1);
-				}else if(data.data.education == 2){
-					$("#member_education").html("初中");
-					$("#member_education").attr("data-val",2);
-				}else if(data.data.education == 3){
-					$("#member_education").html("高中");
-					$("#member_education").attr("data-val",3);
-				}else if(data.data.education == 4){
-					$("#member_education").html("中专");
-					$("#member_education").attr("data-val",4);
-				}else if(data.data.education == 5){
-					$("#member_education").html("大学专科");
-					$("#member_education").attr("data-val",5);
-				}else if(data.data.education == 6){
-					$("#member_education").html("大学本科");
-					$("#member_education").attr("data-val",6);
-				}else if(data.data.education == 7){
-					$("#member_education").html("研究生");
-					$("#member_education").attr("data-val",7);
-				}
-				$("#member_income").val(data.data.annual_income);
-				$("#member_school").val(data.data.college);
-				$("#member_health").val(data.data.health);
-				$("#member_height").val(data.data.height);
-				$("#member_weight").val(data.data.weight);
-				$("#member_nation").val(data.data.nation);
-				$("#member_house").html(data.data.housing);
-				$("#member_car").html(data.data.car_buying);
-				$("#member_hobby").val(data.data.hobby);
-				$("#member_specialty").val(data.data.special);
-				$("#member_tel").val(data.data.mobile);
 				
-			}else{
-				$(".alert_msg p").html(data.message);
-                $(".alert_msg").show();
-                setTimeout('$(".alert_msg").hide()', 2000);
-                return;
 			}
 		}
 	});
@@ -306,29 +309,32 @@ jQuery(function(){
 		url:"/dating_api/standard_detail",
 		type:"get",
 		success:function(data){
-			if(data.success){
-				var ageArr = getRange(data.data.age_range);
-				$("#filter_age01").val(ageArr[0]);
-				$("#filter_age02").val(ageArr[1]);
-				console.log("ageArr[0]:"+ageArr[0]);
-				var heightArr = getRange(data.data.height_range);
-				$("#filter_height01").val(heightArr[0]);
-				$("#filter_height02").val(heightArr[1]);
-				var weightArr = getRange(data.data.weight_range);
-				$("#filter_weight01").val(weightArr[0]);
-				$("#filter_weight02").val(weightArr[1]);
-				$("#filter_job").val(data.data.job);
-				var incomeArr = getRange(data.data.income_range);
-				$("#filter_income01").val(incomeArr[0]);
-				$("#filter_income02").val(incomeArr[1]);
-				$("#filter_house").html(data.data.housing);
-				$("#filter_car").html(data.data.car_buying);
-				$("#filter_address").html(data.data.house_nature);
-			}else{
-				$(".alert_msg p").html(data.message);
-                $(".alert_msg").show();
-                setTimeout('$(".alert_msg").hide()', 2000);
-                return;
+			if(data.data!=null){
+				if(data.success){
+					var ageArr = getRange(data.data.age_range);
+					$("#filter_age01").val(ageArr[0]);
+					$("#filter_age02").val(ageArr[1]);
+					console.log("ageArr[0]:"+ageArr[0]);
+					var heightArr = getRange(data.data.height_range);
+					$("#filter_height01").val(heightArr[0]);
+					$("#filter_height02").val(heightArr[1]);
+					var weightArr = getRange(data.data.weight_range);
+					$("#filter_weight01").val(weightArr[0]);
+					$("#filter_weight02").val(weightArr[1]);
+					$("#filter_job").val(data.data.job);
+					var incomeArr = getRange(data.data.income_range);
+					$("#filter_income01").val(incomeArr[0]);
+					$("#filter_income02").val(incomeArr[1]);
+					$("#filter_house").html(data.data.housing);
+					$("#filter_car").html(data.data.car_buying);
+					$("#filter_address").html(data.data.house_nature);
+				}else{
+					$(".alert_msg p").html(data.message);
+	                $(".alert_msg").show();
+	                setTimeout('$(".alert_msg").hide()', 2000);
+	                return;
+				}
+				
 			}
 		}
 	});
