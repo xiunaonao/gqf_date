@@ -26,7 +26,7 @@ jQuery(function(){
 			init:function(){
 				var listPost = sessionStorage.getItem("listPost");
 				console.log("listPost:"+listPost);
-				if(listPost){
+				if(listPost==null){
 					var getUrl = 'dating_api/list?page=1&size=5&order_type=asc&order=day_of_birth';
 					this.$http.get(getUrl).then(function(data){
 						var dat = data.data;
