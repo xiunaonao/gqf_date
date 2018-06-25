@@ -219,11 +219,11 @@ router.get('/detail',(req,res,next)=>{
 	let opneid=req.cookies['union_oid']
 	if(!query.id)
 	{
-		if(!memberNo){
+		if(!opneid){
 			res.json({success:false,message:'登录已过期'})
 			return
 		}
-		where=` opneid=${opneid}`		
+		where=` openid=${opneid}`		
 	}else{
 		where=` id='${query.id}'`
 	}
@@ -251,7 +251,7 @@ router.get('/standard_detail',(req,res,next)=>{
 	// 	memberNo='66E094A0-75D8-11E8-80D2-1B66FA338D2C'
 	// }
 
-	if(!memberNo)
+	if(!openid)
 	{
 		res.json({success:false,message:'登录已过期'})
 		return
@@ -277,12 +277,7 @@ router.get('/standard_detail',(req,res,next)=>{
 
 router.post('/insert_or_update_standard',(req,res,next)=>{
 	let body=req.body
-	let memberNo=req.cookies['union_user']
 	let openid=req.cookies['union_oid']
-
-	if(req.query.sys==123){
-		memberNo='1827938056500000048'
-	}
 
 	let rowsKey={
 		id:'id',
@@ -305,7 +300,7 @@ router.post('/insert_or_update_standard',(req,res,next)=>{
 		rows[key].value=body[key]
 		rows[key].type=rowsKey[key]
 	}
-	rows.member_cardno={value:memberNo,type:'num'}
+	rows.member_cardno={value:0,type:'num'}
 	rows.openid={value:openid,type:''}
 	console.log(rows)
 	mssql.exist('dating_mate_standard',` openid=${openid}`,(err,result,count)=>{
@@ -354,7 +349,7 @@ router.get('/like',(req,res,next)=>{
 	if(req.query.is_like!=undefined){
 		like=req.query.is_like
 	}
-	if(!memberNo){
+	if(!openid){
 		res.json({success:false,message:'登录已过期'})
 		return
 	}
@@ -387,6 +382,10 @@ router.get('/like',(req,res,next)=>{
 			openid:{
 				type:'',
 				value:openid
+			},
+			member_cardno:{
+				type:'num',
+				value:0
 			},
 			mind_openid:{
 				type:'',
