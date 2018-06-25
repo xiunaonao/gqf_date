@@ -105,7 +105,7 @@ var vapp = new Vue({
                   var member_name = $("#member_name").val();
 					var sex = $("#member_gender").attr("data-val");
 					var day_of_birth = $("#member_birth").val();
-			//		var member_card = $("#member_card").val();
+					var card_number = $("#member_card").val();
 					var domicile = $("#member_address").val();
 					var work_unit = $("#member_company").val();
 					var job = $("#member_woke").val();
@@ -122,7 +122,7 @@ var vapp = new Vue({
 					var special = $("#member_specialty").val();
 					var mobile = $("#member_tel").val();
 					
-					var postData = {member_name: member_name, sex: sex, day_of_birth: day_of_birth, domicile: domicile, work_unit: work_unit, job: job, education: education, annual_income: annual_income, college: college, health: health, height: height, weight: weight, nation: nation, housing: housing, car_buying: car_buying, hobby: hobby, special: special, mobile: mobile, head_img: srcArr}
+					var postData = {member_name: member_name, sex: sex, day_of_birth: day_of_birth, card_number: card_number, domicile: domicile, work_unit: work_unit, job: job, education: education, annual_income: annual_income, college: college, health: health, height: height, weight: weight, nation: nation, housing: housing, car_buying: car_buying, hobby: hobby, special: special, mobile: mobile, head_img: srcArr}
 					
 					var age01 = $("#filter_age01").val();
 					var age02 = $("#filter_age02").val();
@@ -252,6 +252,7 @@ jQuery(function(){
 					$("#member_gender").attr("data-val",2);
 				}
 				$("#member_birth").val(getBirth(data.data.day_of_birth));
+				$("#member_card").val(data.data.card_number);
 				$("#member_address").val(data.data.domicile);
 				$("#member_company").val(data.data.work_unit);
 				$("#member_woke").val(data.data.job);
