@@ -38,15 +38,16 @@ var vapp = new Vue({
        
         return  $("#"+add_inputId).click();
       }else{
-//      $(".alert_msg p").html("最多选择"+this.imgNum+"张图片");
-//      $(".alert_msg").show();
-//      setTimeout('$(".alert_msg").hide()', 2000);
+        $(".alert_msg p").html("最多选择"+this.imgNum+"张图片");
+        $(".alert_msg").show();
+        setTimeout('$(".alert_msg").hide()', 2000);
       }
     },
     //当input选择了图片的时候触发,将获得的src赋值到相对应的img
     setImg(e){
       let target=e.target;
-      $('#img_'+target.id).attr('src',getFileUrl(e.srcElement));
+//    $('#img_'+target.id).attr('src',getFileUrl(e.srcElement));
+	$(".e_img_inner").css("background-image","url("+getFileUrl(e.srcElement)+")");
       this.flagNum++;
       console.log("flagNum++:"+this.flagNum);
       if(this.flagNum<5){
@@ -55,15 +56,16 @@ var vapp = new Vue({
     },
     //点击图片删除该图片并清除相对的input
     deleteImg(e){
-      let target=e.target;
-      let inputID='';       //需要清除value的input
-      if(target.nodeName=='IMG'){
-        target.src='';
-        inputID=target.id.replace('img_','');    //获得需要清除value的input
-        $('input#'+inputID).val("");
+//    let target=e.target;
+//    let inputID='';       //需要清除value的input
+//    if(target.nodeName=='IMG'){
+//      target.src='';
+//      inputID=target.id.replace('img_','');    //获得需要清除value的input
+        $('#addTextForm input').val("");
         this.flagNum--;
-      }
-      console.log("flagNum--:"+this.flagNum);
+        console.log("flagNum--:"+this.flagNum);
+//    }
+      $(".e_img_inner").css("background-image","url(http://127.0.0.1:2333/)");
     },
     sentStandard(sData){
     	$.ajax({
@@ -73,7 +75,7 @@ var vapp = new Vue({
 			data: sData,
 			async: false,
 			success:function(data){
-				$(".alert_msg p").html(data.message);
+				$(".alert_msg p").html(data.message+"/n请关注长兴县总工会，以获取通知。");
                 $(".alert_msg").show();
                 setTimeout('$(".alert_msg").hide()', 2000);
                 return;
@@ -150,10 +152,7 @@ var vapp = new Vue({
   },
       allSubmit(){
       	var scope=this;
-        var name = $(".fb_name").val();
-        var mobile = $(".fb_tel").val();
-        var context = $(".fb_content").val();
-        var uploadSrc = $("#uploadImg img").attr("src");
+        var uploadSrc = $('#addTextForm input').val();
         // srcArr = this.imgUrl.split(",");
         console.log("uploadSrc:"+uploadSrc);
 		
@@ -201,10 +200,10 @@ var vapp = new Vue({
     my_input.attr('id',i);                           //为创建的input添加id
     $('#addTextForm').append(my_input);                     //将生成的input追加到指定的form
     //生成img，默认为1
-    let my_img = $('<div id="uploadImg"><img src=""></div>');
-    my_img.find("img").attr('id', 'img_'+i);  
-//  $('.e_img').find("#e_center").hide();
-    $('.e_img_inner').append(my_img); 
+//  let my_img = $('<div id="uploadImg"><img src=""></div>');
+//  my_img.find("img").attr('id', 'img_'+i);  
+//  $('.e_img_inner').append(my_img); 
+	
     }
   },
 }) 
@@ -234,9 +233,15 @@ jQuery(function(){
 		$(this).parent().parent().find(".select_text").attr("data-val",pVal);
 	});
 	
-	$("body").on("click",".head_img",function(){
-		$(this).hide();
+//	$("body").on("click",".head_img",function(){
+//		$(this).hide();
+//	});
+	
+	$("body").on(".submit_btn","click",function(){
+		event.stopPropagation();  
+        event.preventDefault();
 	});
+	
 	
 	function getBirth(birthday){
 	    var sArr = birthday.split("T"); 
@@ -248,7 +253,6 @@ jQuery(function(){
 		return rArr;
 	}
 	
-	
 	$.ajax({
 		url:"/dating_api/detail",
 		type:"get",
@@ -257,8 +261,9 @@ jQuery(function(){
 				if(data.success){
 					if(data.data.head_img){
 						$("#e_center").hide();
-						$(".head_img").attr("src",data.data.head_img);
-						$(".head_img").show();
+//						$(".head_img").attr("src",data.data.head_img);
+//						$(".head_img").show();
+						$(".e_img_inner").css("background-image","url("+data.data.head_img+")");
 					}else{
 						$(".head_img").hide();
 					}

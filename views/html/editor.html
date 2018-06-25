@@ -52,16 +52,28 @@
 		height: 1rem;
 		border: 1px dashed #323232;
 		border-radius: 5px;
-		overflow: hidden;
+		
 	}
 	.e_img_inner{
-		width: 100%;
+		height: 1rem;  
+	    width: 1rem;  
+	    overflow: hidden;
+	    background-image: url();
+		background-repeat: no-repeat;
+		background-position: center center;
+		background-size: cover;
+	}
+	/*#uploadImg{
+		height: 1rem;  
+	    width: 1rem;  
+	    overflow: hidden;
 	}
 	.e_img img{
 		display: block;
-		width: 100%;
-		height: 1rem;
-	}
+		position: relative;
+	    top: 0;
+	    left: 0;
+	}*/
 	#e_center{
 		display: block;
 		margin-top: 0.15rem;
@@ -213,7 +225,7 @@
         <div class="e_img" v-on:click="change_input()">
         	<div class="e_img_inner" v-on:click="deleteImg($event)">
         		<span id="e_center">+</span>
-        		<img class="head_img" src=""/>
+        		<!--<img class="head_img" src=""/>-->
         	</div>
         </div>
         <form id="addTextForm" v-on:change="setImg($event)"></form>
