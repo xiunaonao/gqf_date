@@ -5,7 +5,7 @@ let connectionCfg = {
     server: '192.168.5.173',  
     userName: 'hm',
     password: '208hongmai',
-	options: { database: 'HmUnionBusiness' }  
+	options: { database: 'HmUnionBusiness', }  
 }
 
 let sqlServer={
