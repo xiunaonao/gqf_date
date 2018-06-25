@@ -348,14 +348,11 @@ router.post('/insert_or_update_standard',(req,res,next)=>{
 })
 
 router.get('/like',(req,res,next)=>{
-	let memberNo=req.cookies['union_user']
+	let openid=req.cookies['union_oid']
 	let query=req.query
 	let like=1
 	if(req.query.is_like!=undefined){
 		like=req.query.is_like
-	}
-	if(req.query.sys==123){
-		memberNo='1827938056500000048'
 	}
 	if(!memberNo){
 		res.json({success:false,message:'登录已过期'})
@@ -368,7 +365,7 @@ router.get('/like',(req,res,next)=>{
 	}
 	let mid=query.id
 
-	dating_total(mid,memberNo,(err,mindMemberNo,val,allnum)=>{
+	dating_total(mid,openid,(err,mind_openid,val,allnum)=>{
 		if(err){
 			res.json({success:false,message:err})
 			return;
@@ -387,13 +384,13 @@ router.get('/like',(req,res,next)=>{
 			id:{
 				type:'id'
 			},
-			member_cardno:{
+			openid:{
 				type:'',
-				value:memberNo
+				value:openid
 			},
-			mind_member_cardno:{
+			mind_openid:{
 				type:'',
-				value:mindMemberNo
+				value:mind_openid
 			},
 			mind_type:{
 				type:'num',
@@ -429,7 +426,7 @@ router.get('/like',(req,res,next)=>{
 				res.json(json)
 			})
 		}else{
-			let where=` member_cardno=${memberNo} and mind_member_cardno=${mindMemberNo}`		
+			let where=` openid=${openid} and mind_openid=${mind_openid}`		
 			mssql.delete('dating_mind_member',where,(err,result,count)=>{
 				let json={}
 				if(err){
@@ -488,7 +485,7 @@ function dating_total(mid,openid,callback){
 		}	
 
 
-		callback(err,result[0].member_cardno,v,result[2].liknnum)
+		callback(err,result[0].opneid,v,result[2].liknnum)
 	})
 
 }
