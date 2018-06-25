@@ -185,7 +185,7 @@ var vapp = new Vue({
     my_input.attr('id',i);                           //为创建的input添加id
     $('#addTextForm').append(my_input);                     //将生成的input追加到指定的form
     //生成img，默认为1
-    let my_img = $('<div><img src=""></div>');
+    let my_img = $('<div><img src="" v-on:click="deleteImg(e)"></div>');
     my_img.find("img").attr('id', 'img_'+i);  
 //  $('.e_img').find("#e_center").hide();
     $('.e_img').append(my_img); 
