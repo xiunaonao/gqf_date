@@ -29,58 +29,59 @@
     <script src="/js/sys/router.js"></script>
     <!-- <script src="/scripts/shared/newsLayout.js"></script> -->
     <script>
-        var hash=location.hash.replace('#','');
-        console.log(hash)
-        sessionStorage.users='{"memberId":"1827938056500000048","organize_id":"","source_organize_id":"","user_type":1}';
-        if(!sessionStorage.users || sessionStorage.users=='null'){
-            //var url='http://100596.un.123zou.com/info/node?return='+hash;
-            //location.href=url;
+        window.linkTo();
+        //var hash=location.hash.replace('#','');
+        // console.log(hash)
+        // sessionStorage.users='{"memberId":"1827938056500000048","organize_id":"","source_organize_id":"","user_type":1}';
+        // if(!sessionStorage.users || sessionStorage.users=='null'){
+        //     //var url='http://100596.un.123zou.com/info/node?return='+hash;
+        //     //location.href=url;
 
-        }else{
+        // }else{
 
-            var vapp_layer = new Vue({
-                el: '#footer',
-                data: {
-                    isOpen:false,
-                    notReadNum:0,
-                    isAdmin:false,
-                    memberId:'',
-                    member:{real_name:''},
-                    notice:[],
-                    isNewPro:true,
-                    pageIndex:0
-                },
-                methods: {
-                    init:function(){
-                        //localStorage.MEMID=this.memberId;
-                        if(location.href.indexOf('test_uid=')>0){
-                            this.memberId=location.href.substring(location.href.indexOf('test_uid=')+9);
-                        }
+        //     var vapp_layer = new Vue({
+        //         el: '#footer',
+        //         data: {
+        //             isOpen:false,
+        //             notReadNum:0,
+        //             isAdmin:false,
+        //             memberId:'',
+        //             member:{real_name:''},
+        //             notice:[],
+        //             isNewPro:true,
+        //             pageIndex:0
+        //         },
+        //         methods: {
+        //             init:function(){
+        //                 //localStorage.MEMID=this.memberId;
+        //                 if(location.href.indexOf('test_uid=')>0){
+        //                     this.memberId=location.href.substring(location.href.indexOf('test_uid=')+9);
+        //                 }
 
-                        var t=this;
-                        t.member=JSON.parse(sessionStorage.users);
-                        t.memberId=t.member.memberId;
-                        localStorage.oid=t.member.organize_id;
-                        localStorage.soid=t.member.source_organize_id;
-                        //alert(JSON.stringify(data.data.data.user_type));
-                        console.log(t.member.user_type)
-                        if(t.member.user_type==1){
-                            t.isAdmin=true;
-                        }else{
-                            t.isAdmin=false;
-                        }
+        //                 var t=this;
+        //                 t.member=JSON.parse(sessionStorage.users);
+        //                 t.memberId=t.member.memberId;
+        //                 localStorage.oid=t.member.organize_id;
+        //                 localStorage.soid=t.member.source_organize_id;
+        //                 //alert(JSON.stringify(data.data.data.user_type));
+        //                 console.log(t.member.user_type)
+        //                 if(t.member.user_type==1){
+        //                     t.isAdmin=true;
+        //                 }else{
+        //                     t.isAdmin=false;
+        //                 }
 
 
-                        //});
-                    }
-                }
-            });
+        //                 //});
+        //             }
+        //         }
+        //     });
 
             window.linkTo();
 
-            vapp_layer.init();
+           // vapp_layer.init();
 
-        }
+        //}
         
 
 
