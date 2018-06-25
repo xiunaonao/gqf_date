@@ -30,7 +30,7 @@ router.get('/union_valid',(req,res,next)=>{
 
 		//res.cookie('union_user',req.query.membercardno,{expires:times,httpOnly:true})
 		res.cookie('union_oid',req.query.openid,{expires:times,httpOnly:true})
-		res.redirect('#/home')
+		res.redirect('/#home')
 	}else{
 		res.send('获取openid失败')
 		res.end()
