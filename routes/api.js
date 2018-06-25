@@ -23,17 +23,43 @@ var storage = multer.diskStorage({
           storage: storage
     });
 
+
 router.post('/upload',upload.any(),(req,res,next)=>{
 	if(req.files.length<=0){
 		res.json({success:0,msg:'未上传任何文件'})
 		return
 	}
+	//let json={text:'',err:''}
 	let imgs=[]
 	let index=0
-	let json={text:'',err:''};
+	let json={}
 	let readImg=(item,i)=>{
-		readImg(req.files[0],0)
-		console.log(item.path);
+		//console.log(item.path);
+		if(item){
+			imgs.push(item.path)
+		}
+		if(index==req.files.length-1){
+			
+			if(imgs.length==0){
+				json.success=0
+				json.msg='上传失败'
+			}else{
+				json.success=1
+				if(imgs.length==req.files.length){
+					json.msg="上传成功"
+				}else{
+					json.msg="上传图片成功"+imgs.length+"个,失败"+(req.files.length-imgs.length)+""
+					json.totalNum=req.files.length
+					json.successNum=imgs.length
+				}
+				json.url=imgs.join(',')
+				json.imgs=imgs
+			}
+			res.json(json)
+		}else{
+			index++
+			readImg(req.files[index],index)
+		}
 	}
 
 	readImg(req.files[0],0)
