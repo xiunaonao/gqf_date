@@ -75,7 +75,7 @@ var vapp = new Vue({
 			data: sData,
 			async: false,
 			success:function(data){
-				$(".alert_msg p").html(data.message+"/n请关注长兴县总工会，以获取通知。");
+				$(".alert_msg p").html(data.message+"<br/>请关注长兴县总工会，以获取通知。");
                 $(".alert_msg").show();
                 setTimeout('$(".alert_msg").hide()', 2000);
                 return;
