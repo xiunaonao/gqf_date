@@ -188,7 +188,7 @@ var vapp = new Vue({
     let my_img = $('<div><img src=""></div>');
     my_img.find("img").attr('id', 'img_'+i);  
 //  $('.e_img').find("#e_center").hide();
-    $('.e_img').append(my_img); 
+    $('.e_img_inner').append(my_img); 
     }
   },
 }) 

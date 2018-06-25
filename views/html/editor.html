@@ -54,6 +54,9 @@
 		border-radius: 5px;
 		overflow: hidden;
 	}
+	.e_img_inner{
+		width: 100%;
+	}
 	.e_img img{
 		display: block;
 		width: 100%;
@@ -205,11 +208,13 @@
 	<img class="top_img" src="/img/通栏.png"/>
 	<img class="editor_title" src="/img/联谊活动.png"/>
 	
-	<div class="editor_info img_up" v-on:click="change_input()">
+	<div class="editor_info img_up">
         <span class="info_title">上传图片</span>
-        <div class="e_img" v-on:click="deleteImg($event)">
-        	<span id="e_center">+</span>
-        	<img class="head_img" src=""/>
+        <div class="e_img" v-on:click="change_input()">
+        	<div class="e_img_inner" v-on:click="deleteImg($event)">
+        		<span id="e_center">+</span>
+        		<img class="head_img" src=""/>
+        	</div>
         </div>
         <form id="addTextForm" v-on:change="setImg($event)"></form>
     </div>
