@@ -490,7 +490,10 @@ function dating_total(mid,openid,callback){
 }
 
 function dating_total_only(your,his){
-	console.log(his)
+
+	if(!your || !his)
+		return 0
+	
 	let v=0
 
 	let dayStr=his.day_of_birth
