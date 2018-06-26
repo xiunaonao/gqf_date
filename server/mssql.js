@@ -8,6 +8,7 @@ let connectionCfg = {
 	options: { database: 'HmUnionBusiness' }  
 }
 
+
 let sqlServer={
 	connect:(callback)=>{
 		let conn=new Connection(connectionCfg)
