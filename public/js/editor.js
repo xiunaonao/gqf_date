@@ -173,7 +173,7 @@ var vapp = new Vue({
 	                    'total_price':this.price,
 	                    'descript':this.descript,
 	                },
-	           success:  (data) => {
+	           success:  function(data){
 		           	this.imgUrl = data.url;
 			       	console.log("this.imgUrl:"+this.imgUrl);
 //			       	var srcArr = this.imgUrl;
