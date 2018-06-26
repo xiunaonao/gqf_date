@@ -18,11 +18,12 @@ var vapp = new Vue({
   data:{
     imgNum:1,    //上传的照片数量，可根据实际情况自定义  
     imgUrl:[],
+    chooseImg:'',
     flagNum:0      
   },//定义事件
   methods:{
     //根据点击上传按钮触发input
-    change_input(){
+    change_input:function(){
       var inputArr=$('#addTextForm input');
       var add_inputId='';     //需要被触发的input
 
@@ -44,7 +45,7 @@ var vapp = new Vue({
       }
     },
     //当input选择了图片的时候触发,将获得的src赋值到相对应的img
-    setImg(e){
+    setImg:function(e){
       var target=e.target;
 //    $('#img_'+target.id).attr('src',getFileUrl(e.srcElement));
 	$(".e_img_inner").css("background-image","url("+getFileUrl(e.srcElement)+")");
@@ -55,7 +56,7 @@ var vapp = new Vue({
       }
     },
     //点击图片删除该图片并清除相对的input
-    deleteImg(e){
+    deleteImg:function(e){
 //    var target=e.target;
 //    var inputID='';       //需要清除value的input
 //    if(target.nodeName=='IMG'){
@@ -67,7 +68,7 @@ var vapp = new Vue({
 //    }
       $(".e_img_inner").css("background-image","url(http://127.0.0.1:2333/)");
     },
-    sentStandard(sData){
+    sentStandard:function(sData){
     	$.ajax({
 			url:"/dating_api/insert_or_update_standard",
 			type:"post",
@@ -86,7 +87,7 @@ var vapp = new Vue({
 			}
 		});
     },
-    textSubmit(){
+    textSubmit:function(){
     	$(".alert_msg p").html("正在提交！");
 	    $(".alert_msg").show();
    		var scope=this;
@@ -109,12 +110,9 @@ var vapp = new Vue({
 		var hobby = $("#member_hobby").val();
 		var special = $("#member_specialty").val();
 		var mobile = $("#member_tel").val();
-		if(this.imgUrl==null){
-			var head_img = $(".head_img").attr("src");
-		}else{
-			var head_img = this.imgUrl;
-		}
-		
+
+		var head_img = this.chooseImg;
+			
 		var postData = {member_name: member_name, sex: sex, day_of_birth: day_of_birth, card_number: card_number, domicile: domicile, work_unit: work_unit, job: job, education: education, annual_income: annual_income, college: college, health: health, height: height, weight: weight, nation: nation, housing: housing, car_buying: car_buying, hobby: hobby, special: special, mobile: mobile, head_img: head_img}
 		
 		var age01 = $("#filter_age01").val();
@@ -156,7 +154,7 @@ var vapp = new Vue({
 			}
 		});
   },
-      allSubmit(){
+      allSubmit:function(){
       	var scope=this;
         var uploadSrc = $('#addTextForm input').val();
         // srcArr = this.imgUrl.split(",");
@@ -174,8 +172,9 @@ var vapp = new Vue({
 	                    'descript':this.descript,
 	                },
 	           success:  function(data){
-		           	this.imgUrl = data.url;
-			       	console.log("this.imgUrl:"+this.imgUrl);
+
+		           	scope.chooseImg = data.url;
+			       	//console.log("this.imgUrl:"+this.imgUrl);
 //			       	var srcArr = this.imgUrl;
 	                if(data.success==1){
 	                	scope.textSubmit();
@@ -199,7 +198,7 @@ var vapp = new Vue({
    },
    
   //页面加载后执行
-  mounted(){
+  mounted:function(){
     for(var i=0;i<this.imgNum;i++){
      //生成input框，默认为1
     var my_input = $('<input type="file" name="image" />');   //创建一个input
@@ -214,7 +213,6 @@ var vapp = new Vue({
   },
 }) 
 
-console.log(vapp.imgUrl);
 
 jQuery(function(){
 	
@@ -271,6 +269,7 @@ jQuery(function(){
 //						$(".head_img").attr("src",data.data.head_img);
 //						$(".head_img").show();
 						$(".e_img_inner").css("background-image","url("+data.data.head_img+")");
+						vapp.chooseImg=data.data.head_img
 					}else{
 						$(".head_img").hide();
 					}
