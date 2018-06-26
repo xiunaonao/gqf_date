@@ -32,9 +32,10 @@
 
         </footer>
     </body>
-    <script src="/js/sys/router.js"></script>
+    <script src="/js/sys/router.js?v=0.01"></script>
     <!-- <script src="/scripts/shared/newsLayout.js"></script> -->
     <script>
+        window.ver=location.search.substr(location.search.indexOf('v=')+2)
         window.linkTo();
         //var hash=location.hash.replace('#','');
         // console.log(hash)

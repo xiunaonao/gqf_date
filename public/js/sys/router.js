@@ -1,6 +1,6 @@
 var routes=[
 	{
-		url:'home',
+		url:'home/{v}',
 		dom:'home',
 		script:'home.js'
 	},
@@ -65,7 +65,7 @@ window.linkTo=function(url){
 				    	//section.innerHTML=xhr.responseText;
 				    	main.innerHTML=(xhr.responseText);
 				    	var script=document.createElement('script')
-				    	script.src='/js/'+obj.script;
+				    	script.src='/js/'+obj.script+'?v='+window.ver;
 				    	main.appendChild(script);
 				    	//main.appendChild(section);
 				    }

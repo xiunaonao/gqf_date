@@ -27,6 +27,11 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'views/html')));
 
+app.use((req,res,next)=>{
+	res.locals._v=ver;
+	next()
+})
+
 app.use('/', indexRouter)
 app.use('/users', usersRouter)
 app.use('/dating_api', dating_apiRouter)
