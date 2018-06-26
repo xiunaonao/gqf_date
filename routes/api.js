@@ -86,7 +86,7 @@ router.post('/upload_no',upload.any(),(req,res,next)=>{
 				json.err+=err
 				console.log(err)
 				if(!err)
-					imgs.push(filename.replace('/public',''))
+					imgs.push(filename.replace('gqf_date\\public\\',''))
 				console.log('------------')
 				console.log(imgs)
 				if(index==req.files.length-1){
