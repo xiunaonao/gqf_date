@@ -108,6 +108,7 @@ router.post('/insert_or_update',(req,res,next)=>{
 		{
 			id:'id',
 			member_cardno:'num',
+			card_number:'',
 			mobile:'',
 			openid:'',
 			head_img:'',
