@@ -9,6 +9,8 @@ var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var dating_apiRouter=require('./routes/dating_api')
 var apiRouter=require('./routes/api')
+var ver=require('./package.json').version
+console.log('project version:'+ver)
 
 var app = express();
 
