@@ -6,7 +6,7 @@
 * 从 file 域获取 本地图片 url 
 */ 
 function getFileUrl(obj) { 
-  let url; 
+  var url; 
   url = window.URL.createObjectURL(obj.files.item(0)); 
   return url; 
 }
