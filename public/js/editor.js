@@ -83,6 +83,8 @@ var vapp = new Vue({
 		});
     },
     textSubmit(){
+    	$(".alert_msg p").html("正在提交！");
+	    $(".alert_msg").show();
    		var scope=this;
    		var member_name = $("#member_name").val();
 		var sex = $("#member_gender").attr("data-val");
