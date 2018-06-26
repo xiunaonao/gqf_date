@@ -36,7 +36,7 @@ router.post('/upload',upload.any(),(req,res,next)=>{
 	let readImg=(item,i)=>{
 		console.log(item.path);
 		if(item){
-			imgs.push(item.path.replace('\\','/').replace('../gqf_date/public',''))
+			imgs.push(item.path.replace(/\\/g,'/').replace('../gqf_date/public',''))
 		}
 		if(index==req.files.length-1){
 			
