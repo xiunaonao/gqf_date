@@ -1,8 +1,6 @@
 
 	
-window.onerror=function(e){
-	alert(e)
-}
+	
 
 /** 
 * 从 file 域获取 本地图片 url 
