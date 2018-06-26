@@ -456,28 +456,28 @@ function dating_total(mid,openid,callback){
 	`
 	mssql.exec(strSql,(err,result,count)=>{
 		let v=0
-		if(!result[0].day_of_birth)
-			return 0
-		let dayStr=result[0].day_of_birth
-		let age=parseInt(new Date()-dayStr)/(365*24*3600*1000)
-		let min_age=result[1].age_range.split('-')[0]
-		let max_age=result[1].age_range.split('-')[1]
+		if(result[0].day_of_birth || result[1].age_range){
+			let dayStr=result[0].day_of_birth
+			let age=parseInt(new Date()-dayStr)/(365*24*3600*1000)
+			let min_age=result[1].age_range.split('-')[0]
+			let max_age=result[1].age_range.split('-')[1]
 
-		if(age>=parseInt(min_age) && age<=parseInt(max_age)){
-			v+=20
+			if(age>=parseInt(min_age) && age<=parseInt(max_age)){
+				v+=20
+			}
 		}
-
 		if(result[0].job==result[1].job){
 			v+=20
 		}		
 
-		let income=parseFloat(result[0].annual_income)
-		let min_income=result[1].income_range.split('-')[0]
-		let max_income=result[1].income_range.split('-')[1]
-		if(income>=parseFloat(min_income) && income<=parseFloat(max_income)){
-			v+=20
+		if(result[0].annual_income || result[1].income_range){
+			let income=parseFloat(result[0].annual_income)
+			let min_income=result[1].income_range.split('-')[0]
+			let max_income=result[1].income_range.split('-')[1]
+			if(income>=parseFloat(min_income) && income<=parseFloat(max_income)){
+				v+=20
+			}
 		}
-
 		if(result[0].house_nature==result[1].house_nature){
 			v+=20
 		}	
