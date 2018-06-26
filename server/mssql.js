@@ -29,7 +29,7 @@ let sqlServer={
 		        console.error(err)
 		        callback(err,[],0) //创建 request 实例失败
 		      }else{
-		      	console.log(rowCount)
+		      	//console.log(rowCount)
 		      	_rowCount=rowCount
 		      }
 		    })
@@ -155,7 +155,7 @@ let sqlServer={
 				if(rows[key].type=='num')
 					rows[key].value=0
 				if(rows[key].type=='date')
-					rows[key].value="1970-01-01"
+					rows[key].value="1900-01-01"
 				if(rows[key].type=='id')
 					rows[key].value="'"+new_id+"'"
 				if(rows[key].type=='bool')

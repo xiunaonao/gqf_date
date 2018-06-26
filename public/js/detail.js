@@ -34,6 +34,8 @@
 			},
 			getAge:function(birthday){         
 			    var returnAge;  
+			    if(!birthday)
+			    	return "未知";
 			    var sArr = birthday.split("T"); 
 			    var birthArr = sArr[0].split("-");
 			    var birthYear = birthArr[0];  
@@ -74,6 +76,8 @@
 			      
 			},
 			getBirth:function(birthday){
+				if(!birthday)
+					return '未知';
 			    var sArr = birthday.split("T"); 
 			    var birthArr = sArr[0].split("-");
 			    var birthYear = birthArr[0];  

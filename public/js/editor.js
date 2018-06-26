@@ -105,8 +105,8 @@ var vapp = new Vue({
 		var height = $("#member_height").val();
 		var weight = $("#member_weight").val();
 		var nation = $("#member_nation").val();
-		var housing = $("#member_house").html();
-		var car_buying = $("#member_car").html();
+		var housing = $("#member_house").html()!='请选择'?$("#member_house").html():'';
+		var car_buying = $("#member_car").html()!='请选择'?$("#member_house").html():'';
 		var hobby = $("#member_hobby").val();
 		var special = $("#member_specialty").val();
 		var mobile = $("#member_tel").val();
@@ -160,36 +160,76 @@ var vapp = new Vue({
         // srcArr = this.imgUrl.split(",");
         console.log("uploadSrc:"+uploadSrc);
 		
+/*
+ lrz(this.files[0], {
+            width: 300 //设置压缩参数
+        }).then(function (rst) {
+*/
 		if(uploadSrc==""){
 			scope.textSubmit();
 		}else{
-			
-	        $("#addTextForm").ajaxSubmit({
-	           url: "/api/upload",      
-	           type: "post",
-	           data: {
-	                    'total_price':this.price,
-	                    'descript':this.descript,
-	                },
-	           success:  function(data){
 
-		           	scope.chooseImg = data.url;
-			       	//console.log("this.imgUrl:"+this.imgUrl);
-//			       	var srcArr = this.imgUrl;
-	                if(data.success==1){
-	                	scope.textSubmit();
+
+			lrz(addTextForm.querySelector('input').files[0], {
+            width: 300 //设置压缩参数
+	        }).then(function (rst) {
+	            /* 处理成功后执行 */
+	            rst.formData.append('base64img', rst.base64); // 添加额外参数
+	            $.ajax({
+	                url: "/api/upload",
+	                type: "POST",
+	                data: rst.formData,
+	                processData: false,
+	                contentType: false,
+	                success: function (data) {
+	                    //$("<img />").attr("src", data).appendTo("body");
+	                    scope.chooseImg = data.url;
+	                    if(data.success==1){
+		                	scope.textSubmit();
+		                  
+		                  this.flagNum = 0;
+		                  return;
+		
+		               }else{
+		                  $(".alert_msg p").html(data.msg);
+		                  $(".alert_msg").show();
+		                  setTimeout('$(".alert_msg").hide()', 2000);
+		                  return;
+		               }
+	                }
+	            });
+	        }).catch(function (err) {
+	            /* 处理失败后执行 */
+	        }).always(function () {
+	            /* 必然执行 */
+	        })
+			
+// 	        $("#addTextForm").ajaxSubmit({
+// 	           url: "/api/upload",      
+// 	           type: "post",
+// 	           data: {
+// 	                    'total_price':this.price,
+// 	                    'descript':this.descript,
+// 	                },
+// 	           success:  function(data){
+// 	           		console.log(this.price)
+// 		           	scope.chooseImg = data.url;
+// 			       	//console.log("this.imgUrl:"+this.imgUrl);
+// //			       	var srcArr = this.imgUrl;
+// 	                if(data.success==1){
+// 	                	scope.textSubmit();
 	                  
-	                  this.flagNum = 0;
-	                  return;
+// 	                  this.flagNum = 0;
+// 	                  return;
 	
-	               }else{
-	                  $(".alert_msg p").html(data.msg);
-	                  $(".alert_msg").show();
-	                  setTimeout('$(".alert_msg").hide()', 2000);
-	                  return;
-	               }
-	            }
-	        });
+// 	               }else{
+// 	                  $(".alert_msg p").html(data.msg);
+// 	                  $(".alert_msg").show();
+// 	                  setTimeout('$(".alert_msg").hide()', 2000);
+// 	                  return;
+// 	               }
+// 	            }
+// 	        });
 		}
 
 

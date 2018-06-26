@@ -20,6 +20,7 @@ router.get('/list',(req,res,next)=>{
 		order:query.order?query.order:'create_time',
 		filter:''
 	}
+	where.filter+=` and openid <> '${openid}' `
 
 	if(query.age && query.age.indexOf('-')>-1){
 		let minage=parseInt(query.age.split('-')[0])
@@ -93,7 +94,7 @@ router.get('/list',(req,res,next)=>{
 			res.json(json)
 
 		})
-	},'',` is_like=(select count(mind_openid) from dating_mind_member where mind_openid=m_table.openid and openid='${openid}')`)
+	},'',` is_like=(select count(mind_openid) from dating_mind_member where mind_openid=m_table.openid and openid='${openid}' and delete_flag=0)`)
 })
 
 
@@ -303,7 +304,7 @@ router.post('/insert_or_update_standard',(req,res,next)=>{
 	}
 	rows.member_cardno={value:0,type:'num'}
 	rows.openid={value:openid,type:''}
-	console.log(rows)
+	//console.log(rows)
 	mssql.exist('dating_mate_standard',` openid='${openid}'`,(err,result,count)=>{
 
 		if(count>0){
@@ -455,7 +456,8 @@ function dating_total(mid,openid,callback){
 	`
 	mssql.exec(strSql,(err,result,count)=>{
 		let v=0
-
+		if(!result[0].day_of_birth)
+			return 0
 		let dayStr=result[0].day_of_birth
 		let age=parseInt(new Date()-dayStr)/(365*24*3600*1000)
 		let min_age=result[1].age_range.split('-')[0]

@@ -135,8 +135,8 @@
 <div class="list_main">
 	<dl class="member_dl" v-for="obj in news" v-bind:data-id="obj.id">
 		<dt v-on:click="getId(obj.id)">
-			<img v-if="obj.head_img==''" src="/img/noheadimg.png" alt="头像未上传" />
-			<img v-if="obj.head_img!=''" v-bind:src="obj.head_img" alt="头像未上传" />
+			<img v-if="obj.head_img==''" src="/img/noheadimg.png" alt="" />
+			<img v-if="obj.head_img!=''" v-bind:src="obj.head_img" alt="" />
 		</dt>
 		<dd>
 			<p class="member_name">{{obj.member_name}}</p>

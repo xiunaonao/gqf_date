@@ -12,7 +12,7 @@ var routes=[
 	{
 		url:'editor',
 		dom:'editor',
-		script:'editor.js'
+		script:'editor.js',
 	},
 	{
 		url:'list/{page}',

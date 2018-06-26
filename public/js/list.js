@@ -20,14 +20,30 @@ jQuery(function(){
 		el:'.list_main',
 		data:{
 			news:[],
-			like_flag:false
+			like_flag:false,
+			pageCool:true,
+			pageIndex:1,
+			listParam:{}
 		},
 		methods:{
 			init:function(){
+				var scope=this;
+
+				document.body.onscroll=function(){
+					var top=document.body.scrollTop;
+					var mheight=document.body.scrollHeight;
+					var cheight=document.body.clientHeight;
+					if(top+cheight>=mheight-10){
+						console.log('翻页')
+						scope.getMoreData()
+					}
+				}
+
+
 				var listPost = sessionStorage.getItem("listPost");
 				console.log("listPost:"+listPost);
 				if(listPost==null){
-					var getUrl = 'dating_api/list?page=1&size=20&order_type=asc&order=day_of_birth';
+					var getUrl = 'dating_api/list?page=1&size=20&order_type=asc';
 					this.$http.get(getUrl).then(function(data){
 						var dat = data.data;
 						if(typeof dat == 'string'){
@@ -47,14 +63,62 @@ jQuery(function(){
 						if(typeof dat == 'string'){
 		                    dat=JSON.parse(data.data);
 		                }
-						this.news = dat.data;
+						//this.news = dat.data;
+						for(var i=0;i<dat.data.length;i++){
+							this.news.push(dat.data[i])
+						}
 	//					console.log(this.news.day_of_birth);
 						console.log("success:"+dat.success);
 						console.log("message:"+dat.message);
 						//sessionStorage.setItem("listPost","");
+						this.listParam=listArr
 						delete sessionStorage.listPost
 					});
 				}
+			},
+			getMoreData:function(){
+				var scope=this
+				if(!this.pageCool){
+					return;
+				}
+				this.pageCool=false;
+				setTimeout(function(){
+					scope.pageCool=true
+
+				},3000)
+				this.pageIndex++;
+				var listArr=this.listParam
+				var getUrl = 'dating_api/list?page='+this.pageIndex+'&size=20&order_type=asc';
+				if(listArr.age){
+				 getUrl+='&age='+listArr.age;
+				}
+				if(listArr.height){
+				 getUrl+='&height='+listArr.height;
+				}
+				if(listArr.education){
+				 getUrl+='&education='+listArr.education;
+				}
+				if(listArr.annual_income){
+				 getUrl+='&annual_income='+listArr.annual_income;
+				}
+				if(listArr.housing){
+				 getUrl+='&housing='+listArr.housing;
+				}
+				if(listArr.car_buying){
+				 getUrl+='&car_buying='+listArr.car_buying;
+				}
+				this.$http.get(getUrl).then(function(data){
+					var dat = data.data;
+					if(typeof dat == 'string'){
+	                    dat=JSON.parse(data.data);
+	                }
+					this.news = dat.data;
+//					console.log(this.news.day_of_birth);
+					console.log("success:"+dat.success);
+					console.log("message:"+dat.message);
+					//sessionStorage.setItem("listPost","");
+					delete sessionStorage.listPost
+				});
 			},
 			getAge:function(birthday){         
 			    var returnAge;  
