@@ -23,10 +23,10 @@ var vapp = new Vue({
   methods:{
     //根据点击上传按钮触发input
     change_input(){
-      let inputArr=$('#addTextForm input');
-      let add_inputId='';     //需要被触发的input
+      var inputArr=$('#addTextForm input');
+      var add_inputId='';     //需要被触发的input
 
-      for(let i=0;i<inputArr.length;i++){
+      for(var i=0;i<inputArr.length;i++){
           // 根据input的value值判断是否已经选择文件
         if(!inputArr[i].value){          //如果没有选择,获得这个input的ID      
            add_inputId=inputArr[i].id;
@@ -45,7 +45,7 @@ var vapp = new Vue({
     },
     //当input选择了图片的时候触发,将获得的src赋值到相对应的img
     setImg(e){
-      let target=e.target;
+      var target=e.target;
 //    $('#img_'+target.id).attr('src',getFileUrl(e.srcElement));
 	$(".e_img_inner").css("background-image","url("+getFileUrl(e.srcElement)+")");
       this.flagNum++;
@@ -56,8 +56,8 @@ var vapp = new Vue({
     },
     //点击图片删除该图片并清除相对的input
     deleteImg(e){
-//    let target=e.target;
-//    let inputID='';       //需要清除value的input
+//    var target=e.target;
+//    var inputID='';       //需要清除value的input
 //    if(target.nodeName=='IMG'){
 //      target.src='';
 //      inputID=target.id.replace('img_','');    //获得需要清除value的input
@@ -75,10 +75,14 @@ var vapp = new Vue({
 			data: sData,
 			async: false,
 			success:function(data){
-				$(".alert_msg p").html(data.message+"<br/>请关注长兴县总工会，以获取通知。");
-                $(".alert_msg").show();
-                setTimeout('$(".alert_msg").hide()', 2000);
-                return;
+				if(data.success){
+					$(".alert_qr").show();
+				}else{
+					$(".alert_msg p").html(data.message+"<br/>请关注长兴县总工会，以获取通知。");
+	                $(".alert_msg").show();
+	                setTimeout('$(".alert_msg").hide()', 2000);
+	                return;
+				}
 			}
 		});
     },
@@ -196,13 +200,13 @@ var vapp = new Vue({
    
   //页面加载后执行
   mounted(){
-    for(let i=0;i<this.imgNum;i++){
+    for(var i=0;i<this.imgNum;i++){
      //生成input框，默认为1
-    let my_input = $('<input type="file" name="image" />');   //创建一个input
+    var my_input = $('<input type="file" name="image" />');   //创建一个input
     my_input.attr('id',i);                           //为创建的input添加id
     $('#addTextForm').append(my_input);                     //将生成的input追加到指定的form
     //生成img，默认为1
-//  let my_img = $('<div id="uploadImg"><img src=""></div>');
+//  var my_img = $('<div id="uploadImg"><img src=""></div>');
 //  my_img.find("img").attr('id', 'img_'+i);  
 //  $('.e_img_inner').append(my_img); 
 	
