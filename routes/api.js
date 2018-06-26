@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 var express = require('express');
 var router = express.Router();
 var fs=require('fs');
@@ -116,5 +117,3 @@ router.post('/upload_no',upload.any(),(req,res,next)=>{
 	readImg(req.files[0],0)
 })
 
-
-module.exports=router
