@@ -29,7 +29,7 @@ $(function(){
 		var housing = $("#f_house").html();
 		var car_buying = $("#f_car").attr("data-val");
 		
-		var listPost = {age: age, height: height, education: education, annual_income: annual_income, housing: housing, car_buying: car_buying};
+		var listPost = {age: age, height: height, education: education, annual_income: annual_income, housing: housing!='不限'?housing:'', car_buying: car_buying!='不限'?car_buying:''};
 		
 		listPost = JSON.stringify(listPost);
 		sessionStorage.setItem("listPost",listPost);

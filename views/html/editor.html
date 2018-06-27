@@ -28,6 +28,13 @@
 		padding: 0.18rem 0;
 		border-bottom: 1px solid #DDDDDD;
 	}
+    .editor_info span:before{
+        content:" ";
+    }
+    .editor_info .must:before{
+        content:"*";
+        color:red;
+    }
 	.editor_info:after{
 		content: '';
 		display: table;
@@ -38,9 +45,9 @@
 	}
 	.info_title{
 		float: left;
-		width: 0.74rem;
+		width: 0.84rem;
 		margin-left: 0.16rem;
-		margin-right: .26rem;
+		margin-right: .16rem;
 		font-size: 0.14rem;
 		font-family: "microsoft yahei";
 		font-weight: 600;
@@ -182,12 +189,23 @@
 	
 	.bottom_text{
 		padding: 0.25rem 0.35rem 0.35rem 0.15rem;
-		text-align: center;
+		text-align: left;
 		font-size: 0.13rem;
 		font-family: "microsoft yahei";
 		font-weight: 500;
 		color: #323232;
 	}
+    .bottom_text i{
+        float:left;
+    }
+    .bottom_text i:before{
+        content: " *\00A0"
+    }
+    .bottom_text label{
+            display: inline-block;
+            width: 3rem;
+    }
+
 	.submit_btn{
 		display: block;
 		width: 3.45rem;
@@ -261,6 +279,7 @@
 <div class="editor_main">
 	<img class="top_img" src="/img/通栏.jpg"/>
 	<img class="editor_title" src="/img/联谊活动.png"/>
+    <p></p>
 	
 	<div class="editor_info img_up">
         <span class="info_title">上传图片</span>
@@ -296,7 +315,7 @@
     </div>
     <div class="editor_info">
         <span class="info_title">身份证号码</span>
-        <input class="info_input" id="member_card" type="text" value="" placeholder="请输入身份证号码" />
+        <input class="info_input" id="member_card" type="text" value="" placeholder="请输入身份证号码（信息严格保密，不会显示给其他用户）" />
     </div>
     <div class="editor_info">
         <span class="info_title">现户籍地</span>
@@ -405,7 +424,7 @@
     </div>
     <div class="editor_info">
         <span class="info_title">联系方式</span>
-        <input class="info_input" id="member_tel" type="text" value="" placeholder="请输入个人联系方式" />
+        <input class="info_input" id="member_tel" type="text" value="" placeholder="请输入个人联系方式（信息严格保密，不会显示给其他用户）" />
     </div>
     
     <img class="choose_title" src="/img/择偶标准.png" alt="" />
@@ -462,6 +481,7 @@
 	    <div class="select_div">
             <p value="1">有房</p>
             <p value="2">无房</p>
+            <p value="3">不限</p>
 	    </div>
     </div>
     <div class="editor_info editor_bot">
@@ -473,6 +493,7 @@
 	    <div class="select_div">
             <p value="1">有车</p>
             <p value="2">无车</p>
+            <p value="3">不限</p>
 	    </div>
     </div>
     <div class="editor_info editor_bot">
@@ -496,7 +517,10 @@
         <input class="info_input" id="filter_other" type="text" value="" placeholder="请输入" />
     </div>-->
     
-    <p class="bottom_text">特别声明：本人承诺以上资料真实有效，由此带来的一切法律责任由本人自行承担</p>
+    <p class="bottom_text">特别声明：<br/>
+    <i></i><label>个人照片手机住址单位信息严格保密</label><br/>
+    <i></i><label>本人承诺以上资料真实有效，由此带来的一切法律责任由本人自行承担<label><br/>
+     </p>
     
     <img class="submit_btn" v-on:click="allSubmit()" src="/img/提交.png" alt="" />
     
