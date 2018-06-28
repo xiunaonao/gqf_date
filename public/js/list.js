@@ -1,18 +1,18 @@
 jQuery(function(){
 	var like_flag = 0;
 	
-	$("body").on('click','.like_icon',function(){
-		like_flag = $(this).attr("data-like");
-		if(like_flag==1){
-			$(this).attr("src","/img/unlike.png");
-			$(this).attr("data-like",0);
-//			console.log("yes");
-		}else{
-			$(this).attr("src","/img/like.png");
-			$(this).attr("data-like",1);
-//			console.log("no");
-		}
-	});
+// 	$("body").on('click','.like_icon',function(){
+// 		like_flag = $(this).attr("data-like");
+// 		if(like_flag==1){
+// 			$(this).attr("src","/img/unlike.png");
+// 			$(this).attr("data-like",0);
+// //			console.log("yes");
+// 		}else{
+// 			$(this).attr("src","/img/like.png");
+// 			$(this).attr("data-like",1);
+// //			console.log("no");
+// 		}
+// 	});
 	
 })
 
@@ -196,12 +196,14 @@ jQuery(function(){
 					isLike = 1;
 				}
 				var mId=obj.id;
-				console.log("mId:"+mId+"--isLike:"+isLike);
 				var sentUrl = '/dating_api/like?id='+mId+'&is_like='+isLike;
 				this.$http.get(sentUrl).then(function(data){
 					var dat = data.data;
+					if(typeof dat=='string')
+						dat=JSON.parse(dat)
 					if(dat.success){
 						obj.is_like=isLike;
+						console.log(obj.is_like)
 					}
 				});
 			}
