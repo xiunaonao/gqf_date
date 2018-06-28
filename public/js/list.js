@@ -104,7 +104,7 @@ jQuery(function(){
 				},3000)
 				this.pageIndex++;
 				var listArr=this.listParam
-				var getUrl = 'dating_api/list?page='+this.pageIndex+'&size=20&order_type=asc';
+				var getUrl = 'dating_api/list?page='+this.pageIndex+'&size=20&order_type=desc';
 				if(listArr.age){
 				 getUrl+='&age='+listArr.age;
 				}
