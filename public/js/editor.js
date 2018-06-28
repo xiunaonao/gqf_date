@@ -88,15 +88,15 @@ var vapp = new Vue({
 			}
 		});
     },
-    textSubmit:function(){
+    textSubmit:function(isSubmit){
     	if(this.posting){
       		return;
       	}
       	this.posting=true;
-    	$(".alert_msg p").html("正在提交！");
-	    $(".alert_msg").show();
-
-
+      	if(isSubmit){
+	    	$(".alert_msg p").html("正在提交！");
+		    $(".alert_msg").show();
+		}
 
    		var scope=this;
    		var member_name = $("#member_name").val();
@@ -152,6 +152,8 @@ var vapp = new Vue({
 			async: false,
 			success:function(data){
 				if(data.success){
+					$(".alert_msg").hide();
+
 					setTimeout(function(){
 						clearTimeout(scope.submitLoading);
 						scope.posting=false;
@@ -210,7 +212,7 @@ var vapp = new Vue({
 	                    //$("<img />").attr("src", data).appendTo("body");
 	                    scope.chooseImg = data.url;
 	                    if(data.success==1){
-		                	scope.textSubmit();
+		                	scope.textSubmit(true);
 		                  
 		                  this.flagNum = 0;
 		                  return;
