@@ -415,6 +415,7 @@ router.get('/like',(req,res,next)=>{
 			}
 
 		}
+		console.log(mind_openid)
 		if(like==1){
 			rows.delete_flag={value:0,type:'bool'}
 			mssql.insert('dating_mind_member',rows,(err,result,count,newid)=>{
@@ -531,5 +532,6 @@ function dating_total_only(your,his){
 	}	
 	return v
 }
+
 
 module.exports=router
