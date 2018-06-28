@@ -44,7 +44,7 @@ jQuery(function(){
 				var listPost = sessionStorage.getItem("listPost");
 				console.log("listPost:"+listPost);
 				if(listPost==null){
-					var getUrl = 'dating_api/list?page=1&size=20&order_type=asc';
+					var getUrl = 'dating_api/list?page=1&size=20&order_type=desc';
 					this.$http.get(getUrl).then(function(data){
 						var dat = data.data;
 						if(typeof dat == 'string'){
