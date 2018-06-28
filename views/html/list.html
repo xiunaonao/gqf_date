@@ -25,6 +25,7 @@
 		display: block;
 		float: left;
 		width: 0.3rem;
+		height: 0.3rem;
 		margin-left: 0.15rem;
 		border-radius: 50%;
 	}
@@ -127,26 +128,27 @@
 		width: 100%;
 	}
 </style>
+<div id="list_app">
+	<div class="list_top">
+		<a class="top_left" href="#detail"><img class="member_img" v-bind:src="head_img" alt="" /></a>
+		<p class="list_title">会员列表</p>
+		<a class="top_right" href="#filter"><img class="filter_img" src="/img/筛选.png" alt=""></a>
+	</div>
 
-<div class="list_top">
-	<a class="top_left" href="#detail"><img class="member_img" src="/img/noheadimg.png" alt="" /></a>
-	<p class="list_title">会员列表</p>
-	<a class="top_right" href="#filter"><img class="filter_img" src="/img/筛选.png" alt=""></a>
+	<div class="list_main">
+		<dl class="member_dl" v-for="obj in news" v-bind:data-id="obj.id">
+			<dt v-on:click="getId(obj.id)">
+				<img v-if="obj.head_img==''" src="/img/noheadimg.png" alt="" />
+				<img v-if="obj.head_img!=''" v-bind:src="obj.head_img" alt="" />
+			</dt>
+			<dd>
+				<p class="member_name">{{obj.member_name}}</p>
+				<p class="member_info"><span class="member_age">{{getAge(obj.day_of_birth)}}</span>岁<span class="member_stature">{{obj.height}}</span>cm/<span class="member_weight">{{obj.weight}}</span>kg</p>
+				<img class="like_icon" v-if="!obj.is_like" v-bind:data-like="obj.is_like" v-on:click="sentLike(obj.id,obj.is_like)" src="/img/unlike.png" alt="" />
+				<img class="like_icon" v-if="obj.is_like" v-bind:data-like="obj.is_like" v-on:click="sentLike(obj.id,obj.is_like)" src="/img/like.png" alt="" />
+			</dd>
+		</dl>
+	</div>
+
+	<a class="editer_btn" href="#editor"><img src="/img/报名.png" alt="" /></a>
 </div>
-
-<div class="list_main">
-	<dl class="member_dl" v-for="obj in news" v-bind:data-id="obj.id">
-		<dt v-on:click="getId(obj.id)">
-			<img v-if="obj.head_img==''" src="/img/noheadimg.png" alt="" />
-			<img v-if="obj.head_img!=''" v-bind:src="obj.head_img" alt="" />
-		</dt>
-		<dd>
-			<p class="member_name">{{obj.member_name}}</p>
-			<p class="member_info"><span class="member_age">{{getAge(obj.day_of_birth)}}</span>岁<span class="member_stature">{{obj.height}}</span>cm/<span class="member_weight">{{obj.weight}}</span>kg</p>
-			<img class="like_icon" v-if="!obj.is_like" v-bind:data-like="obj.is_like" v-on:click="sentLike(obj.id,obj.is_like)" src="/img/unlike.png" alt="" />
-			<img class="like_icon" v-if="obj.is_like" v-bind:data-like="obj.is_like" v-on:click="sentLike(obj.id,obj.is_like)" src="/img/like.png" alt="" />
-		</dd>
-	</dl>
-</div>
-
-<a class="editer_btn" href="#editor"><img src="/img/报名.png" alt="" /></a>

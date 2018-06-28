@@ -17,18 +17,19 @@ jQuery(function(){
 })
 
 	var vapp = new Vue({
-		el:'.list_main',
+		el:'#list_app',
 		data:{
 			news:[],
 			like_flag:false,
 			pageCool:true,
 			pageIndex:1,
+			head_img:'/img/noheadimg.png',
 			listParam:{}
 		},
 		methods:{
 			init:function(){
 				var scope=this;
-
+				this.getMemberInfo();
 				document.body.onscroll=function(){
 					var top=document.body.scrollTop;
 					var mheight=document.body.scrollHeight;
@@ -75,6 +76,21 @@ jQuery(function(){
 						delete sessionStorage.listPost
 					});
 				}
+			},
+			getMemberInfo:function(){
+				var scope=this;
+				$.ajax({
+					url:"/dating_api/detail",
+					type:"get",
+					success:function(data){
+						if(data.success){
+							console.log(data.data.head_img)
+							if(data.data.head_img){
+								scope.head_img=data.data.head_img;
+							}
+						}
+					}
+				});
 			},
 			getMoreData:function(){
 				var scope=this

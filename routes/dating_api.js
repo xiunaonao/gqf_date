@@ -20,7 +20,7 @@ router.get('/list',(req,res,next)=>{
 		order:query.order?query.order:'create_time',
 		filter:''
 	}
-	where.filter+=` and openid <> '${openid}' `
+	//where.filter+=` and openid <> '${openid}' `
 
 	if(query.age && query.age.indexOf('-')>-1){
 		let minage=parseInt(query.age.split('-')[0])
@@ -306,7 +306,6 @@ router.post('/insert_or_update_standard',(req,res,next)=>{
 	rows.openid={value:openid,type:''}
 	//console.log(rows)
 	mssql.exist('dating_mate_standard',` openid='${openid}'`,(err,result,count)=>{
-
 		if(count>0){
 			rows.id.value=result[0].id
 			mssql.update('dating_mate_standard',rows,`id='${result[0].id}'`,(err,result,count)=>{
@@ -367,6 +366,10 @@ router.get('/like',(req,res,next)=>{
 			res.json({success:false,message:err})
 			return;
 		}
+		if(openid == mind_openid){
+			res.json({success:false,message:'不可以中意自己哦'});
+		}
+
 		if(like==1 && allnum>=2){
 			res.json({success:false,message:'最多可中意两个用户'})
 			return
