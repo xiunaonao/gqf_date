@@ -153,6 +153,7 @@ var vapp = new Vue({
 			success:function(data){
 				if(data.success){
 					setTimeout(function(){
+						clearTimeout(scope.submitLoading);
 						scope.posting=false;
 						scope.sentStandard(sentData);
 					},500)
@@ -167,10 +168,18 @@ var vapp = new Vue({
 		});
   },
       allSubmit:function(){
-
+      	var scope=this;
       	$(".alert_msg p").html("正在提交！");
 	    $(".alert_msg").show();
-
+	    this.submitLoading=setTimeout(function(){
+	    	if(this.posting){
+	    		this.posting=false;
+	    		$(".alert_msg p").html('网络异常，请重试');
+                $(".alert_msg").show();
+                setTimeout('$(".alert_msg").hide()', 2000);
+                return;
+	    	}
+	    },30000)
       	var scope=this;
         var uploadSrc = $('#addTextForm input').val();
         // srcArr = this.imgUrl.split(",");
