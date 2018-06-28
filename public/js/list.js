@@ -34,7 +34,7 @@ jQuery(function(){
 					var mheight=document.body.scrollHeight;
 					var cheight=document.body.clientHeight;
 					if(top+cheight>=mheight-10){
-						console.log('翻页')
+						//console.log('翻页')
 						scope.getMoreData()
 					}
 				}

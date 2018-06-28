@@ -173,6 +173,7 @@ var vapp = new Vue({
       	var scope=this;
       	$(".alert_msg p").html("正在提交！");
 	    $(".alert_msg").show();
+
 	    this.submitLoading=setTimeout(function(){
 	    	if(this.posting){
 	    		this.posting=false;
@@ -182,6 +183,7 @@ var vapp = new Vue({
                 return;
 	    	}
 	    },30000)
+
       	var scope=this;
         var uploadSrc = $('#addTextForm input').val();
         // srcArr = this.imgUrl.split(",");
