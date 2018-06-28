@@ -244,7 +244,7 @@ var vapp = new Vue({
     var my_input = $('<input type="file" name="image" />');   //创建一个input
     my_input.attr('id',i);                           //为创建的input添加id
     $('#addTextForm').append(my_input);                     //将生成的input追加到指定的form
-    new Z_Control('#member_birth','date','','#member_birth');
+    //new Z_Control('#member_birth','date','','#member_birth');
     //生成img，默认为1
 //  var my_img = $('<div id="uploadImg"><img src=""></div>');
 //  my_img.find("img").attr('id', 'img_'+i);  
