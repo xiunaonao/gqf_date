@@ -368,6 +368,7 @@ router.get('/like',(req,res,next)=>{
 		}
 		if(openid == mind_openid){
 			res.json({success:false,message:'不可以中意自己哦'});
+			return;
 		}
 
 		if(like==1 && allnum>=2){
@@ -431,7 +432,7 @@ router.get('/like',(req,res,next)=>{
 			})
 		}else{
 			let where=` openid='${openid}' and mind_openid='${mind_openid}'`		
-			mssql.delete('dating_mind_member',where,(err,result,count)=>{
+			mssql.remove('dating_mind_member',where,(err,result,count)=>{
 				let json={}
 				if(err){
 					json.success=false
@@ -489,8 +490,7 @@ function dating_total(mid,openid,callback){
 			v+=20
 		}	
 
-
-		callback(err,result[0].opneid,v,result[2].liknnum)
+		callback(err,result[0].openid,v,result[2].liknnum)
 	})
 
 }

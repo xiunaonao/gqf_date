@@ -144,8 +144,8 @@
 			<dd>
 				<p class="member_name">{{obj.member_name}}</p>
 				<p class="member_info"><span class="member_age">{{getAge(obj.day_of_birth)}}</span>岁<span class="member_stature">{{obj.height}}</span>cm/<span class="member_weight">{{obj.weight}}</span>kg</p>
-				<img class="like_icon" v-if="!obj.is_like" v-bind:data-like="obj.is_like" v-on:click="sentLike(obj.id,obj.is_like)" src="/img/unlike.png" alt="" />
-				<img class="like_icon" v-if="obj.is_like" v-bind:data-like="obj.is_like" v-on:click="sentLike(obj.id,obj.is_like)" src="/img/like.png" alt="" />
+				<img class="like_icon" v-if="!obj.is_like && yourid!=obj.id" v-bind:data-like="obj.is_like" v-on:click="sentLike(obj,false)" src="/img/unlike.png" alt="" />
+				<img class="like_icon" v-if="obj.is_like" v-bind:data-like="obj.is_like" v-on:click="sentLike(obj,true)" src="/img/like.png" alt="" />
 			</dd>
 		</dl>
 	</div>

@@ -23,6 +23,7 @@ jQuery(function(){
 			like_flag:false,
 			pageCool:true,
 			pageIndex:1,
+			yourid:'',
 			head_img:'/img/noheadimg.png',
 			listParam:{}
 		},
@@ -87,6 +88,7 @@ jQuery(function(){
 							console.log(data.data.head_img)
 							if(data.data.head_img){
 								scope.head_img=data.data.head_img;
+								scope.yourid=data.data.id;
 							}
 						}
 					}
@@ -187,18 +189,20 @@ jQuery(function(){
 					$(this).attr("src","/img/unlike.png");
 				}
 			},
-			sentLike:function(mId,isLike){
+			sentLike:function(obj,isLike){
 				if(isLike){
 					isLike = 0;
 				}else{
 					isLike = 1;
 				}
+				var mId=obj.id;
 				console.log("mId:"+mId+"--isLike:"+isLike);
 				var sentUrl = '/dating_api/like?id='+mId+'&is_like='+isLike;
 				this.$http.get(sentUrl).then(function(data){
 					var dat = data.data;
-					console.log("success:"+dat.success);
-					console.log("message:"+dat.message);
+					if(dat.success){
+						obj.is_like=isLike;
+					}
 				});
 			}
 		}

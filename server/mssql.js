@@ -193,6 +193,14 @@ let sqlServer={
 			callback(err,result,count)
 		})
 	},
+	remove:function(table,where,callback){
+		strSql=`
+			delete ${table} where ${where}
+		`
+		sqlServer.exec(strSql,(err,result,count)=>{
+			callback(err,result,count)
+		})
+	},
 	exist:(table,where,callback)=>{
 		let strSql=`
 			select top 1 id from ${table} where ${where}
