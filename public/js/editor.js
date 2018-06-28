@@ -19,7 +19,8 @@ var vapp = new Vue({
     imgNum:1,    //上传的照片数量，可根据实际情况自定义  
     imgUrl:[],
     chooseImg:'',
-    flagNum:0      
+    flagNum:0 ,
+    posting:false,
   },//定义事件
   methods:{
     //根据点击上传按钮触发input
@@ -79,7 +80,7 @@ var vapp = new Vue({
 				if(data.success){
 					$(".alert_qr").show();
 				}else{
-					$(".alert_msg p").html(data.message+"<br/>请关注长兴县总工会，以获取通知。");
+					$(".alert_msg p").html(data.message+"<br/>网络错误。");
 	                $(".alert_msg").show();
 	                setTimeout('$(".alert_msg").hide()', 2000);
 	                return;
@@ -88,8 +89,15 @@ var vapp = new Vue({
 		});
     },
     textSubmit:function(){
+    	if(this.posting){
+      		return;
+      	}
+      	this.posting=true;
     	$(".alert_msg p").html("正在提交！");
 	    $(".alert_msg").show();
+
+
+
    		var scope=this;
    		var member_name = $("#member_name").val();
 		var sex = $("#member_gender").attr("data-val");
@@ -144,8 +152,12 @@ var vapp = new Vue({
 			async: false,
 			success:function(data){
 				if(data.success){
-					scope.sentStandard(sentData);
+					setTimeout(function(){
+						scope.posting=false;
+						scope.sentStandard(sentData);
+					},500)
 				}else{
+
 					$(".alert_msg p").html(data.message);
 	                $(".alert_msg").show();
 	                setTimeout('$(".alert_msg").hide()', 2000);
@@ -155,6 +167,10 @@ var vapp = new Vue({
 		});
   },
       allSubmit:function(){
+
+      	$(".alert_msg p").html("正在提交！");
+	    $(".alert_msg").show();
+
       	var scope=this;
         var uploadSrc = $('#addTextForm input').val();
         // srcArr = this.imgUrl.split(",");
