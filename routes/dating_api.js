@@ -371,10 +371,10 @@ router.get('/like',(req,res,next)=>{
 			return;
 		}
 
-		if(like==1 && allnum>=2){
-			res.json({success:false,message:'最多可中意两个用户'})
-			return
-		}
+		// if(like==1 && allnum>=2){
+		// 	res.json({success:false,message:'最多可中意两个用户'})
+		// 	return
+		// }
 
 		let now=new Date()
 		let dateStr=now.getFullYear()+'-'+(now.getMonth()+1)+'-'+now.getDate()+' '+now.getHours()+':'+now.getMinutes()+':'+now.getSeconds()

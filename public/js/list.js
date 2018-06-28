@@ -204,6 +204,10 @@ jQuery(function(){
 					if(dat.success){
 						obj.is_like=isLike;
 						console.log(obj.is_like)
+					}else{
+						$(".alert_msg p").html(message);
+				        $(".alert_msg").show();
+				        setTimeout('$(".alert_msg").hide()', 2000);
 					}
 				});
 			}
