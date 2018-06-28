@@ -45,7 +45,7 @@ jQuery(function(){
 				var listPost = sessionStorage.getItem("listPost");
 				console.log("listPost:"+listPost);
 				if(listPost==null){
-					var getUrl = 'dating_api/list?page=1&size=20&order_type=desc';
+					var getUrl = 'dating_api/list?page=1&size=6&order_type=desc';
 					this.$http.get(getUrl).then(function(data){
 						var dat = data.data;
 						if(typeof dat == 'string'){
@@ -59,7 +59,7 @@ jQuery(function(){
 				}else{
 					var listArr = JSON.parse(sessionStorage.listPost);
 					console.log(listArr.age);
-					var getUrl = 'dating_api/list?page=1&size=20&order_type=desc&order=day_of_birth&age='+listArr.age+'&height='+listArr.height+'&education='+listArr.education+'&annual_income='+listArr.annual_income+'&housing='+listArr.housing+'&car_buying='+listArr.car_buying;
+					var getUrl = 'dating_api/list?page=1&size=6&order_type=desc&order=day_of_birth&age='+listArr.age+'&height='+listArr.height+'&education='+listArr.education+'&annual_income='+listArr.annual_income+'&housing='+listArr.housing+'&car_buying='+listArr.car_buying;
 					this.$http.get(getUrl).then(function(data){
 						var dat = data.data;
 						if(typeof dat == 'string'){
@@ -106,7 +106,7 @@ jQuery(function(){
 				},3000)
 				this.pageIndex++;
 				var listArr=this.listParam
-				var getUrl = 'dating_api/list?page='+this.pageIndex+'&size=20&order_type=desc';
+				var getUrl = 'dating_api/list?page='+this.pageIndex+'&size=6&order_type=desc';
 				if(listArr.age){
 				 getUrl+='&age='+listArr.age;
 				}
@@ -130,11 +130,12 @@ jQuery(function(){
 					if(typeof dat == 'string'){
 	                    dat=JSON.parse(data.data);
 	                }
-					this.news = dat.data;
-//					console.log(this.news.day_of_birth);
-					console.log("success:"+dat.success);
-					console.log("message:"+dat.message);
-					//sessionStorage.setItem("listPost","");
+					for(var i=0;i<dat.data.length;i++){
+						if(dat.count<=(dat.size*(dat.page-1)+i)){
+							break;
+						}
+						this.news.push(dat.data[i])
+					}
 					delete sessionStorage.listPost
 				});
 			},
