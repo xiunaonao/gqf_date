@@ -114,7 +114,7 @@ var vapp = new Vue({
 		var weight = $("#member_weight").val();
 		var nation = $("#member_nation").val();
 		var housing = $("#member_house").html()!='请选择'?$("#member_house").html():'';
-		var car_buying = $("#member_car").html()!='请选择'?$("#member_house").html():'';
+		var car_buying = $("#member_car").html()!='请选择'?$("#member_car").html():'';
 		var hobby = $("#member_hobby").val();
 		var special = $("#member_specialty").val();
 		var mobile = $("#member_tel").val();
