@@ -67,6 +67,7 @@ window.linkTo=function(url){
 				    	var script=document.createElement('script')
 				    	script.src='/js/'+obj.script+'?v='+window.ver;
 				    	main.appendChild(script);
+				    	document.body.scrollTop=0;
 				    	//main.appendChild(section);
 				    }
 				}
