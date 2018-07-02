@@ -12,8 +12,7 @@ var routes=[
 	{
 		url:'editor',
 		dom:'editor',
-		script:'editor.js',
-		extra:['data/occupation.js']
+		script:'editor.js'
 	},
 	{
 		url:'list/{page}',
