@@ -13,11 +13,18 @@ function getFileUrl(obj) {
 
 
 var vapp = new Vue({
-  el: '.editor_main',
+  el: '#editor',
   // 定义数据
   data:{
     imgNum:1,    //上传的照片数量，可根据实际情况自定义  
     imgUrl:[],
+    job:{0:{value:'请选择',category:{'0':'请选择'}}},
+    companyCategory:['请选择','政府机关','事业单位','外资企业','合资企业','国营企业','私营企业','自由公司','其他'],
+    income:['请选择','5万以下','5~8万','8~10万','10~15万','15~20万','20~50万','50万以上'],
+    companyCategoryIndex:0,
+    incomeIndex:0,
+    jobIndex:0,
+    jobIndex2:0,
     chooseImg:'',
     flagNum:0 ,
     posting:false,
@@ -93,6 +100,17 @@ var vapp = new Vue({
       		return;
       	}
       	this.posting=true;
+
+      	var valid_idcard=Z_VALID().idcard($("#member_card").val());
+      	console.log(valid_idcard)
+      	if(!valid_idcard.success){
+	    	$(".alert_msg p").html("身份证格式不正确");
+		    $(".alert_msg").show();
+		    setTimeout('$(".alert_msg").hide()', 2000);
+      		this.posting=false;
+      		return;
+      	}
+
       	if(isSubmit){
 	    	$(".alert_msg p").html("正在提交！");
 		    $(".alert_msg").show();
@@ -105,9 +123,12 @@ var vapp = new Vue({
 		var card_number = $("#member_card").val();
 		var domicile = $("#member_address").val();
 		var work_unit = $("#member_company").val();
-		var job = $("#member_woke").val();
+		var job = $("#member_job2").text();
 		var education = $("#member_education").attr("data-val");
-		var annual_income = $("#member_income").val();
+		//var annual_income = $("#member_income").val();
+		var income_type = vapp.incomeIndex;
+		var unit_property = vapp.companyCategoryIndex;
+		var industry=$('#member_job').text();
 		var college = $("#member_school").val();
 		var health = $("#member_health").val();
 		var height = $("#member_height").val();
@@ -121,7 +142,9 @@ var vapp = new Vue({
 
 		var head_img = this.chooseImg;
 			
-		var postData = {member_name: member_name, sex: sex, day_of_birth: day_of_birth, card_number: card_number, domicile: domicile, work_unit: work_unit, job: job, education: education, annual_income: annual_income, college: college, health: health, height: height, weight: weight, nation: nation, housing: housing, car_buying: car_buying, hobby: hobby, special: special, mobile: mobile, head_img: head_img}
+		var postData = {member_name: member_name, sex: sex, day_of_birth: day_of_birth, card_number: card_number, domicile: domicile, work_unit: work_unit, job: job, education: education, college: college, health: health, height: height, weight: weight, nation: nation, housing: housing, car_buying: car_buying, hobby: hobby, special: special, mobile: mobile, head_img: head_img
+			,income_type:income_type,unit_property:unit_property,industry:industry
+		}
 		
 		var age01 = $("#filter_age01").val();
 		var age02 = $("#filter_age02").val();
@@ -171,6 +194,9 @@ var vapp = new Vue({
   },
       allSubmit:function(){
       	var scope=this;
+
+
+
       	$(".alert_msg p").html("正在提交！");
 	    $(".alert_msg").show();
 
@@ -268,18 +294,44 @@ var vapp = new Vue({
    
   //页面加载后执行
   mounted:function(){
+  	var job_ind=0;
+  	for(var i=0;i<window._OCC1.length;i++){
+  		var key=window._OCC1[i];
+  		Vue.set(this.job,key.split(',')[0],{value:key.split(',')[1]});
+  		var ind=parseInt(key.split(',')[0]);
+  		var jobList={};
+
+  		for(var j=job_ind;j<window._OCC2.length;j++){
+  			var key2=window._OCC2[j];
+  			var ind2=parseInt(key2.split(',')[0]);
+  			if(ind2>ind && ind2-ind<100){
+  				jobList[key2.split(',')[0]]=key2.split(',')[1];
+
+  				//Vue.set(this.job[key],)
+  			}else{
+  				job_ind=j;
+  				Vue.set(this.job[ind],'category',jobList);
+  				break;
+  			}
+
+  		}
+  	}
+  	
+
     for(var i=0;i<this.imgNum;i++){
-     //生成input框，默认为1
-    var my_input = $('<input type="file" name="image" />');   //创建一个input
-    my_input.attr('id',i);                           //为创建的input添加id
-    $('#addTextForm').append(my_input);                     //将生成的input追加到指定的form
-    //new Z_Control('#member_birth','date','','#member_birth');
-    //生成img，默认为1
-//  var my_img = $('<div id="uploadImg"><img src=""></div>');
-//  my_img.find("img").attr('id', 'img_'+i);  
-//  $('.e_img_inner').append(my_img); 
-	
+	     //生成input框，默认为1
+	    var my_input = $('<input type="file" name="image" />');   //创建一个input
+	    my_input.attr('id',i);                           //为创建的input添加id
+	    $('#addTextForm').append(my_input);                     //将生成的input追加到指定的form
+	    //new Z_Control('#member_birth','date','','#member_birth');
+	    //生成img，默认为1
+		//  var my_img = $('<div id="uploadImg"><img src=""></div>');
+		//  my_img.find("img").attr('id', 'img_'+i);  
+		//  $('.e_img_inner').append(my_img); 
+		
     }
+
+
   },
 }) 
 
@@ -296,8 +348,10 @@ jQuery(function(){
 			select_flag = false;
 		}
 	});
+
+
 	
-	$(".select_div p").click(function(){
+	$("body").on('click','.select_div p',function(){
 		var pVal = $(this).attr("value");
 		var pText = $(this).text();
 //		console.log("pVal:"+pVal+"--pText:"+pText);
@@ -393,6 +447,23 @@ jQuery(function(){
 					$("#member_specialty").val(data.data.special);
 					$("#member_tel").val(data.data.mobile);
 					
+					vapp.incomeIndex=data.data.income_type;
+					vapp.companyCategoryIndex=data.data.unit_property;
+					for(var i=0;i<Object.keys(vapp.job).length;i++){
+						var key=Object.keys(vapp.job)[i];
+						if(vapp.job[key].value==data.data.industry){
+							vapp.jobIndex=key;
+							for(var j=0;j<Object.keys(vapp.job[key].category).length;j++){
+								key2=Object.keys(vapp.job[key].category)[j];
+								if(vapp.job[key].category[key2]==data.data.job){
+									vapp.jobIndex2=key2;
+									break;
+								}
+							}
+							break;
+						}
+					}
+
 				}else{
 					$(".alert_msg p").html(data.message);
 	                $(".alert_msg").show();

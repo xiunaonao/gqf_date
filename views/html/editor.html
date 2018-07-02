@@ -255,262 +255,305 @@
     	color: #FFFFFF;
     }
 </style>
-<div class="editor_main">
-	<img class="top_img" src="/img/通栏.jpg?v=0.02"/>
-	<img class="editor_title" src="/img/联谊活动.png"/>
-    <p></p>
-	
-	<div class="editor_info img_up">
-        <span class="info_title">上传图片</span>
-        <div class="e_img" v-on:click="change_input()">
-        	<div class="e_img_inner" v-on:click="deleteImg($event)">
-        		<span id="e_center">+</span>
-        		<!--<img class="head_img" src=""/>-->
+<article id="editor">
+    <div class="editor_main" >
+    	<img class="top_img" src="/img/通栏.jpg?v=0.02"/>
+    	<img class="editor_title" src="/img/联谊活动.png"/>
+        <p></p>
+    	
+    	<div class="editor_info img_up">
+            <span class="info_title">上传图片</span>
+            <div class="e_img" v-on:click="change_input()">
+            	<div class="e_img_inner" v-on:click="deleteImg($event)">
+            		<span id="e_center">+</span>
+            		<!--<img class="head_img" src=""/>-->
+            	</div>
+            </div>
+            <form id="addTextForm" v-on:change="setImg($event)"></form>
+        </div>
+        
+        <div class="editor_info">
+            <span class="info_title">姓名</span>
+            <input class="info_input" id="member_name" type="text" value="" placeholder="请输入姓名" />
+        </div>
+        
+        <div class="editor_info editor_bot">
+        	<div class="info_top">
+        		<span class="info_title">性别</span>
+        		<span class="select_text" id="member_gender" data-val="1">男</span>
+        		<img class="open_select" src="/img/展开.png"/>
         	</div>
+    	    <div class="select_div">
+    	    	<p value="1">男</p>
+    	    	<p value="2">女</p>
+    	    </div>
         </div>
-        <form id="addTextForm" v-on:change="setImg($event)"></form>
-    </div>
-    
-    <div class="editor_info">
-        <span class="info_title">姓名</span>
-        <input class="info_input" id="member_name" type="text" value="" placeholder="请输入姓名" />
-    </div>
-    
-    <div class="editor_info editor_bot">
-    	<div class="info_top">
-    		<span class="info_title">性别</span>
-    		<span class="select_text" id="member_gender" data-val="1">男</span>
-    		<img class="open_select" src="/img/展开.png"/>
-    	</div>
-	    <div class="select_div">
-	    	<p value="1">男</p>
-	    	<p value="2">女</p>
-	    </div>
-    </div>
-    
-    <div class="editor_info">
-        <span class="info_title">出生年月</span>
-        <input class="info_input" id="member_birth" type="date" value="" placeholder="例 1990.1.1"/>
-    </div>
-    <div class="editor_info">
-        <span class="info_title">身份证号码</span>
-        <input class="info_input" id="member_card" type="text" value="" placeholder="请输入身份证号码（信息严格保密，不会显示给其他用户）" />
-    </div>
-    <div class="editor_info">
-        <span class="info_title">现户籍地</span>
-        <input class="info_input" id="member_address" type="text" value="" placeholder="请输入现户籍地" />
-    </div>
-    <div class="editor_info">
-        <span class="info_title">工作单位</span>
-        <input class="info_input" id="member_company" type="text" value="" placeholder="请输入工作单位" />
-    </div>
-    <div class="editor_info">
-        <span class="info_title">部门职务</span>
-        <input class="info_input" id="member_woke" type="text" value="" placeholder="请输入部门职务" />
-    </div>
-    <!--<div class="editor_info">
-        <span class="info_title">学历</span>
-        <input class="info_input" id="member_education" type="text" value="" placeholder="请输入学历" />
-    </div>-->
-    
-    <div class="editor_info editor_bot">
-    	<div class="info_top">
-    		<span class="info_title">学历</span>
-    		<span class="select_text" id="member_education" data-val="">请选择</span>
-    		<img class="open_select" src="/img/展开.png"/>
-    	</div>
-	    <div class="select_div">
-            <p value="0">其他</p>
-            <p value="1">小学</p>
-            <p value="2">初中</p>
-            <p value="3">高中</p>
-            <p value="4">中专</p>
-            <p value="5">大学专科</p>
-            <p value="6">大学本科</p>
-            <p value="7">研究生</p>
-	    </div>
-    </div>
-    
-    <!--<div class="editor_info editor_bot">
-    	<div class="info_top">
-    		<span class="info_title">年收入</span>
-    		<span class="select_text" id="member_income" data-val="">请选择</span>
-    		<img class="open_select" src="/img/展开.png"/>
-    	</div>
-	    <div class="select_div">
-            <p value="1">5万元以下</p>
-            <p value="2">5-10万元</p>
-            <p value="3">10-15万元</p>
-            <p value="4">15万元以上</p>
-	    </div>
-    </div>-->
-    <div class="editor_info">
-        <span class="info_title">年收入</span>
-        <input class="info_input" id="member_income" type="number" value="" placeholder="请输入年收入(万元)" />
-    </div>
-    
-    <div class="editor_info">
-        <span class="info_title">毕业院校</span>
-        <input class="info_input" id="member_school" type="text" value="" placeholder="请输入毕业院校" />
-    </div>
-    <div class="editor_info">
-        <span class="info_title">健康状况</span>
-        <input class="info_input" id="member_health" type="text" value="" placeholder="请输入健康状况" />
-    </div>
-    <div class="editor_info">
-        <span class="info_title">身高</span>
-        <input class="info_input" id="member_height" type="number" value="" placeholder="请输入身高(cm)" />
-    </div>
-    <div class="editor_info">
-        <span class="info_title">体重</span>
-        <input class="info_input" id="member_weight" type="number" value="" placeholder="请输入体重(kg)" />
-    </div>
-    <div class="editor_info">
-        <span class="info_title">民族</span>
-        <input class="info_input" id="member_nation" type="text" value="" placeholder="请输入民族" />
-    </div>
-    
-    <div class="editor_info editor_bot">
-    	<div class="info_top">
-    		<span class="info_title">住房状况</span>
-    		<span class="select_text" id="member_house" data-val="">请选择</span>
-    		<img class="open_select" src="/img/展开.png"/>
-    	</div>
-	    <div class="select_div">
-            <p value="1">有房</p>
-            <p value="2">无房</p>
-	    </div>
-    </div>
-    <div class="editor_info editor_bot">
-    	<div class="info_top">
-    		<span class="info_title">购车状况</span>
-    		<span class="select_text" id="member_car" data-val="">请选择</span>
-    		<img class="open_select" src="/img/展开.png"/>
-    	</div>
-	    <div class="select_div">
-            <p value="1">有车</p>
-            <p value="2">无车</p>
-	    </div>
-    </div>
-    
-    <div class="editor_info">
-        <span class="info_title">兴趣爱好</span>
-        <input class="info_input" id="member_hobby" type="text" value="" placeholder="请填写兴趣爱好" />
-    </div>
-    <div class="editor_info">
-        <span class="info_title">个人特长</span>
-        <input class="info_input" id="member_specialty" type="text" value="" placeholder="请填写个人特长" />
-    </div>
-    <div class="editor_info">
-        <span class="info_title">联系方式</span>
-        <input class="info_input" id="member_tel" type="text" value="" placeholder="请输入个人联系方式（信息严格保密，不会显示给其他用户）" />
-    </div>
-    
-    <img class="choose_title" src="/img/择偶标准.png" alt="" />
-	
-	<div class="editor_info">
-        <span class="info_title">年龄区间</span>
-        <div class="range_input">
-	        <input class="range_left" id="filter_age01" type="number" value="" placeholder="例 20" />
-	        <span class="range_line">-</span>
-	        <input class="range_right" id="filter_age02" type="number" value="" placeholder="例 30" />
-	        <span>岁</span>
+        
+        <div class="editor_info">
+            <span class="info_title">出生年月</span>
+            <input class="info_input" id="member_birth" type="date" value="" placeholder="例 1990.1.1"/>
         </div>
-    </div>
-    <div class="editor_info">
-        <span class="info_title">身高区间</span>
-        <div class="range_input">
-	        <input class="range_left" id="filter_height01" type="number" value="" placeholder="例 160" />
-	        <span class="range_line">-</span>
-	        <input class="range_right" id="filter_height02" type="number" value="" placeholder="例 170" />
-	        <span>cm</span>
+        <div class="editor_info">
+            <span class="info_title">身份证号码</span>
+            <input class="info_input" id="member_card" type="text" value="" placeholder="请输入身份证号码（信息严格保密，不会显示给其他用户）" />
         </div>
-    </div>
-    <div class="editor_info">
-        <span class="info_title">体重区间</span>
-        <div class="range_input">
-	        <input class="range_left" id="filter_weight01" type="number" value="" placeholder="例 60" />
-	        <span class="range_line">-</span>
-	        <input class="range_right" id="filter_weight02" type="number" value="" placeholder="例 70" />
-	        <span>kg</span>
+        <div class="editor_info">
+            <span class="info_title">现户籍地</span>
+            <input class="info_input" id="member_address" type="text" value="" placeholder="请输入现户籍地" />
         </div>
-    </div>
-    
-    <div class="editor_info">
-        <span class="info_title">职业</span>
-        <input class="info_input" id="filter_job" type="text" value="" placeholder="请输入职业" />
-    </div>
-    
-    <div class="editor_info">
-        <span class="info_title">年收入</span>
-        <div class="range_input">
-	        <input class="range_left" id="filter_income01" type="number" value="" placeholder="例 5" />
-	        <span class="range_line">-</span>
-	        <input class="range_right" id="filter_income02" type="number" value="" placeholder="例 10" />
-	        <span>万</span>
+        <div class="editor_info editor_bot">
+            <div class="info_top">
+                <span class="info_title">公司类别</span>
+                <span class="select_text" id="member_gender" data-val="1">{{companyCategory[companyCategoryIndex]}}</span>
+                <img class="open_select" src="/img/展开.png"/>
+            </div>
+            <div class="select_div">
+                <p v-for="value,index in companyCategory" value="1" v-on:click="companyCategoryIndex=index">{{value}}</p>
+            </div>
         </div>
-    </div>
-    
-    <div class="editor_info editor_bot">
-    	<div class="info_top">
-    		<span class="info_title">住房</span>
-    		<span class="select_text" id="filter_house">有房</span>
-    		<img class="open_select" src="/img/展开.png"/>
-    	</div>
-	    <div class="select_div">
-            <p value="1">有房</p>
-            <p value="2">无房</p>
-            <p value="3">不限</p>
-	    </div>
-    </div>
-    <div class="editor_info editor_bot">
-    	<div class="info_top">
-    		<span class="info_title">购车</span>
-    		<span class="select_text" id="filter_car">有车</span>
-    		<img class="open_select" src="/img/展开.png"/>
-    	</div>
-	    <div class="select_div">
-            <p value="1">有车</p>
-            <p value="2">无车</p>
-            <p value="3">不限</p>
-	    </div>
-    </div>
-    <div class="editor_info editor_bot">
-    	<div class="info_top">
-    		<span class="info_title">户籍</span>
-    		<span class="select_text" id="filter_address">本地</span>
-    		<img class="open_select" src="/img/展开.png"/>
-    	</div>
-	    <div class="select_div">
-            <p value="1">本地</p>
-            <p value="2">外地</p>
-	    </div>
-    </div>
-    
-    <!--<div class="editor_info">
-        <span class="info_title">兴趣爱好</span>
-        <input class="info_input" id="filter_hobby" type="text" value="" placeholder="请输入兴趣爱好" />
-    </div>-->
-    <!--<div class="editor_info">
-        <span class="info_title">其他</span>
-        <input class="info_input" id="filter_other" type="text" value="" placeholder="请输入" />
-    </div>-->
-    
-    <p class="bottom_text">特别声明：<br/>
-    <i></i><label>个人照片手机住址单位信息严格保密</label><br/>
-    <i></i><label>本人承诺以上资料真实有效，由此带来的一切法律责任由本人自行承担<label><br/>
-     </p>
-    
-    <img class="submit_btn" v-on:touchstart="allSubmit()" src="/img/提交.png" alt="" />
-    
-</div>
+        <div class="editor_info">
+            <span class="info_title">工作单位</span>
+            <input class="info_input" id="member_company" type="text" value="" placeholder="请输入工作单位" />
+        </div>
 
-<div class="alert_msg">
-    <p></p>
-</div>
+        <div class="editor_info editor_bot">
+            <div class="info_top">
+                <span class="info_title">从事行业</span>
+                <span class="select_text" id="member_job" data-val="1">{{job[jobIndex].value}}</span>
+                <img class="open_select" src="/img/展开.png"/>
+            </div>
+            <div class="select_div" style="">
+                <p value="1" v-for="key in Object.keys(job)" v-on:click="jobIndex=key;jobIndex2=Object.keys(job[key].category)[0]" style="cursor: pointer;">{{job[key].value}}</p>
+            </div>
+        </div>
+        <div class="editor_info editor_bot">
+            <div class="info_top">
+                <span class="info_title">从事职业</span>
+                <span class="select_text" id="member_job2" data-val="1">{{job[jobIndex].category[jobIndex2]}}</span>
+                <img class="open_select" src="/img/展开.png"/>
+            </div>
+            <div class="select_div">
+                <p value="1" v-for="key in Object.keys(job[jobIndex].category)" v-on:click="jobIndex2=key;">{{job[jobIndex].category[key]}}</p>
+            </div>
+        </div>
 
-<div class="alert_qr">
-	<p>提交成功！<br /><br />请关注长兴县总工会，以获取通知。</p>
-	<img class="qr_code" src="/img/qr_code.jpg" alt="" />
-    <a class="goList" href="#list">返回列表页</a>
-</div>
+        <!--<div class="editor_info">
+            <span class="info_title">学历</span>
+            <input class="info_input" id="member_education" type="text" value="" placeholder="请输入学历" />
+        </div>-->
+        
+        <div class="editor_info editor_bot">
+        	<div class="info_top">
+        		<span class="info_title">学历</span>
+        		<span class="select_text" id="member_education" data-val="">请选择</span>
+        		<img class="open_select" src="/img/展开.png"/>
+        	</div>
+    	    <div class="select_div">
+                <p value="0">其他</p>
+                <p value="1">小学</p>
+                <p value="2">初中</p>
+                <p value="3">高中</p>
+                <p value="4">中专</p>
+                <p value="5">大学专科</p>
+                <p value="6">大学本科</p>
+                <p value="7">研究生</p>
+    	    </div>
+        </div>
+        
+        <!--<div class="editor_info editor_bot">
+        	<div class="info_top">
+        		<span class="info_title">年收入</span>
+        		<span class="select_text" id="member_income" data-val="">请选择</span>
+        		<img class="open_select" src="/img/展开.png"/>
+        	</div>
+    	    <div class="select_div">
+                <p value="1">5万元以下</p>
+                <p value="2">5-10万元</p>
+                <p value="3">10-15万元</p>
+                <p value="4">15万元以上</p>
+    	    </div>
+        </div>-->
+<!--         <div class="editor_info">
+            <span class="info_title">年收入(万元)</span>
+            <input class="info_input" id="member_income" type="number" value="" placeholder="请输入年收入(万元)" />
+        </div> -->
+        <div class="editor_info editor_bot">
+            <div class="info_top">
+                <span class="info_title">年收入</span>
+                <span class="select_text" id="member_income" data-val="">{{income[incomeIndex]}}</span>
+                <img class="open_select" src="/img/展开.png"/>
+            </div>
+            <div class="select_div">
+                <p value="0" v-for="value,index in income"  v-on:click="incomeIndex=index">{{value}}</p>
+            </div>
+        </div>
+
+
+        <div class="editor_info">
+            <span class="info_title">毕业院校</span>
+            <input class="info_input" id="member_school" type="text" value="" placeholder="请输入毕业院校" />
+        </div>
+        <div class="editor_info">
+            <span class="info_title">健康状况</span>
+            <input class="info_input" id="member_health" type="text" value="" placeholder="请输入健康状况" />
+        </div>
+        <div class="editor_info">
+            <span class="info_title">身高(cm)</span>
+            <input class="info_input" id="member_height" type="number" value="" placeholder="请输入身高(cm)" />
+        </div>
+        <div class="editor_info">
+            <span class="info_title">体重(kg)</span>
+            <input class="info_input" id="member_weight" type="number" value="" placeholder="请输入体重(kg)" />
+        </div>
+        <div class="editor_info">
+            <span class="info_title">民族</span>
+            <input class="info_input" id="member_nation" type="text" value="" placeholder="请输入民族" />
+        </div>
+        
+        <div class="editor_info editor_bot">
+        	<div class="info_top">
+        		<span class="info_title">住房状况</span>
+        		<span class="select_text" id="member_house" data-val="">请选择</span>
+        		<img class="open_select" src="/img/展开.png"/>
+        	</div>
+    	    <div class="select_div">
+                <p value="1">有房</p>
+                <p value="2">无房</p>
+    	    </div>
+        </div>
+        <div class="editor_info editor_bot">
+        	<div class="info_top">
+        		<span class="info_title">购车状况</span>
+        		<span class="select_text" id="member_car" data-val="">请选择</span>
+        		<img class="open_select" src="/img/展开.png"/>
+        	</div>
+    	    <div class="select_div">
+                <p value="1">有车</p>
+                <p value="2">无车</p>
+    	    </div>
+        </div>
+        
+        <div class="editor_info">
+            <span class="info_title">兴趣爱好</span>
+            <input class="info_input" id="member_hobby" type="text" value="" placeholder="请填写兴趣爱好" />
+        </div>
+        <div class="editor_info">
+            <span class="info_title">个人特长</span>
+            <input class="info_input" id="member_specialty" type="text" value="" placeholder="请填写个人特长" />
+        </div>
+        <div class="editor_info">
+            <span class="info_title">联系方式</span>
+            <input class="info_input" id="member_tel" type="text" value="" placeholder="请输入个人联系方式（信息严格保密，不会显示给其他用户）" />
+        </div>
+        
+        <img class="choose_title" src="/img/择偶标准.png" alt="" />
+    	
+    	<div class="editor_info">
+            <span class="info_title">年龄区间</span>
+            <div class="range_input">
+    	        <input class="range_left" id="filter_age01" type="number" value="" placeholder="例 20" />
+    	        <span class="range_line">-</span>
+    	        <input class="range_right" id="filter_age02" type="number" value="" placeholder="例 30" />
+    	        <span>岁</span>
+            </div>
+        </div>
+        <div class="editor_info">
+            <span class="info_title">身高区间</span>
+            <div class="range_input">
+    	        <input class="range_left" id="filter_height01" type="number" value="" placeholder="例 160" />
+    	        <span class="range_line">-</span>
+    	        <input class="range_right" id="filter_height02" type="number" value="" placeholder="例 170" />
+    	        <span>cm</span>
+            </div>
+        </div>
+        <div class="editor_info">
+            <span class="info_title">体重区间</span>
+            <div class="range_input">
+    	        <input class="range_left" id="filter_weight01" type="number" value="" placeholder="例 60" />
+    	        <span class="range_line">-</span>
+    	        <input class="range_right" id="filter_weight02" type="number" value="" placeholder="例 70" />
+    	        <span>kg</span>
+            </div>
+        </div>
+        
+        <div class="editor_info">
+            <span class="info_title">职业</span>
+            <input class="info_input" id="filter_job" type="text" value="" placeholder="请输入职业" />
+
+        </div>
+        
+        <div class="editor_info">
+            <span class="info_title">年收入</span>
+            <div class="range_input">
+    	        <input class="range_left" id="filter_income01" type="number" value="" placeholder="例 5" />
+    	        <span class="range_line">-</span>
+    	        <input class="range_right" id="filter_income02" type="number" value="" placeholder="例 10" />
+    	        <span>万</span>
+            </div>
+        </div>
+        
+        <div class="editor_info editor_bot">
+        	<div class="info_top">
+        		<span class="info_title">住房</span>
+        		<span class="select_text" id="filter_house">有房</span>
+        		<img class="open_select" src="/img/展开.png"/>
+        	</div>
+    	    <div class="select_div">
+                <p value="1">有房</p>
+                <p value="2">无房</p>
+                <p value="3">不限</p>
+    	    </div>
+        </div>
+        <div class="editor_info editor_bot">
+        	<div class="info_top">
+        		<span class="info_title">购车</span>
+        		<span class="select_text" id="filter_car">有车</span>
+        		<img class="open_select" src="/img/展开.png"/>
+        	</div>
+    	    <div class="select_div">
+                <p value="1">有车</p>
+                <p value="2">无车</p>
+                <p value="3">不限</p>
+    	    </div>
+        </div>
+        <div class="editor_info editor_bot">
+        	<div class="info_top">
+        		<span class="info_title">户籍</span>
+        		<span class="select_text" id="filter_address">本地</span>
+        		<img class="open_select" src="/img/展开.png"/>
+        	</div>
+    	    <div class="select_div">
+                <p value="1">本地</p>
+                <p value="2">外地</p>
+                <p value="3">不限</p>
+    	    </div>
+        </div>
+        
+        <!--<div class="editor_info">
+            <span class="info_title">兴趣爱好</span>
+            <input class="info_input" id="filter_hobby" type="text" value="" placeholder="请输入兴趣爱好" />
+        </div>-->
+        <!--<div class="editor_info">
+            <span class="info_title">其他</span>
+            <input class="info_input" id="filter_other" type="text" value="" placeholder="请输入" />
+        </div>-->
+        
+        <p class="bottom_text">特别声明：<br/>
+        <i></i><label>个人照片手机住址单位信息严格保密</label><br/>
+        <i></i><label>本人承诺以上资料真实有效，由此带来的一切法律责任由本人自行承担<label><br/>
+         </p>
+        
+        <img class="submit_btn" v-on:touchstart="allSubmit()" src="/img/提交.png" alt="" />
+        
+    </div>
+
+    <div class="alert_msg">
+        <p></p>
+    </div>
+
+    <div class="alert_qr">
+    	<p>提交成功！<br /><br />请关注长兴县总工会，以获取通知。</p>
+    	<img class="qr_code" src="/img/qr_code.jpg" alt="" />
+        <a class="goList" href="#list">返回列表页</a>
+    </div>
+</article>

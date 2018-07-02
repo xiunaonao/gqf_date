@@ -13,6 +13,7 @@ var routes=[
 		url:'editor',
 		dom:'editor',
 		script:'editor.js',
+		extra:['data/occupation.js']
 	},
 	{
 		url:'list/{page}',
@@ -64,6 +65,13 @@ window.linkTo=function(url){
 				    	//var section=document.createElement('section');
 				    	//section.innerHTML=xhr.responseText;
 				    	main.innerHTML=(xhr.responseText);
+				    	if(obj.extra){
+				    		for(var i=0;i<obj.extra.length;i++){
+				    			var script2=document.createElement('script');
+				    			script2.src='/js/'+obj.extra[i]+'';
+				    			main.appendChild(script2);
+				    		}
+				    	}
 				    	var script=document.createElement('script')
 				    	script.src='/js/'+obj.script+'?v='+window.ver;
 				    	main.appendChild(script);

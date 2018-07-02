@@ -131,7 +131,10 @@ router.post('/insert_or_update',(req,res,next)=>{
 			car_buying:'',
 			hobby:'',
 			special:'',
-			create_time:'date'
+			create_time:'date',
+			unit_property:'num',
+			income_type:'num',
+			industry:''
 		}
 	let rows={}
 	for(let i=0;i<Object.keys(rowsKey).length;i++){
@@ -475,14 +478,14 @@ function dating_total(mid,openid,callback){
 			v+=20
 		}		
 
-		if(result[0].annual_income || result[1].income_range){
-			let income=parseFloat(result[0].annual_income)
-			let min_income=result[1].income_range.split('-')[0]
-			let max_income=result[1].income_range.split('-')[1]
-			if(income>=parseFloat(min_income) && income<=parseFloat(max_income)){
-				v+=20
-			}
-		}
+		// if(result[0].annual_income || result[1].income_range){
+		// 	let income=parseFloat(result[0].annual_income)
+		// 	let min_income=result[1].income_range.split('-')[0]
+		// 	let max_income=result[1].income_range.split('-')[1]
+		// 	if(income>=parseFloat(min_income) && income<=parseFloat(max_income)){
+		// 		v+=20
+		// 	}
+		// }
 		if(result[0].house_nature==result[1].house_nature){
 			v+=20
 		}	
@@ -516,12 +519,13 @@ function dating_total_only(your,his){
 		v+=20
 	}		
 
-	let income=parseFloat(his.annual_income)
-	let min_income=your.income_range.split('-')[0]
-	let max_income=your.income_range.split('-')[1]
-	if(income>=parseFloat(min_income) && income<=parseFloat(max_income)){
-		v+=20
-	}
+	v+=20;
+	// let income=parseFloat(his.annual_income)
+	// let min_income=your.income_range.split('-')[0]
+	// let max_income=your.income_range.split('-')[1]
+	// if(income>=parseFloat(min_income) && income<=parseFloat(max_income)){
+	// 	v+=20
+	// }
 
 	if(his.house_nature==your.house_nature){
 		v+=20
