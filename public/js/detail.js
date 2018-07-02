@@ -12,6 +12,7 @@
 		},
 		methods:{
 			getMemberInfo:function(){
+				document.body.scrollTop=0;
 				var getUrl = "dating_api/detail?id="+this.memberId;
 				this.$http.get(getUrl).then(function(data){
 					var dat = data.data;
