@@ -111,6 +111,30 @@ var vapp = new Vue({
       		return;
       	}
 
+      	if(!$("#member_name").val()){
+	    	$(".alert_msg p").html("请输入姓名");
+		    $(".alert_msg").show();
+		    setTimeout('$(".alert_msg").hide()', 2000);
+      		this.posting=false;
+      		return;
+      	}
+
+      	if(!$("#member_tel").val()){
+	    	$(".alert_msg p").html("请输入手机号码");
+		    $(".alert_msg").show();
+		    setTimeout('$(".alert_msg").hide()', 2000);
+      		this.posting=false;
+      		return;
+      	}
+
+      	if(!$("#member_job2").text() || $("#member_job2").text()=='请选择'){
+	    	$(".alert_msg p").html("请选择职业");
+		    $(".alert_msg").show();
+		    setTimeout('$(".alert_msg").hide()', 2000);
+      		this.posting=false;
+      		return;
+      	}
+
       	if(isSubmit){
 	    	$(".alert_msg p").html("正在提交！");
 		    $(".alert_msg").show();
