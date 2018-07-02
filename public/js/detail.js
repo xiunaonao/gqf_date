@@ -5,6 +5,7 @@
 		data:{
 			news:[],
 			standardInfo:[],
+    		income:['请选择','5万以下','5~8万','8~10万','10~15万','15~20万','20~50万','50万以上'],
 			memberId:_param.id,
 			mInfo:{
 				education:""
