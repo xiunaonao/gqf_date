@@ -72,7 +72,7 @@ var vapp = new Vue({
 
 
     	var code_cool_interval=setInterval(function(){
-    		if(scope.code_cool>1)
+    		if(scope.code_cool>0)
     			scope.code_cool--;
     		else
     			clearInterval(code_cool_interval);
