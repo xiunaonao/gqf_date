@@ -26,6 +26,8 @@ var vapp = new Vue({
     companyCategoryIndex:0,
     incomeIndex:0,
     jobIndex:0,
+    code:'',
+    code_cool:0,
     jobIndex2:0,
     chooseImg:'',
     flagNum:0 ,
@@ -53,6 +55,55 @@ var vapp = new Vue({
         $(".alert_msg").show();
         setTimeout('$(".alert_msg").hide()', 2000);
       }
+    },
+    postCode:function(){
+    	var scope=this;
+    	if(!member_tel.value){
+    		$(".alert_msg p").html("请先输入手机号码");
+		    $(".alert_msg").show();
+		    setTimeout('$(".alert_msg").hide()', 2000);
+    		return;
+    	}    	
+    	if(this.code_cool!=0){
+    		return;
+    	}
+
+    	this.code_cool=30;
+
+
+    	var code_cool_interval=setInterval(function(){
+    		if(scope.code_cool>1)
+    			scope.code_cool--;
+    		else
+    			clearInterval(code_cool_interval);
+    	},1000);
+
+    	axios.post('/api/sms_post',{mobile:member_tel.value}).then(function(res){
+    		var data=res.data;
+    		if(data.success){
+    			$(".alert_msg p").html("验证码已发送");
+			    $(".alert_msg").show();
+			    setTimeout('$(".alert_msg").hide()', 2000);
+    		}else{
+    			$(".alert_msg p").html(data.msg);
+			    $(".alert_msg").show();
+			    setTimeout('$(".alert_msg").hide()', 2000);
+    		}
+    	})
+
+    },
+    vaildCode:function(isSubmit){
+    	var scope=this;
+    	axios.post('/api/sms_valid',{mobile:member_tel.value,code:scope.code}).then(function(res){
+    		var data=res.data;
+    		if(data.success){
+    			scope.textSubmit(isSubmit);
+    		}else{
+    			$(".alert_msg p").html(data.msg);
+			    $(".alert_msg").show();
+			    setTimeout('$(".alert_msg").hide()', 2000);
+    		}
+    	})
     },
     //当input选择了图片的时候触发,将获得的src赋值到相对应的img
     setImg:function(e){
@@ -144,8 +195,11 @@ var vapp = new Vue({
 
    		var scope=this;
    		var member_name = $("#member_name").val();
-		var sex = $("#member_gender").attr("data-val");
-		var day_of_birth = $("#member_birth").val();
+		//var sex = $("#member_gender").attr("data-val");
+		//var day_of_birth = $("#member_birth").val();
+		var sex=(valid_idcard.info.sex=='男'?'1':'');
+		sex+=(valid_idcard.info.sex=='女'?'2':'');
+		var day_of_birth=valid_idcard.info.year+'-'+valid_idcard.info.month+'-'+valid_idcard.info.day;
 		var card_number = $("#member_card").val();
 		var domicile = $("#member_address").val();
 		var work_unit = $("#member_company").val();
@@ -247,7 +301,8 @@ var vapp = new Vue({
         }).then(function (rst) {
 */
 		if(uploadSrc==""){
-			scope.textSubmit();
+			//scope.textSubmit();
+			scope.vaildCode();
 		}else{
 
 
@@ -266,7 +321,8 @@ var vapp = new Vue({
 	                    //$("<img />").attr("src", data).appendTo("body");
 	                    scope.chooseImg = data.url;
 	                    if(data.success==1){
-		                	scope.textSubmit(true);
+	                    	scope.vaildCode(true);
+		                	//scope.textSubmit(true);
 		                  
 		                  this.flagNum = 0;
 		                  return;

@@ -254,8 +254,13 @@
     	font-size: 0.14rem;
     	color: #FFFFFF;
     }
+    .member_code_post{
+        position: absolute;
+        right: 0.2rem;
+        color: #FF3333;
+    }
 </style>
-<article id="editor">
+<article id="editor" v-cloak>
     <div class="editor_main" >
     	<img class="top_img" src="/img/通栏.jpg?v=0.02"/>
     	<img class="editor_title" src="/img/联谊活动.png"/>
@@ -277,7 +282,7 @@
             <input class="info_input" id="member_name" type="text" value="" placeholder="请输入姓名" />
         </div>
         
-        <div class="editor_info editor_bot">
+<!--         <div class="editor_info editor_bot">
         	<div class="info_top">
         		<span class="info_title">性别</span>
         		<span class="select_text" id="member_gender" data-val="1">男</span>
@@ -292,7 +297,8 @@
         <div class="editor_info">
             <span class="info_title">出生年月</span>
             <input class="info_input" id="member_birth" type="date" value="" placeholder="例 1990.1.1"/>
-        </div>
+        </div> -->
+
         <div class="editor_info">
             <span class="info_title">身份证号码</span>
             <input class="info_input" id="member_card" type="text" value="" placeholder="请输入身份证号码（信息严格保密，不会显示给其他用户）" />
@@ -445,7 +451,13 @@
             <span class="info_title">手机号码</span>
             <input class="info_input" id="member_tel" type="text" value="" placeholder="请输入个人联系方式（信息严格保密，不会显示给其他用户）" />
         </div>
-        
+        <div class="editor_info">
+            <span class="info_title">短信验证码</span>
+            <input class="info_input" id="member_code" type="text" v-model="code" placeholder="" />
+            <button class="member_code_post" v-on:click="postCode">{{code_cool==0?'发送验证码':('重新发送('+code_cool+'s)')}}</button>
+        </div>      
+
+
         <img class="choose_title" src="/img/择偶标准.png" alt="" />
     	
     	<div class="editor_info">
