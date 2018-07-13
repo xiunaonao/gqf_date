@@ -464,6 +464,7 @@ router.get("/execl",(req,res,next)=>{
 		}else{
 
 		}
+		
 		let nodeExcel = require('excel-export');
 		var conf = {};
 		mssql.exec('select '+crow+' from dating_member_info a left join dating_mate_standard b on a.openid=b.openid ',(err,result,count)=>{
