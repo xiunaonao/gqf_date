@@ -458,10 +458,15 @@ router.get('/like',(req,res,next)=>{
 
 router.get("/execl",(req,res,next)=>{
 	if(req.query.code=="cxxq123"){
+		let crow="*"
+		if(req.query.row){
+			crow=req.query.row
+		}else{
 
+		}
 		let nodeExcel = require('excel-export');
 		var conf = {};
-		mssql.exec('select * from dating_member_info a left join dating_mate_standard b on a.openid=b.openid ',(err,result,count)=>{
+		mssql.exec('select '+crow+' from dating_member_info a left join dating_mate_standard b on a.openid=b.openid ',(err,result,count)=>{
 			//console.log(result)
 			conf.cols=[]
 			conf.rows=new Array()
