@@ -480,7 +480,10 @@ router.get("/execl",(req,res,next)=>{
 						})
 						//console.log(k2)
 					}
-					console.log(k[k2])
+					console.log(type of k[k2])
+					if(k[k2]==0){
+						k[k2]="0"
+					}
 					rows.push(k[k2])
 					
 				})
