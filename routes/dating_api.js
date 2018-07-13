@@ -467,6 +467,7 @@ router.get("/execl",(req,res,next)=>{
 			conf.rows=new Array()
 			let first=true
 
+			let edu=["其他","小学","初中","高中","中专","大学专科","大学本科","研究生"]
 
 			result.forEach((k,i)=>{
 				let rows=new Array()
@@ -480,9 +481,17 @@ router.get("/execl",(req,res,next)=>{
 						})
 						//console.log(k2)
 					}
-					console.log(type of k[k2])
-					if(k[k2]==0){
-						k[k2]="0"
+					let type= typeof k[k2]
+					if(type=="boolean")
+						k[k2]=k[k2]?'是':'否'
+					if(type=="object"){
+						k[k2]=k[k2].getFullYear()+'-'+(k[k2].getMonth()+1)+'-'+k[k2].getDate()
+					}
+					if(k2=='education'){
+						k[k2]=edu[k[k2]]
+					}
+					else if(type=="number"){
+						k[k2]+=""
 					}
 					rows.push(k[k2])
 					
@@ -491,7 +500,6 @@ router.get("/execl",(req,res,next)=>{
 				conf.rows.push(rows)
 
 			})
-
 			let execls=nodeExcel.execute(conf)
 			//console.log(conf);
 			res.setHeader('Content-Type', 'application/vnd.openxmlformats');
