@@ -455,6 +455,52 @@ router.get('/like',(req,res,next)=>{
 	})
 })
 
+
+router.get("/execl",(req,res,next)=>{
+	if(req.query.code=="cxxq123"){
+
+		let nodeExcel = require('excel-export');
+		var conf = {};
+		mssql.exec('select * from dating_member_info a left join dating_mate_standard b on a.openid=b.openid ',(err,result,count)=>{
+			//console.log(result)
+			conf.cols=[]
+			conf.rows=new Array()
+			let first=true
+
+
+			result.forEach((k,i)=>{
+				let rows=new Array()
+
+				Object.keys(result[0]).forEach((k2,i2)=>{
+					if(first){
+						conf.cols.push({
+							caption: k2,
+							type: 'string',
+							width:10
+						})
+						//console.log(k2)
+					}
+					console.log(k[k2])
+					rows.push(k[k2])
+					
+				})
+				first=false
+				conf.rows.push(rows)
+
+			})
+
+			let execls=nodeExcel.execute(conf)
+			//console.log(conf);
+			res.setHeader('Content-Type', 'application/vnd.openxmlformats');
+	        res.setHeader("Content-Disposition", "attachment; filename=" + "dating_total.xlsx");
+	        res.end(execls, 'binary');
+		})
+
+
+
+	}
+})
+
 function dating_total(mid,openid,callback){
 	//day_of_birth,job,house_nature,annual_income,housing
 	let strSql=`
