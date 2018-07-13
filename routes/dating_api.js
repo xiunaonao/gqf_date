@@ -489,6 +489,8 @@ router.get("/execl",(req,res,next)=>{
 					}
 					if(k2=='education'){
 						k[k2]=edu[k[k2]]
+					}else if(k2=="sex"){
+						k[k2]=k[k2]==1?"男":"女"
 					}
 					else if(type=="number"){
 						k[k2]+=""
@@ -500,7 +502,7 @@ router.get("/execl",(req,res,next)=>{
 				conf.rows.push(rows)
 
 			})
-			
+
 			let execls=nodeExcel.execute(conf)
 			//console.log(conf);
 			res.setHeader('Content-Type', 'application/vnd.openxmlformats');
