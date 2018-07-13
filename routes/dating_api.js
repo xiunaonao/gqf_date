@@ -500,6 +500,7 @@ router.get("/execl",(req,res,next)=>{
 				conf.rows.push(rows)
 
 			})
+			
 			let execls=nodeExcel.execute(conf)
 			//console.log(conf);
 			res.setHeader('Content-Type', 'application/vnd.openxmlformats');
