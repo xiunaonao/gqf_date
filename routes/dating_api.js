@@ -99,6 +99,64 @@ router.get('/list',(req,res,next)=>{
 	},'',` is_like=(select count(mind_openid) from dating_mind_member where mind_openid=m_table.openid and openid='${openid}' and delete_flag=0)`)
 })
 
+router.get('/new_user',(req,res,next)=>{
+	let body=req.body
+	let openid=req.cookies['union_oid']
+	msql.exist('dating_member_info',`openid='${openid}'`,(err,result,count)=>{
+		if(count<=0){
+			res.json({success:true,msg:'新用户注册'});
+		}else{
+			res.json({success:false,msg:'已注册的用户'})
+		}
+	})
+})
+
+router.post('/register',(req,res,next)=>{
+	let body=req.body;
+	let openid=req.cookies['union_oid']
+	let rowsKey={
+		id:'id',
+		member_cardno:'num',
+		openid:'',
+		sex:'num',
+		day_of_birth:'date',
+		create_time:'date',
+		mobile:''
+	}
+	for(let i=0;i<Object.keys(rowsKey).length;i++){
+		let key=Object.keys(rowsKey)[i]
+		rows[key]={}
+		rows[key].value=body[key]
+		if(key=="create_time"){
+			let now=new Date()
+			rows[key].value=now.getFullYear()+'-'+(now.getMonth()+1)+'-'+now.getDate()+' '+now.getHours()+':'+now.getMinutes()+':'+now.getSeconds()
+		}
+		rows[key].type=rowsKey[key]
+	}
+	//rows.member_cardno={value:memberNo,type:'num'}
+	rows.openid={value:openid,type:''}
+	mssql.exist('dating_member_info',` openid='`+rows.openid.value+`'`,(err,result,count)=>{
+		if(count>0){
+			res.json({success:false,msg:'请不要重复注册'});
+		}else{
+			rows.delete_flag={value:0,type:'bool'}
+			mssql.insert('dating_member_info',rows,(err,result,count,newid)=>{
+				let json={}
+				if(err){
+					json.success=false
+					json.message=err
+				}else{
+					json.success=true
+					json.message='操作成功'
+					json.count=count
+					json.id=newid
+				}
+				res.json(json)
+			})
+		}
+	});
+
+})
 
 router.post('/insert_or_update',(req,res,next)=>{
 	let body=req.body
