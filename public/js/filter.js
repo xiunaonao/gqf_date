@@ -27,11 +27,12 @@ $(function(){
 		var education = $("#f_education").attr("data-val");
 		var annual_income = $("#f_income").attr("data-val");
 		var housing = $("#f_house").html();
-		var car_buying = $("#f_car").attr("data-val");
+		var car_buying = $("#f_car").html();
 		
 		var listPost = {age: age, height: height, education: education, annual_income: annual_income, housing: housing!='不限'?housing:'', car_buying: car_buying!='不限'?car_buying:''};
 		
 		listPost = JSON.stringify(listPost);
+		console.log(listPost)
 		sessionStorage.setItem("listPost",listPost);
 		$("body").off("click");
 		window.location.href = "#list";

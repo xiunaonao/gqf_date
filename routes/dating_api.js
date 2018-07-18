@@ -54,13 +54,15 @@ router.get('/list',(req,res,next)=>{
 		where.filter+=` and annual_income>=${min_income}`
 		where.filter+=` and annual_income<=${max_income}`
 	}
-
+	console.log('房子情况：'+query.housing);
 	if(query.housing){
-		where.filter+=` and housing=${(query.housing=="有房"?"'有房'":"'无房'")}`
+		console.log('房子情况：'+query.housing);
+		let str="";
+		where.filter+=` and housing=${(query.housing=="不限"?"''":"'"+query.housing+"'")}`
 	}
 
 	if(query.car_buying){
-		where.filter+=` and car_buying=${(query.car_buying=='有车'?"'有车'":"'无车'")}`
+		where.filter+=` and car_buying=${(query.car_buying=='不限'?"''":"'"+query.car_buying+"'")}`
 	}
 
 
