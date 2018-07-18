@@ -199,6 +199,7 @@ var vapp = new Vue({
 		//var day_of_birth = $("#member_birth").val();
 		var sex=(valid_idcard.info.sex=='男'?'1':'');
 		sex+=(valid_idcard.info.sex=='女'?'2':'');
+		console.log(valid_idcard);
 		var day_of_birth=valid_idcard.info.year+'-'+valid_idcard.info.month+'-'+valid_idcard.info.day;
 		var card_number = $("#member_card").val();
 		var domicile = $("#member_address").val();

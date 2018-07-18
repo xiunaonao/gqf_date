@@ -49,7 +49,8 @@ var Z_VALID=function(_obj){
                     	idInfo.year=code.substring(6,10);
                     	idInfo.month=code.substring(10,12);
                     	idInfo.day=code.substring(12,14);
-                    	idInfo.sex=(parseInt(code.substring[16])%2==0)?'女':'男'
+                        console.log(code[16]);
+                    	idInfo.sex=(parseInt(code[16])%2==0)?'女':'男'
                     }
                 }
 
