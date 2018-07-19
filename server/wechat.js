@@ -27,6 +27,7 @@ let post_one=(obj)=>{
 	}
 	get_token((data)=>{
 		let token=data.access_token
+		console.log(json)
 		//https://api.weixin.qq.com/cgi-bin/message/template/send?access_token={0}
 		request({
 	        url: `https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=${token}`,
