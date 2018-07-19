@@ -28,22 +28,22 @@ let post_one=(obj)=>{
 	get_token((data)=>{
 		let token=data.access_token
 		//https://api.weixin.qq.com/cgi-bin/message/template/send?access_token={0}
-			request({
-		        url: `https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=${token}`,
-		        method: "POST",
-		        json: true,
-		        headers: {
-		            "content-type": "application/json",
-		        },
-		        body: json,
-		    }, function(error, response, body) {
-		        if (!error && response.statusCode == 200) {
-		            console.log(body) // 请求成功的处理逻辑
-		            if(obj.callback){
-		            	obj.callback(body)
-		            }
-		        }
-		    });
+		request({
+	        url: `https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=${token}`,
+	        method: "POST",
+	        json: true,
+	        headers: {
+	            "content-type": "application/json",
+	        },
+	        body: json,
+	    }, (error, response, body)=> {
+	        if (!error && response.statusCode == 200) {
+	            console.log(body) // 请求成功的处理逻辑
+	            if(obj.callback){
+	            	obj.callback(body)
+	            }
+	        }
+	    })
 	})
 	// request({
  //        url: `https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=${appid}&secret=${secret}`,
@@ -72,7 +72,7 @@ let get_token=(callback)=>{
         headers: {
             "content-type": "application/json",
         },
-        body: json,
+        body: {},
 	    }, function(error, response, body) {
 	        if (!error && response.statusCode == 200) {
 	            console.log(body) // 请求成功的处理逻辑
