@@ -1,164 +1,56 @@
-<style type="text/css">
-	*{
-		margin: 0;
-		padding: 0;
-	}
-	.list_top{
-		width: 100%;
-		padding: 0.1rem 0;
-		position: fixed;
-		top: 0;
-		left: 0;
-		right: 0;
-		z-index: 999;
-		border-bottom: 1px solid #DDDDDD;
-		background-color: #FFFFFF;
-		box-sizing: border-box;
-		height: 0.55rem;
-	}
-	.list_top:after{
-		content: '';
-		display: table;
-		clear: both;
-	}
-	.member_img{
-		display: block;
-		float: left;
-		width: 0.3rem;
-		height: 0.3rem;
-		margin-left: 0.15rem;
-		border-radius: 50%;
-	}
-	.top_right{
-		float: right;
-		display: block;
-		width: 0.15rem;
-		margin-right: 0.16rem;
-		margin-top: 0.05rem;
-	}
-	.top_right img{
-		width: 100%;
-		z-index: 9;
-	}
-	.list_title{
-		width: 60%;
-		position: absolute;
-		top: 0.17rem;
-		left: 0;
-		right: 0;
-		margin: auto;
-		line-height: 1;
-		text-align: center;
-		font-size: 0.15rem;
-		font-family: "microsoft yahei";
-		font-weight: 600;
-	}
-	
-	.list_main{
-		width: 100%;
-		margin-top: 0.55rem;
-		background-color: #FFFFFF;
-	}
-	.list_main:after{
-		content: "";
-		display: table;
-		clear: both;
-	}
-	.member_dl{
-		float: left;
-		width: 44%;
-		height: 2.1rem;
-		margin: 0.15rem 0 0.15rem 0.15rem;
-		border-radius: 0.05rem;
-		box-shadow:  0px 0px 5px 3px #EEEEEE;
-	}
-	.member_dl dt{
-		width: 100%;
-		height: 1.5rem;
-		overflow: hidden;
-		position:relative;
-	}
-	.member_dl dt img{
-		display: block;
-		width: 100%;
-		position:absolute;
-		left:50%;
-		top:50%;
-		transform:translate(-50%,-50%);
-	}
-	.member_dl dd{
-		width: 100%;
-		position: relative;
-	}
-	.member_name{
-		margin-bottom: 0.12rem;
-		padding-top: 0.11rem;
-		padding-left: 0.11rem;
-		font-size: 0.13rem;
-		font-family: "microsoft yahei";
-		font-weight: 500;
-		color: #323232;
-	}
-	.member_info{
-		padding-left: 0.11rem;
-		padding-bottom: 0.14rem;
-		font-size: 0.11rem;
-		font-family: "microsoft yahei";
-		color: #AAAAAA;
-	}
-	.member_info span{
-		font-size: 0.11rem;
-	}
-	.member_stature{
-		padding-left: 0.12rem;
-	}
-	.like_icon{
-		display: block;
-		width: 0.4rem;
-		position: absolute;
-		top: -0.2rem;
-		right: 0.05rem;
-	}
-	
-	.editer_btn{
-		display: block;
-		width: 0.76rem;
-		position: fixed;
-		bottom: 0.25rem;
-		left: 0;
-		right: 0;
-		margin: auto;
-	}
-	.editer_btn img{
-		width: 100%;
-	}
-</style>
+
+
 <div id="list_app" v-cloak>
 	<div class="list_top">
 		<a class="top_left" href="#detail"><img class="member_img" v-bind:src="head_img" alt="" /></a>
 		<p class="list_title">会员列表</p>
-		<a class="top_right" href="#filter"><img class="filter_img" src="/img/筛选.png" alt=""></a>
+		<a class="top_right" href="#system"><img class="filter_img" src="/img/system.png" alt=""></a>
 	</div>
 
-	<div class="list_main">
-		<dl class="member_dl" v-for="obj in news" v-bind:data-id="obj.id">
+	<div class="banner">
+		<div class="banner-main">
+			<ul>
+				<li>
+					<a>
+						<img src="/img/通栏.jpg"/>
+						<h3>姻为有你，缘聚长兴</h3>
+					</a>
+				</li>
+			</ul>
+		</div>
+		
+	</div>
+	<div class="banner-bar banner-ban-abs">
+			<ul>
+				<li><button class="red-bg"></button></li>
+			</ul>
+		</div>
+	<div class="list-filter">
+		<button class="desc">关注度</button>
+		<button class="asc">匹配度</button>
+		<button class="desc">新报名</button>
+		<a class="red-bg" href="#filter">筛选</a>
+	</div>
+
+	<div class="list-main">
+		<dl class="member-dl" v-for="obj in news" v-bind:data-id="obj.id">
 			<dt v-on:click="getId(obj.id)">
 				<img v-if="obj.head_img==''" src="/img/noheadimg.png" alt="" />
 				<img v-if="obj.head_img!=''" v-bind:src="obj.head_img" alt="" />
 			</dt>
 			<dd>
-				<p class="member_name">{{obj.member_name}}</p>
-				<p class="member_info"><span class="member_age">{{getAge(obj.day_of_birth)}}</span>岁<span class="member_stature">{{obj.height}}</span>cm/<span class="member_weight">{{obj.weight}}</span>kg</p>
-				<img class="like_icon" v-if="!obj.is_like && yourid!=obj.id" v-bind:data-like="obj.is_like" v-on:click="sentLike(obj,false)" src="/img/unlike.png" alt="" />
-				<img class="like_icon" v-if="obj.is_like" v-bind:data-like="obj.is_like" v-on:click="sentLike(obj,true)" src="/img/like.png" alt="" />
+				<p class="member-name">{{obj.member_name}}</p>
+				<p class="member-info"><span class="member_age">{{getAge(obj.day_of_birth)}}</span>岁<span class="member-stature">{{obj.height}}</span>cm/<span class="member_weight">{{obj.weight}}</span>kg</p>
+				<img class="like-icon" v-if="!obj.is_like && yourid!=obj.id" v-bind:data-like="obj.is_like" v-on:click="sentLike(obj,false)" src="/img/unlike.png" alt="" />
+				<img class="like-icon" v-if="obj.is_like" v-bind:data-like="obj.is_like" v-on:click="sentLike(obj,true)" src="/img/like.png" alt="" />
 			</dd>
 		</dl>
 	</div>
 
-	<a class="editer_btn" href="#editor"><img src="/img/报名.png" alt="" /></a>
+	<a class="editer-btn" href="#editor"><img src="/img/报名.png" alt="" /></a>
 </div>
 
 
-<div class="alert_msg">
+<div class="alert-msg">
     <p></p>
 </div>

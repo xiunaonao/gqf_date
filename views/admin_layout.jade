@@ -1,0 +1,59 @@
+doctype html
+html
+	head
+		title= title
+		link(rel='stylesheet', href='/css/admin.css')
+		script(src="/js/sys/mobile.js")
+		script(src="/js/sys/vue.js")
+		script(src="/js/sys/vue-resource.js")
+		script(src="https://unpkg.com/axios/dist/axios.min.js")
+	body
+		.admin-box#app
+			.admin-card
+				.head-box
+					img(src="/temp/file-1532054756078.jpg")
+					.card-info
+						h5 张晓明
+						h6 工作人员/志愿者
+				ul.todo-info
+					li
+						h5 3
+						h6 报名待审核
+					li
+						h5 3
+						h6 心动匹配
+						i.line
+					li
+						h5 3
+						h6 互相关注
+						i.line
+					li
+						h5 3
+						h6 待审志愿者
+						i.line
+
+			block content
+			.admin-menu-bottom
+				ul
+					li
+						a
+							img(src="/img/user_admin.png")
+							label 用户管理
+					li
+						a
+							img(src="/img/pair_admin.png")
+							label 心动匹配
+					li
+						a
+							img(src="/img/wechat_admin.png")
+							label 微信通知
+					li
+						a
+							img(src="/img/active_admin.png")
+							label 用户管理
+					li
+						a
+							img(src="/img/auth_admin.png")
+							label 用户管理
+
+

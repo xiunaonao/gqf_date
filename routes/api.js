@@ -113,6 +113,7 @@ router.post('/sms_valid',(req,res,next)=>{
 
 router.post('/wechat_info',(req,res,next)=>{
 	let ws=require('../server/wechat')
+
 	ws.post_one({
 		"msg":"相亲平台社区通知",
 		"openid":"om-NlwIIEXNK_ghTdb_-U-lNhz8g"

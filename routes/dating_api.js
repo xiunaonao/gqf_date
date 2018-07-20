@@ -167,7 +167,7 @@ router.post('/insert_or_update',(req,res,next)=>{
 	}
 	let rowsKey=
 		{
-			id:'id',
+			//id:'id',
 			member_cardno:'num',
 			card_number:'',
 			mobile:'',

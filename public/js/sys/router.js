@@ -23,6 +23,16 @@ var routes=[
 		url:'filter',
 		dom:'filter',
 		script:'filter.js'
+	},
+	{
+		url:'register',
+		dom:'register',
+		script:'register.js'
+	},
+	{
+		url:'system',
+		dom:'system',
+		script:'system.js'
 	}
 	
 ]

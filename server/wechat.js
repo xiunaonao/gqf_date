@@ -19,9 +19,9 @@ let post_one=(obj)=>{
 			"pagepath":""
 		},
 		"data":{
-			"first":{"value":obj.title?obj.title:"工青妇单身交友平台消息","color":"#173177"},
-			"keyword1":{"value":obj.title2?obj.title2:"工青妇单身交友平台","color":"#173177"},
-			"keyword2":{"value":obj.msg?obj.msg:"","color":"#00FF00"},
+			"first":{"value":obj.title?obj.title:"","color":"#173177"},
+			"keyword1":{"value":obj.title2?obj.title2:"长兴工青妇","color":"#173177"},
+			"keyword2":{"value":obj.msg?obj.msg:"","color":"#FF82AB"},
 			"remark":{"value":obj.remark?obj.remark:"","color":"#173177"}
 		}
 	}

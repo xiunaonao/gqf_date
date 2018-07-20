@@ -4,3 +4,4 @@ node_modules/*
 /public/temp/*
 /server/mssql.js
 mssql.js
+dataServer.json
