@@ -1,30 +1,21 @@
 extends admin_layout
 
 block content
-	ul.admin-member-list
-		li
-			.member-head
-				span
-					img.img-mid(src="/temp/file-1532054756078.jpg")
-				i
-			.member-info
-				h5
-					label 方文山
-					label 13岁
-				h6	杭州泓唛网络科技有限公司
-			.member-btn
-				i.checkbox
-		li
-			.member-head
-				span
-					img(src="/temp/file-1532054756078.jpg")
-				i
-			.member-info
-				h5
-					label 方文山
-					label 13岁
-				h6	杭州泓唛网络科技有限公司
-			.member-btn
-				i.checkbox.checked
+	#volunteer[v-cloak]
+		ul.admin-member-list
+			li(v-for="obj in data")
+				.member-head
+					span
+						img(v-bind:src="obj.head_img")
+					i
+				.member-info
+					h5
+						label {{obj.name}}
+						label &nbsp;
+					h6	{{obj.work_unit}}
+				.member-btn
+					i.checkbox.checked
+	script var type=#{type!=undefined?type:undefined};
+	script(src="/js/admin/volunteer.js")
 
 		

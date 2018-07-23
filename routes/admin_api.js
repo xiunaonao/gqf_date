@@ -5,7 +5,7 @@ let mssql=require('../server/mssql')
 
 router.post('/admin_login',(req,res,next)=>{
 	let openid=req.cookies['union_oid']
-	mssql.querySingle('dating_managers',`openid='${openid}'`,(err,result,count)=>{
+	mssql.querySingle('dating_managers',`openid='${openid}' and review_status==1`,(err,result,count)=>{
 		let json={data:null}
 		console.log(count)
 		if(err){
@@ -36,9 +36,52 @@ router.post('/admin_login',(req,res,next)=>{
 
 router.post('/volunteer_register',(req,res,next)=>{
 	let openid=req.cookies['union_oid']
-	mssql.querySingle('dating_managers',`openid='${openid}'`,(err,result,count)=>{
-		console.log(result)
+	mssql.querySingle('dating_managers',`openid='openid'`,(err,result,count)=>{
+		if(count>0){
+			if(result[0].review_status==0){
+				res.json({success:false,msg:'您的信息正在审核，请耐心等待'})
+			}else{
+				res.json(success:false,msg:'您已经是申请成功，请点击登录')
+			}
+			//res.json({success:false,msg})
+
+		}else{
+			mssql.querySingle('dating_member_info',`openid='openid'`,(err,result2,count)=>{
+				let body=result2[0]
+				let rowsKey={
+			        name:'',
+			        openid:'',
+			        head_img:'',
+			        user_type:'num',
+			        work_unity:'',
+			        mobile:'',
+			        review_status:''
+				}
+				let rows={}
+				for(let i=0;i<Object.keys(rowsKey).length;i++){
+					let key=Object.keys(rowsKey)[i]
+					rows[key]={}
+					rows[key].value=body[key]
+					rows[key].type=rowsKey[key]
+				}
+				rows[name]=body.member_name
+				rows[review_status]=0
+
+				mssql.insert('dating_managers',rows,(err,result,count)=>{
+					if(count>0){
+
+					}else{
+						res.json({success:false,msg:'网络错误，申请失败，请重试'})
+					}
+					res.json({success:true,msg:'已发起申请，等待管理员审核'})
+				})
+				
+			})
+		}
 	})
+	// mssql.querySingle('dating_managers',`openid='${openid}'`,(err,result,count)=>{
+	// 	console.log(result)
+	// })
 })
 
 router.get('/admin_list',(req,res,next)=>{
@@ -70,6 +113,7 @@ router.get('/admin_list',(req,res,next)=>{
 			res.json(json)
 	})
 })
+
 
 
 router.get('/user_list',(req,res,next)=>{
