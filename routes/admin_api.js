@@ -167,4 +167,44 @@ router.get('/multi_like_list',(req,res,next)=>{
 		})
 })
 
+router.get('/examine_admin',(req,res,next)=>{
+	let openid=req.cookies['admin_oid']
+	if(openid=='')
+	{
+		res.json({success:false,msg:'登录已失效'})
+		return;
+	}
+	let id=req.body.id;
+	mssql.update('dating_managers',{review_status:{type:'num',value:1}},`id='id'`,(err,result,count)=>{
+		let json={}
+		if(count>0){
+			json.success=true
+			json.msg='操作成功'
+		}else{
+			json.success=false
+			json.msg='操作失败'
+		}
+	})
+})
+
+router.get('/examine_user',(req,res,next)=>{
+	let openid=req.cookies['admin_oid']
+	if(openid=='')
+	{
+		res.json({success:false,msg:'登录已失效'})
+		return;
+	}
+	let id=req.body.id;
+	mssql.update('dating_member_info',{review_status:{type:'num',value:1}},`id='id'`,(err,result,count)=>{
+		let json={}
+		if(count>0){
+			json.success=true
+			json.msg='操作成功'
+		}else{
+			json.success=false
+			json.msg='操作失败'
+		}
+	})
+})
+
 module.exports=router
