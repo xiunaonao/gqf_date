@@ -1,6 +1,9 @@
 *{margin:0;padding:0;font-size:.13rem;}
 li{list-style: none;}
+[v-cloak]{display:none;}
+a{text-decoration:none;}
 .admin-box{background:#FFF;}
+.admin-main{padding-bottom:.5rem;}
 .admin-card{width:3.45rem;height:1.4rem;box-shadow:#DDD .0rem .0rem .05rem;border-radius:.03rem;box-sizing:border-box;margin:.15rem;}
 .head-box{height:.45rem;padding:.13rem;}
 .head-box>*{float:left;}
@@ -19,7 +22,7 @@ button{width:.6rem;height:.25rem;border-radius: .03rem;color:#FFF;font-size:.13r
 .todo-info li h6{font-size:.12rem;color:#666;font-weight:300;}
 
 
-.admin-menu-bottom{position: fixed;bottom: 15px;width: 3.75rem;left: 0;z-index: 999;box-shadow: #EEE 0rem -0.01rem 0.05rem;}
+.admin-menu-bottom{position: fixed;bottom:0;width: 3.75rem;left: 0;z-index: 999;box-shadow: #EEE 0rem -0.01rem 0.05rem;background: #FFF;}
 .admin-menu-bottom>ul>li{float:left;width:.75rem;text-align: center;}
 .admin-menu-bottom>ul>li>a>img{width:.25rem;height:.25rem;margin-top:.07rem;}
 .admin-menu-bottom>ul>li>a>label{display:block;font-size:.1rem;}
@@ -32,7 +35,7 @@ button{width:.6rem;height:.25rem;border-radius: .03rem;color:#FFF;font-size:.13r
 .admin-member-list li>*{float:left;}
 .admin-member-list li .member-head{width: .45rem;height: .45rem;position:relative;}
 .admin-member-list li .member-head>span{width: .45rem;height: .45rem;border-radius:.45rem;overflow:hidden;display:block;position:relative;}
-.admin-member-list li .member-info{width: 2.2rem;height: .45rem;position:relative;margin-left:.1rem;}
+.admin-member-list li .member-info{width: 2.19rem;height: .45rem;position:relative;margin-left:.1rem;}
 .admin-member-list li .member-info h5{font-size:.15rem;line-height:.25rem;color:#323232;font-weight:600;}
 .admin-member-list li .member-info h6{font-size:.12rem;color:#323232;font-weight:100;}
 

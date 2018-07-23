@@ -26,7 +26,7 @@ body,html{width:100%;height:100%;}
 .info-title { float: left; width: 0.84rem; margin-left: 0.16rem; margin-right: .16rem; font-size: 0.14rem; font-family: "microsoft yahei"; font-weight: 600; color: #323232; }
 .info-input { width: 60%; border: none; outline: none; font-size: 0.14rem; font-family: "microsoft yahei"; font-weight: 600; color: #323232; }
 
-.member_code_post{position: absolute;right: 0.15rem;top:0.1rem;color: #FFF;border:0px #FF6767 none;background:rgba(0,0,0,0);width:.8rem;height:.3rem;background:#FF6767;border-radius:0.03rem;}
+.member_code_post{position: absolute;right: 0.15rem;top:0.1rem;color: #FFF;border:0px #FF6767 none;background:rgba(0,0,0,0);width:.9rem;height:.3rem;background:#FF6767;border-radius:0.03rem;}
 
 .form-submit{display: block;width:3.45rem;height:.44rem;background:#FF6767;border:none;border-radius:.03rem;color:#FFF;margin:.3rem auto;margin-bottom:.15rem;}
 .form-remark{font-size:.11rem;color:#AAA;font-weight:100;margin:0 .15rem;}

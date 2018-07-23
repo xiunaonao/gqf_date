@@ -63,7 +63,7 @@ var vapp = new Vue({
 		    $(".alert_msg").show();
 		    setTimeout('$(".alert_msg").hide()', 2000);
     		return;
-    	}    	
+    	}
     	if(this.code_cool!=0){
     		return;
     	}

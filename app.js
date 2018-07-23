@@ -10,6 +10,7 @@ var usersRouter = require('./routes/users');
 var dating_apiRouter=require('./routes/dating_api')
 var apiRouter=require('./routes/api')
 var adminRouter=require('./routes/admin')
+var adminapiRouter=require('./routes/admin_api')
 var ver=require('./package.json').version
 console.log('project version:'+ver)
 
@@ -38,6 +39,7 @@ app.use('/users', usersRouter)
 app.use('/dating_api', dating_apiRouter)
 app.use('/api',apiRouter)
 app.use('/admin',adminRouter)
+app.use('/admin_api',adminapiRouter)
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

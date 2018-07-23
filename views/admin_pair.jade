@@ -1,32 +1,38 @@
 extends admin_layout
 
 block content
-	ul.admin-pair-list
-		li
-			dl.member-dl
-				dt
-					img(src="/temp/file-1532054756078.jpg" alt="")
-				dd
-					p.member-name 胡歌
-					p.member-info
-						span.member_age 26
-						span.member-stature 185cm
-						span.member_weight 250kg
-				button.blue-bg 一键呼出
-			dl.member-dl
-				dt
-					img(src="/temp/file-1532054756078.jpg" alt="")
-				dd
-					p.member-name 胡歌
-					p.member-info
-						span.member_age 26
-						span.member-stature 185cm
-						span.member_weight 250kg
-				button.blue-bg 一键呼出
-			//.pair-value
-				label 匹配度
-				strong 99
-			.pair-value
-				img.follow(src="/img/follow.png")
-				span 互相关注
-			
+	#pair
+		ul.admin-pair-list
+			li(v-for='obj in data')
+				dl.member-dl
+					dt
+						img(v-bind:src="obj.img1" alt="")
+					dd
+						p.member-name {{obj.name1}}
+						p.member-info
+							span.member_age {{getAge(obj.id1)}}
+							span.member-stature {{obj.h1}}cm
+							span.member_weight {{obj.w1}}kg
+					a(v-bind:href='"tel:"+obj.tel1')
+						button.blue-bg 一键呼出
+				dl.member-dl
+					dt
+						img(v-bind:src="obj.img2" alt="")
+					dd
+						p.member-name {{obj.name2}}
+						p.member-info
+							span.member_age {{getAge(obj.id2)}}
+							span.member-stature {{obj.h2}}cm
+							span.member_weight {{obj.w2}}kg
+					a(v-bind:href='"tel:"+obj.tel2')
+						button.blue-bg 一键呼出
+				if(type==1)
+					.pair-value
+						label 匹配度
+						strong 99
+				if(type==2)
+					.pair-value
+						img.follow(src="/img/follow.png")
+						span 互相关注
+	if(type==2)
+		script(src='/js/admin/multi.js')

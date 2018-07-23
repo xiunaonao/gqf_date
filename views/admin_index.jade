@@ -1,30 +1,23 @@
 extends admin_layout
 
 block content
-	ul.admin-member-list
-		li
-			.member-head
-				span
-					img.img-mid(src="/temp/file-1532054756078.jpg")
-				i
-			.member-info
-				h5
-					label 方文山
-					label 13岁
-				h6	杭州泓唛网络科技有限公司
-			.member-btn
-				button.blue-bg 审核
-		li
-			.member-head
-				span
-					img(src="/temp/file-1532054756078.jpg")
-				i
-			.member-info
-				h5
-					label 方文山
-					label 13岁
-				h6	杭州泓唛网络科技有限公司
-			.member-btn
-				button.gray-bg 删除 
+	#index.admin-main(v-cloak)
+		ul.admin-member-list
+			li(v-for='obj in data')
+				.member-head
+					span
+						img.img-mid(v-bind:src="obj.head_img")
+					i
+				.member-info
+					h5
+						label {{obj.member_name}}
+						label &nbsp;{{getAge(obj.day_of_birth)}}岁
+					h6	{{obj.work_unit}}
+				.member-btn
+					button.blue-bg(v-if='obj.review_status==0') 审核
+					button.blue-gray(v-if='obj.review_status==1') 删除
+	script.
+			var user_type=#{type?type:1}
+	script(src="/js/admin/index.js")
 
 		

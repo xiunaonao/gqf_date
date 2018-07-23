@@ -1,44 +1,52 @@
-<header class="title">
-	<a class="back_a" href="#home"><img src="/img/返回.png" alt="" /></a>
-	<lable>会员注册</lable>
-</header>
-<div class="banner">
-	<div class="banner-main">
-		<ul>
-			<li>
-				<a>
-					<img src="/img/通栏.jpg"/>
-					<h3>姻为有你，缘聚长兴</h3>
-				</a>
-			</li>
-		</ul>
+<div id="register">
+	<header class="title">
+		<a class="back_a" href="#home"><img src="/img/返回.png" alt="" /></a>
+		<label>会员注册</label>
+	</header>
+	<div class="banner">
+		<div class="banner-main">
+			<ul>
+				<li>
+					<a>
+						<img src="/img/通栏.jpg"/>
+						<h3>姻为有你，缘聚长兴</h3>
+					</a>
+				</li>
+			</ul>
+		</div>
+		<div class="banner-bar">
+			<ul>
+				<li><button class="red-bg"></button></li>
+			</ul>
+		</div>
 	</div>
-	<div class="banner-bar">
-		<ul>
-			<li><button class="red-bg"></button></li>
-		</ul>
-	</div>
-</div>
 
-<div class="form-box register">
-	<div class="editor-info">
-		<span class="info-title">姓名</span>
-		<input class="info-input" placeholder="请输入姓名" />
+	<div class="form-box register">
+		<div class="editor-info">
+			<span class="info-title">姓名</span>
+			<input class="info-input" placeholder="请输入姓名" v-model="data.member_name" />
+		</div>
+		<div class="editor-info">
+			<span class="info-title">身份证</span>
+			<input class="info-input" placeholder="请输入身份证号码" v-model="data.member_cardno" />
+		</div>
+		<div class="editor-info">
+			<span class="info-title">手机号</span>
+			<input class="info-input" placeholder="请输入手机号码" v-model="data.mobile"/>
+		</div>
+		<div class="editor-info">
+	   		<span class="info-title">验证码</span>
+	        <input class="info-input" type="text" placeholder="请输入验证码" v-model="code"/>
+	        <button class="member_code_post" v-on:click="postCode">{{code_cool==0?'发送验证码':'重新发送('+code_cool+')'}}</button>
+	    </div>
+	    <button class="form-submit" v-on:click="reg()">立即注册</button>
+	    <h6 class="form-remark">* 本人承诺以上资料真实有效，由此带来的法律责任由本人自行承担</h6>
+	    <h6 class="form-remark">* 个人身份证号、手机信息将严格保密</h6>
 	</div>
-	<div class="editor-info">
-		<span class="info-title">身份证</span>
-		<input class="info-input" placeholder="请输入身份证号码" />
-	</div>
-	<div class="editor-info">
-		<span class="info-title">手机号</span>
-		<input class="info-input" placeholder="请输入手机号码" />
-	</div>
-	<div class="editor-info">
-   		<span class="info-title">验证码</span>
-        <input class="info-input" type="text" v-model="code" placeholder="请输入验证码" />
-        <button class="member_code_post" v-on:click="postCode">发送验证码</button>
+
+
+    <div class="alert_msg">
+        <p></p>
     </div>
-    <button class="form-submit">立即注册</button>
-    <h6 class="form-remark">* 本人承诺以上资料真实有效，由此带来的法律责任由本人自行承担</h6>
-    <h6 class="form-remark">* 个人身份证号、手机信息将严格保密</h6>
+
 </div>

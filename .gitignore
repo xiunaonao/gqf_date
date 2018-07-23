@@ -3,5 +3,4 @@ node_modules/*
 /uploads_temp
 /public/temp/*
 /server/mssql.js
-mssql.js
 dataServer.json

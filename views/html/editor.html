@@ -313,7 +313,7 @@
         <div class="editor_info editor_bot">
             <div class="info_top">
                 <span class="info_title">单位类别</span>
-                <span class="select_text" id="member_gender" data-val="1">{{companyCategory[companyCategoryIndex]}}</span>
+                <span class="select_text"  data-val="1">{{companyCategory[companyCategoryIndex]}}</span>
                 <img class="open_select" src="/img/展开.png"/>
             </div>
             <div class="select_div">
@@ -454,10 +454,10 @@
             <span class="info_title">手机号码</span>
             <input class="info_input" id="member_tel" type="text" value="" placeholder="请输入个人联系方式（信息严格保密，不会显示给其他用户）" />
         </div>
-        <div class="editor_info">
+        <div class="editor_info" style="position:relative;">
             <span class="info_title">短信验证码</span>
             <input class="info_input" id="member_code" type="text" v-model="code" placeholder="" />
-            <button class="member_code_post" v-on:click="postCode">{{code_cool==0?'发送验证码':('重新发送('+code_cool+'s)')}}</button>
+            <button class="member_code_post" style="color:red;" v-on:click="postCode">{{code_cool==0?'发送验证码':('重新发送('+code_cool+'s)')}}</button>
         </div>      
 
 

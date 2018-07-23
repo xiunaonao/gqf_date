@@ -13,22 +13,22 @@ html
 				.head-box
 					img(src="/temp/file-1532054756078.jpg")
 					.card-info
-						h5 张晓明
-						h6 工作人员/志愿者
+						h5=data[0].name
+						h6=usertype==1?'管理员':'志愿者'
 				ul.todo-info
 					li
-						h5 3
+						h5=data[1].usernum
 						h6 报名待审核
 					li
-						h5 3
+						h5 0
 						h6 心动匹配
 						i.line
 					li
-						h5 3
+						h5=data[2].multinum
 						h6 互相关注
 						i.line
 					li
-						h5 3
+						h5=data[3].volunteernum
 						h6 待审志愿者
 						i.line
 

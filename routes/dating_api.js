@@ -102,7 +102,7 @@ router.get('/list',(req,res,next)=>{
 router.get('/new_user',(req,res,next)=>{
 	let body=req.body
 	let openid=req.cookies['union_oid']
-	msql.exist('dating_member_info',`openid='${openid}'`,(err,result,count)=>{
+	mssql.exist('dating_member_info',`openid='${openid}'`,(err,result,count)=>{
 		if(count<=0){
 			res.json({success:true,msg:'新用户注册'});
 		}else{
@@ -114,15 +114,38 @@ router.get('/new_user',(req,res,next)=>{
 router.post('/register',(req,res,next)=>{
 	let body=req.body;
 	let openid=req.cookies['union_oid']
-	let rowsKey={
-		id:'id',
-		member_cardno:'num',
-		openid:'',
-		sex:'num',
-		day_of_birth:'date',
-		create_time:'date',
-		mobile:''
-	}
+	let rowsKey=
+		{
+			//id:'id',
+			member_cardno:'num',
+			card_number:'',
+			mobile:'',
+			openid:'',
+			head_img:'',
+			member_name:'',
+			sex:'num',
+			day_of_birth:'date',
+			domicile:'',
+			house_nature:'',
+			work_unit:'',
+			job:'',
+			education:'num',
+			annual_income:'num',
+			college:'',
+			health:'',
+			height:'num',
+			weight:'num',
+			nation:'',
+			housing:'',
+			car_buying:'',
+			hobby:'',
+			special:'',
+			create_time:'date',
+			unit_property:'num',
+			income_type:'num',
+			industry:''
+		}
+	let rows={}
 	for(let i=0;i<Object.keys(rowsKey).length;i++){
 		let key=Object.keys(rowsKey)[i]
 		rows[key]={}
@@ -133,6 +156,7 @@ router.post('/register',(req,res,next)=>{
 		}
 		rows[key].type=rowsKey[key]
 	}
+
 	//rows.member_cardno={value:memberNo,type:'num'}
 	rows.openid={value:openid,type:''}
 	mssql.exist('dating_member_info',` openid='`+rows.openid.value+`'`,(err,result,count)=>{
@@ -140,16 +164,51 @@ router.post('/register',(req,res,next)=>{
 			res.json({success:false,msg:'请不要重复注册'});
 		}else{
 			rows.delete_flag={value:0,type:'bool'}
-			mssql.insert('dating_member_info',rows,(err,result,count,newid)=>{
+			mssql.insert('dating_member_info',rows,(err,result,count)=>{
 				let json={}
 				if(err){
 					json.success=false
 					json.message=err
 				}else{
-					json.success=true
-					json.message='操作成功'
-					json.count=count
-					json.id=newid
+					let rowsKey={
+				        member_cardno:'num',
+				        openid:'',
+				        age_range:'',
+				        height_range:'',
+				        weight_range:'',
+				        job:'',
+				        income_range:'',
+				        housing:'',
+				        car_buying:'',
+				        house_nature:'',
+				        delete_flag:'num'
+					}
+					let rows={}
+					for(let i=0;i<Object.keys(rowsKey).length;i++){
+						let key=Object.keys(rowsKey)[i]
+						rows[key]={}
+						rows[key].value=body[key]
+						rows[key].type=rowsKey[key]
+					}
+					rows.delete_flag={value:0,type:'bool'}
+					rows.openid.value=openid
+					mssql.insert('dating_mate_standard',rows,(err,result,count)=>{
+							// let json={}
+							// if(err){
+							// 	json.success=false
+							// 	json.message=err
+							// }else{
+							// 	json.success=true
+							// 	json.message='操作成功'
+							// 	json.count=count
+							// 	json.id=newid
+							// }
+							// res.json(json)
+						
+						json.success=true
+						json.message='操作成功'
+						json.count=count
+					})
 				}
 				res.json(json)
 			})
@@ -214,7 +273,6 @@ router.post('/insert_or_update',(req,res,next)=>{
 	
 
 		if(count>0){
-			rows.id.value=result[0].id
 			mssql.update('dating_member_info',rows,`id='${result[0].id}'`,(err,result,count)=>{
 				let json={}
 				if(err){
@@ -224,13 +282,13 @@ router.post('/insert_or_update',(req,res,next)=>{
 					json.success=true
 					json.message='操作成功'
 					json.count=count
-					json.id=rows.id.value
+					//json.id=rows.id.value
 				}
 				res.json(json)
 			})
 		}else{
 			rows.delete_flag={value:0,type:'bool'}
-			mssql.insert('dating_member_info',rows,(err,result,count,newid)=>{
+			mssql.insert('dating_member_info',rows,(err,result,count)=>{
 				let json={}
 				if(err){
 					json.success=false
@@ -239,7 +297,7 @@ router.post('/insert_or_update',(req,res,next)=>{
 					json.success=true
 					json.message='操作成功'
 					json.count=count
-					json.id=newid
+					//json.id=newid
 				}
 				res.json(json)
 			})
@@ -345,7 +403,7 @@ router.post('/insert_or_update_standard',(req,res,next)=>{
 	let openid=req.cookies['union_oid']
 
 	let rowsKey={
-		id:'id',
+		//id:'id',
         member_cardno:'num',
         openid:'',
         age_range:'',
@@ -370,7 +428,7 @@ router.post('/insert_or_update_standard',(req,res,next)=>{
 	//console.log(rows)
 	mssql.exist('dating_mate_standard',` openid='${openid}'`,(err,result,count)=>{
 		if(count>0){
-			rows.id.value=result[0].id
+			//rows.id={value:result[0].id}
 			mssql.update('dating_mate_standard',rows,`id='${result[0].id}'`,(err,result,count)=>{
 				let json={}
 				if(err){
@@ -380,13 +438,13 @@ router.post('/insert_or_update_standard',(req,res,next)=>{
 					json.success=true
 					json.message='操作成功'
 					json.count=count
-					json.id=rows.id.value
+					//json.id=rows.id.value
 				}
 				res.json(json)
 			})
 		}else{
 			rows.delete_flag={value:0,type:'bool'}
-			mssql.insert('dating_mate_standard',rows,(err,result,count,newid)=>{
+			mssql.insert('dating_mate_standard',rows,(err,result,count)=>{
 				let json={}
 				if(err){
 					json.success=false
@@ -395,7 +453,7 @@ router.post('/insert_or_update_standard',(req,res,next)=>{
 					json.success=true
 					json.message='操作成功'
 					json.count=count
-					json.id=newid
+					//json.id=newid
 				}
 				res.json(json)
 			})

@@ -61,10 +61,24 @@
         <footer id="footer">
 
         </footer>
+        
+        <div class="alert_msg">
+            <p></p>
+        </div>
     </body>
     <script src="/js/sys/router.js?v=0.08"></script>
     <!-- <script src="/scripts/shared/newsLayout.js"></script> -->
     <script>
+
+        function _alert(msg,callback){
+            $(".alert_msg p").html(msg);
+            $(".alert_msg").show();
+            setTimeout(function(){
+                $(".alert_msg").hide()
+                if(callback)
+                    callback();
+            }, 2000);
+        }
         window.ver=location.search.substr(location.search.indexOf('v=')+2)
         window.linkTo();
         //var hash=location.hash.replace('#','');
