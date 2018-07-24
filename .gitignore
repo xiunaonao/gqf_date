@@ -2,4 +2,3 @@ node_modules
 node_modules/*
 /uploads_temp
 /public/temp/*
-/server/mssql.js
