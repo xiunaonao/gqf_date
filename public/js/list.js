@@ -191,9 +191,9 @@ jQuery(function(){
 	                    dat=JSON.parse(data.data);
 	                }
 					for(var i=0;i<dat.data.length;i++){
-						if(dat.count<=(dat.size*(dat.page-1)+i)){
-							break;
-						}
+						// if(dat.count<=(dat.size*(dat.page-1)+i)){
+						// 	break;
+						// }
 						this.news.push(dat.data[i])
 					}
 					delete sessionStorage.listPost
