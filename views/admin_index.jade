@@ -16,8 +16,8 @@ block content
 				.member-btn
 					button.blue-bg(v-if='obj.review_status==0',v-on:click='examine(obj,1)') 通过
 					button.blue-gray(v-if='obj.review_status==0',v-on:click='examine(obj,-1)') 拒绝
-					button.blue-gray(v-if='obj.review_status==1') 已通过
-					button.blue-gray(v-if='obj.review_status==-1') 已拒绝
+					button.blue-red(v-if='obj.review_status==1') 已通过
+					button.blue-red(v-if='obj.review_status==-1') 已拒绝
 	script.
 			var user_type=#{(!type)?0:type}
 	script(src="/js/admin/index.js")

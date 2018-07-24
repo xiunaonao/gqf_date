@@ -9,7 +9,7 @@ var vapp=new Vue({
 	methods:{
 		admin_list:function(){
 			var scope=this;
-			axios.get('/admin_api/admin_list?page='+scope.page+'&size='+scope.size+(scope.type!=1?('&usertype='+scope.type):'')+(scope.status!=2?('&status='+scope.status):'')).then(function(res){
+			axios.get('/admin_api/admin_list?page='+scope.page+'&size='+scope.size+(scope.type!=-2?('&usertype='+scope.type):'')+(scope.status!=2?('&status='+scope.status):'')).then(function(res){
 				scope.data=res.data.data
 			})
 		},
