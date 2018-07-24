@@ -73,7 +73,7 @@ button{width:.6rem;height:.25rem;border-radius: .03rem;color:#FFF;font-size:.13r
 .member-info { padding-left: 0.11rem; padding-bottom: 0.14rem; font-size: 0.11rem; font-family: "microsoft yahei"; color: #AAAAAA; }
 .member-info span { font-size: 0.11rem; }
 .member-stature { padding-left: 0.12rem; }
-.admin-pair-list{position:relative;}
+.admin-pair-list{position:relative;padding-bottom:.5rem;}
 .admin-pair-list .pair-value{position: absolute;top:.71rem;left:50%;text-align: center;border-radius:.6rem;
 	-webkit-transform:translateX(-50%);z-index:9;width:.6rem;height:.6rem;background:-webkit-linear-gradient(#0B69CE, #DD73EA);
 }
@@ -105,7 +105,7 @@ button{width:.6rem;height:.25rem;border-radius: .03rem;color:#FFF;font-size:.13r
 }
 input,button{-webkit-appearance:none;}
 
-.admin-pair-list li{height:2.8rem;}
+.admin-pair-list li{height:2.8rem;position:relative;}
 .admin-pair-list .pair-value>*{float:left;width:100%;text-align:center;color:#FFF;}
 .admin-pair-list .pair-value>label{font-size:.1rem;margin-top:.1rem;margin-bottom:.01rem;}
 .admin-pair-list .pair-value>strong{font-size:.18rem;}

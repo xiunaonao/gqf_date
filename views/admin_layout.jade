@@ -12,7 +12,7 @@ html
 		.admin-box#app
 			.admin-card
 				.head-box
-					img(src="/temp/file-1532054756078.jpg")
+					img(src="#{data[0].head_img}")
 					.card-info
 						h5=data[0].name
 						h6=usertype==1?'管理员':'志愿者'
@@ -28,7 +28,7 @@ html
 						i.line
 					li
 						a(href='/admin/pair?type=like')
-							h5=data[2].multinum
+							h5=data[2].multinum/2
 							h6 互相关注
 						i.line
 					li
@@ -41,7 +41,7 @@ html
 			.admin-menu-bottom
 				ul
 					li
-						a(href='/admin/')
+						a(href='/admin/?type=2')
 							img(src="/img/user_admin.png")
 							label 用户管理
 					li
