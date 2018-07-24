@@ -2,6 +2,7 @@ doctype html
 html
 	head
 		title= title
+		meta(name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1, user-scalable=no")
 		link(rel='stylesheet', href='/css/admin.css')
 		script(src="/js/sys/mobile.js")
 		script(src="/js/sys/vue.js")
@@ -17,43 +18,58 @@ html
 						h6=usertype==1?'管理员':'志愿者'
 				ul.todo-info
 					li
-						h5=data[1].usernum
-						h6 报名待审核
+						a(href='/admin/')
+							h5=data[1].usernum
+							h6 报名待审核
 					li
-						h5 0
-						h6 心动匹配
+						a(href='/admin/pair')
+							h5 0
+							h6 心动匹配
 						i.line
 					li
-						h5=data[2].multinum
-						h6 互相关注
+						a(href='/admin/pair?type=like')
+							h5=data[2].multinum
+							h6 互相关注
 						i.line
 					li
-						h5=data[3].volunteernum
-						h6 待审志愿者
+						a(href="/admin/volunteer")
+							h5=data[3].volunteernum
+							h6 待审志愿者
 						i.line
 
 			block content
 			.admin-menu-bottom
 				ul
 					li
-						a
+						a(href='/admin/')
 							img(src="/img/user_admin.png")
 							label 用户管理
 					li
-						a
+						a(href='/admin/pair?type=like')
 							img(src="/img/pair_admin.png")
 							label 心动匹配
 					li
-						a
+						a(href='/admin/notice')
 							img(src="/img/wechat_admin.png")
 							label 微信通知
 					li
-						a
+						a(href='/admin/banner')
 							img(src="/img/active_admin.png")
-							label 用户管理
+							label 活动通知
 					li
-						a
+						a(href="/admin/volunteer")
 							img(src="/img/auth_admin.png")
-							label 用户管理
-
+							label 权限管理
+		.alert_msg
+			p
+		script.
+			function _alert(msg,callback){
+				document.querySelector(".alert_msg p").innerHTML=msg;
+				document.querySelector(".alert_msg").style.display='block';
+				setTimeout(function(){
+				document.querySelector(".alert_msg").style.display='none';
+					if(callback)
+						callback();
+				}, 2000);
+			}
 

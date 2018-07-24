@@ -5,9 +5,6 @@ let mssql=require('../server/mssql')
 
 router.get('/list',(req,res,next)=>{
 	let openid=req.cookies['union_oid']
-	if(req.query.sys==123){
-		openid='123'
-	}
 	if(!openid){
 		res.json({success:false,message:'登录已过期'})
 		return
@@ -16,8 +13,9 @@ router.get('/list',(req,res,next)=>{
 	let where={
 		size:query.size?parseInt(query.size):20,
 		page:query.page?parseInt(query.page):1,
-		order_type:query.order_type?query.order_type:'desc',
-		order:query.order?query.order:'create_time',
+		//order_type:query.order_type?query.order_type:'desc',
+		order:query.order?query.order:'id desc',
+		openid:openid,
 		filter:''
 	}
 	//where.filter+=` and openid <> '${openid}' `
@@ -27,8 +25,8 @@ router.get('/list',(req,res,next)=>{
 		let maxage=parseInt(query.age.split('-')[1])
 		let nowYear=(new Date()).getFullYear()
 
-		where.filter+=` and day_of_birth<='${nowYear-minage}-${new Date().getMonth()+1}-${new Date().getDate()}'`
-		where.filter+=` and day_of_birth>='${nowYear-maxage}-${new Date().getMonth()+1}-${new Date().getDate()}'`
+		where.filter+=` and day_of_birth<=''${nowYear-minage}-${new Date().getMonth()+1}-${new Date().getDate()}''`
+		where.filter+=` and day_of_birth>=''${nowYear-maxage}-${new Date().getMonth()+1}-${new Date().getDate()}''`
 	}
 
 	if(query.height && query.height.indexOf('-')>-1){
@@ -58,25 +56,27 @@ router.get('/list',(req,res,next)=>{
 	if(query.housing){
 		console.log('房子情况：'+query.housing);
 		let str="";
-		where.filter+=` and housing=${(query.housing=="不限"?"''":"'"+query.housing+"'")}`
+		where.filter+=` and housing=${(query.housing=="不限"?"''''":"''"+query.housing+"''")}`
 	}
 
 	if(query.car_buying){
-		where.filter+=` and car_buying=${(query.car_buying=='不限'?"''":"'"+query.car_buying+"'")}`
+		where.filter+=` and car_buying=${(query.car_buying=='不限'?"''''":"''"+query.car_buying+"''")}`
 	}
 
+	//mssql.query_dating('',where,(err,result,count)=>{})
+	//return;
 
-	mssql.query('dating_member_info',where,(err,result,count)=>{
-		mssql.exec(`select top 1 age_range,job,income_range,house_nature,housing from dating_mate_standard where openid='${openid}'`,(err,result2,count2)=>{
+	mssql.query_dating('dating_member_info',where,(err,result,count)=>{
+		//mssql.exec(`select top 1 age_range,job,income_range,house_nature,housing from dating_mate_standard where openid='${openid}'`,(err,result2,count2)=>{
 
-				for(var i=0;i<result.length;i++){
-					if(result2){
-						let v=dating_total_only(result2[0],result[i])
-						result[i].matching=v;
-					}else{
-						result[i].matching=0
-					}
-				}
+			// for(var i=0;i<result.length;i++){
+			// 	if(result2){
+			// 		let v=dating_total_only(result2[0],result[i])
+			// 		result[i].matching=v;
+			// 	}else{
+			// 		result[i].matching=0
+			// 	}
+			// }
 
 			
 			//console.log(result)
@@ -95,8 +95,8 @@ router.get('/list',(req,res,next)=>{
 			}
 			res.json(json)
 
-		})
-	},'',` is_like=(select count(mind_openid) from dating_mind_member where mind_openid=m_table.openid and openid='${openid}' and delete_flag=0)`)
+		//})
+	})
 })
 
 router.get('/new_user',(req,res,next)=>{
@@ -143,7 +143,8 @@ router.post('/register',(req,res,next)=>{
 			create_time:'date',
 			unit_property:'num',
 			income_type:'num',
-			industry:''
+			industry:'',
+			review_status:'num'
 		}
 	let rows={}
 	for(let i=0;i<Object.keys(rowsKey).length;i++){
@@ -503,9 +504,6 @@ router.get('/like',(req,res,next)=>{
 
 
 		let rows={
-			id:{
-				type:'id'
-			},
 			openid:{
 				type:'',
 				value:openid
@@ -642,43 +640,43 @@ router.get("/execl",(req,res,next)=>{
 function dating_total(mid,openid,callback){
 	//day_of_birth,job,house_nature,annual_income,housing
 	let strSql=`
-		select top 1 * from dating_member_info where id='${mid}';
-		select top 1 age_range,job,income_range,house_nature,housing from dating_mate_standard where openid='${openid}';
-		select liknnum=count(id) from dating_mind_member WHERE openid='${openid}' and mind_type=2 and delete_flag=0;
+		select top 1 * from dating_member_info where id=${mid};
+		--select top 1 age_range,job,income_range,house_nature,housing from dating_mate_standard where openid='${openid}';
+		select likenum=count(id) from dating_mind_member WHERE openid='${openid}' and mind_type=2 and delete_flag=0;
 	`
 	mssql.exec(strSql,(err,result,count)=>{
 		let v=0
-		if(result[0].day_of_birth || result[1].age_range){
-			let dayStr=result[0].day_of_birth
-			let age=parseInt(new Date()-dayStr)/(365*24*3600*1000)
-			let min_age=result[1].age_range.split('-')[0]
-			let max_age=result[1].age_range.split('-')[1]
+		// if(result[0].day_of_birth || result[1].age_range){
+		// 	let dayStr=result[0].day_of_birth
+		// 	let age=parseInt(new Date()-dayStr)/(365*24*3600*1000)
+		// 	let min_age=result[1].age_range.split('-')[0]
+ 		// 	let max_age=result[1].age_range.split('-')[1]
 
-			if(age>=parseInt(min_age) && age<=parseInt(max_age)){
-				v+=20
-			}
-		}
-		if(result[0].job==result[1].job){
-			v+=20
-		}		
-
-		// if(result[0].annual_income || result[1].income_range){
-		// 	let income=parseFloat(result[0].annual_income)
-		// 	let min_income=result[1].income_range.split('-')[0]
-		// 	let max_income=result[1].income_range.split('-')[1]
-		// 	if(income>=parseFloat(min_income) && income<=parseFloat(max_income)){
+		// 	if(age>=parseInt(min_age) && age<=parseInt(max_age)){
 		// 		v+=20
 		// 	}
 		// }
-		if(result[0].house_nature==result[1].house_nature){
-			v+=20
-		}	
+		// if(result[0].job==result[1].job){
+		// 	v+=20
+		// }		
 
-		if(result[0].housing==result[1].housing){
-			v+=20
-		}	
+		// // if(result[0].annual_income || result[1].income_range){
+		// // 	let income=parseFloat(result[0].annual_income)
+		// // 	let min_income=result[1].income_range.split('-')[0]
+		// // 	let max_income=result[1].income_range.split('-')[1]
+		// // 	if(income>=parseFloat(min_income) && income<=parseFloat(max_income)){
+		// // 		v+=20
+		// // 	}
+		// // }
+		// if(result[0].house_nature==result[1].house_nature){
+		// 	v+=20
+		// }	
 
-		callback(err,result[0].openid,v,result[2].liknnum)
+		// if(result[0].housing==result[1].housing){
+		// 	v+=20
+		// }	
+		console.log(result[0])
+		callback(err,result[0].openid,v,result[1].likenum)
 	})
 
 }

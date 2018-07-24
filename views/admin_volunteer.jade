@@ -1,7 +1,7 @@
 extends admin_layout
 
 block content
-	#volunteer[v-cloak]
+	#volunteer(v-cloak)
 		ul.admin-member-list
 			li(v-for="obj in data")
 				.member-head
@@ -14,8 +14,12 @@ block content
 						label &nbsp;
 					h6	{{obj.work_unit}}
 				.member-btn
-					i.checkbox.checked
-	script var type=#{type!=undefined?type:undefined};
+					button.blue-bg(v-if='obj.review_status==0',v-on:click='examine(obj,1)') 通过
+					button.blue-gray(v-if='obj.review_status==0',v-on:click='examine(obj,-1)') 拒绝
+					button.blue-gray(v-if='obj.review_status==1') 已通过
+					button.blue-gray(v-if='obj.review_status==-1') 已拒绝
+					//i.checkbox.checked
+	script var type=#{type?type:2}; var status=#{status?status:0}
 	script(src="/js/admin/volunteer.js")
 
 		

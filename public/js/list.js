@@ -25,6 +25,11 @@ jQuery(function(){
 			pageIndex:1,
 			yourid:'',
 			head_img:'/img/noheadimg.png',
+			orderArr:[
+				{name:'mind_count',value:'desc'},
+				{name:'score',value:'desc'},
+				{name:'id',value:'desc'},
+			],
 			listParam:{}
 		},
 		methods:{
@@ -45,7 +50,11 @@ jQuery(function(){
 				var listPost = sessionStorage.getItem("listPost");
 				console.log("listPost:"+listPost);
 				if(listPost==null){
-					var getUrl = 'dating_api/list?page=1&size=20&order_type=desc';
+
+					var orderStr=scope.orderArr[0].name+' '+scope.orderArr[0].value+',';
+					orderStr+=scope.orderArr[1].name+' '+scope.orderArr[1].value+',';
+					orderStr+=scope.orderArr[2].name+' '+scope.orderArr[2].value+'';
+					var getUrl = 'dating_api/list?page=1&size=20&order='+orderStr;
 					this.$http.get(getUrl).then(function(data){
 						var dat = data.data;
 						if(typeof dat == 'string'){
@@ -59,7 +68,10 @@ jQuery(function(){
 				}else{
 					var listArr = JSON.parse(sessionStorage.listPost);
 					console.log(listArr.age);
-					var getUrl = 'dating_api/list?page=1&size=20&order_type=desc&order=day_of_birth&age='+listArr.age+'&height='+listArr.height+'&education='+listArr.education+'&annual_income='+listArr.annual_income+'&housing='+listArr.housing+'&car_buying='+listArr.car_buying;
+					var orderStr=scope.orderArr[0].name+' '+scope.orderArr[0].value+',';
+					orderStr+=scope.orderArr[1].name+' '+scope.orderArr[1].value+',';
+					orderStr+=scope.orderArr[2].name+' '+scope.orderArr[2].value+'';
+					var getUrl = 'dating_api/list?page=1&size=20order='+orderStr+'&age='+listArr.age+'&height='+listArr.height+'&education='+listArr.education+'&annual_income='+listArr.annual_income+'&housing='+listArr.housing+'&car_buying='+listArr.car_buying;
 					this.$http.get(getUrl).then(function(data){
 						var dat = data.data;
 						if(typeof dat == 'string'){
@@ -94,6 +106,51 @@ jQuery(function(){
 					}
 				});
 			},
+			getFirstData:function(){
+				this.pageIndex=0;
+				this.news=[]
+				var scope=this
+				if(!this.pageCool){
+					return;
+				}
+				this.pageIndex++;
+				var listArr=this.listParam
+					var orderStr=scope.orderArr[0].name+' '+scope.orderArr[0].value+',';
+					orderStr+=scope.orderArr[1].name+' '+scope.orderArr[1].value+',';
+					orderStr+=scope.orderArr[2].name+' '+scope.orderArr[2].value+'';
+				var getUrl = 'dating_api/list?page='+this.pageIndex+'&size=20&order='+orderStr;
+				if(listArr.age){
+				 getUrl+='&age='+listArr.age;
+				}
+				if(listArr.height){
+				 getUrl+='&height='+listArr.height;
+				}
+				if(listArr.education){
+				 getUrl+='&education='+listArr.education;
+				}
+				if(listArr.annual_income){
+				 getUrl+='&annual_income='+listArr.annual_income;
+				}
+				if(listArr.housing){
+				 getUrl+='&housing='+listArr.housing;
+				}
+				if(listArr.car_buying){
+				 getUrl+='&car_buying='+listArr.car_buying;
+				}
+				this.$http.get(getUrl).then(function(data){
+					var dat = data.data;
+					if(typeof dat == 'string'){
+	                    dat=JSON.parse(data.data);
+	                }
+					for(var i=0;i<dat.data.length;i++){
+						if(dat.count<=(dat.size*(dat.page-1)+i)){
+							break;
+						}
+						this.news.push(dat.data[i])
+					}
+					delete sessionStorage.listPost
+				});
+			},
 			getMoreData:function(){
 				var scope=this
 				if(!this.pageCool){
@@ -106,7 +163,10 @@ jQuery(function(){
 				},3000)
 				this.pageIndex++;
 				var listArr=this.listParam
-				var getUrl = 'dating_api/list?page='+this.pageIndex+'&size=20&order_type=desc';
+					var orderStr=scope.orderArr[0].name+' '+scope.orderArr[0].value+',';
+					orderStr+=scope.orderArr[1].name+' '+scope.orderArr[1].value+',';
+					orderStr+=scope.orderArr[2].name+' '+scope.orderArr[2].value+'';
+				var getUrl = 'dating_api/list?page='+this.pageIndex+'&size=20&order='+orderStr;
 				if(listArr.age){
 				 getUrl+='&age='+listArr.age;
 				}

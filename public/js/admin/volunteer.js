@@ -9,7 +9,7 @@ var vapp=new Vue({
 	methods:{
 		admin_list:function(){
 			var scope=this;
-			axios.get('/admin_api/admin_list?page='+scope.page+'&size='+scope.size+(scope.type!=undefined?('&type='+scope.type):'')).then(function(res){
+			axios.get('/admin_api/admin_list?page='+scope.page+'&size='+scope.size+(scope.type!=1?('&usertype='+scope.type):'')+(scope.status!=2?('&status='+scope.status):'')).then(function(res){
 				scope.data=res.data.data
 			})
 		},
@@ -57,10 +57,21 @@ var vapp=new Vue({
 		    }  
 		    return returnAge;//返回周岁年龄  
 		      
+		},
+		examine:function(obj,status){
+			axios.post('/admin_api/examine_admin',{status:status,id:obj.id}).then(function(res){
+				if(res.data.success){
+					_alert('操作成功');
+					obj.review_status=status;
+				}else{
+					_alert(res.data.msg);
+				}
+			})
 		}
 	},
-	mounted:funtion(){
+	mounted:function(){
 		this.type=type;
+		this.status=status;
 		this.admin_list();
 	}
 })

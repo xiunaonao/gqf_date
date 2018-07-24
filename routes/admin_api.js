@@ -5,7 +5,7 @@ let mssql=require('../server/mssql')
 
 router.post('/admin_login',(req,res,next)=>{
 	let openid=req.cookies['union_oid']
-	mssql.querySingle('dating_managers',`openid='${openid}' and review_status==1`,(err,result,count)=>{
+	mssql.querySingle('dating_managers',`openid='${openid}' and review_status=1`,(err,result,count)=>{
 		let json={data:null}
 		console.log(count)
 		if(err){
@@ -17,7 +17,7 @@ router.post('/admin_login',(req,res,next)=>{
 		if(result.length<=0){
 			res.json({
 				success:false,
-				msg:'您不是管理员，无法登录',
+				msg:'您不是管理员或者未审核完成，无法登录',
 				data:null
 			})
 		}else{
@@ -36,24 +36,29 @@ router.post('/admin_login',(req,res,next)=>{
 
 router.post('/volunteer_register',(req,res,next)=>{
 	let openid=req.cookies['union_oid']
-	mssql.querySingle('dating_managers',`openid='openid'`,(err,result,count)=>{
+	mssql.querySingle('dating_managers',`openid='${openid}'`,(err,result,count)=>{
 		if(count>0){
 			if(result[0].review_status==0){
 				res.json({success:false,msg:'您的信息正在审核，请耐心等待'})
 			}else{
-				res.json(success:false,msg:'您已经是申请成功，请点击登录')
+				res.json({success:false,msg:'您已经申请成功过，请直接登录'})
 			}
 			//res.json({success:false,msg})
 
 		}else{
-			mssql.querySingle('dating_member_info',`openid='openid'`,(err,result2,count)=>{
+			mssql.querySingle('dating_member_info',`openid='${openid}'`,(err,result2,count)=>{
 				let body=result2[0]
+				if(!body){
+					res.json({success:false,msg:'无效的用户'})
+					return;
+				}
+				console.log(result2)
 				let rowsKey={
 			        name:'',
 			        openid:'',
 			        head_img:'',
-			        user_type:'num',
-			        work_unity:'',
+			        usertype:'num',
+			        work_unit:'',
 			        mobile:'',
 			        review_status:''
 				}
@@ -62,18 +67,21 @@ router.post('/volunteer_register',(req,res,next)=>{
 					let key=Object.keys(rowsKey)[i]
 					rows[key]={}
 					rows[key].value=body[key]
+					if(rows[key].value==undefined){
+						rows[key].value=''
+					}
 					rows[key].type=rowsKey[key]
 				}
-				rows[name]=body.member_name
-				rows[review_status]=0
-
+				rows.name.value=body.member_name
+				rows.review_status.value=0
+				rows.usertype.value=2
 				mssql.insert('dating_managers',rows,(err,result,count)=>{
 					if(count>0){
-
+						res.json({success:true,msg:'已发起申请，等待管理员审核'})
 					}else{
 						res.json({success:false,msg:'网络错误，申请失败，请重试'})
 					}
-					res.json({success:true,msg:'已发起申请，等待管理员审核'})
+					
 				})
 				
 			})
@@ -93,9 +101,27 @@ router.get('/admin_list',(req,res,next)=>{
 		page:query.page?parseInt(query.page):1,
 		order_type:query.order_type?query.order_type:'desc',
 		order:query.order?query.order:'create_time',
-		filter:(query.user_type!=undefined?(` and review_status=${query.user_type}`):'')
+		//filter:(query.user_type!=undefined?(` and usertype=${query.user_type}`):'')+(query.review_status!=undefined?(` and review_status=${query.user_type}`):'')
+		filter:` and usertype=${query.usertype} and review_status=${query.status} ` 
 	}
+	mssql.exec('select * from dating_managers where 1=1 '+where.filter,(err,result,count)=>{
+		let json={}
+		if(err){
+			json.success=false
+			json.message=err
+		}else{
+			json.success=true
+			json.message='查询成功'
+			json.data=result
+			//console.log(count)
+			json.count=count
+			json.page=where.page
+			json.size=where.size
+		}
+		res.json(json)
+	})
 
+	return
 	mssql.query('dating_managers',where,(err,result,count)=>{
 		let json={}
 			if(err){
@@ -167,15 +193,16 @@ router.get('/multi_like_list',(req,res,next)=>{
 		})
 })
 
-router.get('/examine_admin',(req,res,next)=>{
+router.post('/examine_admin',(req,res,next)=>{
 	let openid=req.cookies['admin_oid']
 	if(openid=='')
 	{
 		res.json({success:false,msg:'登录已失效'})
 		return;
 	}
+	req.body.status=(req.body.status?1:-1)
 	let id=req.body.id;
-	mssql.update('dating_managers',{review_status:{type:'num',value:1}},`id='id'`,(err,result,count)=>{
+	mssql.update('dating_managers',{review_status:{type:'num',value:req.body.status}},`id=${id}`,(err,result,count)=>{
 		let json={}
 		if(count>0){
 			json.success=true
@@ -184,18 +211,20 @@ router.get('/examine_admin',(req,res,next)=>{
 			json.success=false
 			json.msg='操作失败'
 		}
+		res.json(json)
 	})
 })
 
-router.get('/examine_user',(req,res,next)=>{
+router.post('/examine_user',(req,res,next)=>{
 	let openid=req.cookies['admin_oid']
 	if(openid=='')
 	{
 		res.json({success:false,msg:'登录已失效'})
 		return;
 	}
+	req.body.status=(req.body.status?1:-1)
 	let id=req.body.id;
-	mssql.update('dating_member_info',{review_status:{type:'num',value:1}},`id='id'`,(err,result,count)=>{
+	mssql.update('dating_member_info',{review_status:{type:'num',value:req.body.status}},`id=${id}`,(err,result,count)=>{
 		let json={}
 		if(count>0){
 			json.success=true
@@ -204,6 +233,7 @@ router.get('/examine_user',(req,res,next)=>{
 			json.success=false
 			json.msg='操作失败'
 		}
+		res.json(json)
 	})
 })
 

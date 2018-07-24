@@ -11,13 +11,16 @@ var vapp=new Vue({
 					sessionStorage.admin=res.data.data;
 					location.href="/admin/";
 				}else{
-
+					_alert(res.data.msg);
 				}
 			})
 		},
 		volunteer_register:function(){
 			var scope=this;
-			axios.post('/admin_api/volunteer_register')
+			axios.post('/admin_api/volunteer_register').then(function(res){
+				_alert(res.data.msg);
+				
+			})
 		}
 	},
 	mounted:function(){

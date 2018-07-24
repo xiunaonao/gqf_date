@@ -9,7 +9,7 @@ var vapp=new Vue({
 	methods:{
 		get_user:function(){
 			var scope=this;
-			axios.get('/admin_api/user_list?size='+scope.size+'&page='+scope.page+(scope.user_type!=undefined?('&user_type='+scope.user_type):'')).then(function(res){
+			axios.get('/admin_api/user_list?size='+scope.size+'&page='+scope.page+(scope.user_type!=2?('&user_type='+scope.user_type):'')).then(function(res){
 				scope.data=res.data.data;
 			})
 		},
@@ -55,7 +55,17 @@ var vapp=new Vue({
 			    }  
 			    return returnAge;//返回周岁年龄  
 			      
-			}
+		},
+		examine:function(obj,status){
+			axios.post('/admin_api/examine_user',{status:status,id:obj.id}).then(function(res){
+				if(res.data.success){
+					_alert('操作成功');
+					obj.review_status=status;
+				}else{
+					_alert(res.data.msg);
+				}
+			})
+		}
 	},
 	mounted:function(){
 		if(user_type!=undefined){

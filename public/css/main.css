@@ -61,7 +61,7 @@ body,html{width:100%;height:100%;}
 .list-filter>a{color:#FFF;font-size:.13rem;text-indent:.35rem;background:url(/img/filter.png) .1rem .08rem/.15rem no-repeat;width:.75rem;height:.3rem;display:inline-block;line-height:.3rem;border-radius:.03rem;}
 
 .desc{background:url(/img/order_desc.png) no-repeat right .07rem center/.08rem .12rem;}
-
+.asc{background:url(/img/order_asc.png) no-repeat right .07rem center/.08rem .12rem;}
 /*system*/
 .system-body{background:#F5F5F5;height:100%;padding-top:0.5rem;box-sizing:border-box;}
 .form-admin>*{margin:.15rem .15rem 0 .15rem;width:3.45rem;}

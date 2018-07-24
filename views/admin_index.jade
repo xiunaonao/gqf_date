@@ -9,15 +9,17 @@ block content
 						img.img-mid(v-bind:src="obj.head_img")
 					i
 				.member-info
-					h5
+					h5 
 						label {{obj.member_name}}
 						label &nbsp;{{getAge(obj.day_of_birth)}}岁
 					h6	{{obj.work_unit}}
 				.member-btn
-					button.blue-bg(v-if='obj.review_status==0') 审核
-					button.blue-gray(v-if='obj.review_status==1') 删除
+					button.blue-bg(v-if='obj.review_status==0',v-on:click='examine(obj,1)') 通过
+					button.blue-gray(v-if='obj.review_status==0',v-on:click='examine(obj,-1)') 拒绝
+					button.blue-gray(v-if='obj.review_status==1') 已通过
+					button.blue-gray(v-if='obj.review_status==-1') 已拒绝
 	script.
-			var user_type=#{type?type:1}
+			var user_type=#{(!type)?0:type}
 	script(src="/js/admin/index.js")
 
 		

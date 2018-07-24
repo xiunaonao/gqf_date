@@ -26,9 +26,9 @@
 			</ul>
 		</div>
 	<div class="list-filter">
-		<button class="desc">关注度</button>
-		<button class="asc">匹配度</button>
-		<button class="desc">新报名</button>
+		<button v-bind:class="[orderArr[0].value]" v-on:click="orderArr[0].value=='desc'?orderArr[0].value='asc':orderArr[0].value='desc';getFirstData();">关注度</button>
+		<button v-bind:class="[orderArr[1].value]" v-on:click="orderArr[1].value=='desc'?orderArr[1].value='asc':orderArr[1].value='desc';getFirstData();">匹配度</button>
+		<button v-bind:class="[orderArr[2].value]" v-on:click="orderArr[2].value=='desc'?orderArr[2].value='asc':orderArr[2].value='desc';getFirstData();">新报名</button>
 		<a class="red-bg" href="#filter">筛选</a>
 	</div>
 
