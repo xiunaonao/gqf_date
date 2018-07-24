@@ -543,11 +543,13 @@ router.get('/like',(req,res,next)=>{
 					json.success=false
 					json.message=err
 				}else{
+					mssql.exec(`update dating_member_info set mind_count=mind_count+1 where openid='${mind_openid}'`,(err,result,count)=>{})
 					json.success=true
 					json.message='操作成功'
 					json.count=count
 					json.id=newid
 				}
+				//mssql.update('dating_member_info',{min{name:''}})
 				res.json(json)
 			})
 		}else{
@@ -558,6 +560,7 @@ router.get('/like',(req,res,next)=>{
 					json.success=false
 					json.message=err
 				}else{
+					mssql.exec(`update dating_member_info set mind_count=mind_count-1 where openid='${mind_openid}'`,(err,result,count)=>{})
 					json.success=true
 					json.message='操作成功'
 					json.count=count

@@ -34,6 +34,7 @@
 	<div class="list-main">
 		<dl class="member-dl" v-for="obj in news" v-bind:data-id="obj.id">
 			<dt v-on:click="getId(obj.id)">
+				<span class="member-pair">匹配度:{{obj.score}}</span>
 				<img v-if="obj.head_img==''" src="/img/noheadimg.png" alt="" />
 				<img v-if="obj.head_img!=''" v-bind:src="obj.head_img" alt="" />
 			</dt>
@@ -42,6 +43,7 @@
 				<p class="member-info"><span class="member_age">{{getAge(obj.day_of_birth)}}</span>岁<span class="member-stature">{{obj.height}}</span>cm/<span class="member_weight">{{obj.weight}}</span>kg</p>
 				<img class="like-icon" v-if="!obj.is_like && yourid!=obj.id" v-bind:data-like="obj.is_like" v-on:click="sentLike(obj,false)" src="/img/unlike.png" alt="" />
 				<img class="like-icon" v-if="obj.is_like" v-bind:data-like="obj.is_like" v-on:click="sentLike(obj,true)" src="/img/like.png" alt="" />
+				<label>{{obj.mind_count?obj.mind_count:''}}</label>
 			</dd>
 		</dl>
 	</div>
