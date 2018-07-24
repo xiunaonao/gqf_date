@@ -9,7 +9,7 @@ var vapp=new Vue({
 	methods:{
 		admin_list:function(){
 			var scope=this;
-			axios.get('/admin_api/admin_list?page='+scope.page+'&size='+scope.size+(scope.type!=-2?('&usertype='+scope.type):'')+(scope.status!=2?('&status='+scope.status):'')).then(function(res){
+			axios.get('/admin_api/admin_list?page='+scope.page+'&size='+scope.size+'&usertype='+scope.type+'&status='+scope.status).then(function(res){
 				scope.data=res.data.data
 			})
 		},
@@ -63,6 +63,16 @@ var vapp=new Vue({
 				if(res.data.success){
 					_alert('操作成功');
 					obj.review_status=status;
+				}else{
+					_alert(res.data.msg);
+				}
+			})
+		},
+		update:function(obj){
+			axios.post('/admin_api/admin_update',{id:obj.id}).then(function(res){
+				if(res.data.success){
+					_alert('操作成功');
+					obj.usertype=1;
 				}else{
 					_alert(res.data.msg);
 				}

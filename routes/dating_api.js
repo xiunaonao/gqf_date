@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 let mssql=require('../server/mssql')
-
+let ws=require('../server/wechat')
 
 router.get('/list',(req,res,next)=>{
 	let openid=req.cookies['union_oid']
@@ -534,7 +534,7 @@ router.get('/like',(req,res,next)=>{
 			}
 
 		}
-		console.log(mind_openid)
+		//console.log(mind_openid)
 		if(like==1){
 			rows.delete_flag={value:0,type:'bool'}
 			mssql.insert('dating_mind_member',rows,(err,result,count,newid)=>{
@@ -544,6 +544,10 @@ router.get('/like',(req,res,next)=>{
 					json.message=err
 				}else{
 					mssql.exec(`update dating_member_info set mind_count=mind_count+1 where openid='${mind_openid}'`,(err,result,count)=>{})
+					// ws.post_one({
+					// 	"msg":"有人再工青妇平台上默默关注了你",
+					// 	"openid":"om-NlwIIEXNK_ghTdb_-U-lNhz8g"
+					// })
 					json.success=true
 					json.message='操作成功'
 					json.count=count

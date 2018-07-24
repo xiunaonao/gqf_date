@@ -36,9 +36,13 @@ router.get('/volunteer',(req,res,next)=>{
 		res.redirect('/#system',{})
 		return;
 	}
+	if(!req.query.type)
+		req.query.type=2
+	if(!req.query.status)
+		req.query.status=0
 	//res.render('admin_volunteer',{})
 	getDataNum(openid,(results)=>{
-		res.render('admin_volunteer',{data:results})
+		res.render('admin_volunteer',{type:req.query.type,status:req.query.status,data:results})
 	})
 })
 
@@ -68,6 +72,21 @@ router.get('/pair',(req,res,next)=>{
 		res.render('admin_pair',{type:query.type,data:results})
 	})
 })
+
+router.get('/userdetail',(req,res,next)=>{
+	let openid=req.cookies["admin_oid"]
+	if(!openid){
+		res.redirect('/#system',{})
+		return;
+	}
+	let id=req.query.id
+	if(!id){
+		res.redirect('/admin/?type=2')
+		return
+	}
+	res.render('admin_userdetail',{id:id})
+})
+
 
 function getDataNum(openid,callback){
 	let strSql=`

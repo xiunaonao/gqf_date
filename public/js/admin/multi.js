@@ -1,7 +1,8 @@
 var vapp=new Vue({
 	el:'#pair',
 	data:{
-		data:[]
+		data:[],
+		type:0,
 	},
 	methods:{
 		get_multi:function(){

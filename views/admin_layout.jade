@@ -22,12 +22,12 @@ html
 							h5=data[1].usernum
 							h6 报名待审核
 					li
-						a(href='/admin/pair')
+						a(href='/admin/pair?type=1')
 							h5 0
 							h6 心动匹配
 						i.line
 					li
-						a(href='/admin/pair?type=like')
+						a(href='/admin/pair?type=2')
 							h5=data[2].multinum/2
 							h6 互相关注
 						i.line
@@ -57,9 +57,10 @@ html
 							img(src="/img/active_admin.png")
 							label 活动通知
 					li
-						a(href="/admin/volunteer")
+						a(href="/admin/volunteer?type=-2&status=2")
 							img(src="/img/auth_admin.png")
 							label 权限管理
+		a.goto_h5(href="/#list") 回到前台
 		.alert_msg
 			p
 		script.

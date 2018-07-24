@@ -10,7 +10,7 @@ block content
 					i
 				.member-info
 					h5
-						label {{obj.name}}
+						label {{obj.name}}&nbsp;{{obj.usertype==1?'管理员':'志愿者'}}
 						label &nbsp;
 					h6	{{obj.work_unit}}
 				.member-btn
@@ -18,7 +18,9 @@ block content
 					button.blue-gray(v-if='obj.review_status==0',v-on:click='examine(obj,-1)') 拒绝
 					button.blue-gray(v-if='obj.review_status==1') 已通过
 					button.blue-gray(v-if='obj.review_status==-1') 已拒绝
-					//i.checkbox.checked
+					button.red-bg(v-if='obj.review_status==1 && obj.usertype!=1',v-on:click='update(obj)') 升级管理
+					//i.checkbox.checked		
+		.admin-null(v-if='data.length<=0') 暂无相关数据
 	script var type=#{type?type:2}; var status=#{status?status:0}
 	script(src="/js/admin/volunteer.js")
 

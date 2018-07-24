@@ -34,6 +34,28 @@ router.post('/admin_login',(req,res,next)=>{
 	})
 })
 
+router.post('/admin_update',(req,res,next)=>{
+	let openid=req.cookies['union_oid']
+	let id=req.body.id
+	if(!id){
+		res.json({success:false,msg:'请选择用户'})
+		return;
+	}
+
+	mssql.update('dating_managers',{usertype:{type:'num',value:1}},`id=${id} and (select count(id) from dating_managers where usertype=1 and review_status=1 and  openid='${openid}')>0`,(err,result,count)=>{
+			let json={}
+			if(count>0){
+				json.success=true
+				json.msg='操作成功'
+			}else{
+				json.success=false
+				json.msg='操作失败'
+			}
+			res.json(json)
+		})
+
+})
+
 router.post('/volunteer_register',(req,res,next)=>{
 	let openid=req.cookies['union_oid']
 	mssql.querySingle('dating_managers',`openid='${openid}'`,(err,result,count)=>{
@@ -102,9 +124,15 @@ router.get('/admin_list',(req,res,next)=>{
 		order_type:query.order_type?query.order_type:'desc',
 		order:query.order?query.order:'create_time',
 		//filter:(query.user_type!=undefined?(` and usertype=${query.user_type}`):'')+(query.review_status!=undefined?(` and review_status=${query.user_type}`):'')
-		filter:` and usertype=${query.usertype} and review_status=${query.status} ` 
+		filter:`` 
 	}
-	mssql.exec('select * from dating_managers where 1=1 '+where.filter,(err,result,count)=>{
+	if(query.usertype!=-2){
+		where.filter+=` and usertype=${query.usertype}`
+	}
+	if(query.status!=2){
+		where.filter+=` and review_status=${query.status} `
+	}
+	mssql.exec(`select * from dating_managers where (select count(id) from dating_managers where usertype=1 and review_status=1 and  openid='${openid}')>0 `+where.filter,(err,result,count)=>{
 		let json={}
 		if(err){
 			json.success=false
@@ -200,19 +228,28 @@ router.post('/examine_admin',(req,res,next)=>{
 		res.json({success:false,msg:'登录已失效'})
 		return;
 	}
-	req.body.status=(req.body.status?1:-1)
-	let id=req.body.id;
-	mssql.update('dating_managers',{review_status:{type:'num',value:req.body.status}},`id=${id}`,(err,result,count)=>{
-		let json={}
-		if(count>0){
-			json.success=true
-			json.msg='操作成功'
-		}else{
-			json.success=false
-			json.msg='操作失败'
+
+	mssql.exist('dating_managers',`usertype=1 and review_status=1 and  openid='${openid}')>0`,(err2,result2,count2)=>{
+		if(count<=0){
+			res.json({success:false,msg:'权限不足'});
+			reutrn;
 		}
-		res.json(json)
+		req.body.status=(req.body.status?1:-1)
+		let id=req.body.id;
+		mssql.update('dating_managers',{review_status:{type:'num',value:req.body.status}},`id=${id}`,(err,result,count)=>{
+			let json={}
+			if(count>0){
+				json.success=true
+				json.msg='操作成功'
+			}else{
+				json.success=false
+				json.msg='操作失败'
+			}
+			res.json(json)
+		})
 	})
+
+
 })
 
 router.post('/examine_user',(req,res,next)=>{

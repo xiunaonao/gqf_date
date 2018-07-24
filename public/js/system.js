@@ -8,7 +8,7 @@ var vapp=new Vue({
 			var scope=this;
 			axios.post('/admin_api/admin_login').then(function(res){
 				if(res.data.success){
-					sessionStorage.admin=res.data.data;
+					sessionStorage.admin=JSON.stringify(res.data.data);
 					location.href="/admin/";
 				}else{
 					_alert(res.data.msg);
