@@ -17,11 +17,18 @@ block content
 						h6	{{obj.work_unit}}
 				.member-btn
 					button.blue-bg(v-if='obj.review_status==0',v-on:click='examine(obj,1)') 通过
-					button.blue-gray(v-if='obj.review_status==0',v-on:click='examine(obj,-1)') 拒绝
-					button.blue-red(v-if='obj.review_status==1') 已通过
-					button.blue-red(v-if='obj.review_status==-1') 已拒绝
+					button.gray-bg(v-if='obj.review_status==0',v-on:click='examine(obj,-1)') 拒绝
+					button.gray-bg(v-if='obj.review_status==1') 已通过
+					button.gray-bg(v-if='obj.review_status==-1') 已拒绝
+					button.red-bg(v-if='obj.review_status!=0',v-on:click='delete_user(obj)') 删除
 
 		.admin-null(v-if='data.length<=0') 暂无相关数据
+		.confirm(v-if='isconfirm',style="min-width:2.5rem;position: fixed;top:50%;left: 50%;background: #FFF;-webkit-transform: translate(-50%,-50%);text-align: center;box-shadow: #666 0px 0px 5px;border-radius:10px;padding:.2rem;")
+			p {{confirmTxt}}
+			h6(style="margin-top:.2rem;")
+				button.red-bg(style="display:inline-block;margin-right:.1rem;",v-on:click="delete_now()") 删除
+				button.gray-bg(style="display:inline-block;",v-on:click="isconfirm=false") 取消
+
 	script.
 			var user_type=#{(!type)?0:type}
 	script(src="/js/admin/index.js")

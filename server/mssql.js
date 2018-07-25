@@ -110,7 +110,7 @@ let sqlServer={
 			})
 		})
 	},
-	query_dating:(table,where,callback)=>{
+	query_dating:(table,where,callback,isagain)=>{
 		if(!where.size)
 			where.size=20
 		if(!where.page)
@@ -124,7 +124,7 @@ let sqlServer={
 			where.filter=' delete_flag=0 '+where.filter
 
 
-		if(where.page==1){
+        if (where.page == 1 && isagain){
 			sqlServer.exec(`exec dbo.p_matchMembers '${where.openid}','${where.filter}'`,(err,result,count)=>{
 				queryNow()
 			})

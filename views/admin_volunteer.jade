@@ -15,9 +15,9 @@ block content
 					h6	{{obj.work_unit}}
 				.member-btn
 					button.blue-bg(v-if='obj.review_status==0',v-on:click='examine(obj,1)') 通过
-					button.blue-gray(v-if='obj.review_status==0',v-on:click='examine(obj,-1)') 拒绝
-					button.blue-gray(v-if='obj.review_status==1') 已通过
-					button.blue-gray(v-if='obj.review_status==-1') 已拒绝
+					button.gray-bg(v-if='obj.review_status==0',v-on:click='examine(obj,-1)') 拒绝
+					button.gray-bg(v-if='obj.review_status==1') 已通过
+					button.gray-bg(v-if='obj.review_status==-1') 已拒绝
 					button.red-bg(v-if='obj.review_status==1 && obj.usertype!=1',v-on:click='update(obj)') 升级管理
 					//i.checkbox.checked		
 		.admin-null(v-if='data.length<=0') 暂无相关数据

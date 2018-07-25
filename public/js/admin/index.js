@@ -2,9 +2,13 @@ var vapp=new Vue({
 	el:'#index',
 	data:{
 		data:[],
-		size:20,
+		size:1000,
 		page:1,
-		user_type:undefined,
+        user_type: undefined,
+        isconfirm: false,
+        confirmTxt: '',
+        confirmFlag: '',
+        deleteObj: {}
 	},
 	methods:{
 		get_user:function(){
@@ -65,7 +69,30 @@ var vapp=new Vue({
 					_alert(res.data.msg);
 				}
 			})
-		}
+        },
+        delete_user: function (obj) {
+            this.confirmTxt = '确定要删除用户' + obj.member_name + '吗?';
+            this.isconfirm = true;
+            this.confirmFlag = 'delete'
+            this.deleteObj = obj;
+        },
+        delete_now: function () {
+            var scope = this;
+            this.isconfirm = false;
+            axios.post('/admin_api/delete_user', { id: scope.deleteObj.id }).then(function (res) {
+                if (res.data.success) {
+                    _alert('删除成功')
+                    for (var i = 0; i < scope.data.length; i++) {
+                        if (scope.data[i].id == scope.deleteObj.id) {
+                            scope.data.splice(i, 1);
+                            this.deleteObj = {};
+                            break;
+                        }
+                    }
+                }
+                _alert(res.data.msg);
+            })
+        }
 	},
 	mounted:function(){
 		if(user_type!=undefined){

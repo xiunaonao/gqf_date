@@ -29,7 +29,8 @@ jQuery(function(){
 				{name:'mind_count',value:'desc'},
 				{name:'score',value:'desc'},
 				{name:'id',value:'desc'},
-			],
+            ],
+            orderNow: 0,
 			listParam:{}
 		},
 		methods:{
@@ -51,9 +52,16 @@ jQuery(function(){
 				console.log("listPost:"+listPost);
 				if(listPost==null){
 
-					var orderStr=scope.orderArr[0].name+' '+scope.orderArr[0].value+',';
-					orderStr+=scope.orderArr[1].name+' '+scope.orderArr[1].value+',';
-					orderStr+=scope.orderArr[2].name+' '+scope.orderArr[2].value+'';
+					//var orderStr=scope.orderArr[0].name+' '+scope.orderArr[0].value+',';
+					//orderStr+=scope.orderArr[1].name+' '+scope.orderArr[1].value+',';
+                    //orderStr+=scope.orderArr[2].name+' '+scope.orderArr[2].value+'';
+                    var orderStr = ""
+                    for (var i = 0; i < scope.orderArr.length; i++) {
+                        if (i == scope.orderNow)
+                            orderStr = scope.orderArr[scope.orderNow].name + ' ' + scope.orderArr[scope.orderNow].value
+                        else
+                            scope.orderArr[i].value = 'asc';
+                    }
 					var getUrl = 'dating_api/list?page=1&size=20&order='+orderStr;
 					this.$http.get(getUrl).then(function(data){
 						var dat = data.data;
@@ -68,9 +76,16 @@ jQuery(function(){
 				}else{
 					var listArr = JSON.parse(sessionStorage.listPost);
 					console.log(listArr.age);
-					var orderStr=scope.orderArr[0].name+' '+scope.orderArr[0].value+',';
-					orderStr+=scope.orderArr[1].name+' '+scope.orderArr[1].value+',';
-					orderStr+=scope.orderArr[2].name+' '+scope.orderArr[2].value+'';
+					//var orderStr=scope.orderArr[0].name+' '+scope.orderArr[0].value+',';
+					//orderStr+=scope.orderArr[1].name+' '+scope.orderArr[1].value+',';
+					//orderStr+=scope.orderArr[2].name+' '+scope.orderArr[2].value+'';
+                    var orderStr = ""
+                    for (var i = 0; i < scope.orderArr.length; i++) {
+                        if (i == scope.orderNow)
+                            orderStr = scope.orderArr[scope.orderNow].name + ' ' + scope.orderArr[scope.orderNow].value
+                        else
+                            scope.orderArr[i].value = 'asc';
+                    }
 					var getUrl = 'dating_api/list?page=1&size=20order='+orderStr+'&age='+listArr.age+'&height='+listArr.height+'&education='+listArr.education+'&annual_income='+listArr.annual_income+'&housing='+listArr.housing+'&car_buying='+listArr.car_buying;
 					this.$http.get(getUrl).then(function(data){
 						var dat = data.data;
@@ -115,9 +130,16 @@ jQuery(function(){
 				}
 				this.pageIndex++;
 				var listArr=this.listParam
-					var orderStr=scope.orderArr[0].name+' '+scope.orderArr[0].value+',';
-					orderStr+=scope.orderArr[1].name+' '+scope.orderArr[1].value+',';
-					orderStr+=scope.orderArr[2].name+' '+scope.orderArr[2].value+'';
+					//var orderStr=scope.orderArr[0].name+' '+scope.orderArr[0].value+',';
+					//orderStr+=scope.orderArr[1].name+' '+scope.orderArr[1].value+',';
+     //           orderStr += scope.orderArr[2].name + ' ' + scope.orderArr[2].value + '';
+                var orderStr = ""
+                for (var i = 0; i < scope.orderArr.length; i++) {
+                    if (i == scope.orderNow)
+                        orderStr = scope.orderArr[scope.orderNow].name + ' ' + scope.orderArr[scope.orderNow].value
+                    else
+                        scope.orderArr[i].value = 'asc';
+                }
 				var getUrl = 'dating_api/list?page='+this.pageIndex+'&size=20&order='+orderStr;
 				if(listArr.age){
 				 getUrl+='&age='+listArr.age;
@@ -151,7 +173,7 @@ jQuery(function(){
 					delete sessionStorage.listPost
 				});
 			},
-			getMoreData:function(){
+            getMoreData: function (isagain){
 				var scope=this
 				if(!this.pageCool){
 					return;
@@ -161,11 +183,19 @@ jQuery(function(){
 					scope.pageCool=true
 
 				},3000)
-				this.pageIndex++;
-				var listArr=this.listParam
-					var orderStr=scope.orderArr[0].name+' '+scope.orderArr[0].value+',';
-					orderStr+=scope.orderArr[1].name+' '+scope.orderArr[1].value+',';
-					orderStr+=scope.orderArr[2].name+' '+scope.orderArr[2].value+'';
+                this.pageIndex++;
+
+                var listArr = this.listParam
+                var orderStr = ""
+                for (var i = 0; i < scope.orderArr.length; i++) {
+                    if (i == scope.orderNow)
+                        orderStr = scope.orderArr[scope.orderNow].name + ' ' + scope.orderArr[scope.orderNow].value
+                    else
+                        scope.orderArr[i].value = 'asc';
+                }
+					//var orderStr=scope.orderArr[0].name+' '+scope.orderArr[0].value+',';
+					//orderStr+=scope.orderArr[1].name+' '+scope.orderArr[1].value+',';
+					//orderStr+=scope.orderArr[2].name+' '+scope.orderArr[2].value+'';
 				var getUrl = 'dating_api/list?page='+this.pageIndex+'&size=20&order='+orderStr;
 				if(listArr.age){
 				 getUrl+='&age='+listArr.age;
@@ -184,7 +214,10 @@ jQuery(function(){
 				}
 				if(listArr.car_buying){
 				 getUrl+='&car_buying='+listArr.car_buying;
-				}
+                }
+                if (isagain) {
+                    getUrl += '&isagain=true';
+                }
 				this.$http.get(getUrl).then(function(data){
 					var dat = data.data;
 					if(typeof dat == 'string'){

@@ -13,7 +13,7 @@ let post_one=(obj)=>{
 	let json={
 		"touser":obj.openid,
 		"template_id":"9cWnla5OOXHC2-dHJ-xkpF5eqUedQuUQDZNzJT5xrgk",
-		"url":"http://100579.un.123zou.com/member/PreImmigrate",
+        "url":"http://100579.un.123zou.com/Platform/Link?key=go.dating",
 		"miniprogram":{
 			"appid":"",
 			"pagepath":""

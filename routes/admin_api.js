@@ -180,8 +180,8 @@ router.get('/user_list',(req,res,next)=>{
 		order_type:query.order_type?query.order_type:'desc',
 		order:query.order?query.order:'create_time',
 		filter:(query.user_type!=undefined?(` and review_status=${query.user_type}`):'')
-	}
-
+    }
+    where.filter += ' and delete_flag=0 ';
 	mssql.query('dating_member_info',where,(err,result,count)=>{
 		let json={}
 			if(err){
@@ -229,8 +229,8 @@ router.post('/examine_admin',(req,res,next)=>{
 		return;
 	}
 
-	mssql.exist('dating_managers',`usertype=1 and review_status=1 and  openid='${openid}')>0`,(err2,result2,count2)=>{
-		if(count<=0){
+	mssql.exist('dating_managers',`usertype=1 and review_status=1 and  openid='${openid}'`,(err2,result2,count2)=>{
+		if(count2<=0){
 			res.json({success:false,msg:'权限不足'});
 			reutrn;
 		}
@@ -251,6 +251,30 @@ router.post('/examine_admin',(req,res,next)=>{
 
 
 })
+
+
+router.post('/delete_user', (req, res, next) => {
+    let openid = req.cookies['admin_oid']
+    if (openid == '') {
+        res.json({ success: false, msg: '登录已失效' })
+        return;
+    }
+    req.body.status = (req.body.status ? 1 : -1)
+    let id = req.body.id;
+    mssql.remove('dating_member_info', `id=${id}`, (err, result, count) => {
+        let json = {}
+        if (count > 0) {
+            json.success = true
+            json.msg = '操作成功'
+        } else {
+            json.success = false
+            json.msg = '操作失败'
+        }
+        res.json(json)
+    })
+})
+
+
 
 router.post('/examine_user',(req,res,next)=>{
 	let openid=req.cookies['admin_oid']

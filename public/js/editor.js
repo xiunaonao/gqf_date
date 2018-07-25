@@ -521,8 +521,8 @@ jQuery(function(){
 					$("#member_income").val(data.data.annual_income);
 					$("#member_school").val(data.data.college);
 					$("#member_health").val(data.data.health);
-					$("#member_height").val(data.data.height);
-					$("#member_weight").val(data.data.weight);
+                    $("#member_height").val(data.data.height == 0 ? "" : data.data.height);
+                    $("#member_weight").val(data.data.weight == 0 ? "" : data.data.weight);
 					$("#member_nation").val(data.data.nation);
 					$("#member_house").html(data.data.housing);
 					$("#member_car").html(data.data.car_buying);
