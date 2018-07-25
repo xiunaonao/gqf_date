@@ -273,7 +273,7 @@ style(type='text/css').
 			.main_info
 				span.info_left &nbsp;
 				span#f_other.info_right
-					a(v-bind:href='"tel:"+news.tel')
+					a(v-bind:href='"tel:"+news.mobile')
 						button.blue-bg 一键呼出
 					button.blue-bg(v-if='news.review_status==0',v-on:click='examine(news,1)') 通过
 					button.blue-gray(v-if='news.review_status==0',v-on:click='examine(news,-1)') 拒绝
