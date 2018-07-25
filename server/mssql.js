@@ -139,6 +139,7 @@ let sqlServer={
 
 
         if (where.page == 1 && !isagain){
+        	console.log('首次匹配');
 			sqlServer.exec(`exec dbo.p_matchMembers '${where.openid}','${where.filter}'`,(err,result,count)=>{
 				queryNow()
 			})
