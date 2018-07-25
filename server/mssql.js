@@ -138,7 +138,7 @@ let sqlServer={
 			where.filter=' delete_flag=0 '+where.filter
 
 
-        if (where.page == 1 && isagain){
+        if (where.page == 1 && !isagain){
 			sqlServer.exec(`exec dbo.p_matchMembers '${where.openid}','${where.filter}'`,(err,result,count)=>{
 				queryNow()
 			})
