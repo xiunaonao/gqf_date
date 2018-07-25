@@ -106,6 +106,20 @@ let sqlServer={
 					callback(err,[],0)
 					return
 				}
+				if(result2[0].count<(where.size*where.page)){
+					//23,40
+					let result_now=[]
+					let startIndex=(where.size*where.page)-result2[0].count;
+					if(startIndex<20){
+						for(let i=startIndex;i<result.length;i++){
+							result_now.push(result[i])
+						}
+						result=result_now
+					}else{
+						result=[]
+					}
+				}
+
 				callback(err,result,result2[0].count)
 			})
 		})

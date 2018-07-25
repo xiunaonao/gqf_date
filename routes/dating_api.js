@@ -550,7 +550,8 @@ router.get('/like',(req,res,next)=>{
 					mssql.exec(`update dating_member_info set mind_count=mind_count+1 where openid='${mind_openid}'`,(err,result,count)=>{})
 					 ws.post_one({
                          "msg": "有人再工青妇平台上默默关注了你",
-                         "openid": mind_openid
+                         "openid": mind_openid,
+                         "url":"http://100579.un.123zou.com/Platform/Link?key=go.dating"
 					 })
 					json.success=true
 					json.message='操作成功'

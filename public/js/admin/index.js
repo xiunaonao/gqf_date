@@ -2,19 +2,26 @@ var vapp=new Vue({
 	el:'#index',
 	data:{
 		data:[],
-		size:1000,
+		size:20,
 		page:1,
         user_type: undefined,
         isconfirm: false,
         confirmTxt: '',
         confirmFlag: '',
-        deleteObj: {}
+        deleteObj: {},
+        cool:false
 	},
 	methods:{
 		get_user:function(){
 			var scope=this;
 			axios.get('/admin_api/user_list?size='+scope.size+'&page='+scope.page+(scope.user_type!=2?('&user_type='+scope.user_type):'')).then(function(res){
-				scope.data=res.data.data;
+				setTimeout(function(){
+					scope.cool=false
+				},1500)
+				
+				for(var i=0;i<res.data.data.length;i++){
+					scope.data.push(res.data.data[i]);
+				}
 			})
 		},
 		getAge:function(birthday){         
@@ -92,12 +99,30 @@ var vapp=new Vue({
                 }
                 _alert(res.data.msg);
             })
-        }
+        },
+        scroll_move:function(name,event){
+        	var scope=this;
+			var t=event.target;
+			console.log(t.scrollHeight+'<='+(t.scrollTop+t.clientHeight+10));
+			if(t.scrollHeight<=(t.scrollTop+t.clientHeight+10)){
+
+				if(!scope.cool){
+					scope.page++;
+					scope.cool=true;
+					this.get_user();
+				}
+			}
+		}
 	},
 	mounted:function(){
+		var scope=this;
 		if(user_type!=undefined){
 			this.user_type=user_type;
 		}
 		this.get_user();
+
+		document.onscroll=function(){
+			scope.scroll_move('',{target:document.documentElement})
+		}
 	}
 })

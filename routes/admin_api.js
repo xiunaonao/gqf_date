@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 let mssql=require('../server/mssql')
+let ws=require('../server/wechat')
 
 
 router.post('/admin_login',(req,res,next)=>{
@@ -295,6 +296,46 @@ router.post('/examine_user',(req,res,next)=>{
 			json.msg='操作失败'
 		}
 		res.json(json)
+	})
+})
+
+router.post('/wechat_send',(req,res,next)=>{
+	let openid=req.cookies['admin_oid']
+	if(openid=='')
+	{
+		res.json({success:false,msg:'登录已失效'})
+		return;
+	}
+	let ids=req.body.ids
+	let title=req.body.title
+	let msg=req.body.msg
+	let url=req.body.url
+	mssql.exist('dating_managers',`usertype=1 and review_status=1 and  openid='${openid}'`,(err2,result2,count2)=>{
+		if(count2<=0){
+			res.json({success:false,msg:'权限不足'})
+			reutrn
+		}
+		let sql=`select openid from dating_member_info where id in (${ids})`
+		if(ids==0)
+			sql=`select openid from dating_member_info`
+		mssql.exec(sql,(err,result,count)=>{
+			if(count<=0){
+				res.json({success:false,msg:'没有选择有效的会员'})
+			}else{
+				let openid_list=[]
+				for(let i=0;i<result.length;i++){
+					openid_list.push(result[i].openid)
+				}
+				ws.post_more({
+					title:title,
+					msg:msg,
+					url:url,
+					openid_list:openid_list
+				})
+				res.json({success:true,msg:'微信通知发送已经开始处理'})
+			}
+		})
+
 	})
 })
 

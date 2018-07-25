@@ -3,6 +3,7 @@ li{list-style: none;}
 [v-cloak]{display:none;}
 a{text-decoration:none;color:inherit;}
 
+.text-left{text-align:left!important;}
 .goto_h5{position: fixed;right:.3rem;top:.3rem;z-index: 999;}
 .admin-box{background:#FFF;}
 .admin-main{padding-bottom:.5rem;}
@@ -109,6 +110,18 @@ button{width:.6rem;height:.25rem;border-radius: .03rem;color:#FFF;font-size:.13r
     display:none;
 }
 input,button{-webkit-appearance:none;}
+
+.form{width:3.75rem;}
+.form>*{width:3.75rem;margin-bottom:.1rem;text-align:center;}
+.form p>*{width:3.35rem;margin:0 .2rem;height:.4rem;border:none;outline:none;}
+.form p>input{border-bottom:.01rem solid #CCC;}
+.form p>textarea{border-bottom:.01rem solid #CCC;resize:none;height:.8rem;}
+
+.admin-user-list{position:fixed;width:2rem;right:0;top:1.6rem;height:3.7rem;overflow:auto;box-shadow:#666 0 0 6px;background:#FFF;}
+.admin-user-list li{height:.35rem;line-height:.35rem;border-bottom:1px solid #CCC;margin-bottom:.1rem;}
+.admin-user-list li>*{float:left;}
+.admin-user-list li>img{height:.3rem;width:.3rem;margin-top:.025rem;}
+.admin-user-list li>input{height:.2rem;width:.2rem;-webkit-appearance: checkbox;margin-top:.075rem;}
 
 .admin-pair-list li{height:2.8rem;position:relative;}
 .admin-pair-list .pair-value>*{float:left;width:100%;text-align:center;color:#FFF;}

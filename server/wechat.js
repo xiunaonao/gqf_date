@@ -2,18 +2,34 @@ let request=require('request')
 let appid='wxb5ed549f53f1ba99';
 let secret='9e2e9837c28f3f849613c23cd1aa9a81';
 
-let post_all=()=>{
-
+let post_more=(obj)=>{
+	console.log(obj)
+	let index=0
+	let openid_list=obj.openid_list
+	let func=()=>{
+		post_one({
+			openid:openid_list[index],
+			title:obj.title,
+			url:obj.url,
+			msg:obj.msg,
+			callback:()=>{
+				index++
+				if(index<openid_list.length-1)
+					func()
+			}
+		})
+	}
+	func()
 }
 
 let post_one=(obj)=>{
 	//openid,msg,title,title2,remark,callback
-
+	//console.log('即将发送通知');
 	
 	let json={
 		"touser":obj.openid,
 		"template_id":"9cWnla5OOXHC2-dHJ-xkpF5eqUedQuUQDZNzJT5xrgk",
-        "url":"http://100579.un.123zou.com/Platform/Link?key=go.dating",
+        "url":obj.url,
 		"miniprogram":{
 			"appid":"",
 			"pagepath":""
@@ -85,6 +101,6 @@ let get_token=(callback)=>{
 }
 
 module.exports={
-	post_all,
+	post_more,
 	post_one
 }
