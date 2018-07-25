@@ -6,23 +6,25 @@ let post_more=(obj)=>{
 	console.log(obj)
 	let index=0
 	let openid_list=obj.openid_list
-	let func=()=>{
+	let token=''
+	let func=(token)=>{
 		post_one({
 			openid:openid_list[index],
 			title:obj.title,
 			url:obj.url,
 			msg:obj.msg,
-			callback:()=>{
+			callback:(body,token)=>{
 				index++
+				console.log('可用的token:'+token)
 				if(index<openid_list.length-1)
-					func()
+					func(token)
 			}
-		})
+		},token)
 	}
 	func()
 }
 
-let post_one=(obj)=>{
+let post_one=(obj,token)=>{
 	//openid,msg,title,title2,remark,callback
 	//console.log('即将发送通知');
 	
@@ -57,11 +59,11 @@ let post_one=(obj)=>{
 	        if (!error && response.statusCode == 200) {
 	            console.log(body) // 请求成功的处理逻辑
 	            if(obj.callback){
-	            	obj.callback(body)
+	            	obj.callback(body,token)
 	            }
 	        }
 	    })
-	})
+	},token)
 	// request({
  //        url: `https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=${appid}&secret=${secret}`,
  //        method: "POST",
@@ -81,7 +83,13 @@ let post_one=(obj)=>{
 
 }
 
-let get_token=(callback)=>{
+let get_token=(callback,token)=>{
+	if(token){
+		if(callback){
+        	callback({access_token:token})
+        }
+		return;
+	}
 	request({
         url: `https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=${appid}&secret=${secret}`,
         method: "POST",
