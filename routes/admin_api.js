@@ -150,23 +150,6 @@ router.get('/admin_list',(req,res,next)=>{
 		res.json(json)
 	})
 
-	return
-	mssql.query('dating_managers',where,(err,result,count)=>{
-		let json={}
-			if(err){
-				json.success=false
-				json.message=err
-			}else{
-				json.success=true
-				json.message='查询成功'
-				json.data=result
-				//console.log(count)
-				json.count=count
-				json.page=where.page
-				json.size=where.size
-			}
-			res.json(json)
-	})
 })
 
 
@@ -182,7 +165,8 @@ router.get('/user_list',(req,res,next)=>{
 		order:query.order?query.order:'create_time',
 		filter:(query.user_type!=undefined?(` and review_status=${query.user_type}`):'')
     }
-    where.filter += ' and delete_flag=0 ';
+    where.filter += ' ';
+    console.log('查询条件:'+where.filter)
 	mssql.query('dating_member_info',where,(err,result,count)=>{
 		let json={}
 			if(err){
