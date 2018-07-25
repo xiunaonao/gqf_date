@@ -16,7 +16,7 @@ let post_more=(obj)=>{
 			callback:(body,token)=>{
 				index++
 				//console.log('可用的token:'+token)
-				if(index<openid_list.length-1)
+				if(index<openid_list.length)
 					func(token)
 			}
 		},token)
