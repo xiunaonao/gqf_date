@@ -86,6 +86,7 @@ let post_one=(obj,token)=>{
 let get_token=(callback,token)=>{
 	if(token){
 		if(callback){
+			console.log('略过验证')
         	callback({access_token:token})
         }
 		return;
