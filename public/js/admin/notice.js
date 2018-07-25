@@ -18,6 +18,10 @@ var vapp=new Vue({
 	methods:{
 		show_user:function(){
 			var scope=this;
+			if(this.isshow){
+				this.isshow=false;
+				return;
+			}
 			this.isshow=true;
 			this.get_user();
 		},
