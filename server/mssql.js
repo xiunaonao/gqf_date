@@ -106,7 +106,7 @@ let sqlServer={
 					callback(err,[],0)
 					return
 				}
-				if(result2[0].count<(where.size*where.page)){
+				if(result2[0].count<(where.size*where.page) && where.page>1){
 					//23,40
 					let result_now=[]
 					let startIndex=(where.size*where.page)-result2[0].count;

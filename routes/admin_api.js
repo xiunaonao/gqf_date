@@ -168,6 +168,7 @@ router.get('/user_list',(req,res,next)=>{
     where.filter += ' ';
     console.log('查询条件:'+where.filter)
 	mssql.query('dating_member_info',where,(err,result,count)=>{
+		
 		let json={}
 			if(err){
 				json.success=false
