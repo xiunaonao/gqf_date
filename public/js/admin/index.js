@@ -104,8 +104,8 @@ var vapp=new Vue({
         scroll_move:function(name,event){
         	var scope=this;
 			var t=event.target;
-        	this.scroll=(t.scrollTop+t.clientHeight+10);
-			console.log(t.scrollHeight+'<='+(t.scrollTop+t.clientHeight+10));
+        	//this.scroll=((window.pageYOffset+document.documentElement.clientHeight)+':'+t.scrollHeight);
+			console.log(t.scrollHeight+'<='+(window.pageYOffset+document.documentElement.clientHeight+10));
 			if(t.scrollHeight<=(t.scrollTop+t.clientHeight+10)){
 
 				if(!scope.cool){
@@ -124,7 +124,7 @@ var vapp=new Vue({
 		this.get_user();
 
 		document.onscroll=function(){
-			scope.scroll_move('',{target:document.documentElement})
+			scope.scroll_move('',{target:document.body})
 		}
 	}
 })
