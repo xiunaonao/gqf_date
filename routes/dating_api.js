@@ -17,8 +17,9 @@ router.get('/list',(req,res,next)=>{
 	let where={
 		size:query.size?parseInt(query.size):20,
 		page:query.page?parseInt(query.page):1,
-		//order_type:query.order_type?query.order_type:'desc',
-		order:query.order?query.order:'id desc',
+		order:query.order?query.order.split(' ')[0]:'id',
+		order_type:(query.order && query.order.split(' ').length>1)?query.order.split(' ')[1]:'desc',
+		//order:query.order?query.order:'id desc',
 		openid:openid,
 		filter:''
 	}
@@ -36,7 +37,6 @@ router.get('/list',(req,res,next)=>{
 	if(query.height && query.height.indexOf('-')>-1){
 		let minheight=parseInt(query.height.split('-')[0])
 		let maxheight=parseInt(query.height.split('-')[1])
-
 		where.filter+=` and height>=${minheight}`
 		where.filter+=` and height<=${maxheight}`
 	}
@@ -70,7 +70,10 @@ router.get('/list',(req,res,next)=>{
 	//mssql.query_dating('',where,(err,result,count)=>{})
 	//return;
 
-	mssql.query_dating('dating_member_info',where,(err,result,count)=>{
+	if(query.order){
+	}
+
+	mssql.query('dating_member_info',where,(err,result,count)=>{
 		//mssql.exec(`select top 1 age_range,job,income_range,house_nature,housing from dating_mate_standard where openid='${openid}'`,(err,result2,count2)=>{
 
 			// for(var i=0;i<result.length;i++){

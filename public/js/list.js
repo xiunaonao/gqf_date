@@ -26,11 +26,16 @@ jQuery(function(){
 			yourid:'',
 			head_img:'/img/noheadimg.png',
 			orderArr:[
-				{name:'mind_count',value:'desc'},
-				{name:'score',value:'desc'},
 				{name:'id',value:'desc'},
+				{name:'mind_count',value:'desc'},
+				{name:'day_of_birth',value:'desc'}
             ],
+            job:['不限','公务员','教师','医护人员','军人/警察','律师','企业高管','企业职工','其他'],
             orderNow: 0,
+            where:{
+            	sex:"不限",
+            	job:"不限"
+            },
 			listParam:{}
 		},
 		methods:{
@@ -141,6 +146,12 @@ jQuery(function(){
                         scope.orderArr[i].value = 'asc';
                 }
 				var getUrl = 'dating_api/list?page='+this.pageIndex+'&size=20&order='+orderStr;
+				if(where.sex!="不限" || where.sex!="性别"){
+					getUrl+='&sex='+(where.sex=="男"?1:2)
+				}
+				if(where.job!="不限" || where.job!="职业"){
+					getUrl+='&job='+(where.job);
+				}
 				if(listArr.age){
 				 getUrl+='&age='+listArr.age;
 				}
@@ -197,6 +208,12 @@ jQuery(function(){
 					//orderStr+=scope.orderArr[1].name+' '+scope.orderArr[1].value+',';
 					//orderStr+=scope.orderArr[2].name+' '+scope.orderArr[2].value+'';
 				var getUrl = 'dating_api/list?page='+this.pageIndex+'&size=20&order='+orderStr;
+				if(where.sex!="不限" || where.sex!="性别"){
+					getUrl+='&sex='+(where.sex=="男"?1:2)
+				}
+				if(where.job!="不限" || where.job!="职业"){
+					getUrl+='&job='+(where.job);
+				}
 				if(listArr.age){
 				 getUrl+='&age='+listArr.age;
 				}
