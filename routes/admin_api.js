@@ -324,7 +324,6 @@ router.post('/wechat_send',(req,res,next)=>{
 	})
 })
 
-
 router.post('/banner_insert_or_update',(req,res,next)=>{
 	let openid=req.cookies['admin_oid']
 	if(openid=='')
