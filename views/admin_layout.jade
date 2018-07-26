@@ -15,7 +15,7 @@ html
 					img(src="#{data[0].head_img}")
 					.card-info
 						h5=data[0].name
-						h6=usertype==1?'管理员':'志愿者'
+						h6=data[0].usertype==1?'管理员':'志愿者'
 				ul.todo-info
 					li
 						a(href='/admin/')

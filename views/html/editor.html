@@ -308,9 +308,9 @@
         </div>
         <div class="editor_info">
             <span class="info_title">现户籍地</span>
-            <input class="info_input" id="member_address" type="text" value="" placeholder="请输入现户籍地" />
+            <input class="info_input" id="member_address" type="text" value="" placeholder="请输入现户籍地(具体到乡镇)" />
         </div>
-        <div class="editor_info editor_bot">
+        <div class="editor_info editor_bot" style="display:none">
             <div class="info_top">
                 <span class="info_title">单位类别</span>
                 <span class="select_text"  data-val="1">{{companyCategory[companyCategoryIndex]}}</span>
@@ -326,6 +326,35 @@
         </div>
 
         <div class="editor_info editor_bot">
+            <div class="info_top">
+                <span class="info_title">从事行业</span>
+                <span class="select_text" id="member_job" data-val="1">{{industryc}}</span>
+                <img class="open_select" src="/img/展开.png"/>
+            </div>
+            <div class="select_div" style="">
+                <p value="1" v-for="obj in industry" v-on:click="industryc=obj" style="cursor: pointer;">{{obj}}</p>
+            </div>
+        </div>
+        <div class="editor_info" v-if="industryc=='其他'">
+            <span class="info_title">&nbsp;</span>
+            <input class="info_input" id="member_company" type="text" v-model="industryelse" placeholder="请输入所属行业" />
+        </div>
+
+        <div class="editor_info editor_bot">
+            <div class="info_top">
+                <span class="info_title">从事职业</span>
+                <span class="select_text" id="member_job2" data-val="1">{{jobc}}</span>
+                <img class="open_select" src="/img/展开.png"/>
+            </div>
+            <div class="select_div" style="">
+                <p value="1" v-for="obj in job" v-on:click="jobc=obj" style="cursor: pointer;">{{obj}}</p>
+            </div>
+        </div>
+        <div class="editor_info"  v-if="jobc=='其他'">
+            <span class="info_title">&nbsp;</span>
+            <input class="info_input" id="member_company" type="text" v-model="jobelse" placeholder="请输入所属职业" />
+        </div>
+<!--         <div class="editor_info editor_bot">
             <div class="info_top">
                 <span class="info_title">从事行业</span>
                 <span class="select_text" id="member_job" data-val="1">{{job[jobIndex].value}}</span>
@@ -344,7 +373,7 @@
             <div class="select_div">
                 <p value="1" v-for="key in Object.keys(job[jobIndex].category)" v-on:click="jobIndex2=key;">{{job[jobIndex].category[key]}}</p>
             </div>
-        </div>
+        </div> -->
 
         <!--<div class="editor_info">
             <span class="info_title">学历</span>
@@ -406,6 +435,17 @@
             <span class="info_title">健康状况</span>
             <input class="info_input" id="member_health" type="text" value="" placeholder="请输入健康状况" />
         </div>
+        <div class="editor_info editor_bot">
+            <div class="info_top">
+                <span class="info_title">婚姻状况</span>
+                <span class="select_text" id="member_marry" data-val="1">{{marry_status_c}}</span>
+                <img class="open_select" src="/img/展开.png"/>
+            </div>
+            <div class="select_div" style="">
+                <p value="1" v-for="obj in marry_status" v-on:click="marry_status_c=obj" style="cursor: pointer;">{{obj}}</p>
+            </div>
+        </div>
+
         <div class="editor_info">
             <span class="info_title">身高(cm)</span>
             <input class="info_input" id="member_height" type="number" value="" placeholder="请输入身高(cm)" />
@@ -414,14 +454,14 @@
             <span class="info_title">体重(kg)</span>
             <input class="info_input" id="member_weight" type="number" value="" placeholder="请输入体重(kg)" />
         </div>
-        <div class="editor_info">
+        <div class="editor_info" style="display:none;">
             <span class="info_title">民族</span>
             <input class="info_input" id="member_nation" type="text" value="" placeholder="请输入民族" />
         </div>
         
         <div class="editor_info editor_bot">
         	<div class="info_top">
-        		<span class="info_title">住房状况</span>
+        		<span class="info_title">购房状况</span>
         		<span class="select_text" id="member_house" data-val="">请选择</span>
         		<img class="open_select" src="/img/展开.png"/>
         	</div>
@@ -443,13 +483,13 @@
         </div>
         
         <div class="editor_info">
-            <span class="info_title">兴趣爱好</span>
+            <span class="info_title">兴趣与特长</span>
             <input class="info_input" id="member_hobby" type="text" value="" placeholder="请填写兴趣爱好" />
         </div>
-        <div class="editor_info">
+<!--         <div class="editor_info">
             <span class="info_title">个人特长</span>
             <input class="info_input" id="member_specialty" type="text" value="" placeholder="请填写个人特长" />
-        </div>
+        </div> -->
         <div class="editor_info">
             <span class="info_title">手机号码</span>
             <input class="info_input" id="member_tel" type="text" value="" placeholder="请输入个人联系方式（信息严格保密，不会显示给其他用户）" />
@@ -491,12 +531,26 @@
             </div>
         </div>
         
-        <div class="editor_info">
+<!--         <div class="editor_info">
             <span class="info_title">职业</span>
             <input class="info_input" id="filter_job" type="text" value="" placeholder="请输入职业" />
 
+        </div> -->
+        <div class="editor_info editor_bot">
+            <div class="info_top">
+                <span class="info_title">从事职业</span>
+                <span class="select_text" id="member_job3" data-val="1">{{(!jobc2 || jobc2=='请选择')?'不限':jobc2.replace(',','')}}</span>
+                <img class="open_select" src="/img/展开.png"/>
+            </div>
+            <div class="select_div mul_job" mul_check=true style="">
+                <p value="1" v-for="obj,i in job" v-if='i!=0'  style="cursor: pointer;"><input class="checkbox" v-on:click="mul_check(obj)" type="checkbox"/>{{obj=='请选择'?'不限':obj}}</p>
+            </div>
         </div>
-        
+
+        <div class="edtor_info">
+            
+        </div>
+
         <div class="editor_info">
             <span class="info_title">年收入</span>
             <div class="range_input">
@@ -509,7 +563,7 @@
         
         <div class="editor_info editor_bot">
         	<div class="info_top">
-        		<span class="info_title">住房</span>
+        		<span class="info_title">购房</span>
         		<span class="select_text" id="filter_house">有房</span>
         		<img class="open_select" src="/img/展开.png"/>
         	</div>
@@ -555,7 +609,7 @@
         
         <p class="bottom_text">特别声明：<br/>
         <i></i><label>个人手机住址单位信息严格保密</label><br/>
-        <i></i><label>本人承诺以上资料真实有效，由此带来的一切法律责任由本人自行承担<label><br/>
+        <i></i><label>本人承诺以上资料真实有效，否则由此带来的一切法律责任由本人自行承担<label><br/>
          </p>
         
         <img class="submit_btn" v-on:touchstart="allSubmit()" src="/img/提交.png" alt="" />

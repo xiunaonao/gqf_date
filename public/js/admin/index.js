@@ -9,7 +9,8 @@ var vapp=new Vue({
         confirmTxt: '',
         confirmFlag: '',
         deleteObj: {},
-        cool:false
+        cool:false,
+        scroll:0
 	},
 	methods:{
 		get_user:function(){
@@ -103,6 +104,7 @@ var vapp=new Vue({
         scroll_move:function(name,event){
         	var scope=this;
 			var t=event.target;
+        	this.scroll=(t.scrollTop+t.clientHeight+10);
 			console.log(t.scrollHeight+'<='+(t.scrollTop+t.clientHeight+10));
 			if(t.scrollHeight<=(t.scrollTop+t.clientHeight+10)){
 

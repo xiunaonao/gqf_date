@@ -324,4 +324,100 @@ router.post('/wechat_send',(req,res,next)=>{
 	})
 })
 
+
+router.post('/banner_insert_or_update',(req,res,next)=>{
+	let openid=req.cookies['admin_oid']
+	if(openid=='')
+	{
+		res.json({success:false,msg:'登录已失效'})
+		return;
+	}
+	let id=req.body.id
+	let name=req.body.name
+	let title=req.body.title
+	let url=req.body.url
+	let link_url=req.body.link_url
+	mssql.exist('dating_managers',`usertype=1 and review_status=1 and  openid='${openid}'`,(err2,result2,count2)=>{
+		if(count2<=0){
+			res.json({success:false,msg:'权限不足'})
+			reutrn
+		}
+
+		let rows={
+			name:{
+				type:'',
+				value:name
+			},
+			title:{
+				type:'',
+				value:title
+			},
+			url:{
+				type:'',
+				value:url
+			},
+			link_url:{
+				type:'',
+				value:link_url
+			}
+		}
+		if(!id){
+			let now=new Date()
+			rows['create_time']={
+				type:'date',
+				value:now.getFullYear()+'-'+(now.getMonth()+1)+'-'+now.getDate()+' '+now.getHours()+':'+now.getMinutes()+':'+now.getSeconds()
+			}
+
+			mssql.insert(`dating_banners`,rows,(err,result,count)=>{
+				if(err){
+					json.success=false
+					json.message=err
+				}else{
+					json.success=true
+					json.message='操作成功'
+					json.count=count
+					//json.id=rows.id.value
+				}
+				res.json(json)
+			})
+
+		}else{
+			mssql.update(`dating_banners`,rows,`id=${id}`,(err,result,count)=>{
+				if(err){
+					json.success=false
+					json.message=err
+				}else{
+					json.success=true
+					json.message='操作成功'
+					json.count=count
+					//json.id=rows.id.value
+				}
+				res.json(json)
+			})
+		}
+
+		// let sql=`select openid from dating_member_info where id in (${ids})`
+		// if(ids==0)
+		// 	sql=`select openid from dating_member_info`
+		// mssql.exec(sql,(err,result,count)=>{
+		// 	if(count<=0){
+		// 		res.json({success:false,msg:'没有选择有效的会员'})
+		// 	}else{
+		// 		let openid_list=[]
+		// 		for(let i=0;i<result.length;i++){
+		// 			openid_list.push(result[i].openid)
+		// 		}
+		// 		ws.post_more({
+		// 			title:title,
+		// 			msg:msg,
+		// 			url:url,
+		// 			openid_list:openid_list
+		// 		})
+		// 		res.json({success:true,msg:'微信通知发送已经开始处理'})
+		// 	}
+		// })
+
+	})
+})
+
 module.exports=router
