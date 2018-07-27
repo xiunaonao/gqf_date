@@ -23,6 +23,7 @@ body,html{width:100%;height:100%;}
 .banner-ban-abs{position:absolute;}
 
 .editor-info { width: 100%; padding: 0.18rem 0; border-bottom: 1px solid #DDDDDD;position:relative;}
+.editor-wechatinfo{padding-left:.15rem;}
 .editor-info span:before { content: " "; }
 .editor-info .must:before { content: "*"; color: red; }
 .editor-info:after { content: ''; display: table; clear: both; }
