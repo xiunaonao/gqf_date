@@ -11,6 +11,7 @@ var dating_apiRouter=require('./routes/dating_api')
 var apiRouter=require('./routes/api')
 var adminRouter=require('./routes/admin')
 var adminapiRouter=require('./routes/admin_api')
+var gameRouter=require('./routes/game')
 var ver=require('./package.json').version
 console.log('project version:'+ver)
 

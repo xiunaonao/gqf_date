@@ -197,13 +197,13 @@ var vapp = new Vue({
       		return;
       	}
 
-      	if( this.industryc=='请选择' || (this.industryc=='其他' && this.industryelse=='')){
-	    	$(".alert_msg p").html("请选择职业");
-		    $(".alert_msg").show();
-		    setTimeout('$(".alert_msg").hide()', 2000);
-      		this.posting=false;
-      		return;
-      	}
+      // 	if( this.industryc=='请选择' || (this.industryc=='其他' && this.industryelse=='')){
+	    	// $(".alert_msg p").html("请选择职业");
+		    // $(".alert_msg").show();
+		    // setTimeout('$(".alert_msg").hide()', 2000);
+      // 		this.posting=false;
+      // 		return;
+      // 	}
 
       	if(!$("#member_job2").text() || $("#member_job2").text()=='请选择' || (this.jobc=='其他' && this.jobelse=='')){
 	    	$(".alert_msg p").html("请选择职业");
@@ -238,9 +238,9 @@ var vapp = new Vue({
 		var income_type = vapp.incomeIndex;
 		var unit_property = vapp.companyCategoryIndex;
 		var industry=$('#member_job').text();
-		if(industry=='其他'){
-			industry=this.industryelse;
-		}
+		// if(industry=='其他'){
+		// 	industry=this.industryelse;
+		// }
 		var college = $("#member_school").val();
 		var health = $("#member_health").val();
 		var height = $("#member_height").val();
@@ -575,10 +575,10 @@ jQuery(function(){
 						vapp.jobc='其他'
 					}
 					vapp.industryc=data.data.industry;
-					if(vapp.industry.indexOf(vapp.industryc)<=-1){
-						vapp.industryelse=vapp.industryc;
-						vapp.industryc='其他'
-					}
+					// if(vapp.industry.indexOf(vapp.industryc)<=-1){
+					// 	vapp.industryelse=vapp.industryc;
+					// 	vapp.industryc='其他'
+					// }
 
 
 					// for(var i=0;i<Object.keys(vapp.job).length;i++){

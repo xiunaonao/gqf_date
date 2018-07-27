@@ -2,11 +2,15 @@ var vapp=new Vue({
 	el:'#register',
 	data:{
 		data:{
-			card_number:'',
+			//card_number:'',
 			mobile:'',
 			member_name:'',
-			sex:1,
-			day_of_birth:''
+			sex:1
+			//day_of_birth:''
+		},
+		wechat:{
+			headimg:'',
+			name:''
 		},
 		code:'',
 		code_cool:0,
@@ -15,17 +19,17 @@ var vapp=new Vue({
 		reg:function(){
 			var scope=this;
 
-			var valid_idcard=Z_VALID().idcard(scope.data.card_number);
+			//var valid_idcard=Z_VALID().idcard(scope.data.card_number);
 			
-			if(!valid_idcard.success){
-				$(".alert_msg p").html('身份证格式不正确');
-			    $(".alert_msg").show();
-			    setTimeout('$(".alert_msg").hide()', 2000);
-				return;
-			}else{
-				scope.data.sex=valid_idcard.info.sex=='男'?1:2;
-				scope.data.day_of_birth=valid_idcard.info.year+'-'+valid_idcard.info.month+'-'+valid_idcard.info.day;
-			}
+			// if(!valid_idcard.success){
+			// 	$(".alert_msg p").html('身份证格式不正确');
+			//     $(".alert_msg").show();
+			//     setTimeout('$(".alert_msg").hide()', 2000);
+			// 	return;
+			// }else{
+			// 	scope.data.sex=valid_idcard.info.sex=='男'?1:2;
+			// 	scope.data.day_of_birth=valid_idcard.info.year+'-'+valid_idcard.info.month+'-'+valid_idcard.info.day;
+			// }
 			
 
 	    	axios.post('/api/sms_valid',{mobile:scope.data.mobile,code:scope.code}).then(function(res){
@@ -33,7 +37,7 @@ var vapp=new Vue({
 	    		if(data.success){
 					axios.post('/dating_api/register',scope.data).then(function(res){
 						if(res.data.success){
-							$(".alert_msg p").html(res.data.msg);
+							$(".alert_msg p").html('注册成功');
 						    $(".alert_msg").show();
 						    setTimeout('$(".alert_msg").hide()', 2000);
 						}else{
@@ -52,8 +56,10 @@ var vapp=new Vue({
 
 		},
 		get_whchat:function(){
+			var scope=this;
 			axios.post('/dating_api/get_now_user').then(function(res){
-
+				 scope.wechat=res.data.info;
+				 scope.data.sex=res.data.info.sex
 			})
 		},
 		postCode:function(){
@@ -94,6 +100,6 @@ var vapp=new Vue({
 	    },
 	},
 	mounted:function(){
-
+		this.get_whchat();
 	}
 })

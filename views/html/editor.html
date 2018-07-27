@@ -209,7 +209,11 @@
 	.submit_btn{
 		display: block;
 		width: 3.45rem;
+        height: .4rem;
 		margin: 0 auto 0.6rem;
+        color:#FFF;
+        border-radius:.1rem;
+        font-size:.16rem;
 	}
 
     
@@ -262,6 +266,15 @@
         padding:0 0.1rem;
         background:rgba(0,0,0,0);
     }
+    .img_up_txt{
+        color: #CCC;
+        margin: .6rem .1rem;
+        width: 1.2rem;
+        position: absolute;
+        right: 0;
+        /* bottom: 0; */
+        font-size: .1rem;
+    }
 </style>
 <article id="editor" v-cloak>
     <div class="editor_main" >
@@ -277,9 +290,11 @@
             		<!--<img class="head_img" src=""/>-->
             	</div>
             </div>
+            <p class="img_up_txt">上传正式资料者将优先考虑参与线下活动</p>
             <form id="addTextForm" v-on:change="setImg($event)"></form>
         </div>
         
+
         <div class="editor_info">
             <span class="info_title">姓名</span>
             <input class="info_input" id="member_name" type="text" value="" placeholder="请输入姓名" />
@@ -346,9 +361,9 @@
                 <span class="select_text" id="member_job2" data-val="1">{{jobc}}</span>
                 <img class="open_select" src="/img/展开.png"/>
             </div>
-            <div class="select_div" style="">
+<!--             <div class="select_div" style="">
                 <p value="1" v-for="obj in job" v-on:click="jobc=obj" style="cursor: pointer;">{{obj}}</p>
-            </div>
+            </div> -->
         </div>
         <div class="editor_info"  v-if="jobc=='其他'">
             <span class="info_title">&nbsp;</span>
@@ -610,9 +625,10 @@
         <p class="bottom_text">特别声明：<br/>
         <i></i><label>个人手机住址单位信息严格保密</label><br/>
         <i></i><label>本人承诺以上资料真实有效，否则由此带来的一切法律责任由本人自行承担<label><br/>
-         </p>
+        </p>
         
-        <img class="submit_btn" v-on:touchstart="allSubmit()" src="/img/提交.png" alt="" />
+        <!-- <img class="submit_btn" v-on:touchstart="allSubmit()" src="/img/提交.png" alt="" /> -->
+        <button class="submit_btn red-bg">保存资料提交</button>
         
     </div>
 

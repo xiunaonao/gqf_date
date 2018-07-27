@@ -112,7 +112,7 @@ router.get('/list',(req,res,next)=>{
 			res.json(json)
 
 		//})
-    }, isagain)
+    },'',`is_like=(select count(id) from dating_mind_member d where openid='${openid}' and mind_openid=m_table.openid)`);
 })
 
 router.get('/new_user',(req,res,next)=>{
@@ -130,7 +130,18 @@ router.get('/new_user',(req,res,next)=>{
 router.post('/get_now_user',(req,res,next)=>{
 	let openid=req.cookies['union_oid']
 	ws.get_user(openid,(obj)=>{
-		res.json(obj)
+		/*{"subscribe":1,"openid":"om-NlwIIEXNK_ghTdb_-U-lNhz8g",
+		"nickname":"ᕕ(ᐛ)ᕗ变身!","sex":1,"language":"zh_CN","city":"杭州","province":"浙江","country":"中国","headimgurl":"http://thirdwx.qlogo.cn/mmopen/MibjTic8EM07dfwrRpOyic5Picz7tPibQoAZvZIdKpllBWGffGfHJ0I71JYFO2IEFyxfN1g8VogOiaAV6icnqKbqGlglXeRmNwx0avy/132","subscribe_time":1530155820,"remark":"","groupid":0,"tagid_list":[],"subscribe_scene":"ADD_SCENE_QR_CODE","qr_scene":0,"qr_scene_str":"1004276"}*/
+		
+		let  info={
+			nickname:obj.nickname,
+			sex:obj.sex,
+			headimgurl:obj.headimgurl
+			//"nickname":"ᕕ(ᐛ)ᕗ变身!",
+			//"sex":1,
+			//"headimgurl":"http://thirdwx.qlogo.cn/mmopen/MibjTic8EM07dfwrRpOyic5Picz7tPibQoAZvZIdKpllBWGffGfHJ0I71JYFO2IEFyxfN1g8VogOiaAV6icnqKbqGlglXeRmNwx0avy/132",
+		}
+		res.json({success:true,info:info})
 	})
 })
 
@@ -560,6 +571,17 @@ router.get('/like',(req,res,next)=>{
 		//console.log(mind_openid)
 		if(like==1){
 			rows.delete_flag={value:0,type:'bool'}
+
+			mssql.insert('dating_send_notices',{
+				openid:{value:openid,type:''},
+				target_openid:{value:mind_openid,type:''},
+				title:{value:'关注消息'},
+				content:{value:'有人在工青妇平台默默默默关注了你'},
+				url:{value:'http://100579.un.123zou.com/Platform/Link?key=go.dating'},
+				send_status:{value:1,type:'num'},
+				created_time:{value:now.getFullYear()+'-'+(now.getMonth()+1)+'-'+now.getDate()+' '+now.getHours()+':'+now.getMinutes()+':'+now.getSeconds(),type:'date'}
+			},(err,result,count)=>{})
+
 			mssql.insert('dating_mind_member',rows,(err,result,count,newid)=>{
 				let json={}
 				if(err){

@@ -22,13 +22,17 @@
 	</div>
 
 	<div class="form-box register">
-		<div class="editor-info">
+<!-- 		<div class="editor-info">
 			<span class="info-title">姓名</span>
 			<input class="info-input" placeholder="请输入姓名" v-model="data.member_name" />
 		</div>
 		<div class="editor-info">
 			<span class="info-title">身份证</span>
 			<input class="info-input" placeholder="请输入身份证号码" v-model="data.card_number" />
+		</div> -->
+		<div class="editor-info editor-wechatinfo">
+			<img v-bind:src="wechat.headimgurl"/>
+			<label>{{wechat.nickname}}</label>
 		</div>
 		<div class="editor-info">
 			<span class="info-title">手机号</span>

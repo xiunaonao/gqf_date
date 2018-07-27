@@ -33,8 +33,8 @@ jQuery(function(){
             job:['不限','公务员','教师','医护人员','军人/警察','律师','企业高管','企业职工','其他'],
             orderNow: 0,
             where:{
-            	sex:"不限",
-            	job:"不限"
+            	sex:"性别",
+            	job:"职业"
             },
 			listParam:{},
 			no_more:false,
@@ -110,6 +110,7 @@ jQuery(function(){
 		                }
 						//this.news = dat.data;
 						for(var i=0;i<dat.data.length;i++){
+
 							this.news.push(dat.data[i])
 						}
 	//					console.log(this.news.day_of_birth);
