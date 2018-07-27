@@ -36,7 +36,8 @@ jQuery(function(){
             	sex:"不限",
             	job:"不限"
             },
-			listParam:{}
+			listParam:{},
+			no_more:false,
 		},
 		methods:{
 			init:function(){
@@ -46,7 +47,7 @@ jQuery(function(){
 					var top=document.body.scrollTop;
 					var mheight=document.body.scrollHeight;
 					var cheight=document.body.clientHeight;
-					if(top+cheight>=mheight-10){
+					if(top+cheight>=mheight-40){
 						console.log('翻页')
 						scope.getMoreData()
 					}
@@ -73,6 +74,11 @@ jQuery(function(){
 						if(typeof dat == 'string'){
 		                    dat=JSON.parse(data.data);
 		                }
+		                if(dat.data.length<=0){
+		                	scope.no_more=true;
+		                }else{
+		                	scope.no_more=false;
+		                }
 						this.news = dat.data;
 	//					console.log(this.news.day_of_birth);
 						console.log("success:"+dat.success);
@@ -96,6 +102,11 @@ jQuery(function(){
 						var dat = data.data;
 						if(typeof dat == 'string'){
 		                    dat=JSON.parse(data.data);
+		                }
+		                if(dat.data.length<=0){
+		                	scope.no_more=true;
+		                }else{
+		                	scope.no_more=false;
 		                }
 						//this.news = dat.data;
 						for(var i=0;i<dat.data.length;i++){
@@ -146,11 +157,13 @@ jQuery(function(){
                         scope.orderArr[i].value = 'asc';
                 }
 				var getUrl = 'dating_api/list?page='+this.pageIndex+'&size=20&order='+orderStr;
-				if(where.sex!="不限" || where.sex!="性别"){
-					getUrl+='&sex='+(where.sex=="男"?1:2)
+				if(this.where.sex!="不限" && this.where.sex!="性别"){
+					getUrl+='&sex='+(this.where.sex=="男"?1:2)
+				}else{
+
 				}
-				if(where.job!="不限" || where.job!="职业"){
-					getUrl+='&job='+(where.job);
+				if(this.where.job!="不限" && this.where.job!="职业"){
+					getUrl+='&job='+(this.where.job);
 				}
 				if(listArr.age){
 				 getUrl+='&age='+listArr.age;
@@ -175,6 +188,11 @@ jQuery(function(){
 					if(typeof dat == 'string'){
 	                    dat=JSON.parse(data.data);
 	                }
+	                if(dat.data.length<=0){
+		                	scope.no_more=true;
+		                }else{
+		                	scope.no_more=false;
+		                }
 					for(var i=0;i<dat.data.length;i++){
 						if(dat.count<=(dat.size*(dat.page-1)+i)){
 							break;
@@ -208,11 +226,11 @@ jQuery(function(){
 					//orderStr+=scope.orderArr[1].name+' '+scope.orderArr[1].value+',';
 					//orderStr+=scope.orderArr[2].name+' '+scope.orderArr[2].value+'';
 				var getUrl = 'dating_api/list?page='+this.pageIndex+'&size=20&order='+orderStr;
-				if(where.sex!="不限" || where.sex!="性别"){
-					getUrl+='&sex='+(where.sex=="男"?1:2)
+				if(this.where.sex!="不限" || this.where.sex!="性别"){
+					getUrl+='&sex='+(this.where.sex=="男"?1:2)
 				}
-				if(where.job!="不限" || where.job!="职业"){
-					getUrl+='&job='+(where.job);
+				if(this.where.job!="不限" || this.where.job!="职业"){
+					getUrl+='&job='+(this.where.job);
 				}
 				if(listArr.age){
 				 getUrl+='&age='+listArr.age;
@@ -240,6 +258,11 @@ jQuery(function(){
 					if(typeof dat == 'string'){
 	                    dat=JSON.parse(data.data);
 	                }
+	                if(dat.data.length<=0){
+		                	scope.no_more=true;
+		                }else{
+		                	scope.no_more=false;
+		                }
 					for(var i=0;i<dat.data.length;i++){
 						// if(dat.count<=(dat.size*(dat.page-1)+i)){
 						// 	break;

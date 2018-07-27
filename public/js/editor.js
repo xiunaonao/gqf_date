@@ -454,8 +454,8 @@ var vapp = new Vue({
 jQuery(function(){
 	
 	var select_flag = false;
-	$(".info_top").click(function(){
-
+	$('body').on('click',".info_top",function(){
+		console.log(select_flag)
 		if(!select_flag){
 			$(this).parent().find(".select_div").show("solw");
 			select_flag = true;

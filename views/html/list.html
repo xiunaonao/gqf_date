@@ -30,9 +30,9 @@
 		<button v-bind:class="[orderNow==2?orderArr[2].value:'']" v-on:click="orderArr[2].value=='desc'?orderArr[2].value='asc':orderArr[2].value='desc';orderNow=2;getFirstData(true);">新报名</button>
 		<a class="red-bg" href="#filter">筛选</a> -->
 		<button v-bind:class="[orderNow==1?orderArr[1].value:'']" v-on:click="orderArr[1].value=='desc'?orderArr[1].value='asc':orderArr[1].value='desc';orderNow=1;getFirstData(true);">人气</button>
-		<select v-on:change='getFirstData()'><option>职业</option><option v-for="obj in job">{{obj}}</option></select>
+		<select v-on:change='getFirstData()' v-model="where.job"><option>职业</option><option v-for="obj in job">{{obj}}</option></select>
 		<button v-bind:class="[orderNow==2?orderArr[2].value:'']" v-on:click="orderArr[2].value=='desc'?orderArr[2].value='asc':orderArr[2].value='desc';orderNow=2;getFirstData(true);">年龄</button>
-		<select v-on:change='getFirstData()' ><option>性别</option><option>不限</option><option>男</option><option>女</option></select>
+		<select v-on:change='getFirstData()' v-model="where.sex"><option>性别</option><option>不限</option><option>男</option><option>女</option></select>
 	</div>
 
 	<div class="list-main">
@@ -51,8 +51,11 @@
 			</dd>
 		</dl>
 	</div>
+	<div class="list-more" v-bind:style='{"padding-top":pageIndex==1?".2rem":""}'>
+		{{no_more?'——————没有更多数据了——————':'——————加载更多数据——————'}}
+	</div>
 
-	<a class="editer-btn" href="#editor"><img src="/img/报名.png" alt="" /></a>
+	<a class="editer-btn" href="#editor">我要<br>报名 <!-- <img src="/img/报名.png" alt="" /> --></a>
 </div>
 
 

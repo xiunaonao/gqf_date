@@ -47,7 +47,17 @@ router.get('/list',(req,res,next)=>{
 		where.filter+=` and education>=${education}`
 	}
 
+	if(query.sex && query.sex!='性别' && query.sex!='不限'){
+		where.filter+=` and sex=${query.sex}`;
+	}
 
+	if(query.job && query.job!='职业' && query.job!='不限'){
+		if(query.job!='其他')
+			where.filter+=` and job='${query.job}'`;
+		else{
+			where.filter+=`and job not in ('公务员','教师','医护人员','军人/警察','律师','企业高管','企业职工') `
+		}
+	}	
 
 	if(query.annual_income && query.annual_income.indexOf('-')>-1){
 		let min_income=parseInt(query.annual_income.split('-')[0])
@@ -56,9 +66,8 @@ router.get('/list',(req,res,next)=>{
 		where.filter+=` and annual_income>=${min_income}`
 		where.filter+=` and annual_income<=${max_income}`
 	}
-	console.log('房子情况：'+query.housing);
+
 	if(query.housing){
-		console.log('房子情况：'+query.housing);
 		let str="";
 		where.filter+=` and housing=${(query.housing=="不限"?"''''":"''"+query.housing+"''")}`
 	}
@@ -115,6 +124,13 @@ router.get('/new_user',(req,res,next)=>{
 		}else{
 			res.json({success:false,msg:'已注册的用户'})
 		}
+	})
+})
+
+router.post('/get_now_user',(req,res,next)=>{
+	let openid=req.cookies['union_oid']
+	ws.get_user(openid,(obj)=>{
+		res.json(obj)
 	})
 })
 
@@ -552,7 +568,7 @@ router.get('/like',(req,res,next)=>{
 				}else{
 					mssql.exec(`update dating_member_info set mind_count=mind_count+1 where openid='${mind_openid}'`,(err,result,count)=>{})
 					 ws.post_one({
-                         "msg": "有人再工青妇平台上默默关注了你",
+                         "msg": "有人在工青妇平台上默默关注了你",
                          "openid": mind_openid,
                          "url":"http://100579.un.123zou.com/Platform/Link?key=go.dating"
 					 })

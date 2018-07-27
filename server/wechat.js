@@ -84,6 +84,31 @@ let post_one=(obj,token)=>{
 
 }
 
+let get_user=(openid,callback)=>{
+	//https://api.weixin.qq.com/cgi-bin/user/info?access_token=ACCESS_TOKEN&openid=OPENID&lang=zh_CN
+	get_token((data)=>{
+		let token=data.access_token
+		request({
+	        url: `https://api.weixin.qq.com/cgi-bin/user/info?access_token=${token}&openid=${openid}&lang=zh_CN`,
+	        method: "POST",
+	        json: true,
+	        headers: {
+	            "content-type": "application/json",
+	        },
+	        body: json,
+	    }, (error, response, body)=> {
+	        if (!error && response.statusCode == 200) {
+	            console.log(body) // 请求成功的处理逻辑
+	            if(obj.callback){
+	            	obj.callback(body,token)
+	            }
+	        }
+	    })
+	})
+	
+}
+
+
 let get_token=(callback,token)=>{
 	if(token){
 		if(callback){
@@ -112,5 +137,6 @@ let get_token=(callback,token)=>{
 
 module.exports={
 	post_more,
-	post_one
+	post_one,
+	get_user
 }
