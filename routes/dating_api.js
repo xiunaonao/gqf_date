@@ -583,7 +583,7 @@ router.get('/like',(req,res,next)=>{
 					mssql.exec(`update dating_member_info set mind_count=mind_count+1 where openid='${mind_openid}'`,(err,result,count)=>{})
 
 
-					mssql.exec(`select count(id) from dating_send_notices where openid='${openid}' and target_openid='${mind_openid}'`,(err,reuslt,count)=>{
+					mssql.exec(`select id from dating_send_notices where openid='${openid}' and target_openid='${mind_openid}'`,(err,reuslt,count)=>{
 						if(count<=0){
 							mssql.insert('dating_send_notices',{
 								openid:{value:openid,type:''},
