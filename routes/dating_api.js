@@ -572,15 +572,7 @@ router.get('/like',(req,res,next)=>{
 		if(like==1){
 			rows.delete_flag={value:0,type:'bool'}
 
-			mssql.insert('dating_send_notices',{
-				openid:{value:openid,type:''},
-				target_openid:{value:mind_openid,type:''},
-				title:{value:'关注消息'},
-				content:{value:'有人在工青妇平台默默默默关注了你'},
-				url:{value:'http://100579.un.123zou.com/Platform/Link?key=go.dating'},
-				send_status:{value:1,type:'num'},
-				created_time:{value:now.getFullYear()+'-'+(now.getMonth()+1)+'-'+now.getDate()+' '+now.getHours()+':'+now.getMinutes()+':'+now.getSeconds(),type:'date'}
-			},(err,result,count)=>{})
+
 
 			mssql.insert('dating_mind_member',rows,(err,result,count,newid)=>{
 				let json={}
@@ -589,11 +581,32 @@ router.get('/like',(req,res,next)=>{
 					json.message=err
 				}else{
 					mssql.exec(`update dating_member_info set mind_count=mind_count+1 where openid='${mind_openid}'`,(err,result,count)=>{})
-					 ws.post_one({
-                         "msg": "有人在工青妇平台上默默关注了你",
-                         "openid": mind_openid,
-                         "url":"http://100579.un.123zou.com/Platform/Link?key=go.dating"
-					 })
+
+
+					mssql.exec(`select count(id) from dating_send_notices where openid='${openid}' and target_openid='${mind_openid}'`,(err,reuslt,count)=>{
+						if(count<=0){
+							mssql.insert('dating_send_notices',{
+								openid:{value:openid,type:''},
+								target_openid:{value:mind_openid,type:''},
+								title:{value:'关注消息'},
+								content:{value:'有人在工青妇平台默默默默关注了你'},
+								url:{value:'http://100579.un.123zou.com/Platform/Link?key=go.dating'},
+								send_status:{value:1,type:'num'},
+								created_time:{value:now.getFullYear()+'-'+(now.getMonth()+1)+'-'+now.getDate()+' '+now.getHours()+':'+now.getMinutes()+':'+now.getSeconds(),type:'date'}
+							},(err,result,count)=>{})
+
+							 ws.post_one({
+		                         "msg": "有人在工青妇平台上默默关注了你",
+		                         "openid": mind_openid,
+		                         "url":"http://100579.un.123zou.com/Platform/Link?key=go.dating"
+							 })
+						}else{
+							console.log('已发送过该通知')
+						}
+					})
+
+
+
 					json.success=true
 					json.message='操作成功'
 					json.count=count
