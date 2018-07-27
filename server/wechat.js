@@ -99,8 +99,8 @@ let get_user=(openid,callback)=>{
 	    }, (error, response, body)=> {
 	        if (!error && response.statusCode == 200) {
 	            console.log(body) // 请求成功的处理逻辑
-	            if(obj.callback){
-	            	obj.callback(body,token)
+	            if(callback){
+	            	callback(body,token)
 	            }
 	        }
 	    })
