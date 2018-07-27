@@ -351,10 +351,10 @@
                 <p value="1" v-for="obj in industry" v-on:click="industryc=obj" style="cursor: pointer;">{{obj}}</p>
             </div>
         </div>
-        <div class="editor_info" v-if="industryc=='其他'">
+<!--         <div class="editor_info" v-if="industryc=='其他'">
             <span class="info_title">&nbsp;</span>
             <input class="info_input" id="member_company" type="text" v-model="industryelse" placeholder="请输入所属行业" />
-        </div>
+        </div> -->
 
         <div class="editor_info editor_bot">
             <div class="info_top">
@@ -362,9 +362,9 @@
                 <span class="select_text" id="member_job2" data-val="1">{{jobc}}</span>
                 <img class="open_select" src="/img/展开.png"/>
             </div>
-<!--             <div class="select_div" style="">
+            <div class="select_div" style="">
                 <p value="1" v-for="obj in job" v-on:click="jobc=obj" style="cursor: pointer;">{{obj}}</p>
-            </div> -->
+            </div>
         </div>
         <div class="editor_info"  v-if="jobc=='其他'">
             <span class="info_title">&nbsp;</span>
