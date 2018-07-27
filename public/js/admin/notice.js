@@ -13,12 +13,13 @@ var vapp=new Vue({
     	user_type: 2,
 		isshow:false,
 		isall:true,
-		cool:false
+		cool:false,
+		ky:''
 	},
 	methods:{
-		show_user:function(){
+		show_user:function(show){
 			var scope=this;
-			if(this.isshow){
+			if(this.isshow && !show){
 				this.isshow=false;
 				return;
 			}
@@ -27,7 +28,7 @@ var vapp=new Vue({
 		},
 		get_user:function(){
 			var scope=this;
-			axios.get('/admin_api/user_list?size='+scope.size+'&page='+scope.page+(scope.user_type!=2?('&user_type='+scope.user_type):'')).then(function(res){
+			axios.get('/admin_api/user_list?ky='+scope.ky+'&size='+scope.size+'&page='+scope.page+(scope.user_type!=2?('&user_type='+scope.user_type):'')).then(function(res){
 				setTimeout(function(){
 					scope.cool=false
 				},1500)
@@ -55,7 +56,7 @@ var vapp=new Vue({
 		},
 		send_notice:function(){
 			var scope=this;
-			if(this.isall){
+			if(this.isall && !this.ky){
 				this.form.ids='0';
 			}else{
 				this.form.ids='';

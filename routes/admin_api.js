@@ -165,6 +165,15 @@ router.get('/user_list',(req,res,next)=>{
 		order:query.order?query.order:'create_time',
 		filter:(query.user_type!=undefined?(` and review_status=${query.user_type}`):'')
     }
+
+    if(req.query.ky){
+    	if(isNaN(req.query.ky)){
+    		where.filter+=` and (member_name like '%${req.query.ky}%')`
+    	}else{
+    		where.filter+=` and (id=${req.query.ky})`
+    	}
+    	//where.filter+=` and (id in ${ky} or ) `
+    }
     where.filter += ' ';
     console.log('查询条件:'+where.filter)
 	mssql.query('dating_member_info',where,(err,result,count)=>{

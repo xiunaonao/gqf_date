@@ -34,7 +34,9 @@ block content
 				a(v-on:click="show_user()") 选择发送对象>>
 			p
 				button.blue-bg(v-on:click="send_notice()") 发送
-
+		p.admin-user-search(v-if="isshow")
+			input(type="text",v-model='ky',placeholder='输入编号或姓名')
+			button.blue-bg(v-on:click='users=[];page=1;show_user(true)') 搜索
 		ul.admin-user-list(v-if="isshow", v-on:scroll='scroll_move("",$event)')
 			li
 				input(type="checkbox",v-bind:checked='isall' v-on:change='choose_all')
@@ -42,6 +44,6 @@ block content
 			li(v-for="obj in users")
 				input(type="checkbox",v-bind:checked='isall || obj.ischoose' v-on:change='isall=isall?false:isall;obj.ischoose=!obj.ischoose')
 				img(v-bind:src="obj.head_img")
-				label {{obj.member_name}}
+				label {{obj.id}}&nbsp;{{obj.member_name}}
 
 	script(src='/js/admin/notice.js?v=1')
