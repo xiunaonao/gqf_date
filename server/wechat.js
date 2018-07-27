@@ -95,7 +95,7 @@ let get_user=(openid,callback)=>{
 	        headers: {
 	            "content-type": "application/json",
 	        },
-	        body: json,
+	        body: {},
 	    }, (error, response, body)=> {
 	        if (!error && response.statusCode == 200) {
 	            console.log(body) // 请求成功的处理逻辑
