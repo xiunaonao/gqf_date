@@ -52,8 +52,8 @@ var vapp=new Vue({
 
 		},
 		get_whchat:function(){
-			axios.post('/adting_api/get_user').then(function(res){
-				
+			axios.post('/adting_api/get_now_user').then(function(res){
+
 			})
 		},
 		postCode:function(){
