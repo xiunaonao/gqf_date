@@ -289,7 +289,8 @@ router.post('/insert_or_update',(req,res,next)=>{
 			create_time:'date',
 			unit_property:'num',
 			income_type:'num',
-			industry:''
+			industry:'',
+        	marriage_status:'num'
 		}
 	let rows={}
 	for(let i=0;i<Object.keys(rowsKey).length;i++){
@@ -305,6 +306,7 @@ router.post('/insert_or_update',(req,res,next)=>{
 	
 	//rows.member_cardno={value:memberNo,type:'num'}
 	rows.openid={value:openid,type:''}
+	rows.review_status={value:0,type:'num'}
 	mssql.exist('dating_member_info',` openid='`+rows.openid.value+`'`,(err,result,count)=>{
 	
 

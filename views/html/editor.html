@@ -453,7 +453,7 @@
         </div>
         <div class="editor_info editor_bot">
             <div class="info_top">
-                <span class="info_title">婚姻状况</span>
+                <span class="info_title not-null">婚姻状况</span>
                 <span class="select_text" id="member_marry" data-val="1">{{marry_status_c}}</span>
                 <img class="open_select" src="/img/展开.png"/>
             </div>
@@ -555,11 +555,11 @@
         <div class="editor_info editor_bot">
             <div class="info_top">
                 <span class="info_title not-null">从事职业</span>
-                <span class="select_text" id="member_job3" data-val="1">{{(!jobc2 || jobc2=='请选择')?'不限':jobc2.replace(',','')}}</span>
+                <span class="select_text" id="member_job3" data-val="1">{{(!jobc2 || jobc2=='请选择')?'不限':jobc2}}</span>
                 <img class="open_select" src="/img/展开.png"/>
             </div>
             <div class="select_div mul_job" mul_check=true style="">
-                <p value="1" v-for="obj,i in job" v-if='i!=0'  style="cursor: pointer;"><input class="checkbox" v-on:click="mul_check(obj)" type="checkbox"/>{{obj=='请选择'?'不限':obj}}</p>
+                <p value="1" v-for="obj,i in job" v-if='i!=0'  style="cursor: pointer;"><input class="checkbox" v-bind:checked="(jobc2.split(',')).indexOf(obj)>-1?true:false"  v-on:click="mul_check(obj,$event)" type="checkbox"/>{{obj=='请选择'?'不限':obj}}</p>
             </div>
         </div>
 

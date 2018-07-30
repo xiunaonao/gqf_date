@@ -27,6 +27,7 @@ var vapp = new Vue({
     job:['请选择','公务员','教师','医护人员','军人/警察','律师','企业高管','企业职工','其他'],
     jobc:'请选择',
     jobc2:'',
+    jobc2_obj:{},
     jobelse:'',
     companyCategory:['请选择','政府机关','事业单位','外资企业','合资企业','国营企业','私营企业','自由公司','其他'],
     income:['请选择','5万以下','5~8万','8~10万','10~15万','15~20万','20~50万','50万以上'],
@@ -101,14 +102,36 @@ var vapp = new Vue({
     	})
 
     },
-    mul_check:function(obj){
+    mul_check:function(obj,e){
+    	
 
-    	if(this.jobc2.indexOf(','+obj)!=-1){
-    		this.jobc2=this.jobc2.replace(','+obj,'');
+    	var jobc2arr=[]
+		if(this.jobc2==''){
+		}else{
+			jobc2arr=this.jobc2.split(',')
+		}
+
+
+    	if(jobc2arr.indexOf(obj)==-1){
+    		if(jobc2arr.length>=3){
+	    		_alert('最多可选三个职业');
+	    		e.target.checked=false;
+	    		return;
+	    	}
+    		jobc2arr.push(obj);
+
     	}else{
-    		this.jobc2+=','+obj;
+    		jobc2arr.splice(jobc2arr.indexOf(obj),1);
     	}
-    	console.log(obj)
+    	
+    	this.jobc2=jobc2arr.join(',');
+    	console.log(this.jobc2)
+    	// if(this.jobc2.indexOf(','+obj)!=-1){
+    	// 	this.jobc2=this.jobc2.replace(','+obj,'');
+    	// }else{
+    	// 	this.jobc2+=','+obj;
+    	// }
+    	// console.log(obj)
     },
     vaildCode:function(isSubmit){
     	var scope=this;
@@ -279,6 +302,13 @@ var vapp = new Vue({
 		// }
 		var college = $("#member_school").val();
 
+
+		if(scope.marry_status_c==0){
+			_alert('请选择婚姻状况');
+			this.posting=false;
+			return;
+		}
+
 		var health = $("#member_health").val();
 		if(!health){
 			_alert('请输入健康状况');
@@ -317,7 +347,7 @@ var vapp = new Vue({
 		var head_img = this.chooseImg;
 			
 		var postData = {member_name: member_name, sex: sex, day_of_birth: day_of_birth, card_number: card_number, domicile: domicile, work_unit: work_unit, job: job, education: education, college: college, health: health, height: height, weight: weight, nation: nation, housing: housing, car_buying: car_buying, hobby: hobby, special: special, mobile: mobile, head_img: head_img
-			,income_type:income_type,unit_property:unit_property,industry:industry
+			,income_type:income_type,unit_property:unit_property,industry:industry,marriage_status:scope.marry_status.indexOf(scope.marry_status_c)
 		}
 		
 		var age01 = $("#filter_age01").val();
@@ -343,7 +373,7 @@ var vapp = new Vue({
 		var car_buying = $("#filter_car").html();
 		var house_nature = $("#filter_address").html();
 		
-		var sentData = {age_range: age_range, height_range: height_range, weight_range: weight_range, job: job, income_range: income_range, housing: housing, car_buying: car_buying, house_nature: house_nature};
+		var sentData = {age_range: age_range, height_range: height_range, weight_range: weight_range, job: scope.jobc2, income_range: income_range, housing: housing, car_buying: car_buying, house_nature: house_nature};
 		
 		console.log(postData);
           		
@@ -638,7 +668,7 @@ jQuery(function(){
 					$("#member_hobby").val(data.data.hobby);
 					$("#member_specialty").val(data.data.special);
 					$("#member_tel").val(data.data.mobile);
-					
+					vapp.marry_status_c=vapp.marry_status[data.data.marriage_status];
 					vapp.incomeIndex=data.data.income_type;
 					vapp.companyCategoryIndex=data.data.unit_property;
 					vapp.jobc=data.data.job;
@@ -702,6 +732,7 @@ jQuery(function(){
 					$("#filter_house").html(data.data.housing);
 					$("#filter_car").html(data.data.car_buying);
 					$("#filter_address").html(data.data.house_nature);
+					
 					vapp.jobc2=data.data.job;
 					for(var i=0;i<document.querySelectorAll('.mul_job p').length;i++){
 						var dom=document.querySelectorAll('.mul_job p')[i];
