@@ -333,6 +333,40 @@ router.post('/wechat_send',(req,res,next)=>{
 	})
 })
 
+router.get('/banner_list',(req,res,next)=>{
+	mssql.exec('select * from dating_banners order by sort desc',(err,result,count)=>{
+		if(err){
+			res.json({success:false,msg:err})
+			return
+		}
+		let json={
+			success:true,
+			data:result,
+			msg:'操作成功'
+		}
+		res.json(json)
+	})
+})
+
+router.post('/banner_delete',(req,res,next)=>{
+	let openid=req.cookies['admin_oid']
+	if(openid=='')
+	{
+		res.json({success:false,msg:'登录已失效'})
+		return;
+	}
+	let id=req.body.id
+	mssql.exist('dating_managers',`usertype=1 and review_status=1 and  openid='${openid}'`,(err2,result2,count2)=>{
+		if(count2<=0){
+			res.json({success:false,msg:'权限不足'})
+			reutrn
+		}
+		mssql.remove(`dating_banners`,`id=${id}`,(req,res,next)=>{
+			
+		})
+	})
+})
+
 router.post('/banner_insert_or_update',(req,res,next)=>{
 	let openid=req.cookies['admin_oid']
 	if(openid=='')
@@ -345,6 +379,7 @@ router.post('/banner_insert_or_update',(req,res,next)=>{
 	let title=req.body.title
 	let url=req.body.url
 	let link_url=req.body.link_url
+	let sort=req.body.sort
 	mssql.exist('dating_managers',`usertype=1 and review_status=1 and  openid='${openid}'`,(err2,result2,count2)=>{
 		if(count2<=0){
 			res.json({success:false,msg:'权限不足'})
@@ -367,16 +402,21 @@ router.post('/banner_insert_or_update',(req,res,next)=>{
 			link_url:{
 				type:'',
 				value:link_url
+			},
+			sort:{
+				type:'num',
+				value:sort
 			}
 		}
 		if(!id){
 			let now=new Date()
-			rows['create_time']={
+			rows['created_time']={
 				type:'date',
 				value:now.getFullYear()+'-'+(now.getMonth()+1)+'-'+now.getDate()+' '+now.getHours()+':'+now.getMinutes()+':'+now.getSeconds()
 			}
 
 			mssql.insert(`dating_banners`,rows,(err,result,count)=>{
+				let json={}
 				if(err){
 					json.success=false
 					json.message=err
@@ -391,6 +431,7 @@ router.post('/banner_insert_or_update',(req,res,next)=>{
 
 		}else{
 			mssql.update(`dating_banners`,rows,`id=${id}`,(err,result,count)=>{
+				let json={}
 				if(err){
 					json.success=false
 					json.message=err

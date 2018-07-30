@@ -8,11 +8,11 @@
 
 	<div class="banner">
 		<div class="banner-main">
-			<ul>
-				<li>
-					<a>
-						<img src="/img/通栏.jpg"/>
-						<h3>姻为有你，缘聚长兴</h3>
+			<ul v-bind:style='{width:100*banner.length+"%","-webkit-transform":"translateX(-"+((100/banner.length)*banner_index)+"%)"}'>
+				<li v-for="obj in banner">
+					<a v-bind:href="obj.link_url?obj.link_url:'javascript:;'">
+						<img v-bind:src="obj.url"/>
+						<h3>{{obj.title}}</h3>
 					</a>
 				</li>
 			</ul>
@@ -47,7 +47,7 @@
 				<p class="member-info"><span class="member_age">{{getAge(obj.day_of_birth)}}</span>岁<span class="member-stature">{{obj.height}}</span>cm/<span class="member_weight">{{obj.weight}}</span>kg</p>
 				<img class="like-icon" v-if="!obj.is_like && yourid!=obj.id" v-bind:data-like="obj.is_like" v-on:click="sentLike(obj,false)" src="/img/unlike.png" alt="" />
 				<img class="like-icon" v-if="obj.is_like" v-bind:data-like="obj.is_like" v-on:click="sentLike(obj,true)" src="/img/like.png" alt="" />
-				<label>{{obj.mind_count?obj.mind_count+(obj.like_now?1:0):''}}</label>
+				<label>{{(obj.mind_count && obj.mind_count>0)?obj.mind_count:''}}</label>
 			</dd>
 		</dl>
 	</div>

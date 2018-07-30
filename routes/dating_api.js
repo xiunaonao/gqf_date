@@ -23,6 +23,7 @@ router.get('/list',(req,res,next)=>{
 		openid:openid,
 		filter:''
 	}
+	where.filter+=` and review_status=1 `
 	//where.filter+=` and openid <> '${openid}' `
 
 	if(query.age && query.age.indexOf('-')>-1){

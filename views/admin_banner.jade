@@ -1,17 +1,35 @@
 extends admin_layout
 
 block content
-	ul.admin-banner-list
-		//- li
-		//- 	.banner-img
-		//- 		img.img-mid(src="/temp/file-1532054756078.jpg")
-		//- 	.banner-info
-		//- 		h5 因为有你，缘聚长袖
-		//- 		h6
-		//- 			label 2018-01-01 
-		//- 			span.banner-button
-		//- 				button.white-bg 删除
-		//- 				button.white-bg 编辑
-		//- 				button.blue-bg 发送
+	#banner
+		ul.admin-banner-list
+			li(v-for='obj in data')
+				.banner-img
+					img.img-mid(v-bind:src="obj.url")
+				.banner-info
+					h5=obj.title
+					h6
+						label=obj.created_time
+						span.banner-button
+							button.white-bg(v-on:click="ready_delete(obj)") 删除
+							button.white-bg(v-on:click="ready_edit(obj)") 编辑
+							//button.blue-bg 发送
+		.button-add.banner-add
+		.confirm(v-if='isconfirm',style="min-width:2.5rem;position: fixed;top:50%;left: 50%;background: #FFF;-webkit-transform: translate(-50%,-50%);text-align: center;box-shadow: #666 0px 0px 5px;border-radius:10px;padding:.2rem;")
+			p {{confirmTxt}}
+			h6(style="margin-top:.2rem;")
+				button.red-bg(style="display:inline-block;margin-right:.1rem;",v-on:click="delete_now()") 删除
+				button.gray-bg(style="display:inline-block;",v-on:click="isconfirm=false") 取消
+		.alert-bg(v-if='is_alert')
+			.banner-box
+				a.alert-close(v-on:click='is_alert=false')
+				.banner-upload
+					img.upload_img.img-mid(v-if='update_obj.url',v-bind:src="update_obj.url")
+					.upload_null +
+					input.upload_btn(type='file',v-on:change="upload_choose")
+				input.banner-title(placeholder='请输入标题',v-model='update_obj.title')
+				input.banner-url(placeholder='请输入跳转的链接，可不填',v-model='update_obj.link_url')
+				button.red-bg(v-on:click="submit_banner_upload") 保存
+	script(src="/js/admin/banner.js")
 
 		

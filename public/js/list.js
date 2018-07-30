@@ -25,6 +25,11 @@ jQuery(function(){
 			pageIndex:1,
 			yourid:'',
 			head_img:'/img/noheadimg.png',
+			banner_index:0,
+			banner:[
+				{link_url:'',url:'/img/通栏.jpg',title:'姻为有你，缘聚长兴'},
+				{link_url:'',url:'/img/banner_dz.jpeg',title:'请记得给你的心动人士标"❤"'},
+			],
 			orderArr:[
 				{name:'id',value:'desc'},
 				{name:'mind_count',value:'desc'},
@@ -53,6 +58,12 @@ jQuery(function(){
 					}
 				}
 
+				setInterval(function(){
+					if(scope.banner_index<scope.banner.length-1)
+						scope.banner_index++;
+					else
+						scope.banner_index=0;
+				},4000)
 
 				var listPost = sessionStorage.getItem("listPost");
 				console.log("listPost:"+listPost);
@@ -338,6 +349,11 @@ jQuery(function(){
 						dat=JSON.parse(dat)
 					if(dat.success){
 						obj.is_like=isLike;
+						if(isLike){
+							obj.mind_count++;
+						}else{
+							obj.mind_count--;
+						}
 						console.log(obj.is_like)
 					}else{
 						$(".alert_msg p").html(dat.message);

@@ -2,7 +2,7 @@
 li{list-style: none;}
 [v-cloak]{display:none;}
 a{text-decoration:none;color:inherit;}
-
+input[type=file]{opacity:0;}
 
 .text-left{text-align:left!important;}
 .goto_h5{position: fixed;right:.3rem;top:.3rem;z-index: 999;}
@@ -15,6 +15,11 @@ a{text-decoration:none;color:inherit;}
 .head-box .card-info{margin-left:.11rem;}
 .head-box .card-info>h5{font-size:.15rem;line-height:.24rem;}
 .head-box .card-info>h6{font-size:.12rem;color:#666;font-weight:300;}
+
+.alert-bg{background:rgba(0,0,0,0.5);width:100%;height:100%;position:fixed;z-index:9999;top:0;left:0;}
+.alert-bg>*{background:#FFF;border-radius:.1rem;position:absolute;left:50%;top:50%;-webkit-transform:translate(-50%,-50%);}
+.alert-close{position:absolute;right:0;top:-.3rem;font-size:.3rem;color:#FFF;line-height:.3rem;}
+.alert-close:before{content: "×";}
 
 .img-mid{max-height:100%;max-width:150%;min-height:100%;min-width:100%;-webkit-transform:translate(-50%,-50%);left:50%;top:50%;position:absolute;}
 button{width:.6rem;height:.25rem;border-radius: .03rem;color:#FFF;font-size:.13rem;border:none 0 #000;margin-top:.01rem;display:block;}
@@ -61,15 +66,25 @@ button{width:.6rem;height:.25rem;border-radius: .03rem;color:#FFF;font-size:.13r
 
 .button-add{position:fixed;bottom:.8rem;left:50%;-webkit-transform:translateX(-50%);}
 .notice-add{width:1.2rem;height:.3rem;background:url(/img/notice_add.png) no-repeat center/1.2rem;}
-
+.banner-add{width:1.2rem;height:.3rem;background:url(/img/banner_add.png) no-repeat center/1.2rem;}
 
 .admin-banner-list li{height:4.3rem;widht:100%;padding:.15rem;box-sizing:border-box;}
-.admin-banner-list li .banner-img{width:3.45rem;height:1.65rem;position:relative;overflow: hidden;}
+.admin-banner-list li .banner-img{width:3.45rem;height:1.68rem;position:relative;overflow: hidden;}
 .admin-banner-list li .banner-info{height:.85rem;width:3.45rem;border-bottom:#EEE solid .01rem;}
 .admin-banner-list li .banner-info h5{font-size:.15rem;line-height:.25rem;color:#323232;font-weight:600;margin:.15rem 0;}
 .admin-banner-list li .banner-info h6 label{color:#AAA;}
 .admin-banner-list li .banner-button{float:right;} 
-.admin-banner-list li .banner-info button{margin-left:.1rem;}
+.admin-banner-list li .banner-info button{margin-left:.1rem;display: inline-block;}
+
+
+
+.banner-box{width:3.45rem;height:3.05rem;padding: .2rem .075rem;}
+.banner-upload{width:3.45rem;height:1.68rem;box-sizing: border-box;position:relative;text-align:center;font-size:1rem;}
+.banner-upload>input,.banner-upload>div{width:100%;height:100%;position:absolute;overflow:hidden;left:0;box-sizing:border-box;line-height:1.3rem;}
+.banner-upload>input{}
+.banner-upload>div{border:dashed .03rem rgba(235,235,235,.5);border-radius:.05rem;font-size:1.5rem;color:rgba(235,235,235,.5);}
+.banner-box>input{display:block;width:100%;border:none 0 #000;border-bottom:.01rem solid #CCC;height:.4rem;outline:none;}
+.banner-box>button{width:3.45rem;position:absolute;bottom:.1rem;height:.3rem;font-size:.14rem;}
 
 
 .member-dl { float: left; width: 1.65rem; height: 2rem; margin: 0.15rem 0 0.15rem 0.15rem; border-radius: 0.05rem; box-shadow: 0px 0px 5px 3px #EEEEEE; position:relative; }
