@@ -23,6 +23,9 @@ var vapp=new Vue({
             this.confirmFlag = 'delete'
             this.deleteObj = obj;
         },
+        delete_now:function(obj){
+        	
+        },
 		get_banner:function(){
 			var scope=this;
 			axios.get('/admin_api/banner_list').then(function(res){

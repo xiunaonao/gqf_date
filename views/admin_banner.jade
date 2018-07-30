@@ -7,9 +7,9 @@ block content
 				.banner-img
 					img.img-mid(v-bind:src="obj.url")
 				.banner-info
-					h5=obj.title
+					h5 {{obj.title}}
 					h6
-						label=obj.created_time
+						label {{obj.created_time}}
 						span.banner-button
 							button.white-bg(v-on:click="ready_delete(obj)") 删除
 							button.white-bg(v-on:click="ready_edit(obj)") 编辑

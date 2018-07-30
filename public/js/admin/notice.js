@@ -28,6 +28,9 @@ var vapp=new Vue({
 		},
 		get_user:function(){
 			var scope=this;
+			if(scope.page==1){
+				scope.data=[];
+			}
 			axios.get('/admin_api/user_list?ky='+scope.ky+'&size='+scope.size+'&page='+scope.page+(scope.user_type!=2?('&user_type='+scope.user_type):'')).then(function(res){
 				setTimeout(function(){
 					scope.cool=false

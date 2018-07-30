@@ -284,7 +284,7 @@
         <p></p>
     	
     	<div class="editor_info img_up">
-            <span class="info_title">上传图片</span>
+            <span class="info_title  not-null">上传图片</span>
             <div class="e_img" v-on:click="change_input()">
             	<div class="e_img_inner" v-on:click="deleteImg($event)">
             		<span id="e_center">+</span>
@@ -297,7 +297,7 @@
         
 
         <div class="editor_info">
-            <span class="info_title">姓名</span>
+            <span class="info_title not-null">姓名</span>
             <input class="info_input" id="member_name" type="text" value="" placeholder="请输入姓名" />
         </div>
         
@@ -319,11 +319,11 @@
         </div> -->
 
         <div class="editor_info">
-            <span class="info_title">身份证号码</span>
+            <span class="info_title not-null">身份证号码</span>
             <input class="info_input" id="member_card" type="text" value="" placeholder="请输入身份证号码（信息严格保密，不会显示给其他用户）" />
         </div>
         <div class="editor_info">
-            <span class="info_title">现户籍地</span>
+            <span class="info_title  not-null">现户籍地</span>
             <input class="info_input" id="member_address" type="text" value="" placeholder="请输入现户籍地(具体到乡镇)" />
         </div>
         <div class="editor_info editor_bot" style="display:none">
@@ -337,13 +337,13 @@
             </div>
         </div>
         <div class="editor_info">
-            <span class="info_title">工作单位</span>
+            <span class="info_title  not-null">工作单位</span>
             <input class="info_input" id="member_company" type="text" value="" placeholder="请输入工作单位" />
         </div>
 
         <div class="editor_info editor_bot">
             <div class="info_top">
-                <span class="info_title">从事行业</span>
+                <span class="info_title not-null">从事行业</span>
                 <span class="select_text" id="member_job" data-val="1">{{industryc}}</span>
                 <img class="open_select" src="/img/展开.png"/>
             </div>
@@ -358,7 +358,7 @@
 
         <div class="editor_info editor_bot">
             <div class="info_top">
-                <span class="info_title">从事职业</span>
+                <span class="info_title not-null">从事职业</span>
                 <span class="select_text" id="member_job2" data-val="1">{{jobc}}</span>
                 <img class="open_select" src="/img/展开.png"/>
             </div>
@@ -398,7 +398,7 @@
         
         <div class="editor_info editor_bot">
         	<div class="info_top">
-        		<span class="info_title">学历</span>
+        		<span class="info_title not-null">学历</span>
         		<span class="select_text" id="member_education" data-val="">请选择</span>
         		<img class="open_select" src="/img/展开.png"/>
         	</div>
@@ -433,7 +433,7 @@
         </div> -->
         <div class="editor_info editor_bot">
             <div class="info_top">
-                <span class="info_title">年收入</span>
+                <span class="info_title not-null">年收入</span>
                 <span class="select_text" id="member_income" data-val="">{{income[incomeIndex]}}</span>
                 <img class="open_select" src="/img/展开.png"/>
             </div>
@@ -448,7 +448,7 @@
             <input class="info_input" id="member_school" type="text" value="" placeholder="请输入毕业院校" />
         </div>
         <div class="editor_info">
-            <span class="info_title">健康状况</span>
+            <span class="info_title not-null">健康状况</span>
             <input class="info_input" id="member_health" type="text" value="" placeholder="请输入健康状况" />
         </div>
         <div class="editor_info editor_bot">
@@ -463,11 +463,11 @@
         </div>
 
         <div class="editor_info">
-            <span class="info_title">身高(cm)</span>
+            <span class="info_title not-null">身高(cm)</span>
             <input class="info_input" id="member_height" type="number" value="" placeholder="请输入身高(cm)" />
         </div>
         <div class="editor_info">
-            <span class="info_title">体重(kg)</span>
+            <span class="info_title not-null">体重(kg)</span>
             <input class="info_input" id="member_weight" type="number" value="" placeholder="请输入体重(kg)" />
         </div>
         <div class="editor_info" style="display:none;">
@@ -477,7 +477,7 @@
         
         <div class="editor_info editor_bot">
         	<div class="info_top">
-        		<span class="info_title">购房状况</span>
+        		<span class="info_title not-null">购房状况</span>
         		<span class="select_text" id="member_house" data-val="">请选择</span>
         		<img class="open_select" src="/img/展开.png"/>
         	</div>
@@ -488,7 +488,7 @@
         </div>
         <div class="editor_info editor_bot">
         	<div class="info_top">
-        		<span class="info_title">购车状况</span>
+        		<span class="info_title not-null">购车状况</span>
         		<span class="select_text" id="member_car" data-val="">请选择</span>
         		<img class="open_select" src="/img/展开.png"/>
         	</div>
@@ -554,7 +554,7 @@
         </div> -->
         <div class="editor_info editor_bot">
             <div class="info_top">
-                <span class="info_title">从事职业</span>
+                <span class="info_title not-null">从事职业</span>
                 <span class="select_text" id="member_job3" data-val="1">{{(!jobc2 || jobc2=='请选择')?'不限':jobc2.replace(',','')}}</span>
                 <img class="open_select" src="/img/展开.png"/>
             </div>

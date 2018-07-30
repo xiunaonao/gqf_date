@@ -5,7 +5,7 @@ a{text-decoration:none;color:inherit;}
 input[type=file]{opacity:0;}
 
 .text-left{text-align:left!important;}
-.goto_h5{position: fixed;right:.3rem;top:.3rem;z-index: 999;}
+.goto_h5{position: absolute;right:.3rem;top:.3rem;z-index: 999;border:solid #666 1px;border-radius:.05rem;padding:.05rem;}
 .admin-box{background:#FFF;}
 .admin-main{padding-bottom:.5rem;}
 .admin-card{width:3.45rem;height:1.4rem;box-shadow:#DDD .0rem .0rem .05rem;border-radius:.03rem;box-sizing:border-box;margin:.15rem;}

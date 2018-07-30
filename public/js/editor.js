@@ -102,6 +102,7 @@ var vapp = new Vue({
 
     },
     mul_check:function(obj){
+
     	if(this.jobc2.indexOf(','+obj)!=-1){
     		this.jobc2=this.jobc2.replace(','+obj,'');
     	}else{
@@ -197,6 +198,14 @@ var vapp = new Vue({
       		return;
       	}
 
+      	if(!$("#member_tel").val()){
+	    	$(".alert_msg p").html("请输入手机号码");
+		    $(".alert_msg").show();
+		    setTimeout('$(".alert_msg").hide()', 2000);
+      		this.posting=false;
+      		return;
+      	}
+
       // 	if( this.industryc=='请选择' || (this.industryc=='其他' && this.industryelse=='')){
 	    	// $(".alert_msg p").html("请选择职业");
 		    // $(".alert_msg").show();
@@ -228,26 +237,79 @@ var vapp = new Vue({
 		var day_of_birth=valid_idcard.info.year+'-'+valid_idcard.info.month+'-'+valid_idcard.info.day;
 		var card_number = $("#member_card").val();
 		var domicile = $("#member_address").val();
+		if(!domicile){
+			_alert('请输入户籍地');
+			this.posting=false;
+			return;
+		}
+
 		var work_unit = $("#member_company").val();
+		if(!work_unit){
+			_alert('请输入工作单位');
+			this.posting=false;
+			return;
+		}
+
 		var job = $("#member_job2").text();
 		if(job=='其他'){
 			job=this.jobelse;
 		}
+		if(job=='请选择'){
+			_alert('请选择所属职业');
+			this.posting=false;
+			return;
+		}
 		var education = $("#member_education").attr("data-val");
+		if(!education || education=='请选择'){
+			_alert('请选择学历');
+			this.posting=false;
+			return;
+		}
 		//var annual_income = $("#member_income").val();
 		var income_type = vapp.incomeIndex;
 		var unit_property = vapp.companyCategoryIndex;
 		var industry=$('#member_job').text();
+		if(industry=='请选择'){
+			_alert('请选择所属行业');
+			this.posting=false;
+			return;
+		}
 		// if(industry=='其他'){
 		// 	industry=this.industryelse;
 		// }
 		var college = $("#member_school").val();
+
 		var health = $("#member_health").val();
+		if(!health){
+			_alert('请输入健康状况');
+			this.posting=false;
+			return;
+		}
 		var height = $("#member_height").val();
+		if(!height){
+			_alert('请输入身高');
+			this.posting=false;
+			return;
+		}
 		var weight = $("#member_weight").val();
+		if(!weight){
+			_alert('请输入体重');
+			this.posting=false;
+			return;
+		}
 		var nation = $("#member_nation").val();
 		var housing = $("#member_house").html()!='请选择'?$("#member_house").html():'';
+		if(!housing){
+			_alert('请选择购房情况');
+			this.posting=false;
+			return;
+		}
 		var car_buying = $("#member_car").html()!='请选择'?$("#member_car").html():'';
+		if(!car_buying){
+			_alert('请选择购车情况');
+			this.posting=false;
+			return;
+		}
 		var hobby = $("#member_hobby").val();
 		var special = $("#member_specialty").val();
 		var mobile = $("#member_tel").val();
@@ -268,7 +330,12 @@ var vapp = new Vue({
 		var weight02 = $("#filter_weight02").val();
 		var weight_range = weight01+"-"+weight02;
 		//var job = $("#filter_job").val();
-		var job=((this.jobc2=='不限' || this.jobc2=='请选择')?'':this.jobc2);
+		// var job=((this.jobc2=='不限' || this.jobc2=='请选择')?'':this.jobc2);
+		// if(!job){
+		// 	_alert('请选择择偶对象的职业');
+		// 	this.posting=false;
+		// 	return;
+		// }
 		var income01 = $("#filter_income01").val();
 		var income02 = $("#filter_income02").val();
 		var income_range = income01+"-"+income02;
@@ -333,6 +400,11 @@ var vapp = new Vue({
             width: 300 //设置压缩参数
         }).then(function (rst) {
 */
+		if(!$('.e_img_inner').css('background-image') && !uploadSrc){
+			_alert('未上传照片');
+			scope.posting=false;
+			return;
+		}
 		if(uploadSrc==""){
 			//scope.textSubmit();
 			scope.vaildCode();

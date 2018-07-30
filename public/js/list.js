@@ -35,7 +35,7 @@ jQuery(function(){
 				{name:'mind_count',value:'desc'},
 				{name:'day_of_birth',value:'desc'}
             ],
-            job:['不限','公务员','教师','医护人员','军人/警察','律师','企业高管','企业职工','其他'],
+            job:['公务员','教师','医护人员','军人/警察','律师','企业高管','企业职工','其他'],
             orderNow: 0,
             where:{
             	sex:"性别",
