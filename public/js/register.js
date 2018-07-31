@@ -62,7 +62,7 @@ var vapp=new Vue({
 				 scope.wechat=res.data.info;
 				 scope.data.sex=res.data.info.sex;
 				 scope.data.member_name=res.data.info.nickname;
-				 scope.data.head_img=res.data.info.headimg;
+				 scope.data.head_img=res.data.info.headimgurl;
 			})
 		},
 		postCode:function(){
