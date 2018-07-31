@@ -292,11 +292,11 @@ var vapp = new Vue({
 		var income_type = vapp.incomeIndex;
 		var unit_property = vapp.companyCategoryIndex;
 		var industry=$('#member_job').text();
-		if(industry=='请选择'){
-			_alert('请选择所属行业');
-			this.posting=false;
-			return;
-		}
+		// if(industry=='请选择'){
+		// 	_alert('请选择所属行业');
+		// 	this.posting=false;
+		// 	return;
+		// }
 		// if(industry=='其他'){
 		// 	industry=this.industryelse;
 		// }

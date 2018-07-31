@@ -20,12 +20,18 @@ let aesMethod=(token,callback)=>{
 /* GET home page. */
 router.get('/', function(req, res, next) {
   //res.render('index', { title: 'Express' });
+  // let openid=req.cookies['union_oid']
+  // if(!openid){
+  // 	console.log('无效的用户')
+  // 	res.redirect(301,'http://100579.un.123zou.com/Platform/Link?key=go.dating')
+  // 	return
+  // }
   res.sendFile('index.html');
 });
 
 
 router.get('/union_valid',(req,res,next)=>{
-
+	
 	if(req.query.openid){
 		var times=new Date(new Date().setDate(new Date().getDate()+7))
 

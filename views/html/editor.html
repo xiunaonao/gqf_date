@@ -291,7 +291,7 @@
             		<!--<img class="head_img" src=""/>-->
             	</div>
             </div>
-            <p class="img_up_txt">上传正式资料者将优先考虑参与线下活动</p>
+            <p class="img_up_txt">上传真实资料者将优先安排参与线下活动</p>
             <form id="addTextForm" v-on:change="setImg($event)"></form>
         </div>
         
@@ -341,7 +341,7 @@
             <input class="info_input" id="member_company" type="text" value="" placeholder="请输入工作单位" />
         </div>
 
-        <div class="editor_info editor_bot">
+        <div class="editor_info editor_bot" style="display:none">
             <div class="info_top">
                 <span class="info_title not-null">从事行业</span>
                 <span class="select_text" id="member_job" data-val="1">{{industryc}}</span>
@@ -367,8 +367,8 @@
             </div>
         </div>
         <div class="editor_info"  v-if="jobc=='其他'">
-            <span class="info_title">&nbsp;</span>
-            <input class="info_input" id="member_company" type="text" v-model="jobelse" placeholder="请输入所属职业" />
+            <!-- <span class="info_title">&nbsp;</span> -->
+            <input style="margin-left: 0.16rem;width:80%;" class="info_input" id="member_company" type="text" v-model="jobelse" placeholder="或请输入其他职业" />
         </div>
 <!--         <div class="editor_info editor_bot">
             <div class="info_top">
@@ -506,15 +506,7 @@
             <span class="info_title">个人特长</span>
             <input class="info_input" id="member_specialty" type="text" value="" placeholder="请填写个人特长" />
         </div> -->
-        <div class="editor_info">
-            <span class="info_title">手机号码</span>
-            <input class="info_input" id="member_tel" type="text" value="" placeholder="请输入个人联系方式（信息严格保密，不会显示给其他用户）" />
-        </div>
-        <div class="editor_info" style="position:relative;">
-            <span class="info_title">短信验证码</span>
-            <input class="info_input" id="member_code" type="text" v-model="code" placeholder="" />
-            <button class="member_code_post" style="color:red;" v-on:click="postCode">{{code_cool==0?'发送验证码':('重新发送('+code_cool+'s)')}}</button>
-        </div>      
+  
 
 
         <img class="choose_title" src="/img/择偶标准.png" alt="" />
@@ -555,11 +547,11 @@
         <div class="editor_info editor_bot">
             <div class="info_top">
                 <span class="info_title not-null">从事职业</span>
-                <span class="select_text" id="member_job3" data-val="1">{{(!jobc2 || jobc2=='请选择')?'不限':jobc2}}</span>
+                <span class="select_text" id="member_job3" data-val="1">{{(!jobc2 || jobc2=='请选择' || jobc2=='其他')?'不限':jobc2}}</span>
                 <img class="open_select" src="/img/展开.png"/>
             </div>
             <div class="select_div mul_job" mul_check=true style="">
-                <p value="1" v-for="obj,i in job" v-if='i!=0'  style="cursor: pointer;"><input class="checkbox" v-bind:checked="(jobc2.split(',')).indexOf(obj)>-1?true:false"  v-on:click="mul_check(obj,$event)" type="checkbox"/>{{obj=='请选择'?'不限':obj}}</p>
+                <p value="1" v-for="obj,i in job" v-if='i!=0'  style="cursor: pointer;"><input class="checkbox" v-bind:checked="(jobc2.split(',')).indexOf(obj)>-1?true:false"  v-on:click="mul_check(obj,$event)" type="checkbox"/>{{obj=='请选择' || obj=='其他'?'不限':obj}}</p>
             </div>
         </div>
 
@@ -622,12 +614,21 @@
             <span class="info_title">其他</span>
             <input class="info_input" id="filter_other" type="text" value="" placeholder="请输入" />
         </div>-->
-        
+        <div class="editor_info">
+            <span class="info_title">手机号码</span>
+            <input class="info_input" id="member_tel" type="text" value="" placeholder="请输入个人联系方式（信息严格保密，不会显示给其他用户）" />
+        </div>
+        <div class="editor_info" style="position:relative;">
+            <span class="info_title">短信验证码</span>
+            <input class="info_input" id="member_code" type="text" v-model="code" placeholder="" />
+            <button class="member_code_post" style="color:red;" v-on:click="postCode">{{code_cool==0?'发送验证码':('重新发送('+code_cool+'s)')}}</button>
+        </div>
         <p class="bottom_text">特别声明：<br/>
+        <i style="color:red;"></i><label style="color:red;">带<strong>*</strong>号项为必填项</label></br>
         <i></i><label>个人手机住址单位信息严格保密</label><br/>
         <i></i><label>本人承诺以上资料真实有效，否则由此带来的一切法律责任由本人自行承担<label><br/>
         </p>
-        
+
         <!-- <img class="submit_btn" v-on:touchstart="allSubmit()" src="/img/提交.png" alt="" /> -->
         <button class="submit_btn red-bg" v-on:click='allSubmit()'>保存资料提交</button>
         

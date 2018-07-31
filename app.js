@@ -28,13 +28,23 @@ app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(express.static(path.join(__dirname, 'views/html')));
 
 app.use((req,res,next)=>{
-	res.locals._v=ver;
+	 console.log(req.url.indexOf('union_valid'))
+	if(req.url.indexOf('union_valid')==-1){
+		let openid=req.cookies['union_oid']
+		if(!openid){
+		  	console.log('无效的用户')
+		  	//res.redirect(301,'http://100579.un.123zou.com/Platform/Link?key=go.dating')
+		  	return
+		}
+	  }
+	res.locals._v=ver
 	next()
 })
 
+
+app.use(express.static(path.join(__dirname, 'views/html')))
 app.use('/', indexRouter)
 app.use('/users', usersRouter)
 app.use('/dating_api', dating_apiRouter)

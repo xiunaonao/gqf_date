@@ -28,7 +28,7 @@ jQuery(function(){
 			banner_index:0,
 			banner:[
 				// {link_url:'',url:'/img/通栏.jpg',title:'姻为有你，缘聚长兴'},
-				// {link_url:'',url:'/img/banner_dz.jpg',title:'标心配对成功可尽早参加线下活动'}
+				 {link_url:'',url:'/img/banner_dz.jpg',title:'标心配对成功可尽早参加线下活动'}
 			],
 			orderArr:[
 				{name:'id',value:'desc'},
@@ -146,6 +146,7 @@ jQuery(function(){
 				});
 			},
 			get_banner:function(){
+				return;
 				var scope=this;
 				axios.get('/admin_api/banner_list').then(function(res){
 				if(res.data.success){
