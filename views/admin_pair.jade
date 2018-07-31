@@ -37,6 +37,6 @@ block content
 
 		.admin-null(v-if='data.length<=0') 暂无相关数据
 	if(type==2)
-		script(src='/js/admin/multi.js')
+		script(src='/js/admin/multi.js?v=#{_v}')
 	if(type==1)
 		script(src='/js/admin/pair.js')

@@ -121,5 +121,6 @@ var vapp=new Vue({
 	},
 	mounted:function(){
 		this.getMemberInfo();
+		this.getStandard();
 	}
 })

@@ -242,19 +242,23 @@ style(type='text/css').
 			p.main_title 择偶标准
 			.main_info
 				span.info_left 身高
-				span#f_height.info_right {{standardInfo.height_range}}cm
+				span#f_height.info_right(v-if="standardInfo.height_range!='-'") {{standardInfo.height_range+'cm'}}
+				span#f_height.info_right(v-if="standardInfo.height_range=='-'") {{'不限'}}
 			.main_info
 				span.info_left 年龄区间
-				span#f_age.info_right {{standardInfo.age_range}}岁
+				span#f_age.info_right(v-if="standardInfo.age_range!='-'") {{standardInfo.age_range}}岁
+				span#f_age.info_right(v-if="standardInfo.height_range=='-'") {{'不限'}}
 			.main_info
 				span.info_left 体重
-				span#f_weight.info_right {{standardInfo.weight_range}}kg
+				span#f_weight.info_right(v-if="standardInfo.weight_range!='-'") {{standardInfo.weight_range}}kg
+				span#f_age.info_right(v-if="standardInfo.weight_range=='-'") {{'不限'}}
 			.main_info
 				span.info_left 职业
 				span#f_job.info_right {{standardInfo.job}}
 			.main_info
 				span.info_left 年收入
-				span#f_income.info_right {{standardInfo.income_range}}万元
+				span#f_income.info_right(v-if="standardInfo.income_range!='-'") {{standardInfo.income_range}}万元
+				span#f_age.info_right(v-if="standardInfo.income_range=='-'") {{'不限'}}
 			.main_info
 				span.info_left 住房
 				span#f_house.info_right {{standardInfo.housing}}
