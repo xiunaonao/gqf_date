@@ -9,12 +9,12 @@ block content
 				.banner-info
 					h5 {{obj.title}}
 					h6
-						label {{obj.created_time}}
+						label {{obj.created_time.replace('T',' ').replace('Z',' ').replace('.000',' ')}}
 						span.banner-button
 							button.white-bg(v-on:click="ready_delete(obj)") 删除
 							button.white-bg(v-on:click="ready_edit(obj)") 编辑
 							//button.blue-bg 发送
-		.button-add.banner-add
+		.button-add.banner-add(v-on:click='update_obj={id:0};is_alert=true;')
 		.confirm(v-if='isconfirm',style="min-width:2.5rem;position: fixed;top:50%;left: 50%;background: #FFF;-webkit-transform: translate(-50%,-50%);text-align: center;box-shadow: #666 0px 0px 5px;border-radius:10px;padding:.2rem;")
 			p {{confirmTxt}}
 			h6(style="margin-top:.2rem;")

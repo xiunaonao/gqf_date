@@ -52,16 +52,24 @@ var vapp=new Vue({
 			axios.post('/admin_api/banner_insert_or_update',scope.update_obj).then(function(res){
 				if(res.data.success){
 					_alert('保存成功');
+					scope.is_alert=false;
+					scope.get_banner();
 				}else{
 					_alert('保存失败');
 				}
 			})
 		},
 		ready_delete:function(obj){
-
+			this.delete_user(obj);
 		},
 		ready_edit:function(obj){
-
+			this.update_obj={
+				id:obj.id,
+				url:obj.url,
+				link_url:obj.link_url,
+				sort:obj.sort
+			}
+			this.is_alert=true;
 		},
 		submit_banner_upload:function(){
 			var scope=this;

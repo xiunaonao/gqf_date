@@ -4,10 +4,10 @@ li{list-style: none;}
 a{text-decoration:none;color:inherit;}
 input[type=file]{opacity:0;}
 
+.admin-web{padding-bottom: .5rem;}
 .text-left{text-align:left!important;}
 .goto_h5{position: absolute;right:.3rem;top:.3rem;z-index: 999;border:solid #666 1px;border-radius:.05rem;padding:.05rem;}
 .admin-box{background:#FFF;}
-.admin-main{padding-bottom:.5rem;}
 .admin-card{width:3.45rem;height:1.4rem;box-shadow:#DDD .0rem .0rem .05rem;border-radius:.03rem;box-sizing:border-box;margin:.15rem;}
 .head-box{height:.45rem;padding:.13rem;}
 .head-box>*{float:left;}
@@ -68,7 +68,7 @@ button{width:.6rem;height:.25rem;border-radius: .03rem;color:#FFF;font-size:.13r
 .notice-add{width:1.2rem;height:.3rem;background:url(/img/notice_add.png) no-repeat center/1.2rem;}
 .banner-add{width:1.2rem;height:.3rem;background:url(/img/banner_add.png) no-repeat center/1.2rem;}
 
-.admin-banner-list li{height:4.3rem;widht:100%;padding:.15rem;box-sizing:border-box;}
+.admin-banner-list li{height:3rem;widht:100%;padding:.15rem;box-sizing:border-box;}
 .admin-banner-list li .banner-img{width:3.45rem;height:1.68rem;position:relative;overflow: hidden;}
 .admin-banner-list li .banner-info{height:.85rem;width:3.45rem;border-bottom:#EEE solid .01rem;}
 .admin-banner-list li .banner-info h5{font-size:.15rem;line-height:.25rem;color:#323232;font-weight:600;margin:.15rem 0;}

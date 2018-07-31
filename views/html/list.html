@@ -21,7 +21,7 @@
 	</div>
 	<div class="banner-bar banner-ban-abs">
 			<ul>
-				<li><button class="red-bg"></button></li>
+				<li v-for="obj,i in banner"><button v-bind:class="[i==banner_index?'red-bg':'']"></button></li>
 			</ul>
 		</div>
 	<div class="list-filter">
