@@ -79,7 +79,7 @@ button{width:.6rem;height:.25rem;border-radius: .03rem;color:#FFF;font-size:.13r
 
 
 .banner-box{width:3.45rem;height:3.05rem;padding: .2rem .075rem;}
-.banner-upload{width:3.45rem;height:1.68rem;box-sizing: border-box;position:relative;text-align:center;font-size:1rem;}
+.banner-upload{width:3.45rem;height:1.68rem;box-sizing: border-box;position:relative;text-align:center;font-size:1rem;overflow:hidden;}
 .banner-upload>input,.banner-upload>div{width:100%;height:100%;position:absolute;overflow:hidden;left:0;box-sizing:border-box;line-height:1.3rem;}
 .banner-upload>input{}
 .banner-upload>div{border:dashed .03rem rgba(235,235,235,.5);border-radius:.05rem;font-size:1.5rem;color:rgba(235,235,235,.5);}

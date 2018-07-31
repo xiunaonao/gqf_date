@@ -334,7 +334,7 @@ router.post('/wechat_send',(req,res,next)=>{
 })
 
 router.get('/banner_list',(req,res,next)=>{
-	mssql.exec('select * from dating_banners order by sort desc',(err,result,count)=>{
+	mssql.exec('select * from dating_banners order by sort asc',(err,result,count)=>{
 		if(err){
 			res.json({success:false,msg:err})
 			return

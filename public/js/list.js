@@ -27,8 +27,8 @@ jQuery(function(){
 			head_img:'/img/noheadimg.png',
 			banner_index:0,
 			banner:[
-				{link_url:'',url:'/img/通栏.jpg',title:'姻为有你，缘聚长兴'},
-				{link_url:'',url:'/img/banner_dz.jpg',title:'标心配对成功可尽早参加线下活动'}
+				// {link_url:'',url:'/img/通栏.jpg',title:'姻为有你，缘聚长兴'},
+				// {link_url:'',url:'/img/banner_dz.jpg',title:'标心配对成功可尽早参加线下活动'}
 			],
 			orderArr:[
 				{name:'id',value:'desc'},
@@ -48,6 +48,7 @@ jQuery(function(){
 			init:function(){
 				var scope=this;
 				this.getMemberInfo();
+				this.get_banner();
 				document.body.onscroll=function(){
 					var top=document.body.scrollTop;
 					var mheight=document.body.scrollHeight;
@@ -68,10 +69,6 @@ jQuery(function(){
 				var listPost = sessionStorage.getItem("listPost");
 				console.log("listPost:"+listPost);
 				if(listPost==null){
-
-					//var orderStr=scope.orderArr[0].name+' '+scope.orderArr[0].value+',';
-					//orderStr+=scope.orderArr[1].name+' '+scope.orderArr[1].value+',';
-                    //orderStr+=scope.orderArr[2].name+' '+scope.orderArr[2].value+'';
                     var orderStr = ""
                     for (var i = 0; i < scope.orderArr.length; i++) {
                         if (i == scope.orderNow)
@@ -91,7 +88,6 @@ jQuery(function(){
 		                	scope.no_more=false;
 		                }
 						this.news = dat.data;
-	//					console.log(this.news.day_of_birth);
 						console.log("success:"+dat.success);
 						console.log("message:"+dat.message);
 					});
@@ -148,6 +144,14 @@ jQuery(function(){
 						}
 					}
 				});
+			},
+			get_banner:function(){
+				var scope=this;
+				axios.get('/admin_api/banner_list').then(function(res){
+				if(res.data.success){
+					scope.banner=res.data.data;
+				}
+			})
 			},
 			getFirstData:function(){
 				this.pageIndex=0;

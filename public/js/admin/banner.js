@@ -40,7 +40,8 @@ var vapp=new Vue({
 			this.target_files=t.target.files;
 			var fr=new FileReader();
 			fr.onload = function (e) {
-                scope.update_obj.url = e.currentTarget.result;
+                //scope.update_obj.url = e.currentTarget.result;
+                Vue.set(scope.update_obj,'url',e.currentTarget.result);
             }
 			fr.readAsDataURL(target.files[0]);
 		},
