@@ -3,7 +3,10 @@ axios.get('/dating_api/new_user').then(function (res) {
     if (res.data.success) {
         gotoreg.style.display = 'block';
     } else {
-        location.href = '#list';
+        setTimeout(function(){
+            location.href = '#list';
+        },3000)
+        
     }
 })
 

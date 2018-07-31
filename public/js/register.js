@@ -5,7 +5,8 @@ var vapp=new Vue({
 			//card_number:'',
 			mobile:'',
 			member_name:'',
-			sex:1
+			sex:1,
+			head_img:''
 			//day_of_birth:''
 		},
 		wechat:{
@@ -59,7 +60,9 @@ var vapp=new Vue({
 			var scope=this;
 			axios.post('/dating_api/get_now_user').then(function(res){
 				 scope.wechat=res.data.info;
-				 scope.data.sex=res.data.info.sex
+				 scope.data.sex=res.data.info.sex;
+				 scope.data.member_name=res.data.info.nickname;
+				 scope.data.head_img=res.data.info.headimg;
 			})
 		},
 		postCode:function(){
