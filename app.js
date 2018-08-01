@@ -35,7 +35,7 @@ app.use((req,res,next)=>{
 		let openid=req.cookies['union_oid']
 		if(!openid){
 		  	console.log('无效的用户')
-		  	//res.redirect(301,'http://100579.un.123zou.com/Platform/Link?key=go.dating')
+		  	res.redirect('http://100579.un.123zou.com/Platform/Link?key=go.dating')
 		  	return
 		}
 	  }
