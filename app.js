@@ -30,7 +30,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use((req,res,next)=>{
-	 console.log(req.url.indexOf('union_valid'))
+	//console.log(req.url.indexOf('union_valid'))
 	// if(req.url.indexOf('union_valid')==-1){
 	// 	let openid=req.cookies['union_oid']
 	// 	if(!openid){
