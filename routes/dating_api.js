@@ -643,7 +643,7 @@ router.get('/like',(req,res,next)=>{
 
 router.get("/execl",(req,res,next)=>{
 	if(req.query.code=="cxxq123"){
-		let crow="*,购房要求=housing,购车要求=car_buying "
+		let crow="*,housing1=a.housing,car_buying1=a.car_buying,housing2=b.housing,car_buying2=b.car_buying "
 		if(req.query.row){
 			crow=req.query.row
 		}else{
@@ -665,6 +665,7 @@ router.get("/execl",(req,res,next)=>{
 
 				Object.keys(result[0]).forEach((k2,i2)=>{
 					if(first){
+						console.log(k2)
 						conf.cols.push({
 							caption: k2,
 							type: 'string',
