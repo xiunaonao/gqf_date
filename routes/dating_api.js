@@ -674,6 +674,9 @@ router.get("/execl",(req,res,next)=>{
 						//console.log(k2)
 					}
 					let type= typeof k[k2]
+					if(!k[k2]){
+						k[k2]=''
+					}
 					if(type=="boolean")
 						k[k2]=k[k2]?'是':'否'
 					if(type=="object"){
