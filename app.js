@@ -31,14 +31,13 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use((req,res,next)=>{
 	//console.log(req.url.indexOf('union_valid'))
-	// if(req.url.indexOf('union_valid')==-1){
-	// 	let openid=req.cookies['union_oid']
-	// 	if(!openid){
-	// 	  	console.log('无效的用户')
-	// 	  	res.redirect(302,'http://100579.un.123zou.com/Platform/Link?key=go.dating')
-	// 	  	return
-	// 	}
-	//   }
+	if(req.url.indexOf('union_valid')==-1){
+		let openid=req.cookies['union_oid']
+		if(!openid){
+		  	res.redirect(302,'http://100579.un.123zou.com/Platform/Link?key=go.dating')
+		  	return
+		}
+	  }
 	res.locals._v=ver
 	next()
 })

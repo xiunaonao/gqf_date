@@ -643,7 +643,7 @@ router.get('/like',(req,res,next)=>{
 
 router.get("/execl",(req,res,next)=>{
 	if(req.query.code=="cxxq123"){
-		let crow="*"
+		let crow="*,购房要求=housing,购车要求=car_buying "
 		if(req.query.row){
 			crow=req.query.row
 		}else{

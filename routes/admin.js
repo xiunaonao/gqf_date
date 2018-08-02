@@ -8,7 +8,7 @@ var ver=require('../package.json').version
 router.get('/',(req,res,next)=>{
 	let openid=req.cookies['admin_oid']
 	if(!openid){
-		res.redirect('/#system',{})
+		res.redirect(302,'/#system')
 		return;
 	}
 	let query=req.query;
@@ -21,7 +21,7 @@ router.get('/',(req,res,next)=>{
 router.get('/notice',(req,res,next)=>{
 	let openid=req.cookies['admin_oid']
 	if(!openid){
-		res.redirect('/#system',{})
+		res.redirect(302,'/#system')
 		return;
 	}
 	//res.render('admin_notice',{})
