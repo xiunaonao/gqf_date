@@ -6,7 +6,7 @@ let ws=require('../server/wechat')
 router.get('/list',(req,res,next)=>{
 	let openid=req.cookies['union_oid']
 	if(!openid){
-		res.json({success:false,message:'登录已过期'})
+		res.json({success:false,msg:'登录已过期'})
 		return
 	}
     let query = req.query
@@ -24,6 +24,7 @@ router.get('/list',(req,res,next)=>{
 		filter:''
 	}
 	where.filter+=` and review_status=1 `
+	where.filter+=` and is_open=1 `
 	//where.filter+=` and openid <> '${openid}' `
 
 	if(query.age && query.age.indexOf('-')>-1){
@@ -100,10 +101,10 @@ router.get('/list',(req,res,next)=>{
 			let json={}
 			if(err){
 				json.success=false
-				json.message=err
+				json.msg=err
 			}else{
 				json.success=true
-				json.message='查询成功'
+				json.msg='查询成功'
 				json.data=result
 				//console.log(count)
 				json.count=count
@@ -204,7 +205,7 @@ router.post('/register',(req,res,next)=>{
 				let json={}
 				if(err){
 					json.success=false
-					json.message=err
+					json.msg=err
 				}else{
 					let rowsKey={
 				        member_cardno:'num',
@@ -232,17 +233,17 @@ router.post('/register',(req,res,next)=>{
 							// let json={}
 							// if(err){
 							// 	json.success=false
-							// 	json.message=err
+							// 	json.msg=err
 							// }else{
 							// 	json.success=true
-							// 	json.message='操作成功'
+							// 	json.msg='操作成功'
 							// 	json.count=count
 							// 	json.id=newid
 							// }
 							// res.json(json)
 						
 						json.success=true
-						json.message='操作成功'
+						json.msg='操作成功'
 						json.count=count
 					})
 				}
@@ -315,10 +316,10 @@ router.post('/insert_or_update',(req,res,next)=>{
 				let json={}
 				if(err){
 					json.success=false
-					json.message=err
+					json.msg=err
 				}else{
 					json.success=true
-					json.message='操作成功'
+					json.msg='操作成功'
 					json.count=count
 					//json.id=rows.id.value
 				}
@@ -330,10 +331,10 @@ router.post('/insert_or_update',(req,res,next)=>{
 				let json={}
 				if(err){
 					json.success=false
-					json.message=err
+					json.msg=err
 				}else{
 					json.success=true
-					json.message='操作成功'
+					json.msg='操作成功'
 					json.count=count
 					//json.id=newid
 				}
@@ -355,7 +356,7 @@ router.post('/delete',(req,res,next)=>{
 
 	if(!memberNo)
 	{
-		res.json({success:false,message:'用户信息不正确'})
+		res.json({success:false,msg:'用户信息不正确'})
 		return
 	}
 
@@ -363,10 +364,10 @@ router.post('/delete',(req,res,next)=>{
 	mssql.delete('dating_member_info',where,(err,result,count)=>{
 		if(err){
 			json.success=false
-			json.message=err
+			json.msg=err
 		}else{
 			json.success=true
-			json.message='操作成功'
+			json.msg='操作成功'
 			json.count=count
 		}
 		res.json(json)
@@ -377,14 +378,16 @@ router.post('/delete',(req,res,next)=>{
 router.get('/detail',(req,res,next)=>{
 	let query=req.query
 	let where=''
-	let opneid=req.cookies['union_oid']
+	let openid=req.cookies['union_oid']
+	let isyour=false
 	if(!query.id)
 	{
-		if(!opneid){
-			res.json({success:false,message:'登录已过期'})
+		if(!openid){
+			res.json({success:false,msg:'登录已过期'})
 			return
 		}
-		where=` openid='${opneid}'`		
+		where=` openid='${openid}'`
+		isyour=true
 	}else{
 		where=` id='${query.id}'`
 	}
@@ -392,16 +395,42 @@ router.get('/detail',(req,res,next)=>{
 		let json={}
 		if(err){
 			json.success=false
-			json.message=err
+			json.msg=err
 		}else{
 			json.success=true
-			json.message='操作成功'
+			json.msg='操作成功'
 			if(result.length==0)
 				json.data=null
-			else
+			else{
 				json.data=result[0]
+				json.data.isyour=isyour
+			}
+
 		}
 		res.json(json)
+	})
+})
+
+router.post('/open_or_lock',(req,res,next)=>{
+	let body=req.body
+	let openid=req.cookies['union_oid']
+	let admin_openid=req.cookies['admin_oid']
+	console.log(body)
+	var where='';
+	if(admin_openid && body.id){
+		where+=`id='${body.id}'`
+	}else if(!openid){
+		res.json({success:false,msg:'登录已过期'})
+		return
+	}else{
+		where+=`openid='${openid}'`;
+	}
+	mssql.update('dating_member_info',{is_open:{type:'num',value:body.is_open}},where,(err,result,count)=>{
+		if(count>0){
+			res.json({success:true,msg:'操作成功'})
+		}else{
+			res.json({success:false,msg:'操作失败'})
+		}
 	})
 })
 
@@ -414,7 +443,7 @@ router.get('/standard_detail',(req,res,next)=>{
 
 	if(!openid)
 	{
-		res.json({success:false,message:'登录已过期'})
+		res.json({success:false,msg:'登录已过期'})
 		return
 	}
 	let where=` openid='${openid}'`		
@@ -422,10 +451,10 @@ router.get('/standard_detail',(req,res,next)=>{
 		let json={}
 		if(err){
 			json.success=false
-			json.message=err
+			json.msg=err
 		}else{
 			json.success=true
-			json.message='操作成功'
+			json.msg='操作成功'
 			if(result.length==0)
 				json.data=null
 			else
@@ -471,10 +500,10 @@ router.post('/insert_or_update_standard',(req,res,next)=>{
 				let json={}
 				if(err){
 					json.success=false
-					json.message=err
+					json.msg=err
 				}else{
 					json.success=true
-					json.message='操作成功'
+					json.msg='操作成功'
 					json.count=count
 					//json.id=rows.id.value
 				}
@@ -486,10 +515,10 @@ router.post('/insert_or_update_standard',(req,res,next)=>{
 				let json={}
 				if(err){
 					json.success=false
-					json.message=err
+					json.msg=err
 				}else{
 					json.success=true
-					json.message='操作成功'
+					json.msg='操作成功'
 					json.count=count
 					//json.id=newid
 				}
@@ -510,28 +539,28 @@ router.get('/like',(req,res,next)=>{
 		like=req.query.is_like
 	}
 	if(!openid){
-		res.json({success:false,message:'登录已过期'})
+		res.json({success:false,msg:'登录已过期'})
 		return
 	}
 	if(!query.id)
 	{
-		res.json({success:false,message:'请传递用户ID'})
+		res.json({success:false,msg:'请传递用户ID'})
 		return
 	}
 	let mid=query.id
 
 	dating_total(mid,openid,(err,mind_openid,val,allnum)=>{
 		if(err){
-			res.json({success:false,message:err})
+			res.json({success:false,msg:err})
 			return;
 		}
 		if(openid == mind_openid){
-			res.json({success:false,message:'不可以中意自己哦'});
+			res.json({success:false,msg:'不可以中意自己哦'});
 			return;
 		}
 
 		//if(like==1 && allnum>=2){
-		//	res.json({success:false,message:'最多可中意十个用户'})
+		//	res.json({success:false,msg:'最多可中意十个用户'})
 		//	return
 		//}
 
@@ -581,7 +610,7 @@ router.get('/like',(req,res,next)=>{
 				let json={}
 				if(err){
 					json.success=false
-					json.message=err
+					json.msg=err
 				}else{
 					mssql.exec(`update dating_member_info set mind_count=mind_count+1 where openid='${mind_openid}'`,(err,result,count)=>{})
 
@@ -611,7 +640,7 @@ router.get('/like',(req,res,next)=>{
 
 
 					json.success=true
-					json.message='操作成功'
+					json.msg='操作成功'
 					json.count=count
 					json.id=newid
 				}
@@ -624,11 +653,11 @@ router.get('/like',(req,res,next)=>{
 				let json={}
 				if(err){
 					json.success=false
-					json.message=err
+					json.msg=err
 				}else{
 					mssql.exec(`update dating_member_info set mind_count=mind_count-1 where openid='${mind_openid}'`,(err,result,count)=>{})
 					json.success=true
-					json.message='操作成功'
+					json.msg='操作成功'
 					json.count=count
 				}
 				res.json(json)

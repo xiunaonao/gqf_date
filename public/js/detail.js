@@ -3,7 +3,7 @@
 	var vapp = new Vue({
 		el:".detail_main",
 		data:{
-			news:[],
+			news:{},
 			standardInfo:[],
     		income:['','5万以下','5~8万','8~10万','10~15万','15~20万','20~50万','50万以上'],
 			memberId:_param.id,
@@ -23,6 +23,23 @@
 					this.news = dat.data;
 					this.getEdu();
 				});
+			},
+			lock_info:function(){
+				var scope=this;
+				var txt='公开操作中';
+				if(this.news.is_open){
+					txt='保密操作中';
+				}
+				_alert(txt,null,-1);
+				var postUrl='dating_api/open_or_lock';
+				axios.post(postUrl,{is_open:(!scope.news.is_open)?1:0}).then(function(res){
+					if(res.data.success){
+						_alert('操作成功');
+						scope.news.is_open=!scope.news.is_open
+					}else{
+						_alert('操作失败');
+					}
+				})
 			},
 			getStandard:function(){
 				var getUrl = "/dating_api/standard_detail";

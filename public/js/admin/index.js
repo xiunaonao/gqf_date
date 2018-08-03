@@ -4,6 +4,7 @@ var vapp=new Vue({
 		data:[],
 		size:20,
 		page:1,
+		keyword:'',
         user_type: undefined,
         isconfirm: false,
         confirmTxt: '',
@@ -15,13 +16,32 @@ var vapp=new Vue({
 	methods:{
 		get_user:function(){
 			var scope=this;
-			axios.get('/admin_api/user_list?size='+scope.size+'&page='+scope.page+(scope.user_type!=2?('&user_type='+scope.user_type):'')).then(function(res){
+			axios.get('/admin_api/user_list?ky='+scope.keyword+'&size='+scope.size+'&page='+scope.page+(scope.user_type!=2?('&user_type='+scope.user_type):'')).then(function(res){
 				setTimeout(function(){
 					scope.cool=false
 				},1500)
-				
+				if(scope.page==1){
+					scope.data=[];
+				}
 				for(var i=0;i<res.data.data.length;i++){
 					scope.data.push(res.data.data[i]);
+				}
+			})
+		},
+		lock_info:function(obj){
+			var scope=this;
+			var txt='公开操作中';
+			if(obj.is_open){
+				txt='保密操作中';
+			}
+			_alert(txt,null,-1);
+			var postUrl='/dating_api/open_or_lock';
+			axios.post(postUrl,{is_open:(!obj.is_open)?1:-1,id:obj.id}).then(function(res){
+				if(res.data.success){
+					_alert('操作成功');
+					obj.is_open=!obj.is_open
+				}else{
+					_alert('操作失败');
 				}
 			})
 		},
@@ -39,7 +59,10 @@ var vapp=new Vue({
 			    var nowYear = d.getFullYear();  
 			    var nowMonth = d.getMonth() + 1;  
 			    var nowDay = d.getDate();  
-			      
+			    if(birthYear<=1900){
+			    	return '';
+			    }
+
 			    if(nowYear == birthYear){  
 			        returnAge = 0;//同年 则为0岁  
 			    }  
@@ -65,7 +88,7 @@ var vapp=new Vue({
 			            returnAge = -1;//返回-1 表示出生日期输入错误 晚于今天  
 			        }  
 			    }  
-			    return returnAge;//返回周岁年龄  
+			    return returnAge+'岁';//返回周岁年龄  
 			      
 		},
 		examine:function(obj,status){
@@ -104,8 +127,6 @@ var vapp=new Vue({
         scroll_move:function(name,event){
         	var scope=this;
 			var t=event.target;
-        	//this.scroll=((window.pageYOffset+document.documentElement.clientHeight)+':'+t.scrollHeight);
-			console.log(t.scrollHeight+'<='+(window.pageYOffset+document.documentElement.clientHeight+10));
 			if(t.scrollHeight<=(t.scrollTop+t.clientHeight+10)){
 
 				if(!scope.cool){

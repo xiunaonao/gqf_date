@@ -172,6 +172,15 @@
 		height: 0.45rem;
 		margin: 0 auto;
 	}
+	.member-self{
+		position: absolute;
+		right:0;
+	}
+	.top_open>button{
+		margin-bottom:.1rem;
+		font-size:.13rem;
+		outline:none;
+	}
 </style>
 <div class="detail_top">
 	<a class="back_a" href="#list"><img src="/img/返回.png" alt="" /></a>
@@ -186,8 +195,12 @@
 			<img class="member_img" v-if="news.head_img==''" src="/img/noheadimg.png" alt="头像未上传" />
 			<img class="member_img" v-if="news.head_img!=''" v-bind:src="news.head_img" alt="头像未上传" />
 		</div>
+<!-- 		<div class="member-self">
+			<button>公开信息</button>
+		</div> -->
 		<p class="top_name">{{news.member_name}}</p>
 		<p class="top_info"><span class="top_age">{{getAge(news.day_of_birth)}}</span>岁<span class="top_height">{{news.height}}</span>cm/<span class="top_weight">{{news.weight}}</span>kg<span class="top_address">{{news.domicile}}</span></p>
+		<p class="top_open" style="text-align: center;" v-if="news.isyour"><button @click='lock_info' class="iconfont">{{news.is_open?'&#xe8a7;已公开':'&#xe792;已保密'}}</button></p>
 	</div>
 	
 	<div class="main_content">

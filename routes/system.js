@@ -22,7 +22,7 @@ router.get('/getUser', (req, res, next)=>{
   aesMethod(token,(decoded)=>{
     res.json({success:0,str:decoded,data:{}})
   })
-  
+   
 });
 
 

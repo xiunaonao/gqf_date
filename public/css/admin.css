@@ -8,7 +8,7 @@ input[type=file]{opacity:0;}
 .text-left{text-align:left!important;}
 .goto_h5{position: absolute;right:.3rem;top:.3rem;z-index: 999;border:solid #666 1px;border-radius:.05rem;padding:.05rem;}
 .admin-box{background:#FFF;}
-.admin-card{width:3.45rem;height:1.4rem;box-shadow:#DDD .0rem .0rem .05rem;border-radius:.03rem;box-sizing:border-box;margin:.15rem;}
+.admin-card{width:3.45rem;height:1.4rem;box-shadow:#999 0rem 0rem 0.1rem;border-radius:.03rem;box-sizing:border-box;margin:.15rem;}
 .head-box{height:.45rem;padding:.13rem;}
 .head-box>*{float:left;}
 .head-box img{width:.45rem;height: .45rem;border-radius:.45rem;}
@@ -32,6 +32,9 @@ button{width:.6rem;height:.25rem;border-radius: .03rem;color:#FFF;font-size:.13r
 .todo-info li h5{font-size:.15rem;line-height:.25rem;}
 .todo-info li h6{font-size:.12rem;color:#666;font-weight:300;}
 
+.search-box{position:relative;margin:0 .15rem;}
+.search-box input{width:3.45rem;border:.01rem solid #CCC;border-radius:.03rem;height:.3rem;box-sizing:border-box;text-indent: .1rem;}
+.search-box button{position:absolute;right:0;top:0;height:.3rem;border-radius:.03rem;}
 
 .admin-menu-bottom{position: fixed;bottom:0;width: 3.75rem;left: 0;z-index: 999;box-shadow: #EEE 0rem -0.01rem 0.05rem;background: #FFF;}
 .admin-menu-bottom>ul>li{float:left;width:.75rem;text-align: center;}
@@ -46,7 +49,7 @@ button{width:.6rem;height:.25rem;border-radius: .03rem;color:#FFF;font-size:.13r
 .admin-member-list li:nth-child(2n){background:#F5F5F5;}
 .admin-member-list li>*{float:left;}
 .admin-member-list li .member-head{width: .45rem;height: .45rem;position:relative;}
-.admin-member-list li .member-head>span{width: .45rem;height: .45rem;border-radius:.45rem;overflow:hidden;display:block;position:relative;}
+.admin-member-list li .member-head span{width: .45rem;height: .45rem;border-radius:.45rem;overflow:hidden;display:block;position:relative;}
 .admin-member-list li .member-info{width: 2.19rem;height: .45rem;position:relative;margin-left:.1rem;}
 .admin-member-list li .member-info h5{font-size:.15rem;line-height:.25rem;color:#323232;font-weight:600;}
 .admin-member-list li .member-info h6{font-size:.12rem;color:#323232;font-weight:100;}

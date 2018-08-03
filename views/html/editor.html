@@ -268,13 +268,13 @@
         background:rgba(0,0,0,0);
     }
     .img_up_txt{
-        color: #CCC;
+        color: #666;
         margin: .6rem .1rem;
         width: 1.2rem;
         position: absolute;
         right: 0;
         /* bottom: 0; */
-        font-size: .1rem;
+        font-size: .13rem;
     }
 </style>
 <article id="editor" v-cloak>
@@ -614,21 +614,21 @@
             <span class="info_title">其他</span>
             <input class="info_input" id="filter_other" type="text" value="" placeholder="请输入" />
         </div>-->
+
+        <p class="bottom_text">特别声明：<br/>
+        <i></i><label>个人手机住址单位信息严格保密</label><br/>
+        <i></i><label>本人承诺以上资料真实有效，否则由此带来的一切法律责任由本人自行承担</label><br/>
+        <i style="color:red;"></i><label style="color:red;">带<strong>*</strong>号项为必填项</label></br>
+        </p>
         <div class="editor_info">
             <span class="info_title">手机号码</span>
             <input class="info_input" id="member_tel" type="text" value="" placeholder="请输入个人联系方式（信息严格保密，不会显示给其他用户）" />
         </div>
-        <div class="editor_info" style="position:relative;">
+        <div class="editor_info" style="position:relative;border-bottom:0 none #000;">
             <span class="info_title">短信验证码</span>
             <input class="info_input" id="member_code" type="text" v-model="code" placeholder="" />
             <button class="member_code_post" style="color:red;" v-on:click="postCode">{{code_cool==0?'发送验证码':('重新发送('+code_cool+'s)')}}</button>
         </div>
-        <p class="bottom_text">特别声明：<br/>
-        <i style="color:red;"></i><label style="color:red;">带<strong>*</strong>号项为必填项</label></br>
-        <i></i><label>个人手机住址单位信息严格保密</label><br/>
-        <i></i><label>本人承诺以上资料真实有效，否则由此带来的一切法律责任由本人自行承担<label><br/>
-        </p>
-
         <!-- <img class="submit_btn" v-on:touchstart="allSubmit()" src="/img/提交.png" alt="" /> -->
         <button class="submit_btn red-bg" v-on:click='allSubmit()'>保存资料提交</button>
         

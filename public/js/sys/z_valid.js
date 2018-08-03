@@ -14,6 +14,7 @@ var Z_VALID=function(_obj){
 			//if(!code || !/^\d{6}(18|19|20)?\d{2}(0[1-9]|1[12])(0[1-9]|[12]\d|3[01])\d{3}(\d|X)$/i.test(code)){
                 //tip = "身份证号格式错误";
                 //pass = false;
+            code=code.replace('x','X');
             if(!code || code.length<18){
                 tip="身份证位数不正确";
                 pass=false;

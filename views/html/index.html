@@ -3,6 +3,7 @@
 
         <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1, user-scalable=no">
         <link href="/css/main.css" rel='stylesheet'/>
+        <link href="/css/iconfont.css" rel="stylesheet">
         <style>
             a { text-decoration: none; color: #323232; }
             *{font-size:0.14rem;}
@@ -70,14 +71,15 @@
     <!-- <script src="/scripts/shared/newsLayout.js"></script> -->
     <script>
 
-        function _alert(msg,callback){
+        function _alert(msg,callback,times){
             $(".alert_msg p").html(msg);
             $(".alert_msg").show();
-            setTimeout(function(){
-                $(".alert_msg").hide()
-                if(callback)
-                    callback();
-            }, 2000);
+            if(times!=-1)
+                setTimeout(function(){
+                    $(".alert_msg").hide()
+                    if(callback)
+                        callback();
+                }, times?times:2000);
         }
         window.ver=location.search.substr(location.search.indexOf('v=')+2)
         window.linkTo();
