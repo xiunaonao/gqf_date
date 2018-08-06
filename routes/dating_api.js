@@ -122,7 +122,19 @@ router.get('/new_user',(req,res,next)=>{
 	let openid=req.cookies['union_oid']
 	mssql.querySingle('dating_member_info',`openid='${openid}'`,(err,result,count)=>{
 		console.log(result);
-		if(count<=0){
+		if(result.length>0 && !result[0].member_name){
+			ws.get_user(openid,(obj)=>{
+				let rows={
+					member_name:{value:obj.nickname,type:''},
+					sex:{value:(obj.sex=='男' || obj.sex==1)?1:2,type:'num'},
+					headimgurl:{value:obj.headimgurl,type:''}
+				}
+				mssql.update('dating_member_info',rows,`id='${result[0].id}'`,(err,result,count)=>{
+					res.json({success:false,msg:'已注册的用户'})
+				})
+			})
+
+		}else if(count<=0){
 			res.json({success:true,msg:'新用户注册'});
 		}else{
 			res.json({success:false,msg:'已注册的用户'})
