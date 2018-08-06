@@ -20,7 +20,7 @@ block content
 						h6	{{obj.work_unit}}
 				.member-btn
 					p.op_open(style="text-align: center;position:absolute;right:1rem;")
-						button(@click='lock_info(obj)',class="iconfont",style="font-size:.12rem;") {{obj.is_open?'&#xe8a7;已公开':'&#xe792;已保密'}}
+						button.red-bg(@click='lock_info(obj)',class="iconfont",style="font-size:.12rem;") {{obj.is_open?'&#xe8a7;已公开':'&#xe792;已保密'}}
 					button.blue-bg(v-if='obj.review_status==0',v-on:click='examine(obj,1)') 通过
 					button.gray-bg(v-if='obj.review_status==0',v-on:click='examine(obj,-1)') 拒绝
 					button.gray-bg(v-if='obj.review_status==1') 已通过
