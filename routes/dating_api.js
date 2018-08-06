@@ -120,7 +120,8 @@ router.get('/list',(req,res,next)=>{
 router.get('/new_user',(req,res,next)=>{
 	let body=req.body
 	let openid=req.cookies['union_oid']
-	mssql.exist('dating_member_info',`openid='${openid}'`,(err,result,count)=>{
+	mssql.querySingle('dating_member_info',`openid='${openid}'`,(err,result,count)=>{
+		console.log(result);
 		if(count<=0){
 			res.json({success:true,msg:'新用户注册'});
 		}else{
