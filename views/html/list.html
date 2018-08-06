@@ -24,7 +24,10 @@
 				<li v-for="obj,i in banner"><button v-bind:class="[i==banner_index?'red-bg':'']"></button></li>
 			</ul>
 		</div>
+
+	
 	<div class="list-filter">
+		<div style="display:block;float:none;line-height:.3rem;">请按以下条件筛选</div>
 <!-- 		<button v-bind:class="[orderNow==0?orderArr[0].value:'']" v-on:click="orderArr[0].value=='desc'?orderArr[0].value='asc':orderArr[0].value='desc';orderNow=0;getFirstData(true);">关注度</button>
 		<button v-bind:class="[orderNow==1?orderArr[1].value:'']" v-on:click="orderArr[1].value=='desc'?orderArr[1].value='asc':orderArr[1].value='desc';orderNow=1;getFirstData(true);">匹配度</button>
 		<button v-bind:class="[orderNow==2?orderArr[2].value:'']" v-on:click="orderArr[2].value=='desc'?orderArr[2].value='asc':orderArr[2].value='desc';orderNow=2;getFirstData(true);">新报名</button>
@@ -34,7 +37,6 @@
 		<select v-on:change='getFirstData()' v-model="where.job"><option>职业</option><option v-for="obj in job">{{obj}}</option></select>
 		<select v-on:change='getFirstData()' v-model="where.sex"><option>性别</option><option>男</option><option>女</option></select>
 	</div>
-
 	<div class="list-main">
 		<dl class="member-dl" v-for="obj in news" v-bind:data-id="obj.id">
 			<dt v-on:click="getId(obj.id)">
