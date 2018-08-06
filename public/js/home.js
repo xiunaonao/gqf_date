@@ -1,6 +1,5 @@
 
 axios.get('/dating_api/new_user').then(function (res) {
-    return;
     if (res.data.success) {
         gotoreg.style.display = 'block';
     } else {
