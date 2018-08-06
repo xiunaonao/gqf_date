@@ -174,7 +174,7 @@ router.get('/user_list',(req,res,next)=>{
     	}
     	//where.filter+=` and (id in ${ky} or ) `
     }
-    where.filter += ' ';
+    where.filter += ` and member_name <> '' `;
     console.log('查询条件:'+where.filter)
 	mssql.query('dating_member_info',where,(err,result,count)=>{
 		
