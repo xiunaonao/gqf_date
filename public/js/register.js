@@ -1,4 +1,4 @@
-var vapp=new Vue({
+﻿var vapp=new Vue({
 	el:'#register',
 	data:{
 		data:{
@@ -37,6 +37,11 @@ var vapp=new Vue({
 	    		var data=res.data;
 	    		if(data.success){
 					axios.post('/dating_api/register',scope.data).then(function(res){
+
+						$(".alert_msg p").html('注册成功')
+						    $(".alert_msg").show();
+						    setTimeout('$(".alert_msg").hide();location.href="#list"', 2000);
+								return;
 						if(res.data.success){
 							$(".alert_msg p").html('注册成功');
 						    $(".alert_msg").show();
