@@ -18,6 +18,17 @@ router.get('/',(req,res,next)=>{
 	
 })
 
+router.get('/line',(req,res,next)=>{
+	let openid=req.cookies['admin_oid']
+	if(!openid){
+		res.redirect(302,'/#system')
+		return;
+	}
+	getDataNum(openid,(results)=>{
+		res.render('admin_line',{data:results})
+	})
+})
+
 router.get('/notice',(req,res,next)=>{
 	let openid=req.cookies['admin_oid']
 	if(!openid){

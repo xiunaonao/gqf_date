@@ -359,13 +359,15 @@ var vapp = new Vue({
 		var weight01 = $("#filter_weight01").val();
 		var weight02 = $("#filter_weight02").val();
 		var weight_range = weight01+"-"+weight02;
-		//var job = $("#filter_job").val();
-		// var job=((this.jobc2=='不限' || this.jobc2=='请选择')?'':this.jobc2);
-		// if(!job){
-		// 	_alert('请选择择偶对象的职业');
-		// 	this.posting=false;
-		// 	return;
-		// }
+		var job = $("#member_job3").text();
+		var job=(this.jobc2=='请选择')?'':this.jobc2;
+		if(!job){
+			_alert('请选择择偶对象的职业');
+			this.posting=false;
+			return;
+		}
+		if(job=='其他')
+			job='不限';
 		var income01 = $("#filter_income01").val();
 		var income02 = $("#filter_income02").val();
 		var income_range = income01+"-"+income02;

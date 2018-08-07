@@ -152,6 +152,24 @@ router.get('/admin_list',(req,res,next)=>{
 
 })
 
+router.get('/user_line',(req,res,next)=>{
+	let openid=req.cookies['admin_oid']
+	let query=req.query
+	if(!query.sex)
+		query.sex=1
+	let strSql=`select * from dating_member_info where review_status=1 and sex='${query.sex}'`
+	if(query.job){
+		strSql+=`job='${job}' `
+	}
+
+	mssql.exec(strSql,(err,result,count)=>{
+
+
+		function find_man(openid){
+
+		}
+	})
+})
 
 
 router.get('/user_list',(req,res,next)=>{

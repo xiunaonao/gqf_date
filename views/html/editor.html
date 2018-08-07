@@ -547,7 +547,7 @@
         <div class="editor_info editor_bot">
             <div class="info_top">
                 <span class="info_title not-null">从事职业</span>
-                <span class="select_text" id="member_job3" data-val="1">{{(!jobc2 || jobc2=='请选择')?'请选择':jobc2}}</span>
+                <span class="select_text" id="member_job3" data-val="1">{{(!jobc2 || jobc2=='请选择')?'请选择':(jobc2=='其他'?'不限':jobc2)}}</span>
                 <img class="open_select" src="/img/展开.png"/>
             </div>
             <div class="select_div mul_job" mul_check=true style="">
