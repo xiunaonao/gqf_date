@@ -243,10 +243,11 @@ jQuery(function(){
 					//orderStr+=scope.orderArr[1].name+' '+scope.orderArr[1].value+',';
 					//orderStr+=scope.orderArr[2].name+' '+scope.orderArr[2].value+'';
 				var getUrl = 'dating_api/list?page='+this.pageIndex+'&size=20&order='+orderStr;
-				if(this.where.sex!="不限" || this.where.sex!="性别"){
+				console.log(this.where.sex!="性别")
+				if(this.where.sex!="不限" && this.where.sex!="性别"){
 					getUrl+='&sex='+(this.where.sex=="男"?1:2)
 				}
-				if(this.where.job!="不限" || this.where.job!="职业"){
+				if(this.where.job!="不限" && this.where.job!="职业"){
 					getUrl+='&job='+(this.where.job);
 				}
 				if(listArr.age){

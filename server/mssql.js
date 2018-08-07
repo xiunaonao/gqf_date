@@ -95,6 +95,7 @@ let sqlServer={
 
 			
 		`
+		console.log(where.filter)
 		strNumber=`select count=count(id) from ${table} ${where.filter}`
 		sqlServer.exec(strSql,(err,result,count)=>{
 			if(err){
