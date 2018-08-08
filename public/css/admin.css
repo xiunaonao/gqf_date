@@ -169,4 +169,4 @@ input,button{-webkit-appearance:none;}
 .admin-line-list li{height:.4rem;line-height:.4rem;overflow: hidden;}
 .admin-line-list li>*{float:left;}
 .admin-line-list li img{width:.3rem;height:.3rem;margin-left:.15rem;}
-.admin-line-list li a{width:.5rem;height:.25rem;line-height:.25rem;border-radius:.05rem;color:#FFF;}
+.admin-line-list li a{width:.5rem;height:.25rem;line-height:.25rem;border-radius:.05rem;color:#FFF;float: right;text-align: center;}
