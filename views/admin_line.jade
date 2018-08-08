@@ -39,14 +39,14 @@ html
 						li(v-for='obj in data',v-if='obj')
 							img(v-bind:src="obj.head_img")
 							label {{obj.member_name}}
-							a(v-bind:href='"tel:"+obj.mobile') 呼出
+							a.red-bg(v-bind:href='"tel:"+obj.mobile') 呼出
 
 				.admin-line-right
 					ul
 						li(v-for='obj in data',v-if='obj.match_openid')
 							img(v-bind:src="obj.match_head")
 							label {{obj.match_name}}
-							a(v-bind:href='"tel:"+obj.match_mobile') 呼出
+							a.red-bg(v-bind:href='"tel:"+obj.match_mobile') 呼出
 						li(v-for='obj in data',v-if='!obj.match_openid')
 							label 未找到可匹配的对象
 			.admin-menu-bottom
