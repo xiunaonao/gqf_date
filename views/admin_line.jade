@@ -32,8 +32,57 @@ html
 						select(v-model='job2')
 							option(v-for='key in job') {{key}}
 				.admin-filter-btn
-					button.red-bg 开始匹配
+					button.red-bg(v-on:click='get_users') 开始匹配
 			.admin-line-list
 				.admin-line-left
+					ul
+						li(v-for='obj in data',v-if='obj')
+							img(v-bind:src="obj.head_img")
+							label {{obj.member_name}}
+							a(v-bind:href='"tel:"+obj.mobile') 呼出
+
 				.admin-line-right
+					ul
+						li(v-for='obj in data',v-if='obj.match_openid')
+							img(v-bind:src="obj.match_head")
+							label {{obj.match_name}}
+							a(v-bind:href='"tel:"+obj.match_mobile') 呼出
+						li(v-for='obj in data',v-if='!obj.match_openid')
+							label 未找到可匹配的对象
+			.admin-menu-bottom
+				ul
+					li
+						a(href='/admin/?type=2')
+							img(src="/img/user_admin.png")
+							label 用户管理
+					li
+						a(href='/admin/line')
+							img(src="/img/pair_admin.png")
+							label 心动匹配
+					li
+						a(href='/admin/notice')
+							img(src="/img/wechat_admin.png")
+							label 微信通知
+					li
+						a(href='/admin/banner')
+							img(src="/img/active_admin.png")
+							label 活动通知
+					li
+						a(href="/admin/volunteer?type=-2&status=2")
+							img(src="/img/auth_admin.png")
+							label 权限管理
 		script(src="/js/admin/line.js?v=#{_v}")
+		.alert_msg
+			p
+		script.
+			function _alert(msg,callback,time){
+				document.querySelector(".alert_msg p").innerHTML=msg;
+				document.querySelector(".alert_msg").style.display='block';
+				if(time>0){
+					setTimeout(function(){
+					document.querySelector(".alert_msg").style.display='none';
+						if(callback)
+							callback();
+					}, time?time:2000);
+				}
+			}

@@ -166,3 +166,7 @@ input,button{-webkit-appearance:none;}
 .admin-line-left{border-right:.01rem solid #CCC;}
 .admin-filter-btn{text-align:center;width:100%;height:.3rem;}
 .admin-filter-btn button{margin:auto;}
+.admin-line-list li{height:.4rem;line-height:.4rem;}
+.admin-line-list li>*{float:left;margin-left:.15rem;}
+.admin-line-list li img{width:.3rem;height:.3rem;}
+.admin-line-list li a{width:.5rem;height:.25rem;line-height:.25rem;border-radius:.05rem;color:#FFF;}

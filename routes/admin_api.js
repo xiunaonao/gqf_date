@@ -157,16 +157,66 @@ router.get('/user_line',(req,res,next)=>{
 	let query=req.query
 	if(!query.sex)
 		query.sex=1
-	let strSql=`select * from dating_member_info where review_status=1 and sex='${query.sex}'`
+	let strSql=`select * from dating_member_info where review_status=1 and sex=${query.sex}`
 	if(query.job){
-		strSql+=`job='${job}' `
+		strSql+=`and job='${query.job}' `
 	}
-
+	let filter=``
+	if(query.job2){
+		filter=`and match_openid in (select openid from dating_member_info where job=''${query.job2}'' and sex<>${query.sex} and review_status=1)`
+	}else{
+		filter=`and match_openid in (select openid from dating_member_info where sex<>${query.sex} and review_status=1)`
+	}
 	mssql.exec(strSql,(err,result,count)=>{
+		let index=0
+		let not_in='';
+		find_spouse()
+		function find_spouse(){
+			if(result.length<=index){
+				res.json({success:true,msg:'',data:result})
+				return
+			}
+			let openid2=result[index].openid
+			let not_in_str=''
+			if(not_in){
+				not_in_str=`and match_openid not in (${not_in}) `
+			}else
+				not_in_str=''
+			mssql.exec(`exec dbo.p_matchMembers '${openid2}',' 1=1 '`,(err,result2,count)=>{
 
+				let str_all=`
+				id=(select id from dating_member_info where openid=match_openid)
+				,day_of_birth=(select day_of_birth from dating_member_info where openid=match_openid)
+				,match_mobile=(select mobile from dating_member_info where openid=match_openid)
+				,member_name=(select member_name from dating_member_info where openid=match_openid)
+				,head_img=(select head_img from dating_member_info where openid=match_openid)
+				,height=(select height from dating_member_info where openid=match_openid)
+				,weight=(select weight from dating_member_info where openid=match_openid)
+				,is_like=(select (count(id)) from dating_mind_member where openid=d.openid and mind_openid=match_openid)
+			`
+			mssql.exec(`
+				declare @RecordCount int;
+				exec Page_Query 'dating_match_members d','did=d.id,openid,match_openid,score,else_score,mind_count,${str_all}','score desc',1,1,'openid=''${openid2}'' ${filter} ${not_in_str}',0,@RecordCount output
 
-		function find_man(openid){
+				`,(err,result3,count)=>{
+					if(result3.length>0){
+						if(not_in){
+							not_in+=`,`
+						}
+						not_in+=`''${result3[0].match_openid}''`
 
+						result[index].did=result3[0].did
+						result[index].match_openid=result3[0].match_openid
+						result[index].score=result3[0].score
+						result[index].else_score=result3[0].else_score
+						result[index].mind_count=result3[0].mind_count
+						result[index].match_name=result3[0].member_name
+						result[index].match_head=result3[0].head_img
+					}
+					index++
+					find_spouse()
+				})
+			})
 		}
 	})
 })

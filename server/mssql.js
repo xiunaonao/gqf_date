@@ -48,7 +48,7 @@ let sqlServer={
 		    })
 
 		    request.on('requestCompleted',()=>{
-		    	console.log(_result)
+		    	//console.log(_result)
 		    	callback(null,_result,_rowCount)
 		    })
 		    conn.execSql(request)
