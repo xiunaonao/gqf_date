@@ -836,4 +836,8 @@ function dating_total_only(your,his){
 }
 
 
+function dating_match(openid,sex){
+
+}
+
 module.exports=router

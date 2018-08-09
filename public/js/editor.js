@@ -676,7 +676,7 @@ jQuery(function(){
 					vapp.jobc=data.data.job;
 					if(vapp.job.indexOf(vapp.jobc)<=-1){
 						vapp.jobelse=vapp.jobc;
-						vapp.jobc='其他'
+						vapp.jobc='不限'
 					}
 					vapp.industryc=data.data.industry;
 					// if(vapp.industry.indexOf(vapp.industryc)<=-1){
