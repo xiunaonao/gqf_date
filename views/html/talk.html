@@ -1,0 +1,21 @@
+<div id="talk" class="talk">
+	<h5 class="talk-title">
+		<label>精选留言</label>
+		<a>写留言</a>
+	</h5>
+	<ul class="talk-list">
+		<li v-for="obj in data">
+			<p>
+				<img v-bind:src="obj.head_img" class="img-mid" />
+			</p>
+			<h6>{{obj.name}}</h6>
+			<div>
+				{{obj.context}}
+			</div>
+		</li>
+	</ul>
+	<div class="talk-input">
+		<textarea style="resize:none;" placeholder="请输入您想对我们" v-model='message'></textarea>
+		<button v-on:click="add_message">发布留言</button>
+	</div>
+</div>

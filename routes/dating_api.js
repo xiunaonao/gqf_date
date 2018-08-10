@@ -143,6 +143,59 @@ router.get('/new_user',(req,res,next)=>{
 	})
 })
 
+router.get('/message_list',(req,res,next)=>{
+	//router.querySingle('dating_messages',`review_status=1`,(err,result,count))
+	mssql.exec(`select a.message,b.member_name,b.head_img from dating_messages a,dating_member_info b where a.openid=b.openid`,(err,result,count)=>{
+		if(err){
+			res.json({success:false,msg:'网络错误'})
+		}else{
+			res.json({success:false,msg:'',data:result})
+		}
+	})
+})
+router.post('/insert_or_update_message',(req,res,next)=>{
+	let openid=req.cookies['union_oid']
+	
+	if(!openid){
+		res.json({success:false,msg:'登录已过期'})
+		return
+	}
+	
+	mssql.querySingle('dating_member_info',` openid='${openid}'`,(err,result,count)=>{
+		if(result.length<=0){
+			res.json({success:false,msg:'不存在的用户'})
+			return
+		}
+		let now=new Date()
+		mssql.insert('dating_messages',{
+			message:{
+				value:req.body.message,
+				type:''
+			},
+			openid:{
+				value:openid,
+				type:''
+			},
+			review_status:{
+				value:0,
+				type:''
+			},
+			created_time:{
+				value:now.getFullYear()+'-'+(now.getMonth()+1)+'-'+now.getDate()+' '+now.getHours()+':'+now.getMinutes()+':'+now.getSeconds(),
+				type:''
+			}
+		},(err2,result2,count2)=>{
+			if(err2){
+				res.json({success:false,msg:err2})
+				return
+			}
+			if(count2>0){
+				res.json({success:true,msg:'您的留言已提交'})
+			}
+		})
+	})
+})
+
 router.post('/get_now_user',(req,res,next)=>{
 	let openid=req.cookies['union_oid']
 	ws.get_user(openid,(obj)=>{

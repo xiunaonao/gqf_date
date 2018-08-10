@@ -33,6 +33,11 @@ var routes=[
 		url:'system',
 		dom:'system',
 		script:'system.js'
+	},
+	{
+		url:'talk',
+		dom:'talk',
+		script:'talk.js'
 	}
 	
 ]
