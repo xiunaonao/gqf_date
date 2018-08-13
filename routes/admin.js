@@ -102,7 +102,7 @@ router.get('/userdetail',(req,res,next)=>{
 function getDataNum(openid,callback){
 	let strSql=`
 		select * from dating_managers where openid='${openid}';
-		select usernum=count(openid) from dating_member_info where review_status=0;
+		select usernum=count(openid) from dating_member_info where review_status=0 and member_name<>'';
 		select multinum=count(a.openid) FROM dating_mind_member a,dating_mind_member b where a.mind_openid = b.openid and b.mind_openid = a.openid;
 		select volunteernum=count(openid) from dating_managers where usertype=2 and review_status=0;
 	`
