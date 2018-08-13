@@ -127,7 +127,7 @@ var vapp=new Vue({
         scroll_move:function(name,event){
         	var scope=this;
 			var t=event.target;
-			if(t.scrollHeight<=(t.scrollTop+t.clientHeight+10)){
+			if(t.scrollHeight<=(t.scrollTop+t.clientHeight+100)){
 
 				if(!scope.cool){
 					scope.page++;

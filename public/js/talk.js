@@ -12,7 +12,8 @@ var vapp=new Vue({
 			})
 		},
 		add_message:function(){
-			axios.post('/dating_api/insert_or_update_message',{message:''})
+			var scope=this;
+			axios.post('/dating_api/insert_or_update_message',{message:scope.message})
 		}
 	},
 	mounted:function(){

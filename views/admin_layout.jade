@@ -69,7 +69,7 @@ html
 			function _alert(msg,callback,time){
 				document.querySelector(".alert_msg p").innerHTML=msg;
 				document.querySelector(".alert_msg").style.display='block';
-				if(time>0){
+				if(time>0 || !time){
 					setTimeout(function(){
 					document.querySelector(".alert_msg").style.display='none';
 						if(callback)

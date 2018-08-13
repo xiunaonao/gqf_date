@@ -88,7 +88,7 @@ li{list-style:none;}
 .talk>*{margin:0 .15rem;}
 .talk-title{height:.5rem;line-height:.5rem;font-size:.14rem;font-weight:100;}
 .talk-title>a{float:right;}
-.talk-list>li{margin-bottom:.1rem;border-bottom:.01rem solid #CCC;}
+.talk-list>li{margin-bottom:.1rem;border-bottom:.01rem solid #CCC;min-height:.55rem;}
 .talk-list>li>p{float:left;width:.5rem;height:.5rem;position:relative;overflow: hidden;border-radius:.25rem;}
 .talk-list>li>div{padding:.1rem .6rem;}
 .talk-list>li>h6{padding-left:.6rem;}

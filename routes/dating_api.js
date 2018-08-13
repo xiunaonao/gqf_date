@@ -145,7 +145,7 @@ router.get('/new_user',(req,res,next)=>{
 
 router.get('/message_list',(req,res,next)=>{
 	//router.querySingle('dating_messages',`review_status=1`,(err,result,count))
-	mssql.exec(`select a.message,b.member_name,b.head_img from dating_messages a,dating_member_info b where a.openid=b.openid`,(err,result,count)=>{
+	mssql.exec(`select a.message,b.member_name,b.head_img,a.created_time from dating_messages a,dating_member_info b where a.openid=b.openid and a.review_status=1`,(err,result,count)=>{
 		if(err){
 			res.json({success:false,msg:'网络错误'})
 		}else{
@@ -377,7 +377,7 @@ router.post('/insert_or_update',(req,res,next)=>{
 	rows.review_status={value:0,type:'num'}
 	mssql.exist('dating_member_info',` openid='`+rows.openid.value+`'`,(err,result,count)=>{
 	
-
+		rows.is_open={value:rows.is_open!=0?1:0,type:'num'}
 		if(count>0){
 			mssql.update('dating_member_info',rows,`id='${result[0].id}'`,(err,result,count)=>{
 				let json={}

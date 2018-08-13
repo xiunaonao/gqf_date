@@ -18,11 +18,25 @@ router.get('/',(req,res,next)=>{
 	
 })
 
+router.get('/message',(req,res,next)=>{
+	let openid=req.cookies['admin_oid']
+	if(!openid){
+		res.redirect(302,'/#system')
+		return
+	}
+	//let query=req.query
+	//mssql.exec('select * from dating_messages',(err,result,count)=>{
+	getDataNum(openid,(results)=>{
+		res.render('admin_message',{data:results})
+	})
+	//})
+})
+
 router.get('/line',(req,res,next)=>{
 	let openid=req.cookies['admin_oid']
 	if(!openid){
 		res.redirect(302,'/#system')
-		return;
+		return
 	}
 	getDataNum(openid,(results)=>{
 		res.render('admin_line',{data:results})

@@ -166,7 +166,14 @@ input,button{-webkit-appearance:none;}
 .admin-line-left{border-right:.01rem solid #CCC;}
 .admin-filter-btn{text-align:center;width:100%;height:.3rem;}
 .admin-filter-btn button{margin:auto;}
+.admin-line-list ul{padding-bottom:.5rem;}
 .admin-line-list li{height:.4rem;line-height:.4rem;overflow: hidden;margin-bottom:.05rem;}
 .admin-line-list li>*{float:left;}
 .admin-line-list li img{width:.4rem;height:.4rem;margin: 0 .15rem;}
 .admin-line-list li a{width:.5rem;height:.25rem;line-height:.25rem;border-radius:.05rem;color:#FFF;float: right;text-align: center;margin: .05rem .15rem 0 0;}
+
+.talk-list{margin: 0 .15rem;}
+.talk-list>li{margin-bottom:.1rem;border-bottom:.01rem solid #CCC;min-height:.55rem;}
+.talk-list>li>p{float:left;width:.5rem;height:.5rem;position:relative;overflow: hidden;border-radius:.25rem;}
+.talk-list>li>div{padding:.1rem .6rem;}
+.talk-list>li>h6{padding-left:.6rem;}

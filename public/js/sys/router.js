@@ -38,6 +38,11 @@ var routes=[
 		url:'talk',
 		dom:'talk',
 		script:'talk.js'
+	},
+	{
+		url:'readme',
+		dom:'readme',
+		script:'readme.js'
 	}
 	
 ]

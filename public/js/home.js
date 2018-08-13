@@ -12,7 +12,7 @@ axios.get('/dating_api/new_user').then(function (res) {
 
 
 function testAuth() {
-    location.href = '#register';
+    location.href = '#readme';
     //axios.get('/dating_api/new_user').then(function (res) {
     //    if (res.data.success) {
     //        location.href = '#register';

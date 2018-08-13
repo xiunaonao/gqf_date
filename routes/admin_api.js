@@ -35,6 +35,53 @@ router.post('/admin_login',(req,res,next)=>{
 	})
 })
 
+router.post('/message_check',(req,res,next)=>{
+	let openid=req.cookies['admin_oid']
+	let id=req.body.id
+	let status=req.body.status
+	if(isNaN(id) || isNaN(status)){
+		res.json({success:false,msg:'参数错误',data:null})
+		return
+	}
+
+	if(!openid){
+		res.json({
+				success:false,
+				msg:'您不是管理员或者未审核完成',
+				data:null
+			})
+	}
+
+	let rows={
+		review_status:{value:status,type:'num'}
+	}
+	mssql.update('dating_messages',rows,`id=${id}`,(err,result,count)=>{
+		if(count>0){
+			res.json({success:true,msg:'操作成功'})
+		}else{
+			res.json({success:true,msg:'操作失败'})
+		}
+	})
+})
+
+router.get('/message_list',(req,res,next)=>{
+	let openid=req.cookies['admin_oid']
+	if(!openid){
+		res.json({
+				success:false,
+				msg:'您不是管理员或者未审核完成',
+				data:null
+			})
+	}
+	let query=req.query
+	mssql.exec('select a.id,a.message,b.member_name,b.head_img,a.created_time,a.review_status from dating_messages a,dating_member_info b where a.openid=b.openid ',(err,result,count)=>{
+		if(err){
+		res.json({success:false,msg:'网络错误',data:null})
+		}
+		res.json({success:true,msg:'',data:result})
+	})
+})
+
 router.post('/admin_update',(req,res,next)=>{
 	let openid=req.cookies['union_oid']
 	let id=req.body.id
