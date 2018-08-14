@@ -85,6 +85,7 @@ li{list-style:none;}
 
 
 /*talk*/
+.talk{margin-top:.5rem;}
 .talk>*{margin:0 .15rem;}
 .talk-title{height:.5rem;line-height:.5rem;font-size:.14rem;font-weight:100;}
 .talk-title>a{float:right;}
