@@ -2,7 +2,8 @@ var vapp=new Vue({
 	el:'#talk',
 	data:{
 		data:[],
-		message:''
+		message:'',
+		post_now:false,
 	},
 	methods:{
 		get_message:function(){
@@ -13,13 +14,19 @@ var vapp=new Vue({
 		},
 		add_message:function(){
 			var scope=this;
+			if(scope.post_now)
+				return;
 			if(!this.message){
 				_alert('请输入内容')
 				return;
 			}
 			axios.post('/dating_api/insert_or_update_message',{message:scope.message}).then(function(res){
+				scope.post_now=false;
 				if(res.data.success){
-					_alert('留言已发布，待管理员审核')
+					scope.message=''
+					_alert('留言已发布，待管理员审核',function(){
+						location.href='#list'
+					})
 				}else{
 					_alert('发布失败')
 				}
