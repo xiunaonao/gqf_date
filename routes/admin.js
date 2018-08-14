@@ -119,7 +119,8 @@ function getDataNum(openid,callback){
 		select usernum=count(openid) from dating_member_info where review_status=0 and member_name<>'';
 		select multinum=count(a.openid) FROM dating_mind_member a,dating_mind_member b where a.mind_openid = b.openid and b.mind_openid = a.openid;
 		select volunteernum=count(openid) from dating_managers where usertype=2 and review_status=0;
-	`
+		select messagenum=count(id) from dating_messages where review_status=0;
+	`	
 	mssql.exec(strSql,(err,result,count)=>{
 		if(callback){
 			callback(result)

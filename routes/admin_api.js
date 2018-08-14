@@ -74,7 +74,7 @@ router.get('/message_list',(req,res,next)=>{
 			})
 	}
 	let query=req.query
-	mssql.exec('select a.id,a.message,b.member_name,b.head_img,a.created_time,a.review_status from dating_messages a,dating_member_info b where a.openid=b.openid ',(err,result,count)=>{
+	mssql.exec('select a.id,a.message,b.member_name,b.head_img,a.created_time,a.review_status from dating_messages a,dating_member_info b where a.openid=b.openid order by created_time desc ',(err,result,count)=>{
 		if(err){
 		res.json({success:false,msg:'网络错误',data:null})
 		}

@@ -7,6 +7,9 @@ block content
 				p
 					img(v-bind:src="obj.head_img",class="img-mid")
 				h6 {{obj.member_name}}
-					button.red-bg(@click='lock_info(obj)',class="iconfont",style="font-size:.12rem;display:inline-block;float:right;") {{obj.review_status?'&#xe8a7;已公开':'&#xe792;已隐藏'}}
+					button.blue-bg(v-if='obj.review_status==0',@click='lock_info(obj,1)',class="iconfont",style="font-size:.12rem;display:inline-block;float:right;") 通过
+
+					button.red-bg(v-if='obj.review_status==0',@click='lock_info(obj,-1)',class="iconfont",style="font-size:.12rem;display:inline-block;float:right;margin-right:.05rem;") 拒绝					
+					button(class="iconfont",style="background:#FFF;color:#999;font-size:.12rem;display:inline-block;float:right;") {{obj.review_status==1?'&#xe8a7;已通过':''}}{{obj.review_status==-1?'&#xe792;已拒绝':''}}
 				div	{{obj.message}}
 	script(src="/js/admin/message.js?v=#{_v}")

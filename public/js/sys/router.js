@@ -68,7 +68,6 @@ window.linkTo=function(url){
 			window._param=(paramObj);
 
 
-			console.log()
 
 			var xhr= new XMLHttpRequest();
 			xhr.open('GET',obj.dom+'.html',true);

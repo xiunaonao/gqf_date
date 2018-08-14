@@ -4,7 +4,7 @@ var vapp=new Vue({
 		data:[]
 	},
 	methods:{
-		lock_info:function(obj){
+		lock_info:function(obj,v){
 			var scope=this;
 			var txt='公开操作中';
 			if(obj.is_open){
@@ -12,10 +12,10 @@ var vapp=new Vue({
 			}
 			_alert(txt,null,-1);
 			var postUrl='/admin_api/message_check';
-			axios.post(postUrl,{status:(!obj.review_status)?1:0,id:obj.id}).then(function(res){
+			axios.post(postUrl,{status:v,id:obj.id}).then(function(res){
 				if(res.data.success){
 					_alert('操作成功');
-					obj.review_status=!obj.review_status
+					obj.review_status=v
 				}else{
 					_alert('操作失败');
 				}
