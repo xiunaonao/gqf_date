@@ -20,6 +20,10 @@ var vapp=new Vue({
 				_alert('处理完成',null,200)
 				scope.data=res.data.data;
 			})
+		},
+		jump:function(url){
+			location.href=url
+
 		}
 	},
 	mounted:function(){

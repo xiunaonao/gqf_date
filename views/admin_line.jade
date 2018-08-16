@@ -31,20 +31,22 @@ html
 						label 职业
 						select(v-model='job2')
 							option(v-for='key in job') {{key}}
+				i.admin-filter-jt
 				.admin-filter-btn
+					p(style='margin-top: .2rem;margin-bottom:.1rem;') 匹配说明:根据左边某性别某职业的人的择偶条件，来匹配出某职业的最合乎要求的异性，展示在右边
 					button.red-bg(v-on:click='get_users') 开始匹配
 			.admin-line-list
 				.admin-line-left
 					ul
 						li(v-for='obj in data',v-if='obj')
-							img(v-bind:src="obj.head_img")
+							img(v-bind:src="obj.head_img",v-on:click='jump("/admin/userdetail?id="+obj.yid)')
 							label {{obj.member_name}}
 							a.red-bg(v-bind:href='"tel:"+obj.mobile') 呼出
 
 				.admin-line-right
 					ul
 						li(v-for='obj in data',v-if='obj.match_openid')
-							img(v-bind:src="obj.match_head")
+							img(v-bind:src="obj.match_head",v-on:click='jump("/admin/userdetail?id="+obj.mid)')
 							label {{obj.match_name}}
 							a.red-bg(v-bind:href='"tel:"+obj.match_mobile') 呼出
 						li(v-for='obj in data',v-if='!obj.match_openid')

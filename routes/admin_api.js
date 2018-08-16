@@ -101,7 +101,6 @@ router.post('/admin_update',(req,res,next)=>{
 			}
 			res.json(json)
 		})
-
 })
 
 router.post('/volunteer_register',(req,res,next)=>{
@@ -196,7 +195,6 @@ router.get('/admin_list',(req,res,next)=>{
 		}
 		res.json(json)
 	})
-
 })
 
 router.get('/user_line',(req,res,next)=>{
@@ -232,7 +230,8 @@ router.get('/user_line',(req,res,next)=>{
 			mssql.exec(`exec dbo.p_matchMembers '${openid2}',' 1=1 '`,(err,result2,count)=>{
 
 				let str_all=`
-				id=(select id from dating_member_info where openid=match_openid)
+				mid=(select id from dating_member_info where openid=match_openid)
+				,yid=(select id from dating_member_info where openid=d.openid)
 				,day_of_birth=(select day_of_birth from dating_member_info where openid=match_openid)
 				,match_mobile=(select mobile from dating_member_info where openid=match_openid)
 				,member_name=(select member_name from dating_member_info where openid=match_openid)
@@ -259,6 +258,8 @@ router.get('/user_line',(req,res,next)=>{
 						result[index].mind_count=result3[0].mind_count
 						result[index].match_name=result3[0].member_name
 						result[index].match_head=result3[0].head_img
+						result[index].yid=result3[0].yid
+						result[index].mid=result3[0].mid
 					}
 					index++
 					find_spouse()
@@ -268,6 +269,24 @@ router.get('/user_line',(req,res,next)=>{
 	})
 })
 
+router.post('/user_line_execl',(req,res,next)=>{
+	let openid=req.cookies['admin_oid']
+	if(openid=='')
+	{
+		res.json({success:false,msg:'登录已失效'})
+		return;
+	}
+
+	mssql.exist('dating_managers',`usertype=1 and review_status=1 and  openid='${openid}'`,(err2,result2,count2)=>{
+		if(count2<=0){
+			res.json({success:false,msg:'权限不足'});
+			reutrn;
+		}
+		let str=``
+		//mssql.exec(`select 1号姓名=a.name,1号身份证=a.card_number,1号电话=a.mobile,2号姓名=b.name,2号身份证=b.card_number,2号电话=b.mobile where `)
+
+	}) 
+})
 
 router.get('/user_list',(req,res,next)=>{
 	//table,where,callback,orderName,elseStr
@@ -358,10 +377,7 @@ router.post('/examine_admin',(req,res,next)=>{
 			res.json(json)
 		})
 	})
-
-
 })
-
 
 router.post('/delete_user', (req, res, next) => {
     let openid = req.cookies['admin_oid']
@@ -383,8 +399,6 @@ router.post('/delete_user', (req, res, next) => {
         res.json(json)
     })
 })
-
-
 
 router.post('/examine_user',(req,res,next)=>{
 	let openid=req.cookies['admin_oid']
