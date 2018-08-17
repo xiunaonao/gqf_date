@@ -145,7 +145,7 @@ router.get('/new_user',(req,res,next)=>{
 
 router.get('/message_list',(req,res,next)=>{
 	//router.querySingle('dating_messages',`review_status=1`,(err,result,count))
-	mssql.exec(`select a.message,b.member_name,b.head_img,a.created_time from dating_messages a,dating_member_info b where a.openid=b.openid and a.review_status=1`,(err,result,count)=>{
+	mssql.exec(`select a.reply,a.message,b.member_name,b.head_img,a.created_time from dating_messages a,dating_member_info b where a.openid=b.openid and a.review_status=1`,(err,result,count)=>{
 		if(err){
 			res.json({success:false,msg:'网络错误'})
 		}else{
