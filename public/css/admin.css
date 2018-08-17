@@ -178,3 +178,8 @@ input,button{-webkit-appearance:none;}
 .talk-list>li>p{float:left;width:.5rem;height:.5rem;position:relative;overflow: hidden;border-radius:.25rem;}
 .talk-list>li>div{padding:.1rem .6rem;}
 .talk-list>li>h6{padding-left:.6rem;}
+.talk-list>li>h3{margin-left: .6rem;margin-bottom: .1rem;}
+.reply-layer{position:fixed;background:rgba(0,0,0,0.5);width:100%;height:100%;left:0;top:0;z-index:9999;}
+.reply-box{-webkit-transform:translate(-50%,-50%);left:50%;top:50%;background:#FFF;position: absolute;}
+.reply-box>*{display:block;width:2.5rem;margin:.1rem;box-sizing:border-box;}
+.reply-box>textarea{height:.8rem;border:solid #CCC 0.01rem;resize:none;padding:.1rem;}

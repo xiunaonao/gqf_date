@@ -1,15 +1,24 @@
 extends admin_layout
 
 block content
+	style.
+		.talk-list button{width:.4rem;}
 	#message
 		ul.talk-list
-			li(v-for="obj in data")
+			li(v-for="obj in data",v-if='!obj.is_del')
 				p
 					img(v-bind:src="obj.head_img",class="img-mid")
 				h6 {{obj.member_name}}
 					button.blue-bg(v-if='obj.review_status==0',@click='lock_info(obj,1)',class="iconfont",style="font-size:.12rem;display:inline-block;float:right;") 通过
 
-					button.red-bg(v-if='obj.review_status==0',@click='lock_info(obj,-1)',class="iconfont",style="font-size:.12rem;display:inline-block;float:right;margin-right:.05rem;") 拒绝					
-					button(class="iconfont",style="background:#FFF;color:#999;font-size:.12rem;display:inline-block;float:right;") {{obj.review_status==1?'&#xe8a7;已通过':''}}{{obj.review_status==-1?'&#xe792;已拒绝':''}}
+					button.red-bg(v-if='obj.review_status==0',@click='lock_info(obj,-1)',class="iconfont",style="font-size:.12rem;display:inline-block;float:right;margin-right:.05rem;") 拒绝
+					button.red-bg(@click='delete_info(obj)',class="iconfont",style="font-size:.12rem;display:inline-block;float:right;margin-right:.05rem;") 删除	
+					button.red-bg(v-if='obj.review_status==1',@click='reply_info(obj)',class="iconfont",style="font-size:.12rem;display:inline-block;float:right;margin-right:.05rem;") 回复		
+					button(class="iconfont",style="background:#FFF;color:#999;font-size:.12rem;display:inline-block;float:right;width:.5rem;") {{obj.review_status==1?'&#xe8a7;已通过':''}}{{obj.review_status==-1?'&#xe792;已拒绝':''}}
 				div	{{obj.message}}
+				h3(v-if='obj.reply || reply_add[obj.id]') 回复:{{reply_add[obj.id]?reply_add[obj.id]:obj.reply}}
+		.reply-layer(v-if='reply_id',v-on:touchstart='reply_id=0')
+			.reply-box(v-on:touchstart='$event.cancelBubble = true')
+				textarea(placeholder='输入回复的内容',v-model='reply_txt')
+				button.blue-bg(v-on:click='reply_now') 确认回复
 	script(src="/js/admin/message.js?v=#{_v}")

@@ -64,6 +64,75 @@ router.post('/message_check',(req,res,next)=>{
 	})
 })
 
+router.post('/message_delete',(req,res,next)=>{
+	let openid=req.cookies['admin_oid']
+	let id=req.body.id
+	if(isNaN(id)){
+		res.json({success:false,msg:'参数错误',data:null})
+		return
+	}
+
+	if(!openid){
+		res.json({
+				success:false,
+				msg:'您不是管理员或者未审核完成',
+				data:null
+			})
+	}
+
+	mssql.exist('dating_managers',`usertype=1 and review_status=1 and  openid='${openid}'`,(err2,result2,count2)=>{
+		if(count2<=0){
+			res.json({success:false,msg:'权限不足'});
+			reutrn;
+		}
+
+		mssql.remove('dating_messages',`id=${id}`,(err,result,count)=>{
+			if(count>0){
+				res.json({success:true,msg:'操作成功'})
+			}else{
+				res.json({success:true,msg:'操作失败'})
+			}
+		})
+	})
+})
+
+router.post('/message_reply',(req,res,next)=>{
+	let openid=req.cookies['admin_oid']
+	let id=req.body.id
+	let reply=req.body.reply
+	if(isNaN(id)){
+		res.json({success:false,msg:'参数错误',data:null})
+		return
+	}
+
+	if(!openid){
+		res.json({
+				success:false,
+				msg:'您不是管理员或者未审核完成',
+				data:null
+			})
+	}
+
+	mssql.exist('dating_managers',`usertype=1 and review_status=1 and  openid='${openid}'`,(err2,result2,count2)=>{
+		if(count2<=0){
+			res.json({success:false,msg:'权限不足'});
+			reutrn;
+		}
+
+		mssql.update('dating_messages',{reply:{type:'',value:reply}},`id=${id}`,(err,result,count)=>{
+			if(err){
+				res.json({success:false,msg:'网络错误',data:null})
+			}
+			if(count>0){
+				res.json({success:true,msg:'操作成功'})
+			}else{
+				res.json({success:false,msg:'操作失败'})
+			}
+		})
+	})
+})
+
+
 router.get('/message_list',(req,res,next)=>{
 	let openid=req.cookies['admin_oid']
 	if(!openid){
@@ -74,7 +143,7 @@ router.get('/message_list',(req,res,next)=>{
 			})
 	}
 	let query=req.query
-	mssql.exec('select a.id,a.message,b.member_name,b.head_img,a.created_time,a.review_status from dating_messages a,dating_member_info b where a.openid=b.openid order by created_time desc ',(err,result,count)=>{
+	mssql.exec('select a.reply,a.id,a.message,b.member_name,b.head_img,a.created_time,a.review_status from dating_messages a,dating_member_info b where a.openid=b.openid order by created_time desc ',(err,result,count)=>{
 		if(err){
 		res.json({success:false,msg:'网络错误',data:null})
 		}
