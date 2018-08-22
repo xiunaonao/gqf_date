@@ -25,7 +25,7 @@ router.get('/list',(req,res,next)=>{
 	}
 	where.filter+=` and review_status=1 `
 	where.filter+=` and is_open=1 `
-	where.filter+=` and day_of_birth>'1990-01-01' `
+	where.filter+=` and day_of_birth>'1900-01-01' `
 	//where.filter+=` and openid <> '${openid}' `
 
 	if(query.age && query.age.indexOf('-')>-1){
