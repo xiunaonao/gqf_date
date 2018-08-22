@@ -1,0 +1,128 @@
+html
+  head
+    meta(name='viewport', content='width=device-width, initial-scale=1,maximum-scale=1, user-scalable=no')
+    link(href='/css/main.css', rel='stylesheet')
+    link(href='/css/iconfont.css', rel='stylesheet')
+    style.
+      a { text-decoration: none; color: #323232; }
+      *{font-size:0.14rem;}
+      body{background-color:#FFF;}
+      .alert_msg {
+      display: none;
+      width: 40%;
+      padding: 0.18rem 0;
+      position: fixed;
+      top: 36%;
+      left: 0;
+      right: 0;
+      margin: auto;
+      background-color: black;
+      border-radius: 3px;
+      opacity: 0.5;
+      line-height: 1.2;
+      text-align: center;
+      font-size: 0.18rem;
+      color: #fff;
+      }
+      .alert_msg p {
+      padding: 0 0.1rem;
+      word-wrap: break-word;
+      word-break: normal;
+      }
+      [v-cloak]{
+      display:none;
+      }
+      input,button{-webkit-appearance:none;}
+    script(src='/js/sys/mobile.js')
+    script(src='/js/sys/vue.js')
+    script(src='/js/sys/vue-resource.js')
+    script(src='/js/sys/jquery-1.10.2.js')
+    script(src='/js/sys/jquery.form.js')
+    script(src='https://unpkg.com/axios/dist/axios.min.js')
+    script(src='/js/sys/lrz.all.bundle.js')
+    script(src='/js/sys/z_valid.js')
+    script.
+      // window.onerror=function(e){
+      //     alert(e)
+      // }
+  body
+    header#header
+    article#main
+      #list_app(v-cloak='')
+        .list_top
+          p.list_title 会员列表
+          // <a class="top_right" href="#talk" style="font-size:.1rem;width:.3rem;">留言</a>
+        .banner
+          .banner-main
+            ul(v-bind:style='{width:100*banner.length+"%","-webkit-transform":"translateX(-"+((100/banner.length)*banner_index)+"%)"}')
+              li(v-for='obj in banner')
+                a(v-bind:href="obj.link_url?obj.link_url:'javascript:;'")
+                  img(v-bind:src='obj.url')
+                  h3 {{obj.title}}
+        .banner-bar.banner-ban-abs
+          ul
+            li(v-for='obj,i in banner')
+              button(v-bind:class="[i==banner_index?'red-bg':'']")
+        .list-filter
+          div(style='display:block;float:none;line-height:.4rem;')
+            | 请按以下条件筛选
+            //a(href='#talk', style='color:#1196DB;text-align:right;font-size:.1rem;float:right;margin-right:.1rem;font-weight:600;') 欢迎您留言
+          //
+            <button v-bind:class="[orderNow==0?orderArr[0].value:'']" v-on:click="orderArr[0].value=='desc'?orderArr[0].value='asc':orderArr[0].value='desc';orderNow=0;getFirstData(true);">关注度</button>
+            <button v-bind:class="[orderNow==1?orderArr[1].value:'']" v-on:click="orderArr[1].value=='desc'?orderArr[1].value='asc':orderArr[1].value='desc';orderNow=1;getFirstData(true);">匹配度</button>
+            <button v-bind:class="[orderNow==2?orderArr[2].value:'']" v-on:click="orderArr[2].value=='desc'?orderArr[2].value='asc':orderArr[2].value='desc';orderNow=2;getFirstData(true);">新报名</button>
+            <a class="red-bg" href="#filter">筛选</a>
+          button(v-bind:class="[orderNow==1?orderArr[1].value:'']", v-on:click="orderArr[1].value=='desc'?orderArr[1].value='asc':orderArr[1].value='desc';orderNow=1;getFirstData(true);") 人气排行
+          button(v-bind:class="[orderNow==2?orderArr[2].value:'']", v-on:click="orderArr[2].value=='desc'?orderArr[2].value='asc':orderArr[2].value='desc';orderNow=2;getFirstData(true);") 年龄排序
+          select(v-on:change='getFirstData()', v-model='where.job')
+            option 职业
+            option(v-for='obj in job') {{obj}}
+          select(v-on:change='getFirstData()', v-model='where.sex')
+            option 性别
+            option 男
+            option 女
+        .list-main
+          dl.member-dl(v-for='obj in news', v-bind:data-id='obj.id')
+            dt(v-on:click='getId(obj.id,true)')
+              // <span class="member-pair">匹配度:{{obj.score}}</span>
+              img(v-if="obj.head_img==''", src='/img/noheadimg.png', alt='')
+              img(v-if="obj.head_img!=''", v-bind:src='obj.head_img', alt='')
+            dd
+              p.member-name {{obj.id}} {{obj.member_name}}
+              p.member-info
+                span.member_age {{getAge(obj.day_of_birth)}}
+                | 岁
+                span.member-stature {{obj.height}}
+                | cm/
+                span.member_weight {{obj.weight}}
+                | kg
+              img.like-icon(v-if='!obj.is_like && yourid!=obj.id', v-bind:data-like='obj.is_like', v-on:click='sentLike(obj,false)', src='/img/unlike.png', alt='')
+              img.like-icon(v-if='obj.is_like', v-bind:data-like='obj.is_like', v-on:click='sentLike(obj,true)', src='/img/like.png', alt='')
+              label {{(obj.mind_count && obj.mind_count>0)?obj.mind_count:''}}
+        .list-more(v-bind:style='{"padding-top":pageIndex==1?".2rem":""}')
+          | {{no_more?'——————没有更多数据了——————':'——————加载更多数据——————'}}
+        //a.editer-btn(href='#editor')
+          | 我要
+          br
+          | 报名
+          // <img src="/img/报名.png" alt="" />
+      .alert-msg
+        p
+
+    footer#footer
+    .alert_msg
+      p
+    script(src='/js/list.js?v=0.08')
+    // <script src="/scripts/shared/newsLayout.js"></script>
+    script.
+      function _alert(msg,callback,times){
+      $(".alert_msg p").html(msg);
+      $(".alert_msg").show();
+      if(times!=-1)
+      setTimeout(function(){
+      $(".alert_msg").hide()
+      if(callback)
+      callback();
+      }, times?times:2000);
+      }
+      window.ver=location.search.substr(location.search.indexOf('v=')+2)

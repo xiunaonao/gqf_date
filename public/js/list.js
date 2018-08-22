@@ -331,8 +331,11 @@ jQuery(function(){
 			    return returnAge;//返回周岁年龄  
 			      
 			},  
-			getId:function(mId){
-				window.location.href="#detail/"+mId;
+			getId:function(mId,isout){
+				if(!isout)
+					window.location.href="#detail/"+mId;
+				else
+					window.location.href='dq_detail?id='+mId
 			},
 			getLike:function(res){
 				if(res){

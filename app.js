@@ -31,7 +31,12 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use((req,res,next)=>{
 	//console.log(req.url.indexOf('union_valid'))
-	
+	if(req.url.indexOf('/dq_')>-1){
+		res.locals._v=ver
+		next()
+		return
+	}
+
 	if(req.url.indexOf('union_valid')==-1 && req.url.indexOf('api')==-1){
 		let openid=req.cookies['union_oid']
 		if(!openid){

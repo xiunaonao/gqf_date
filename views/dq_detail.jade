@@ -1,0 +1,374 @@
+html
+  head
+    meta(name='viewport', content='width=device-width, initial-scale=1,maximum-scale=1, user-scalable=no')
+    link(href='/css/main.css', rel='stylesheet')
+    link(href='/css/iconfont.css', rel='stylesheet')
+    style.
+      a { text-decoration: none; color: #323232; }
+      *{font-size:0.14rem;}
+      body{background-color:#FFF;}
+      .alert_msg {
+      display: none;
+      width: 40%;
+      padding: 0.18rem 0;
+      position: fixed;
+      top: 36%;
+      left: 0;
+      right: 0;
+      margin: auto;
+      background-color: black;
+      border-radius: 3px;
+      opacity: 0.5;
+      line-height: 1.2;
+      text-align: center;
+      font-size: 0.18rem;
+      color: #fff;
+      }
+      .alert_msg p {
+      padding: 0 0.1rem;
+      word-wrap: break-word;
+      word-break: normal;
+      }
+      [v-cloak]{
+      display:none;
+      }
+      input,button{-webkit-appearance:none;}
+    script(src='/js/sys/mobile.js')
+    script(src='/js/sys/vue.js')
+    script(src='/js/sys/vue-resource.js')
+    script(src='/js/sys/jquery-1.10.2.js')
+    script(src='/js/sys/jquery.form.js')
+    script(src='https://unpkg.com/axios/dist/axios.min.js')
+    script(src='/js/sys/lrz.all.bundle.js')
+    script(src='/js/sys/z_valid.js')
+    script.
+      var _param={id:location.search.replace('?id=','')}
+
+  body
+    header#header
+    article#main
+      style(type='text/css').
+        *{
+        margin: 0;
+        padding: 0;
+        }
+        .detail_top{
+        width: 100%;
+        padding: 0.16rem 0;
+        background-color: #FFFFFF;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        border-bottom: 1px solid #DDDDDD;
+        z-index: 999;
+        box-sizing: border-box;
+        height: 0.55rem;
+        }
+        .detail_top:after{
+        content: '';
+        display: table;
+        clear: both;
+        }
+        .back_a{
+        float: left;
+        width: 0.15rem;
+        margin-left: 0.15rem;
+        }
+        .back_a img{
+        display: block;
+        width: 100%;
+        }
+        .detail_title{
+        text-align: center;
+        font-size: 0.15rem;
+        font-family: "microsoft yahei";
+        font-weight: 600;
+        color: #323232;
+        }
+        .detail_main{
+        width: 100%;
+        }
+        .main_top{
+        width: 100%;
+        margin-top: 0.55rem;
+        position: relative;
+        }
+        .main_bg{
+        display: block;
+        width: 100%;
+        }
+        .member_img_box{
+        width: 0.8rem;
+        height: 0.8rem;
+        position: absolute;
+        top: 0.61rem;
+        left:50%;
+        transform:translateX(-50%);
+        border-radius: 0.8rem;
+        overflow: hidden;
+        }
+        .member_img{
+        max-width: 0.8rem;
+        height: 0.8rem;
+        position:absolute;
+        left:50%;
+        top:50%;
+        transform:translate(-50%,-50%);
+        }
+        .top_name{
+        margin-top: 0.51rem;
+        text-align: center;
+        font-size: 0.15rem;
+        font-family: "microsoft yahei";
+        font-weight: 500;
+        color: #323232;
+        }
+        .top_info{
+        margin-top: 0.1rem;
+        margin-bottom: 0.15rem;
+        line-height: 1;
+        text-align: center;
+        font-size: 0.11rem;
+        font-family: "microsoft yahei";
+        color: #AAAAAA;
+        }
+        .top_info span{
+        font-size: 0.11rem;
+        font-family: "microsoft yahei";
+        color: #AAAAAA;
+        }
+        .top_height,
+        .top_address{
+        margin-left: 0.13rem;
+        }
+        .main_content{
+        width: 100%;
+        padding-top: 0.14rem;
+        border-top: 0.1rem solid #F5F5F5;
+        border-bottom: 0.1rem solid #F5F5F5;
+        }
+        .main_title{
+        margin-bottom: 0.15rem;
+        text-align: center;
+        font-size: 0.15rem;
+        font-family: "microsoft yahei";
+        font-weight: 900;
+        color: #323232;
+        }
+        .main_info{
+        width: 100%;
+        padding: 0.18rem 0;
+        border-bottom: 1px solid #DDDDDD;
+        }
+        .main_info:after{
+        content: '';
+        display: table;
+        clear: both;
+        }
+        .info_left{
+        float: left;
+        width: 0.8rem;
+        margin-left: 0.15rem;
+        margin-right: 0.2rem;
+        font-size: 0.15rem;
+        font-family: "microsoft yahei";
+        color: #AAAAAA;
+        }
+        .info_right{
+        float: left;
+        font-size: 0.15rem;
+        font-family: "microsoft yahei";
+        color: #323232;
+        }
+        .main_bottom{
+        width: 100%;
+        margin-bottom: 0.31rem;
+        padding-top: 0.14rem;
+        }
+        .like_btn{
+        display: none;
+        width: 100%;
+        padding: 0.03rem 0;
+        background: -webkit-linear-gradient(left, #FFB6A0 , #FF9494); /* Safari 5.1 - 6.0 */
+        background: -o-linear-gradient(right, #FFB6A0, #FF9494); /* Opera 11.1 - 12.0 */
+        background: -moz-linear-gradient(right, #FFB6A0, #FF9494); /* Firefox 3.6 - 15 */
+        background: linear-gradient(to right, #FFB6A0 , #FF9494); /* 标准的语法（必须放在最后） */
+        }
+        .like_btn img{
+        display: block;
+        width: 0.5rem;
+        height: 0.45rem;
+        margin: 0 auto;
+        }
+        .unlike_btn{
+        display: none;
+        width: 100%;
+        padding: 0.03rem 0;
+        background: -webkit-linear-gradient(left, #FFFFFF , #DEDEDE); /* Safari 5.1 - 6.0 */
+        background: -o-linear-gradient(right, #FFFFFF, #DEDEDE); /* Opera 11.1 - 12.0 */
+        background: -moz-linear-gradient(right, #FFFFFF, #DEDEDE); /* Firefox 3.6 - 15 */
+        background: linear-gradient(to right, #FFFFFF , #DEDEDE); /* 标准的语法（必须放在最后） */
+        }
+        .unlike_btn img{
+        display: block;
+        width: 0.5rem;
+        height: 0.45rem;
+        margin: 0 auto;
+        }
+        .member-self{
+        position: absolute;
+        right:0;
+        }
+        .top_open>button{
+        margin-bottom:.1rem;
+        font-size:.13rem;
+        outline:none;
+        }
+    .detail_top
+      a.back_a(href='dq_list')
+        img(src='/img/返回.png', alt='')
+      p.detail_title 用户信息
+    .detail_main
+      .main_top
+        img.main_bg(src='/img/背景图.jpg', alt='')
+        // <img class="member_img" src="/img/头像.png" alt="" />
+        .member_img_box
+          img.member_img(v-if="news.head_img==''", src='/img/noheadimg.png', alt='头像未上传')
+          img.member_img(v-if="news.head_img!=''", v-bind:src='news.head_img', alt='头像未上传')
+        //
+          <div class="member-self">
+          <button>公开信息</button>
+          </div>
+        p.top_name {{news.member_name}}
+        p.top_info
+          span.top_age {{getAge(news.day_of_birth)}}
+          | 岁
+          span.top_height {{news.height}}
+          | cm/
+          span.top_weight {{news.weight}}
+          | kg
+          span.top_address {{news.domicile}}
+        p.top_open(style='text-align: center;', v-if='news.isyour')
+          button.iconfont(@click='lock_info') {{news.is_open?'已公开':'已保密'}}
+      .main_content
+        p.main_title 基本信息
+        .main_info
+          span.info_left 性别
+          span#m_gender.info_right(v-if='news.sex==1') 男
+          span#m_gender.info_right(v-if='news.sex==2') 女
+        .main_info
+          span.info_left 出生年月
+          span#m_birthday.info_right {{getBirth(news.day_of_birth)}}
+        //
+          <div class="main_info">
+          <span class="info_left">工作单位</span>
+          <span class="info_right" id="m_company">{{news.work_unit}}</span>
+          </div>
+        //
+          <div class="main_info">
+          <span class="info_left">部门职务</span>
+          <span class="info_right" id="m_work">{{news.job}}</span>
+          </div>
+        .main_info
+          span.info_left 学历
+          span#m_education.info_right {{mInfo.education}}
+        .main_info
+          span.info_left 年收入
+          span#m_income.info_right {{income[news.income_type]}}
+        .main_info
+          span.info_left 毕业院校
+          span#m_school.info_right {{news.college}}
+        .main_info
+          span.info_left 健康状况
+          span#m_health.info_right {{news.health}}
+        //
+          <div class="main_info">
+          <span class="info_left">民族</span>
+          <span class="info_right" id="m_nation">{{news.nation}}</span>
+          </div>
+        .main_info
+          span.info_left 住房状况
+          span#m_house.info_right {{news.housing}}
+        .main_info
+          span.info_left 购车状况
+          span#m_car.info_right {{news.car_buying}}
+        .main_info
+          span.info_left 兴趣与特长
+          span#m_hobby.info_right {{news.hobby}}
+        //
+          <div class="main_info">
+          <span class="info_left">个人特长</span>
+          <span class="info_right" id="m_specialty">{{news.special}}</span>
+          </div>
+      .main_bottom
+        //
+          <p class="main_title">择偶标准</p>
+          <div class="main_info">
+          <span class="info_left">身高</span>
+          <span class="info_right" id="f_height">{{standardInfo.height_range}}cm</span>
+          </div>
+          <div class="main_info">
+          <span class="info_left">年龄区间</span>
+          <span class="info_right" id="f_age">{{standardInfo.age_range}}岁</span>
+          </div>
+          <div class="main_info">
+          <span class="info_left">体重</span>
+          <span class="info_right" id="f_weight">{{standardInfo.weight_range}}kg</span>
+          </div>
+          <div class="main_info">
+          <span class="info_left">职业</span>
+          <span class="info_right" id="f_job">{{standardInfo.job}}</span>
+          </div>
+          <div class="main_info">
+          <span class="info_left">年收入</span>
+          <span class="info_right" id="f_income">{{standardInfo.income_range}}万元</span>
+          </div>
+          <div class="main_info">
+          <span class="info_left">住房</span>
+          <span class="info_right" id="f_house">{{standardInfo.housing}}</span>
+          </div>
+          <div class="main_info">
+          <span class="info_left">购车</span>
+          <span class="info_right" id="f_car">{{standardInfo.car_buying}}</span>
+          </div>
+          <div class="main_info">
+          <span class="info_left">户籍</span>
+          <span class="info_right" id="f_address">{{standardInfo.house_nature}}</span>
+          </div>
+        //
+          <div class="main_info">
+          <span class="info_left">兴趣爱好</span>
+          <span class="info_right" id="f_hobby">运动；游泳</span>
+          </div>
+          <div class="main_info">
+          <span class="info_left">其他</span>
+          <span class="info_right" id="f_other">无</span>
+          </div>
+      //
+        <div class="like_btn">
+        <img src="/img/喜欢.png" alt="" />
+        </div>
+        <div class="unlike_btn">
+        <img src="/img/未喜欢.png" alt="" />
+        </div>
+
+
+
+    footer#footer
+    .alert_msg
+      p
+    script(src='/js/detail.js?v=0.08')
+    // <script src="/scripts/shared/newsLayout.js"></script>
+    script.
+      function _alert(msg,callback,times){
+      $(".alert_msg p").html(msg);
+      $(".alert_msg").show();
+      if(times!=-1)
+      setTimeout(function(){
+      $(".alert_msg").hide()
+      if(callback)
+      callback();
+      }, times?times:2000);
+      }
+      window.ver=location.search.substr(location.search.indexOf('v=')+2)

@@ -5,10 +5,10 @@ let ws=require('../server/wechat')
 
 router.get('/list',(req,res,next)=>{
 	let openid=req.cookies['union_oid']
-	if(!openid){
-		res.json({success:false,msg:'登录已过期'})
-		return
-	}
+	// if(!openid){
+	// 	res.json({success:false,msg:'登录已过期'})
+	// 	return
+	// }
     let query = req.query
     let isagain = false;
     if (query.isagain) {
@@ -106,7 +106,22 @@ router.get('/list',(req,res,next)=>{
 			}else{
 				json.success=true
 				json.msg='查询成功'
-				json.data=result
+
+				let safe_result=[]
+				for(var i=0;i<result.length;i++){
+					safe_result.push({
+						day_of_birth:result[i].day_of_birth,
+						id:result[i].id,
+						member_name:result[i].member_name,
+						is_like:result[i].is_like,
+						head_img:result[i].head_img,
+						mind_count:result[i].mind_count,
+						height:result[i].height,
+						weright:result[i].weight
+
+					})
+				}
+				json.data=safe_result
 				//console.log(count)
 				json.count=count
 				json.page=where.page
@@ -469,12 +484,31 @@ router.get('/detail',(req,res,next)=>{
 			if(result.length==0)
 				json.data=null
 			else{
-				json.data=result[0]
-				json.data.isyour=isyour
+
+				let admin_oid=req.cookies['admin_oid']
+
+				mssql.exist('dating_managers',`usertype=1 and review_status=1 and  openid='${admin_oid}'`,(err2,result2,count2)=>{
+					if(count2<=0){
+						delete result[0].member_cardno
+						delete result[0].mobile
+						delete result[0].openid
+					}else{
+						
+					}
+					json.data=result[0]
+					json.data.isyour=isyour
+					res.json(json)
+				})
+
+				
+
+
+
+
 			}
 
 		}
-		res.json(json)
+		
 	})
 })
 

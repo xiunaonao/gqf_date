@@ -29,6 +29,15 @@ router.get('/', function(req, res, next) {
   res.sendFile('index.html');
 });
 
+router.get('/dq_list',(req,res,next)=>{
+	res.render('dq_list',{})
+})
+
+router.get('/dq_detail',(req,res,next)=>{
+	res.render('dq_detail',{})
+})
+
+
 
 router.get('/union_valid',(req,res,next)=>{
 	
