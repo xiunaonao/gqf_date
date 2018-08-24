@@ -14,7 +14,8 @@ block content
 						i
 				.member-info
 					a(v-bind:href="'/admin/userdetail?id='+obj.id")
-						h5 
+						h5
+							span(style="position: absolute;top: 43px;left: -59px;") NO:{{obj.id}} 
 							label {{obj.member_name}}
 							label &nbsp;{{getAge(obj.day_of_birth)}}
 						h6	{{obj.work_unit}}

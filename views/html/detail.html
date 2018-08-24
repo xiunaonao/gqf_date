@@ -193,7 +193,7 @@
 		<!--<img class="member_img" src="/img/头像.png" alt="" />-->
 		<div class="member_img_box">
 			<img class="member_img" v-if="news.head_img==''" src="/img/noheadimg.png" alt="头像未上传" />
-			<img class="member_img" v-if="news.head_img!=''" v-bind:src="news.head_img" alt="头像未上传" />
+			<img class="member_img" v-if="news.head_img!=''" v-bind:src="news.head_img" alt="头像未上传" v-on:touchstart="is_show_head=true"/>
 		</div>
 <!-- 		<div class="member-self">
 			<button>公开信息</button>
@@ -303,7 +303,9 @@
 			<span class="info_right" id="f_other">无</span>
 		</div>-->
 	</div>
-	
+	<div v-if="is_show_head" class="big-img-box" v-on:touchstart="is_show_head=false">
+		<img v-bind:src="news.head_img" @touchstart.stop/>
+	</div>
 	<!--<div class="like_btn">
 		<img src="/img/喜欢.png" alt="" />
 	</div>
