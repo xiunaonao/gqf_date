@@ -21,6 +21,14 @@ var vapp=new Vue({
 				scope.data=res.data.data;
 			})
 		},
+		execl:function(){
+			var ids=[];
+			for(var i=0;i<this.data.length;i++){
+				ids.push({yid:this.data[i].yid,mid:this.data[i].mid});
+			}
+
+			console.log(ids);
+		},
 		jump:function(url){
 			location.href=url
 

@@ -351,7 +351,7 @@ router.post('/user_line_execl',(req,res,next)=>{
 			res.json({success:false,msg:'权限不足'});
 			reutrn;
 		}
-		let str=``
+		let str=`select * from `
 		//mssql.exec(`select 1号姓名=a.name,1号身份证=a.card_number,1号电话=a.mobile,2号姓名=b.name,2号身份证=b.card_number,2号电话=b.mobile where `)
 
 	}) 

@@ -172,6 +172,7 @@ input,button{-webkit-appearance:none;}
 .admin-line-list li img{width:.4rem;height:.4rem;margin: 0 .15rem;}
 .admin-line-list li a{width:.5rem;height:.25rem;line-height:.25rem;border-radius:.05rem;color:#FFF;float: right;text-align: center;margin: .05rem .15rem 0 0;}
 .admin-filter-jt{position:absolute;width:.4rem;height:.4rem;background:url(/img/jt.png) no-repeat center/.4rem;top:.3rem;left:50%;-webkit-transform:translateX(-50%);}
+.admin-filter-btn>button{display:inline-block;}
 
 .talk-list{margin: 0 .15rem;}
 .talk-list>li{margin-bottom:.1rem;border-bottom:.01rem solid #CCC;min-height:.55rem;}
