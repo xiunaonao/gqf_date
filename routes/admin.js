@@ -112,6 +112,14 @@ router.get('/userdetail',(req,res,next)=>{
 	res.render('admin_userdetail',{id:id})
 })
 
+router.get('/pop',(req,res,next)=>{
+	let openid=req.cookies['admin_oid']
+	if(!openid){
+		res.redirect('/#system',{})
+	}
+	res.render('admin_pop',{})
+})
+
 
 function getDataNum(openid,callback){
 	let strSql=`

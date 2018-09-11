@@ -10,6 +10,10 @@ router.get('/list',(req,res,next)=>{
 	// 	return
 	// }
     let query = req.query
+    if(!query_valid(req.query)){
+    	res.json({success:false,msg:'参数含有敏感字符'})
+    	return
+    }
     let isagain = false;
     if (query.isagain) {
         isagain = true;
@@ -79,6 +83,9 @@ router.get('/list',(req,res,next)=>{
 		where.filter+=` and car_buying=${(query.car_buying=='不限'?"''''":"''"+query.car_buying+"''")}`
 	}
 
+	if(query.keyword){
+		where.filter+=` and member_name like '%${query.keyword}%' `
+	}
 	//mssql.query_dating('',where,(err,result,count)=>{})
 	//return;
 
@@ -117,7 +124,8 @@ router.get('/list',(req,res,next)=>{
 						head_img:result[i].head_img,
 						mind_count:result[i].mind_count,
 						height:result[i].height,
-						weright:result[i].weight
+						weright:result[i].weight,
+						job:result[i].job
 
 					})
 				}
@@ -925,6 +933,22 @@ function dating_total_only(your,his){
 
 function dating_match(openid,sex){
 
+}
+
+function query_valid(obj){
+	let list=Object.keys(obj)
+	if(!list || list.length==0){
+		return true
+	}
+
+	for(let i=0;i<list.length;i++){
+		let str=obj[list[i]];
+		console.log(str)
+		if(str.indexOf('--')>-1 || str.indexOf(`'`)>-1){
+			return false
+		}
+	}
+	return true
 }
 
 module.exports=router

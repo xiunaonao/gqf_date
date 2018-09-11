@@ -184,3 +184,5 @@ input,button{-webkit-appearance:none;}
 .reply-box{-webkit-transform:translate(-50%,-50%);left:50%;top:50%;background:#FFF;position: absolute;}
 .reply-box>*{display:block;width:2.5rem;margin:.1rem;box-sizing:border-box;}
 .reply-box>textarea{height:.8rem;border:solid #CCC 0.01rem;resize:none;padding:.1rem;}
+
+.admin-pop .admin-member-list{padding-bottom:1rem;}

@@ -1,0 +1,35 @@
+doctype html
+html
+	head
+		title 
+		meta(name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1, user-scalable=no")
+		link(rel='stylesheet', href='/css/admin.css?v=#{_v}')
+		link(href="/css/iconfont.css" rel="stylesheet")
+		script(src="/js/sys/mobile.js")
+		script(src="/js/sys/vue.js")
+		script(src="https://unpkg.com/axios/dist/axios.min.js")
+	body
+		.admin-box.admin-pop#pop(style="height:100%;")
+		.admin-menu-bottom
+				ul
+					li
+						a(href='/admin/?type=2')
+							img(src="/img/user_admin.png")
+							label 用户管理
+					li
+						a(href='/admin/line')
+							img(src="/img/pair_admin.png")
+							label 心动匹配
+					li
+						a(href='/admin/notice')
+							img(src="/img/wechat_admin.png")
+							label 微信通知
+					li
+						a(href='/admin/banner')
+							img(src="/img/active_admin.png")
+							label 活动通知
+					li
+						a(href="/admin/volunteer?type=-2&status=2")
+							img(src="/img/auth_admin.png")
+							label 权限管理
+		script(src="/js/admin/pop.js?v=#{_v}")
