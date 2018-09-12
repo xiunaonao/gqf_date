@@ -10,6 +10,82 @@ html
 		script(src="https://unpkg.com/axios/dist/axios.min.js")
 	body
 		.admin-box.admin-pop#pop(style="height:100%;")
+			.pop-sex
+				span(v-bind:class="[sex_c==1?'c':'']",v-on:click="sex_c=1") 男
+				span(v-bind:class="[sex_c==2?'c':'']",v-on:click="sex_c=2") 女
+			ul.pop-list
+				li(v-for='num,ind in 5')
+					.pop-one(v-if="sex_c==1 && boy[ind*2]")
+						img.img-mid(v-bind:src="boy[ind*2].head_img?boy[ind*2].head_img:'/img/noheadimg.png'")
+						.pop-info
+							h5 {{boy[ind*2].member_name}}
+							h6 {{getAge(boy[ind*2].day_of_birth)}} {{boy[ind*2].height}}cm/{{boy[ind*2].weight}}kg
+						a(v-on:click="delete_pop(boy[ind*2],ind*2)") ×
+
+					.pop-one(v-if='sex_c==1 && !boy[ind*2]')
+						a.pop-add(v-on:click="add_pop(ind*2,1)") +
+
+					.pop-one(v-if="sex_c==1 && boy[ind*2+1]")
+						img.img-mid(v-bind:src="boy[ind*2+1].head_img?boy[ind*2+1].head_img:'/img/noheadimg.png'")
+						.pop-info
+							h5 {{boy[ind*2+1].member_name}}
+							h6 {{getAge(boy[ind*2+1].day_of_birth)}} {{boy[ind*2+1].height}}cm/{{boy[ind*2+1].weight}}kg
+						a(v-on:click="delete_pop(boy[ind*2+1],ind*2+1)") ×
+
+					.pop-one(v-if='sex_c==1 && !boy[ind*2+1]')
+						a.pop-add(v-on:click="add_pop(ind*2+1,1)") +
+
+
+
+					.pop-one(v-if="sex_c==2 && girl[ind*2]")
+						img.img-mid(v-bind:src="girl[ind*2].head_img?girl[ind*2].head_img:'/img/noheadimg.png'")
+						.pop-info
+							h5 {{boy[ind*2].member_name}}
+							h6 {{getAge(boy[ind*2].day_of_birth)}} {{boy[ind*2].height}}cm/{{boy[ind*2].weight}}kg
+						a(v-on:click="delete_pop(girl[ind*2],ind*2)") ×
+
+					.pop-one(v-if='sex_c==2 && !girl[ind*2]')
+						a.pop-add(v-on:click="add_pop(ind*2,2)") +
+
+					.pop-one(v-if="sex_c==2 && girl[ind*2+1]")
+						img.img-mid(v-bind:src="girl[ind*2+1].head_img?girl[ind*2+1].head_img:'/img/noheadimg.png'")
+						.pop-info
+							h5 {{boy[ind*2+1].member_name}}
+							h6 {{getAge(boy[ind*2+1].day_of_birth)}} {{boy[ind*2+1].height}}cm/{{boy[ind*2+1].weight}}kg
+						a(v-on:click="delete_pop(girl[ind*2+1],ind*2+1)") ×
+
+					.pop-one(v-if='sex_c==2 && !girl[ind*2+1]')
+						a.pop-add(v-on:click="add_pop(ind*2+1,2)") +
+			
+			.admin-pop-user(v-if='add_sort!=-1')
+				.pop-search
+					input(placeholder='关键词搜索',v-model='keyword')
+					button.blue-bg(v-on:click="get_user(true)") 搜索
+				.pop-filter
+					button(v-on:click="order='mind_count';get_user(true)") 人气排序 ▼
+					button(v-on:click="order='day_of_birth';get_user(true)")  年龄排序 ▼
+					select(v-model="job",v-on:change="get_user(true)")
+						option(value='') 职业选择 ▼
+						option(v-for="j in job_list") {{j}}
+				.pop-users
+					ul.pop-list
+						li(v-for="num,ind in Math.ceil(user_list.length/2)")
+							.pop-one(v-if="user_list[ind*2]")
+								img.img-mid(v-bind:src="user_list[ind*2].head_img?user_list[ind*2].head_img:'/img/noheadimg.png'")
+								.pop-info
+									h5 {{user_list[ind*2].member_name}}
+									h6 {{getAge(user_list[ind*2].day_of_birth)}} {{user_list[ind*2].height}}cm/{{user_list[ind*2].weight}}kg
+								a(v-on:click="insert_pop(user_list[ind*2])") 添加
+							.pop-one(v-if="user_list[ind*2+1]")
+								img.img-mid(v-bind:src="user_list[ind*2+1].head_img?user_list[ind*2+1].head_img:'/img/noheadimg.png'")
+								.pop-info
+									h5 {{user_list[ind*2+1].member_name}}
+									h6 {{getAge(user_list[ind*2+1].day_of_birth)}} {{user_list[ind*2+1].height}}cm/{{user_list[ind*2+1].weight}}kg
+								a(v-on:click="insert_pop(user_list[ind*2+1])") 添加
+						li(style='height:.5rem;text-align:center')
+							button(v-if='!is_over',style='display:inline-block;background:#FFF;color:#666;width:2rem;outline:none;',v-on:click="page++;get_user()") 点击加载更多
+							button(v-if='is_over',style='display:inline-block;background:#FFF;color:#666;width:2rem;outline:none;') 已无更多数据
+
 		.admin-menu-bottom
 				ul
 					li
@@ -33,3 +109,17 @@ html
 							img(src="/img/auth_admin.png")
 							label 权限管理
 		script(src="/js/admin/pop.js?v=#{_v}")
+		.alert_msg
+			p
+		script.
+			function _alert(msg,callback,time){
+				document.querySelector(".alert_msg p").innerHTML=msg;
+				document.querySelector(".alert_msg").style.display='block';
+				if(time>0 || !time){
+					setTimeout(function(){
+					document.querySelector(".alert_msg").style.display='none';
+						if(callback)
+							callback();
+					}, time?time:2000);
+				}
+			}

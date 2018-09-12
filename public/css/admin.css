@@ -185,4 +185,27 @@ input,button{-webkit-appearance:none;}
 .reply-box>*{display:block;width:2.5rem;margin:.1rem;box-sizing:border-box;}
 .reply-box>textarea{height:.8rem;border:solid #CCC 0.01rem;resize:none;padding:.1rem;}
 
-.admin-pop .admin-member-list{padding-bottom:1rem;}
+.admin-pop{}
+.admin-pop .pop-sex{margin:0 auto;width:1.4rem;height:.3rem;margin-top:.2rem;}
+.admin-pop .pop-sex span{float:left;width:50%;height:100%;text-align: center;line-height:.3rem;border:solid #436EEE .01rem;box-sizing:border-box;color:#436EEE;cursor:pointer; }
+.admin-pop .pop-sex span:first-child{border-right:0px none #000;border-radius:.2rem 0 0 .2rem;}
+.admin-pop .pop-sex span:nth-child(2){border-radius:0 .2rem .2rem 0;}
+.admin-pop .pop-sex .c{color:#FFF;background:#436EEE;}
+.admin-pop .pop-list{padding-bottom:.5rem;}
+.admin-pop .pop-list li{height:2.2rem;margin:.15rem;}
+.admin-pop .pop-list li .pop-one{width:1.65rem;border:dotted .01rem #CCC;height:2rem;position:relative;overflow:hidden;float:left;}
+.admin-pop .pop-list li .pop-one:first-child{margin-right:.1rem;}
+.admin-pop .pop-list li .pop-one .pop-info{position:absolute;bottom:0;height:.5rem;background:rgba(0,0,0,.5);width:100%;line-height:.25rem;color:#FFF;text-indent:.1rem;}
+.admin-pop .pop-list li .pop-one a{position:absolute;right:0;top:0;font-size:.2rem;color:#FFF;border-radius:.3rem;width:.3rem;height:.3rem;background:rgba(0,0,0,.5);text-align:center;}
+.admin-pop .pop-list li .pop-one .pop-add{top:50%;right:50%;-webkit-transform:translate(50%,-50%);background:rgba(0,0,0,0);font-weight:600;font-size:.75rem;width:1rem;height:1rem;text-shadow:#AAA 0 0 .1rem;}
+
+.admin-pop-user{position:fixed;width:100%;height:100%;background:#FFF;top:0;left:0;padding:.1rem;box-sizing:border-box;overflow:auto;}
+.admin-pop-user .pop-search{width:100%;height:.3rem;line-height:.3rem;position:relative;}
+.admin-pop-user .pop-search button{position:absolute;right:0;top:0;}
+.admin-pop-user .pop-search input{border:solid #CCC .01rem;width:3.55rem;height:.3rem;box-sizing:border-box;border-style:none none solid none;text-indent:.2rem;}
+.admin-pop-user .pop-filter{margin:.1rem 0;}
+.admin-pop-user .pop-filter>*{display:inline-block;margin:0 .05rem;background:#FFF;color:#333;height:.3rem;border:solid .01rem #CCC;border-radius:.1rem;}
+.admin-pop-user .pop-filter>button{width:.8rem;}
+.admin-pop-user .pop-filter>select{float:right;}
+.admin-pop-user .pop-list li{margin:0;}
+.admin-pop-user .pop-list li .pop-one a{font-size:.13rem;line-height:.3rem;}

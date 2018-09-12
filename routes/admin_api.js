@@ -559,7 +559,7 @@ router.post('/banner_delete',(req,res,next)=>{
 			res.json({success:false,msg:'权限不足'})
 			reutrn
 		}
-		mssql.remove(`dating_banners`,`id=${id}`,(req,res,next)=>{
+		mssql.remove(`dating_banners`,`id=${id}`,(err3,result3,count3)=>{
 			
 		})
 	})
@@ -664,6 +664,125 @@ router.post('/banner_insert_or_update',(req,res,next)=>{
 		// 	}
 		// })
 
+	})
+})
+
+
+function pop_init(callback){
+	mssql.exec('select top 10 * from dating_member_info where sex=2 order by mind_count desc',(err1,result_girl,count1)=>{
+		if(err1){
+			res.json({success:false,msg:err})
+			return
+		}
+		mssql.exec('select top 10 * from dating_member_info where sex=1 order by mind_count desc',(err2,result_boy,count2)=>{
+			mssql.exec('delete dating_member_pop',(err2,result2,count2)=>{
+				let inr=(arraylist,index,sex)=>{
+					let array=arraylist[index]
+					let now=new Date()
+					let dat={
+						sort:{type:'num',value:index},
+						list_index:{type:'num',value:1},
+						created_time:{type:'',value:now.getFullYear()+'-'+(now.getMonth()+1)+'-'+now.getDate()+' '+now.getHours()+':'+now.getMinutes()+':'+now.getSeconds()},
+						user_id:{type:'num',value:array.id},
+						openid:{type:'',value:array.openid},
+						sex:{type:'num',value:sex}
+					}
+					mssql.insert('dating_member_pop',dat,(err,result,count)=>{
+						if(index<9 && index<arraylist.length-1)
+						{
+							index++
+							inr(arraylist,index,sex)
+						}else if(sex==2){
+							if(callback){
+								callback();
+							}
+						}else if(sex==1){
+							let ind2=0
+							inr(result_girl,ind2,2)
+						}
+					})
+				}
+
+				let ind=0
+				inr(result_boy,ind,1)
+
+			})
+		})
+	})
+}
+
+router.post('/get_pop_list',(req,res,next)=>{
+	let openid=req.cookies['admin_oid']
+	if(openid=='')
+	{
+		res.json({success:false,msg:'登录已失效'})
+		return;
+	}
+	mssql.exec('select c=count(id) from dating_member_pop',(err,result,count)=>{
+		
+		if(result[0].c==0){
+			pop_init(function(){select()});
+		}else{
+			select();
+		}
+
+		function select(){
+			mssql.exec('select i.member_name,i.head_img,i.height,i.weight,i.day_of_birth,p.id,p.sort,p.list_index,p.created_time,p.user_id,p.openid,p.sex from dating_member_pop p,dating_member_info i where p.user_id=i.id order by sort asc',(err2,result2,count2)=>{
+				console.log(result2)
+				if(err){
+					res.json({success:false,msg:err})
+					return
+				}
+				let json={
+					success:true,
+					data:result2,
+					msg:'操作成功'
+				}
+				res.json(json)
+			})
+		}
+	})
+})
+
+router.post('/pop_delete',(req,res,next)=>{
+	let openid=req.cookies['admin_oid']
+	let form=req.body;
+	if(openid=='')
+	{
+		res.json({success:false,msg:'登录已失效'})
+		return;
+	}
+	mssql.remove('dating_member_pop',`id=${form.id}`,(err,result,count)=>{
+		if(count>0){
+			res.json({success:true,msg:'操作成功'})
+		}else{
+			res.json({success:true,msg:'操作失败'})
+		}
+	})
+})
+
+router.post('/pop_update_or_insert',(req,res,next)=>{
+	let openid=req.cookies['admin_oid']
+	let form=req.body;
+	if(openid=='')
+	{
+		res.json({success:false,msg:'登录已失效'})
+		return;
+	}
+	let now=new Date()
+	let dat={
+		sort:{type:'num',value:form.sort},
+		list_index:{type:'num',value:1},
+		created_time:{type:'',value:now.getFullYear()+'-'+(now.getMonth()+1)+'-'+now.getDate()+' '+now.getHours()+':'+now.getMinutes()+':'+now.getSeconds()},
+		user_id:{type:'num',value:form.user_id},
+		sex:{type:'num',value:form.sex}
+	}
+	mssql.insert('dating_member_pop',dat,(err,result,count)=>{
+		if(count>0){
+			res.json({success:true,msg:'操作成功'})
+		}else{
+			res.json({success:true,msg:'操作失败'})
+		}
 	})
 })
 
