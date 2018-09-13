@@ -43,6 +43,11 @@ var routes=[
 		url:'readme',
 		dom:'readme',
 		script:'readme.js'
+	},
+	{
+		url:'pop',
+		dom:'pop',
+		script:'pop.js'
 	}
 	
 ]

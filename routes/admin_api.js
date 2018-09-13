@@ -684,7 +684,6 @@ function pop_init(callback){
 						list_index:{type:'num',value:1},
 						created_time:{type:'',value:now.getFullYear()+'-'+(now.getMonth()+1)+'-'+now.getDate()+' '+now.getHours()+':'+now.getMinutes()+':'+now.getSeconds()},
 						user_id:{type:'num',value:array.id},
-						openid:{type:'',value:array.openid},
 						sex:{type:'num',value:sex}
 					}
 					mssql.insert('dating_member_pop',dat,(err,result,count)=>{

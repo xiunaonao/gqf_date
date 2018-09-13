@@ -1,6 +1,7 @@
 *{margin:0;padding:0;border:none;background:rgba(0,0,0,0);}
 body,html{width:100%;height:100%;}
-.title{width:100%;text-align:center;height: 0.5rem;line-height: 0.5rem;font-size:0.15rem;box-shadow:#DDD 0.01rem 0.01rem 0.01rem;margin-bottom:0.01rem;position:fixed;top:0;}
+.title{width:100%;text-align:center;height: 0.5rem;line-height: 0.5rem;font-size:0.15rem;box-shadow:#DDD 0.01rem 0.01rem 0.01rem;
+	margin-bottom:0.01rem;position:fixed;top:0;    z-index: 999;background:#FFF;}
 .title label{font-size: 0.15rem;}
 .title a{width:0.15rem;height:0.15rem;position: absolute;top: 0.17rem;left:0.15rem;}
 .title a img{width:0.15rem;}
@@ -100,3 +101,13 @@ li{list-style:none;}
 
 .big-img-box{position: fixed;width:100%;height:100%;background: rgba(0,0,0,0.7);left:0;top:0;z-index:999;}
 .big-img-box img{max-width:100%;max-height:100%;position:absolute;top:50%;left:50%;-webkit-transform:translate(-50%,-50%);}
+
+.pop-list{padding-bottom:.5rem;padding-top:.5rem;}
+.pop-list li{height:2.2rem;margin:.15rem;}
+.pop-list li .pop-one{width:1.65rem;border:dotted .01rem #CCC;height:2rem;position:relative;overflow:hidden;float:left;cursor:pointer;}
+.pop-list li .pop-one:first-child{margin-right:.1rem;}
+.pop-list li .pop-one .pop-info{position:absolute;bottom:0;height:.5rem;background:rgba(0,0,0,.5);width:100%;line-height:.25rem;color:#FFF;text-indent:.1rem;}
+.pop-list li .pop-one a{position:absolute;right:0;top:0;font-size:.2rem;color:#FFF;border-radius:.3rem;width:.3rem;height:.3rem;background:rgba(0,0,0,.5);text-align:center;}
+.pop-list li .pop-one .pop-add{top:50%;right:50%;-webkit-transform:translate(50%,-50%);background:rgba(0,0,0,0);font-weight:600;font-size:.75rem;width:1rem;height:1rem;text-shadow:#AAA 0 0 .1rem;}
+
+

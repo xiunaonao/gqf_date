@@ -1,0 +1,26 @@
+<div id="pop" v-cloak>
+	<header class="title">
+		<a class="back_a" href="#list"><img src="/img/返回.png" alt="" /></a>
+		<label>优秀会员</label>
+	</header>
+
+	<ul class="pop-list">
+		<li v-for='num,ind in 5'>
+			<div class="pop-one" v-if="boy[ind*2]" v-on:click="goto(boy[ind*2])">
+				<img class="img-mid" v-bind:src="boy[ind*2].head_img?boy[ind*2].head_img:'/img/noheadimg.png'">
+				<div class="pop-info">
+					<h5>{{boy[ind*2].member_name}}</h5>
+					<h6>{{getAge(boy[ind*2].day_of_birth)}} {{boy[ind*2].height}}cm/{{boy[ind*2].weight}}kg</h6>
+				</div>
+			</div>
+
+			<div class="pop-one" v-if="girl[ind*2]" v-on:click="goto(girl[ind*2])">
+				<img class="img-mid" v-bind:src="girl[ind*2].head_img?girl[ind*2].head_img:'/img/noheadimg.png'">
+				<div class="pop-info">
+					<h5>{{girl[ind*2].member_name}}</h5>
+					<h6>{{getAge(girl[ind*2].day_of_birth)}} {{girl[ind*2].height}}cm/{{girl[ind*2].weight}}kg</h6>
+				</div>
+			</div>
+		</li>
+	</ul>
+</div>
