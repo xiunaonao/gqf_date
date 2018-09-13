@@ -48,6 +48,11 @@ var routes=[
 		url:'pop',
 		dom:'pop',
 		script:'pop.js'
+	},
+	{
+		url:'history',
+		dom:'history',
+		script:'history.js'
 	}
 	
 ]
