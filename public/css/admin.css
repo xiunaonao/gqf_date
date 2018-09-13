@@ -8,6 +8,7 @@ input[type=file]{opacity:0;}
 .admin-web{padding-bottom: .5rem;}
 .text-left{text-align:left!important;}
 .goto_h5{position: absolute;right:.3rem;top:.3rem;z-index: 999;border:solid #666 1px;border-radius:.05rem;padding:.05rem;}
+.goto_pop{position: absolute;right: 1rem;top: .3rem;z-index: 999;border: solid #666 1px; border-radius: .05rem;padding: .05rem;}
 .admin-box{background:#FFF;}
 .admin-card{width:3.45rem;height:1.4rem;box-shadow:#999 0rem 0rem 0.1rem;border-radius:.03rem;box-sizing:border-box;margin:.15rem;}
 .head-box{height:.45rem;padding:.13rem;}
