@@ -4,8 +4,30 @@
 		<label>优秀会员</label>
 	</header>
 
+	<h6 class="pop-title">--本期优秀女会员--</h6>
 	<ul class="pop-list">
-		<li v-for='num,ind in 10'>
+		<li v-for='num,ind in 5'>
+			<div class="pop-one" v-if="girl[ind*2]" v-on:click="goto(girl[ind*2])">
+				<img class="img-mid" v-bind:src="girl[ind*2].head_img?girl[ind*2].head_img:'/img/noheadimg.png'">
+				<div class="pop-info">
+					<h5>{{girl[ind*2].member_name}}</h5>
+					<h6>{{getAge(girl[ind*2].day_of_birth)}} {{girl[ind*2].height}}cm/{{girl[ind*2].weight}}kg</h6>
+				</div>
+			</div>
+
+			<div class="pop-one" v-if="girl[ind*2+1]" v-on:click="goto(girl[ind*2+1])">
+				<img class="img-mid" v-bind:src="girl[ind*2+1].head_img?girl[ind*2+1].head_img:'/img/noheadimg.png'">
+				<div class="pop-info">
+					<h5>{{girl[ind*2+1].member_name}}</h5>
+					<h6>{{getAge(girl[ind*2+1].day_of_birth)}} {{girl[ind*2+1].height}}cm/{{girl[ind*2+1].weight}}kg</h6>
+				</div>
+			</div>
+		</li>
+		
+	</ul>
+	<h6 class="pop-title">--本期优秀男会员--</h6>
+	<ul class="pop-list">
+		<li v-for='num,ind in 5'>
 			<div class="pop-one" v-if="boy[ind*2]" v-on:click="goto(boy[ind*2])">
 				<img class="img-mid" v-bind:src="boy[ind*2].head_img?boy[ind*2].head_img:'/img/noheadimg.png'">
 				<div class="pop-info">
@@ -14,11 +36,11 @@
 				</div>
 			</div>
 
-			<div class="pop-one" v-if="girl[ind*2]" v-on:click="goto(girl[ind*2])">
-				<img class="img-mid" v-bind:src="girl[ind*2].head_img?girl[ind*2].head_img:'/img/noheadimg.png'">
+			<div class="pop-one" v-if="boy[ind*2+1]" v-on:click="goto(boy[ind*2+1])">
+				<img class="img-mid" v-bind:src="boy[ind*2+1].head_img?boy[ind*2+1].head_img:'/img/noheadimg.png'">
 				<div class="pop-info">
-					<h5>{{girl[ind*2].member_name}}</h5>
-					<h6>{{getAge(girl[ind*2].day_of_birth)}} {{girl[ind*2].height}}cm/{{girl[ind*2].weight}}kg</h6>
+					<h5>{{boy[ind*2+1].member_name}}</h5>
+					<h6>{{getAge(boy[ind*2+1].day_of_birth)}} {{boy[ind*2+1].height}}cm/{{boy[ind*2+1].weight}}kg</h6>
 				</div>
 			</div>
 		</li>
