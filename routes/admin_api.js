@@ -678,6 +678,17 @@ function pop_init(callback){
 			mssql.exec('delete dating_member_pop',(err2,result2,count2)=>{
 				let inr=(arraylist,index,sex)=>{
 					let array=arraylist[index]
+					if(!array){
+						if(sex==1){
+							let ind2=0
+							inr(result_girl,ind2,2)
+						}else{
+							if(callback){
+								callback();
+							}
+						}
+						return
+					}
 					let now=new Date()
 					let dat={
 						sort:{type:'num',value:index},
