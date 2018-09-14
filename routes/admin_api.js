@@ -669,12 +669,12 @@ router.post('/banner_insert_or_update',(req,res,next)=>{
 
 
 function pop_init(callback){
-	mssql.exec('select top 10 * from dating_member_info where sex=2 order by mind_count desc',(err1,result_girl,count1)=>{
+	mssql.exec('select top 10 * from dating_member_info where sex=2 and is_open=1 order by mind_count desc',(err1,result_girl,count1)=>{
 		if(err1){
 			res.json({success:false,msg:err})
 			return
 		}
-		mssql.exec('select top 10 * from dating_member_info where sex=1 order by mind_count desc',(err2,result_boy,count2)=>{
+		mssql.exec('select top 10 * from dating_member_info where sex=1 and is_open=1 order by mind_count desc',(err2,result_boy,count2)=>{
 			mssql.exec('delete dating_member_pop',(err2,result2,count2)=>{
 				let inr=(arraylist,index,sex)=>{
 					let array=arraylist[index]

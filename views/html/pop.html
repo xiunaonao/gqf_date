@@ -5,7 +5,7 @@
 	</header>
 
 	<ul class="pop-list">
-		<li v-for='num,ind in 5'>
+		<li v-for='num,ind in 10'>
 			<div class="pop-one" v-if="boy[ind*2]" v-on:click="goto(boy[ind*2])">
 				<img class="img-mid" v-bind:src="boy[ind*2].head_img?boy[ind*2].head_img:'/img/noheadimg.png'">
 				<div class="pop-info">
