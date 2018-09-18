@@ -1,10 +1,10 @@
 <div id="pop" v-cloak>
 	<header class="title">
 		<a class="back_a" href="#list"><img src="/img/返回.png" alt="" /></a>
-		<label>优秀会员</label>
+		<label>最受欢迎男女会员</label>
 	</header>
 
-	<h6 class="pop-title">--本期优秀女会员--</h6>
+	<h6 class="pop-title">--最受欢迎女会员--</h6>
 	<ul class="pop-list">
 		<li v-for='num,ind in 5'>
 			<div class="pop-one" v-if="girl[ind*2]" v-on:click="goto(girl[ind*2])">
@@ -25,7 +25,7 @@
 		</li>
 		
 	</ul>
-	<h6 class="pop-title">--本期优秀男会员--</h6>
+	<h6 class="pop-title">--最受欢迎男会员--</h6>
 	<ul class="pop-list">
 		<li v-for='num,ind in 5'>
 			<div class="pop-one" v-if="boy[ind*2]" v-on:click="goto(boy[ind*2])">
