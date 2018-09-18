@@ -29,7 +29,7 @@ jQuery(function(){
 			banner:[
 				// {link_url:'',url:'/img/通栏.jpg',title:'姻为有你，缘聚长兴'},
 				 {link_url:'',url:'/img/banner_dz.jpg',title:'标心配对成功可尽早参加线下活动'},
-				 {link_url:'/#pop',url:'/img/banner_3.jpg',title:'优秀会员展示'},
+				 {link_url:'/#pop',url:'/img/banner_3.jpg',title:'最受欢迎男女会员'},
 				 {link_url:'/#history',url:'/img/banner_4.jpg',title:'往期活动'},
 			],
 			orderArr:[
