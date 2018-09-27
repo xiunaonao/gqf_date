@@ -28,9 +28,10 @@ jQuery(function(){
 			banner_index:0,
 			banner:[
 				// {link_url:'',url:'/img/通栏.jpg',title:'姻为有你，缘聚长兴'},
+				 {link_url:'https://mp.weixin.qq.com/s/_YrVDM06a5UKRAAAWupX7Q',url:'/img/banner_5.jpg',title:'户外登山摄影'},
 				 {link_url:'',url:'/img/banner_dz.jpg',title:'标心配对成功可尽早参加线下活动'},
-				 {link_url:'/#pop',url:'/img/banner_3.jpg',title:'最受欢迎男女会员'},
 				 {link_url:'/#history',url:'/img/banner_4.jpg',title:'往期活动'},
+				 {link_url:'/#pop',url:'/img/banner_3.jpg',title:'最受欢迎男女会员'}
 			],
 			orderArr:[
 				{name:'id',value:'desc'},
