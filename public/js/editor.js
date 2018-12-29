@@ -168,7 +168,7 @@ var vapp = new Vue({
         this.flagNum--;
         console.log("flagNum--:"+this.flagNum);
 //    }
-      $(".e_img_inner").css("background-image","url(http://127.0.0.1:2333/)");
+      $(".e_img_inner").css("background-image","url(/)");
     },
     sentStandard:function(sData){
     	$.ajax({

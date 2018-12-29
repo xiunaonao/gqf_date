@@ -731,7 +731,7 @@ router.get('/like',(req,res,next)=>{
 								target_openid:{value:mind_openid,type:''},
 								title:{value:'关注消息'},
 								content:{value:'有人在工青妇平台默默默默关注了你'},
-								url:{value:'http://100579.un.123zou.com/Platform/Link?key=go.dating'},
+								url:{value:'https://100579.un.123zou.com/Platform/Link?key=go.dating'},
 								send_status:{value:1,type:'num'},
 								created_time:{value:now.getFullYear()+'-'+(now.getMonth()+1)+'-'+now.getDate()+' '+now.getHours()+':'+now.getMinutes()+':'+now.getSeconds(),type:'date'}
 							},(err,result,count)=>{})
@@ -739,7 +739,7 @@ router.get('/like',(req,res,next)=>{
 							 ws.post_one({
 		                         "msg": "有人在工青妇平台上默默关注了你",
 		                         "openid": mind_openid,
-		                         "url":"http://100579.un.123zou.com/Platform/Link?key=go.dating"
+		                         "url":"https://100579.un.123zou.com/Platform/Link?key=go.dating"
 							 })
 						}else{
 							console.log('已发送过该通知')

@@ -78,7 +78,7 @@ router.post('/sms_post',(req,res,next)=>{
 	}
 	sms_cool[req.body.mobile]=(new Date()-0);
 
-	let url=`http://100596.un.123zou.com/api/SmsApi/send_sms?mobile=${req.body.mobile}&sms_type=2`
+	let url=`https://100596.un.123zou.com/api/SmsApi/send_sms?mobile=${req.body.mobile}&sms_type=2`
 
 	request(url,(err,resp,body)=>{
 		//{"success":1,"data":null,"total":0,"msg":"发送成功","err_msg":null,"code":0}
@@ -99,7 +99,7 @@ router.post('/sms_valid',(req,res,next)=>{
 		return;
 	}
 
-	let url=`http://100596.un.123zou.com/api/SmsApi/Verify?mobile=${req.body.mobile}&sms_type=2&sms=${req.body.code}`
+	let url=`https://100596.un.123zou.com/api/SmsApi/Verify?mobile=${req.body.mobile}&sms_type=2&sms=${req.body.code}`
 
 	request(url,(err,resp,body)=>{
 		//{"success":1,"data":null,"total":0,"msg":"发送成功","err_msg":null,"code":0}
