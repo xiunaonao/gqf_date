@@ -37,11 +37,18 @@ app.use((req,res,next)=>{
 		return
 	}
 
+
 	if(req.url.indexOf('union_valid')==-1 && req.url.indexOf('api')==-1){
 		let openid=req.cookies['union_oid']
 		if(!openid){
-		  	res.redirect(302,'https://100579.un.123zou.com/Platform/Link?key=go.dating')
-		  	return
+			if(req.url.indexOf('openid')>-1){
+				openid=req.query.openid
+				res.redirect(302,'http://xq.123zou.com/union_valid?openid='+openid)
+				return
+			}else{
+		  		res.redirect(302,'https://100579.un.123zou.com/Platform/Link?key=go.dating')
+		  		return
+		  	}
 		}
 	  }
 	res.locals._v=ver
