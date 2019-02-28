@@ -248,6 +248,7 @@ router.get('/admin_list',(req,res,next)=>{
 	if(query.status!=2){
 		where.filter+=` and review_status=${query.status} `
 	}
+	where.filter+=` and order ${where.order} ${where.order_type} `
 	mssql.exec(`select * from dating_managers where (select count(id) from dating_managers where usertype=1 and review_status=1 and  openid='${openid}')>0 `+where.filter,(err,result,count)=>{
 		let json={}
 		if(err){
