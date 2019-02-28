@@ -238,7 +238,7 @@ router.get('/admin_list',(req,res,next)=>{
 		size:query.size?parseInt(query.size):20,
 		page:query.page?parseInt(query.page):1,
 		order_type:query.order_type?query.order_type:'desc',
-		order:query.order?query.order:'create_time',
+		order:query.order?query.order:'id',
 		//filter:(query.user_type!=undefined?(` and usertype=${query.user_type}`):'')+(query.review_status!=undefined?(` and review_status=${query.user_type}`):'')
 		filter:`` 
 	}
