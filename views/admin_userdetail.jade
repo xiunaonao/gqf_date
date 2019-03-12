@@ -203,6 +203,9 @@ style(type='text/css').
 				span#m_gender.info_right(v-if='news.sex==1') 男
 				span#m_gender.info_right(v-if='news.sex==2') 女
 			.main_info
+				span.info_left 手机
+				span.info_right {{news.mobile}}
+			.main_info
 				span.info_left 出生年月
 				span#m_birthday.info_right {{getBirth(news.day_of_birth)}}
 			.main_info
