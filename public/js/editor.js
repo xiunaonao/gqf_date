@@ -267,28 +267,28 @@ var vapp = new Vue({
 		// 	return;
 		// }
 
-		// var work_unit = $("#member_company").val();
-		// if(!work_unit){
-		// 	_alert('请输入工作单位');
-		// 	this.posting=false;
-		// 	return;
-		// }
+		var work_unit = $("#member_company").val();
+		if(!work_unit){
+			_alert('请输入工作单位');
+			this.posting=false;
+			return;
+		}
 
-		// var job = $("#member_job2").text();
-		// if(job=='其他'){
-		// 	job=this.jobelse;
-		// }
-		// if(job=='请选择'){
-		// 	_alert('请选择所属职业');
-		// 	this.posting=false;
-		// 	return;
-		// }
-		// var education = $("#member_education").attr("data-val");
-		// if(!education || education=='请选择'){
-		// 	_alert('请选择学历');
-		// 	this.posting=false;
-		// 	return;
-		// }
+		var job = $("#member_job2").text();
+		if(job=='其他'){
+			job=this.jobelse;
+		}
+		if(job=='请选择'){
+			_alert('请选择所属职业');
+			this.posting=false;
+			return;
+		}
+		var education = $("#member_education").attr("data-val");
+		if(!education || education=='请选择'){
+			_alert('请选择学历');
+			this.posting=false;
+			return;
+		}
 		//var annual_income = $("#member_income").val();
 		var income_type = vapp.incomeIndex;
 		var unit_property = vapp.companyCategoryIndex;
@@ -310,12 +310,12 @@ var vapp = new Vue({
 			return;
 		}
 
-		var health = $("#member_health").val();
-		if(!health){
-			_alert('请输入健康状况');
-			this.posting=false;
-			return;
-		}
+		// var health = $("#member_health").val();
+		// if(!health){
+		// 	_alert('请输入健康状况');
+		// 	this.posting=false;
+		// 	return;
+		// }
 		var height = $("#member_height").val();
 		if(!height){
 			_alert('请输入身高');
