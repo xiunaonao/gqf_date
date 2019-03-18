@@ -267,12 +267,12 @@ var vapp = new Vue({
 		// 	return;
 		// }
 
-		var work_unit = $("#member_company").val();
-		if(!work_unit){
-			_alert('请输入工作单位');
-			this.posting=false;
-			return;
-		}
+		// var work_unit = $("#member_company").val();
+		// if(!work_unit){
+		// 	_alert('请输入工作单位');
+		// 	this.posting=false;
+		// 	return;
+		// }
 
 		var job = $("#member_job2").text();
 		if(job=='其他'){
