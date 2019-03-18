@@ -247,6 +247,7 @@ var vapp = new Vue({
 
       	if(isSubmit){
 	    	$(".alert_msg p").html("正在提交！");
+	    	console.log('nmd,wsm');
 		    $(".alert_msg").show();
 		}
 
@@ -267,7 +268,7 @@ var vapp = new Vue({
 		// 	return;
 		// }
 
-		// var work_unit = $("#member_company").val();
+		var work_unit = $("#member_company").val();
 		// if(!work_unit){
 		// 	_alert('请输入工作单位');
 		// 	this.posting=false;
@@ -310,7 +311,7 @@ var vapp = new Vue({
 			return;
 		}
 
-		// var health = $("#member_health").val();
+		var health = $("#member_health").val();
 		// if(!health){
 		// 	_alert('请输入健康状况');
 		// 	this.posting=false;
