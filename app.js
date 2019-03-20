@@ -72,12 +72,11 @@ app.use((req,res,next)=>{
 		 //  		return
 		 //  	}
 		}else if(!newid){
-			res.json({"old":"1"})
 			console.log("老用户记录修改中")
 			let code=req.query.code
 			let wechat_web=require('./server/wechat_token')
 			wechat_web.get_web_token(code,(body)=>{
-				console.log(body)
+				res.json(body)
 				let mssql=require('./server/mssql')
 				mssql.update('dating_member_info',{
 					openid:{
