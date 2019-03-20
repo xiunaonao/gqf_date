@@ -41,14 +41,29 @@ app.use((req,res,next)=>{
 	if(req.url.indexOf('union_valid')==-1 && req.url.indexOf('api')==-1){
 		let openid=req.cookies['union_oid']
 		if(!openid){
-			if(req.url.indexOf('openid')>-1){
-				openid=req.query.openid
-				res.redirect(302,'http://xq.123zou.com/union_valid?openid='+openid)
+			if(req.query.code){
+				let code=req.query.code
+				let wechat_web=require('./server/wechat_token')
+				wechat_web.get_web_token(code,(body)=>{
+					let tel_times=new Date(new Date().setDate(new Date().getDate()+30))
+					res.cookie('union_oid',body.openid,{expires:tel_times,httpOnly:true})
+					res.redirect(url)
+				})
 				return
 			}else{
-		  		res.redirect(302,'https://100579.un.123zou.com/Platform/Link?key=go.dating')
-		  		return
-		  	}
+				let url=encodeURIComponent('http://xq.123zou.com'+req.originalUrl).toLocaleLowerCase()
+				let appid='wx7bc344f62f4fdaa3'
+				res.redirect(`https://open.weixin.qq.com/connect/oauth2/authorize?appid=${appid}&redirect_uri=${url}&response_type=code&scope=snsapi_base&state=STATE#wechat_redirect`)
+				return
+			}
+			// if(req.url.indexOf('openid')>-1){
+			// 	openid=req.query.openid
+			// 	res.redirect(302,'http://xq.123zou.com/union_valid?openid='+openid)
+			// 	return
+			// }else{
+		 //  		res.redirect(302,'https://100579.un.123zou.com/Platform/Link?key=go.dating')
+		 //  		return
+		 //  	}
 		}
 	  }
 	res.locals._v=ver

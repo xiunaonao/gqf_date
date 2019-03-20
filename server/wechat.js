@@ -1,6 +1,8 @@
 let request=require('request')
-let appid='wxb5ed549f53f1ba99';
-let secret='9e2e9837c28f3f849613c23cd1aa9a81';
+// let appid='wxb5ed549f53f1ba99';
+// let secret='9e2e9837c28f3f849613c23cd1aa9a81';
+const secret='8260a54e8dec7e4d740770bc69fe4bb9'
+const appid='wx7bc344f62f4fdaa3'
 
 let post_more=(obj)=>{
 	console.log(obj)
