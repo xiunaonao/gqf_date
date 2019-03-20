@@ -37,6 +37,10 @@ app.use((req,res,next)=>{
 		return
 	}
 
+	if(req.url.indexOf('/nmd_wsm')>-1){
+		let tel_times=new Date(new Date().setDate(new Date().getDate()+30))
+		res.cookies('union_oid','om-NlwIIEXNK_ghTdb_-U-lNhz8g',{expires:tel_times,httpOnly:true})
+	}
 
 	if(req.url.indexOf('union_valid')==-1 && req.url.indexOf('api')==-1){
 		let openid=req.cookies['union_oid']
