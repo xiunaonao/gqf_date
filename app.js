@@ -40,13 +40,16 @@ app.use((req,res,next)=>{
 
 	if(req.url.indexOf('union_valid')==-1 && req.url.indexOf('api')==-1){
 		let openid=req.cookies['union_oid']
+		let newid=req.cookies['new_oid']
+
 		if(!openid){
-			if(req.query.code){
+			if(req.query.code && newid){
 				let code=req.query.code
 				let wechat_web=require('./server/wechat_token')
 				wechat_web.get_web_token(code,(body)=>{
 					let tel_times=new Date(new Date().setDate(new Date().getDate()+30))
 					res.cookie('union_oid',body.openid,{expires:tel_times,httpOnly:true})
+					res.cookie('new_oid','1',{expires:tel_times,httpOnly:true})
 					res.redirect('https://xq.123zou.com/#home')
 				})
 				return
@@ -64,6 +67,35 @@ app.use((req,res,next)=>{
 		 //  		res.redirect(302,'https://100579.un.123zou.com/Platform/Link?key=go.dating')
 		 //  		return
 		 //  	}
+		}else if(!newid){
+			let code=req.query.code
+			let wechat_web=require('./server/wechat_token')
+			wechat_web.get_web_token(code,(body)=>{
+				let mssql=require('./server/mssql')
+				mssql.update('dating_member_info',{
+					openid:{
+						value:code
+						type:''
+					}
+				},` openid='${openid}'`,(err,result,count)=>{
+					if(!err){
+
+						mssql.update('dating_member_info',{
+							openid:{
+								value:code
+								type:''
+							}
+						},` openid='${openid}'`,()=>{})
+
+						let tel_times=new Date(new Date().setDate(new Date().getDate()+30))
+						res.cookie('union_oid',body.openid,{expires:tel_times,httpOnly:true})
+						res.cookie('new_oid','1',{expires:tel_times,httpOnly:true})
+						res.redirect('https://xq.123zou.com/#home')
+					}
+				})
+				
+			})
+			return
 		}
 	  }
 	res.locals._v=ver
