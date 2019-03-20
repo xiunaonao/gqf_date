@@ -54,7 +54,7 @@ app.use((req,res,next)=>{
 				})
 				return
 			}else{
-				let url=encodeURIComponent('http://xq.123zou.com'+req.originalUrl).toLocaleLowerCase()
+				let url=encodeURIComponent('http://xq.123zou.com').toLocaleLowerCase()
 				let appid='wx7bc344f62f4fdaa3'
 				res.redirect(`https://open.weixin.qq.com/connect/oauth2/authorize?appid=${appid}&redirect_uri=${url}&response_type=code&scope=snsapi_base&state=STATE#wechat_redirect`)
 				return
