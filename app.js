@@ -76,6 +76,7 @@ app.use((req,res,next)=>{
 			let code=req.query.code
 			let wechat_web=require('./server/wechat_token')
 			wechat_web.get_web_token(code,(body)=>{
+				console.log(body)
 				let mssql=require('./server/mssql')
 				mssql.update('dating_member_info',{
 					openid:{
@@ -83,6 +84,7 @@ app.use((req,res,next)=>{
 						type:''
 					}
 				},` openid='${openid}'`,(err,result,count)=>{
+					console.log(err)
 					if(!err){
 
 						mssql.update('dating_member_info',{
