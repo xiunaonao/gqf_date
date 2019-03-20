@@ -89,7 +89,7 @@ function set_menu(callback){
 			       			"name":"注册账号",
 			       			"url":"http://fsr.calltrace.cn/register"
 			       		}
-		       		]wechat
+		       		]
 		       },{
 		       	"name":"关于我们",
 		       	"sub_button":[
