@@ -80,7 +80,7 @@ app.use((req,res,next)=>{
 				let rows={}
 				rows['openid']={value:body.openid,type:''}
 				mssql.update('dating_member_info',rows,` openid='${openid}'`,(err,result,count)=>{
-					//res.json()
+					res.json({old:openid,new:body.openid,result:result})
 					if(!err){
 						mssql.update('dating_member_info',rows,` openid='${openid}'`,()=>{})
 
