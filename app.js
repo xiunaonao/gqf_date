@@ -46,7 +46,7 @@ app.use((req,res,next)=>{
 	if(req.url.indexOf('union_valid')==-1 && req.url.indexOf('api')==-1){
 		let openid=req.cookies['union_oid']
 		let newid=req.cookies['new_oid']
-		if(!openid){
+		if(!openid || !req.query.code){
 			if(req.query.code && newid){
 				let code=req.query.code
 				let wechat_web=require('./server/wechat_token')
@@ -72,6 +72,7 @@ app.use((req,res,next)=>{
 		 //  		return
 		 //  	}
 		}else if(!newid){
+			console.log("老用户记录修改中")
 			let code=req.query.code
 			let wechat_web=require('./server/wechat_token')
 			wechat_web.get_web_token(code,(body)=>{
