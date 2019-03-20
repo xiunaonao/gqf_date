@@ -74,7 +74,7 @@ app.use((req,res,next)=>{
 				let mssql=require('./server/mssql')
 				mssql.update('dating_member_info',{
 					openid:{
-						value:code
+						value:code,
 						type:''
 					}
 				},` openid='${openid}'`,(err,result,count)=>{
@@ -82,7 +82,7 @@ app.use((req,res,next)=>{
 
 						mssql.update('dating_member_info',{
 							openid:{
-								value:code
+								value:code,
 								type:''
 							}
 						},` openid='${openid}'`,()=>{})
