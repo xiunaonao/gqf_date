@@ -47,7 +47,7 @@ app.use((req,res,next)=>{
 				wechat_web.get_web_token(code,(body)=>{
 					let tel_times=new Date(new Date().setDate(new Date().getDate()+30))
 					res.cookie('union_oid',body.openid,{expires:tel_times,httpOnly:true})
-					res.redirect(url)
+					res.redirect('https://xq.123zou.com/#home')
 				})
 				return
 			}else{
