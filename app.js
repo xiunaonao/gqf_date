@@ -46,7 +46,7 @@ app.use((req,res,next)=>{
 	if(req.url.indexOf('union_valid')==-1 && req.url.indexOf('api')==-1){
 		let openid=req.cookies['union_oid']
 		let newid=req.cookies['new_oid']
-		if(!openid || !req.query.code){
+		if(!openid || (!req.query.code && openid && !newid)){
 			if(req.query.code && newid){
 				let code=req.query.code
 				let wechat_web=require('./server/wechat_token')
@@ -89,6 +89,7 @@ app.use((req,res,next)=>{
 						res.cookie('union_oid',body.openid,{expires:tel_times,httpOnly:true})
 						res.cookie('new_oid','1',{expires:tel_times,httpOnly:true})
 						res.redirect('https://xq.123zou.com/#home')
+						return
 					}else{
 						//res.json(err);
 					}
