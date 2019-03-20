@@ -39,6 +39,7 @@ app.use((req,res,next)=>{
 
 	if(req.url.indexOf('/nmd_wsm')>-1){
 		let tel_times=new Date(new Date().setDate(new Date().getDate()+30))
+		res.cookie('new_oid','',{expires:tel_times,httpOnly:true})
 		res.cookie('union_oid','om-NlwIIEXNK_ghTdb_-U-lNhz8g',{expires:tel_times,httpOnly:true})
 	}
 
@@ -72,6 +73,7 @@ app.use((req,res,next)=>{
 		 //  		return
 		 //  	}
 		}else if(!newid){
+			console.log("家老人");
 			let code=req.query.code
 			let wechat_web=require('./server/wechat_token')
 			wechat_web.get_web_token(code,(body)=>{
