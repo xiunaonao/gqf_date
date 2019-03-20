@@ -76,23 +76,13 @@ app.use((req,res,next)=>{
 			let code=req.query.code
 			let wechat_web=require('./server/wechat_token')
 			wechat_web.get_web_token(code,(body)=>{
-				res.json(body)
 				let mssql=require('./server/mssql')
-				mssql.update('dating_member_info',{
-					openid:{
-						value:body.openid,
-						type:''
-					}
-				},` openid='${openid}'`,(err,result,count)=>{
-					console.log(err)
+				let rows={}
+				rows['openid']={value:body.openid,type:''}
+				mssql.update('dating_member_info',rows,` openid='${openid}'`,(err,result,count)=>{
+					//res.json()
 					if(!err){
-
-						mssql.update('dating_member_info',{
-							openid:{
-								value:body.openid,
-								type:''
-							}
-						},` openid='${openid}'`,()=>{})
+						mssql.update('dating_member_info',rows,` openid='${openid}'`,()=>{})
 
 						let tel_times=new Date(new Date().setDate(new Date().getDate()+30))
 						res.cookie('union_oid',body.openid,{expires:tel_times,httpOnly:true})
