@@ -98,6 +98,8 @@ app.use((req,res,next)=>{
 						res.cookie('union_oid',body.openid,{expires:tel_times,httpOnly:true})
 						res.cookie('new_oid','1',{expires:tel_times,httpOnly:true})
 						res.redirect('https://xq.123zou.com/#home')
+					}else{
+						res.json(err);
 					}
 				})
 				
