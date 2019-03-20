@@ -79,9 +79,9 @@ app.use((req,res,next)=>{
 				let mssql=require('./server/mssql')
 				let rows={}
 				rows['openid']={value:body.openid,type:''}
-				res.json({mssql:mssql.update})
+				//res.json({mssql:mssql.update})
 				mssql.update('dating_member_info',rows,` openid='${openid}'`,(err,result,count)=>{
-					res.json({old:openid,new:body.openid,result:result})
+					//res.json({old:openid,new:body.openid,result:result})
 					if(!err){
 						mssql.update('dating_member_info',rows,` openid='${openid}'`,()=>{})
 
@@ -90,7 +90,7 @@ app.use((req,res,next)=>{
 						res.cookie('new_oid','1',{expires:tel_times,httpOnly:true})
 						res.redirect('https://xq.123zou.com/#home')
 					}else{
-						res.json(err);
+						//res.json(err);
 					}
 				})
 				
