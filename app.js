@@ -47,7 +47,7 @@ app.use((req,res,next)=>{
 		let openid=req.cookies['union_oid']
 		let newid=req.cookies['new_oid']
 		if(!openid || (!req.query.code && openid && !newid)){
-			if(req.query.code && newid){
+			if(req.query.code){
 				let code=req.query.code
 				let wechat_web=require('./server/wechat_token')
 				wechat_web.get_web_token(code,(body)=>{
