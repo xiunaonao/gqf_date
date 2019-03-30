@@ -245,11 +245,6 @@ var vapp = new Vue({
       		return;
       	}
 
-      	if(isSubmit){
-	    	$(".alert_msg p").html("正在提交！");
-	    	console.log('nmd,wsm');
-		    $(".alert_msg").show();
-		}
 
    		var scope=this;
    		var member_name = $("#member_name").val();
@@ -378,6 +373,12 @@ var vapp = new Vue({
 		var house_nature = $("#filter_address").html();
 		
 		var sentData = {age_range: age_range, height_range: height_range, weight_range: weight_range, job: scope.jobc2, income_range: income_range, housing: housing, car_buying: car_buying, house_nature: house_nature};
+		
+      	if(isSubmit){
+	    	$(".alert_msg p").html("正在提交！");
+		    $(".alert_msg").show();
+		}
+
 		
 		console.log(postData);
           		
