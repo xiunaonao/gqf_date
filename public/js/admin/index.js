@@ -2,7 +2,7 @@ var vapp=new Vue({
 	el:'#index',
 	data:{
 		data:[],
-		size:20,
+		size:1000,
 		page:1,
 		keyword:'',
         user_type: undefined,
