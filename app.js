@@ -54,12 +54,15 @@ app.use((req,res,next)=>{
 					let tel_times=new Date(new Date().setDate(new Date().getDate()+30))
 					res.cookie('union_oid',body.openid,{expires:tel_times,httpOnly:true})
 					res.cookie('new_oid','1',{expires:tel_times,httpOnly:true})
-					res.redirect('https://xq.123zou.com/#home')
+					//res.redirect('https://xq.123zou.com/#home')
+					res.locals._v=ver
+					next()
 				})
 				return
 			}else{
 				let url=encodeURIComponent('https://xq.123zou.com').toLocaleLowerCase()
 				let appid='wx7bc344f62f4fdaa3'
+
 				res.redirect(`https://open.weixin.qq.com/connect/oauth2/authorize?appid=${appid}&redirect_uri=${url}&response_type=code&scope=snsapi_base&state=STATE#wechat_redirect`)
 				return
 			}
