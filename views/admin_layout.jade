@@ -6,12 +6,12 @@ html
 		link(rel='stylesheet', href='/css/admin.css?v=#{_v}')
 		link(href="/css/iconfont.css" rel="stylesheet")
 		script(src="/js/sys/vue.js")
-		//script(src="/js/sys/mobile.js")
+		script(src="/js/sys/mobile.js")
 		//script(src="/js/sys/vue.js")
 		//script(src="/js/sys/vue-resource.js")
 		//script(src="/js/sys/axios.min.js")
 	body 
-		.admin-box#app(v-cloak)
+		.admin-box#app
 			.admin-card
 				.head-box
 					img(src="#{data[0].head_img}")
