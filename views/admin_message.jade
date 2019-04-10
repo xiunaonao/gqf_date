@@ -21,4 +21,5 @@ block content
 			.reply-box(v-on:touchstart='$event.cancelBubble = true')
 				textarea(placeholder='输入回复的内容',v-model='reply_txt')
 				button.blue-bg(v-on:click='reply_now') 确认回复
+block scripts	
 	script(src="/js/admin/message.js?v=#{_v}")

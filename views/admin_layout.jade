@@ -10,7 +10,7 @@ html
 		//script(src="/js/sys/vue.js")
 		//script(src="/js/sys/vue-resource.js")
 		//script(src="/js/sys/axios.min.js")
-	body
+	body 
 		.admin-box#app
 			.admin-card
 				.head-box
@@ -70,6 +70,7 @@ html
 	script(src="/js/sys/mobile.js")
 	//script(src="/js/sys/vue-resource.js")
 	script(src="/js/sys/axios.min.js")
+	block scripts
 	script.
 		function _alert(msg,callback,time){
 			document.querySelector(".alert_msg p").innerHTML=msg;

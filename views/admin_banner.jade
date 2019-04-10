@@ -30,6 +30,7 @@ block content
 				input.banner-title(placeholder='请输入标题',v-model='update_obj.title')
 				input.banner-url(placeholder='请输入跳转的链接，可不填',v-model='update_obj.link_url')
 				button.red-bg(v-on:click="submit_banner_upload") 保存
+block scripts
 	script(src="/js/admin/banner.js?v=#{_v}")
 
 		

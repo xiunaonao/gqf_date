@@ -45,5 +45,5 @@ block content
 				input(type="checkbox",v-bind:checked='isall || obj.ischoose' v-on:change='isall=isall?false:isall;obj.ischoose=!obj.ischoose')
 				img(v-bind:src="obj.head_img")
 				label {{obj.id}}&nbsp;{{obj.member_name}}
-
+block scripts
 	script(src='/js/admin/notice.js?v=#{_v}')
