@@ -16,6 +16,7 @@ let sqlServer={
 			if(err){
 				console.log('连接失败')
 				callback(null)
+				conn.close()
 				return
 			}else
 		 		callback(conn)
@@ -28,6 +29,7 @@ let sqlServer={
 			let request = new Request(sqlStr,(err, rowCount)=>{
 		      if (err) {
 		        console.error(err)
+		        conn.close()
 		        callback(err,[],0) //创建 request 实例失败
 		      }else{
 		      	//console.log(rowCount)
@@ -49,6 +51,7 @@ let sqlServer={
 
 		    request.on('requestCompleted',()=>{
 		    	//console.log(_result)
+		    	conn.close()
 		    	callback(null,_result,_rowCount)
 		    })
 		    conn.execSql(request)
