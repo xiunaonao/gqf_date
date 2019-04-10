@@ -145,7 +145,7 @@ router.get('/new_user',(req,res,next)=>{
 	let body=req.body
 	let openid=req.cookies['union_oid']
 	mssql.querySingle('dating_member_info',`openid='${openid}'`,(err,result,count)=>{
-		console.log(result);
+		//console.log(result);
 		if(result.length>0 && !result[0].member_name){
 			ws.get_user(openid,(obj)=>{
 				let rows={
@@ -524,7 +524,7 @@ router.post('/open_or_lock',(req,res,next)=>{
 	let body=req.body
 	let openid=req.cookies['union_oid']
 	let admin_openid=req.cookies['admin_oid']
-	console.log(body)
+	//console.log(body)
 	var where='';
 	if(admin_openid && body.id){
 		where+=`id='${body.id}'`
@@ -742,7 +742,7 @@ router.get('/like',(req,res,next)=>{
 		                         "url":"https://100579.un.123zou.com/Platform/Link?key=go.dating"
 							 })
 						}else{
-							console.log('已发送过该通知')
+							//console.log('已发送过该通知')
 						}
 					})
 

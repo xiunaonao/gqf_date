@@ -8,7 +8,7 @@ router.post('/admin_login',(req,res,next)=>{
 	let openid=req.cookies['union_oid']
 	mssql.querySingle('dating_managers',`openid='${openid}' and review_status=1`,(err,result,count)=>{
 		let json={data:null}
-		console.log(count)
+		//console.log(count)
 		if(err){
 			json.success=false
 			json.msg=err
@@ -190,7 +190,7 @@ router.post('/volunteer_register',(req,res,next)=>{
 					res.json({success:false,msg:'无效的用户'})
 					return;
 				}
-				console.log(result2)
+				//console.log(result2)
 				let rowsKey={
 			        name:'',
 			        openid:'',
@@ -379,7 +379,7 @@ router.get('/user_list',(req,res,next)=>{
     	//where.filter+=` and (id in ${ky} or ) `
     }
     where.filter += ` and member_name <> '' `;
-    console.log('查询条件:'+where.filter)
+    //console.log('查询条件:'+where.filter)
 	mssql.query('dating_member_info',where,(err,result,count)=>{
 		
 		let json={}
@@ -739,7 +739,7 @@ router.post('/get_pop_list',(req,res,next)=>{
 
 		function select(){
 			mssql.exec('select i.member_name,i.head_img,i.height,i.weight,i.day_of_birth,p.id,p.sort,p.list_index,p.created_time,p.user_id,p.openid,p.sex from dating_member_pop p,dating_member_info i where p.user_id=i.id order by sort asc',(err2,result2,count2)=>{
-				console.log(result2)
+				//console.log(result2)
 				if(err){
 					res.json({success:false,msg:err})
 					return

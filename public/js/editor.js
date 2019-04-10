@@ -125,7 +125,7 @@ var vapp = new Vue({
     	}
     	
     	this.jobc2=jobc2arr.join(',');
-    	console.log(this.jobc2)
+    	//console.log(this.jobc2)
     	// if(this.jobc2.indexOf(','+obj)!=-1){
     	// 	this.jobc2=this.jobc2.replace(','+obj,'');
     	// }else{
@@ -152,7 +152,7 @@ var vapp = new Vue({
 //    $('#img_'+target.id).attr('src',getFileUrl(e.srcElement));
 	$(".e_img_inner").css("background-image","url("+getFileUrl(e.srcElement)+")");
       this.flagNum++;
-      console.log("flagNum++:"+this.flagNum);
+      //console.log("flagNum++:"+this.flagNum);
       if(this.flagNum<5){
         $('.e_img').find("#e_center").hide();
       }
@@ -166,7 +166,7 @@ var vapp = new Vue({
 //      inputID=target.id.replace('img_','');    //获得需要清除value的input
         $('#addTextForm input').val("");
         this.flagNum--;
-        console.log("flagNum--:"+this.flagNum);
+        //console.log("flagNum--:"+this.flagNum);
 //    }
       $(".e_img_inner").css("background-image","url(/)");
     },
@@ -196,7 +196,7 @@ var vapp = new Vue({
       	this.posting=true;
 
       	var valid_idcard=Z_VALID().idcard($("#member_card").val());
-      	console.log(valid_idcard)
+      	//console.log(valid_idcard)
       	if(!valid_idcard.success){
 	    	$(".alert_msg p").html("身份证格式不正确");
 		    $(".alert_msg").show();
@@ -252,7 +252,7 @@ var vapp = new Vue({
 		//var day_of_birth = $("#member_birth").val();
 		var sex=(valid_idcard.info.sex=='男'?'1':'');
 		sex+=(valid_idcard.info.sex=='女'?'2':'');
-		console.log(valid_idcard);
+		//console.log(valid_idcard);
 		var day_of_birth=valid_idcard.info.year+'-'+valid_idcard.info.month+'-'+valid_idcard.info.day;
 		var card_number = $("#member_card").val();
 		var domicile = $("#member_address").val();
@@ -380,7 +380,7 @@ var vapp = new Vue({
 		}
 
 		
-		console.log(postData);
+		//console.log(postData);
           		
 		$.ajax({
 			url: "/dating_api/insert_or_update",
@@ -428,7 +428,7 @@ var vapp = new Vue({
       	var scope=this;
         var uploadSrc = $('#addTextForm input').val();
         // srcArr = this.imgUrl.split(",");
-        console.log("uploadSrc:"+uploadSrc);
+        //console.log("uploadSrc:"+uploadSrc);
 		
 /*
  lrz(this.files[0], {
@@ -562,7 +562,7 @@ jQuery(function(){
 	
 	var select_flag = false;
 	$('body').on('click',".info_top",function(){
-		console.log(select_flag)
+		//console.log(select_flag)
 		if(!select_flag){
 			$(this).parent().find(".select_div").show("solw");
 			select_flag = true;
@@ -575,7 +575,7 @@ jQuery(function(){
 
 	
 	$("body").on('click','.select_div p',function(){
-		console.log($(this).parent().attr('mul_check'))
+		//console.log($(this).parent().attr('mul_check'))
 		if($(this).parent().attr('mul_check')){
 			return;
 		}
@@ -595,7 +595,7 @@ jQuery(function(){
 	$("img").click(function(){
 		event.stopPropagation();  
         event.preventDefault();
-        console.log("yes");
+        //console.log("yes");
 	});
 	
 	
@@ -723,7 +723,7 @@ jQuery(function(){
 					var ageArr = getRange(data.data.age_range);
 					$("#filter_age01").val(ageArr[0]);
 					$("#filter_age02").val(ageArr[1]);
-					console.log("ageArr[0]:"+ageArr[0]);
+					//console.log("ageArr[0]:"+ageArr[0]);
 					var heightArr = getRange(data.data.height_range);
 					$("#filter_height01").val(heightArr[0]);
 					$("#filter_height02").val(heightArr[1]);

@@ -14,7 +14,7 @@ let sqlServer={
 		let conn=new Connection(connectionCfg)
 		conn.on('connect', (err)=>{
 			if(err){
-				console.log('连接失败')
+				//console.log('连接失败')
 				callback(null)
 				conn.close()
 				return
@@ -24,7 +24,7 @@ let sqlServer={
 	},
 	exec:(sqlStr,callback)=>{
 		sqlServer.connect((conn)=>{
-			console.log('连接数据库成功，开始查询sql语句:'+sqlStr)
+			//console.log('连接数据库成功，开始查询sql语句:'+sqlStr)
 			let _rowCount=0
 			let request = new Request(sqlStr,(err, rowCount)=>{
 		      if (err) {
@@ -98,9 +98,9 @@ let sqlServer={
 
 			
 		`
-		console.log(where.filter)
+		//console.log(where.filter)
 		strNumber=`select count=count(id) from ${table} ${where.filter}`
-		console.log(strNumber)
+		//console.log(strNumber)
 		sqlServer.exec(strSql,(err,result,count)=>{
 			if(err){
 				callback(err,[],0)
@@ -144,7 +144,7 @@ let sqlServer={
 
 
         if (where.page == 1 && !isagain){
-        	console.log('首次匹配');
+        	//console.log('首次匹配');
 			sqlServer.exec(`exec dbo.p_matchMembers '${where.openid}','${where.filter}'`,(err,result,count)=>{
 				queryNow()
 			})

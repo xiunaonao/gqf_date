@@ -76,7 +76,6 @@ app.use((req,res,next)=>{
 		 //  		return
 		 //  	}
 		}else if(false){
-			console.log("老用户记录修改中")
 			let code=req.query.code
 			let wechat_web=require('./server/wechat_token')
 			wechat_web.get_web_token(code,(body)=>{

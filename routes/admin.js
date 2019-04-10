@@ -89,7 +89,6 @@ router.get('/pair',(req,res,next)=>{
 		res.redirect('/#system',{})
 		return;
 	}
-	console.log(req.query.type)
 	if(req.query.type!=1)
 		req.query.type=2
 	let query=req.query

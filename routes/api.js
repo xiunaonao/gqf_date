@@ -36,7 +36,7 @@ router.post('/upload',upload.any(),(req,res,next)=>{
 	let index=0
 	let json={}
 	let readImg=(item,i)=>{
-		console.log(item.path);
+		//console.log(item.path);
 		if(item){
 			imgs.push(item.path.replace(/\\/g,'/').replace('../gqf_date/public',''))
 		}
@@ -82,7 +82,7 @@ router.post('/sms_post',(req,res,next)=>{
 	let url=`https://cj.123zou.com/Enroll/SendSms?mobile=${req.body.mobile}&sms_type=2`
 	request(url,(err,resp,body)=>{
 		//{"success":1,"data":null,"total":0,"msg":"发送成功","err_msg":null,"code":0}
-		console.log(typeof body)
+		//console.log(typeof body)
 		if(typeof body=='string')
 			body=JSON.parse(body)
 		res.json(body)
@@ -103,7 +103,7 @@ router.post('/sms_valid',(req,res,next)=>{
 	let url=`https://cj.123zou.com/Enroll/VerifySms?mobile=${req.body.mobile}&sms_type=2&sms=${req.body.code}`
 	request(url,(err,resp,body)=>{
 		//{"success":1,"data":null,"total":0,"msg":"发送成功","err_msg":null,"code":0}
-		console.log(typeof body)
+		//console.log(typeof body)
 		if(typeof body=='string')
 			body=JSON.parse(body)
 		res.json(body)

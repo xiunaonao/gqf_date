@@ -12,7 +12,7 @@ let aesMethod=(token,callback)=>{
 
   var decipher = crypto.createDecipheriv('aes-128-cbc', key, iv)
   var decoded = decipher.update(crypted, 'binary', 'utf8')
-  console.log(decoded.toString())
+  //console.log(decoded.toString())
   decoded += decipher.final('utf8')
   callback(decoded)
 }
@@ -57,7 +57,7 @@ router.get('/valid',function(req,res,next){
 			path:'/MobileNews/get_member_info?member_id='+data.memberId,
 			method: 'GET'
 		}
-		console.log(opt.host+opt.path)
+		//console.log(opt.host+opt.path)
 		let _req=http.request(opt,(_res)=>{
 			let data='';
 		    //console.log('headers:'+JSON.stringify(_res.headers));  
