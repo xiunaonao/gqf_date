@@ -8,7 +8,7 @@ html
 		script(src="/js/sys/mobile.js")
 		script(src="/js/sys/vue.js")
 		script(src="/js/sys/vue-resource.js")
-		script(src="https://unpkg.com/axios/dist/axios.min.js")
+		script(src="/js/sys/axios.min.js")
 	body
 		.admin-box#app
 			.admin-card
@@ -66,6 +66,11 @@ html
 		a.goto_h5(href="/#list") 回到前台
 		.alert_msg
 			p
+		
+		script(src="/js/sys/mobile.js")
+		script(src="/js/sys/vue.js")
+		script(src="/js/sys/vue-resource.js")
+		script(src="/js/sys/axios.min.js")
 		script.
 			function _alert(msg,callback,time){
 				document.querySelector(".alert_msg p").innerHTML=msg;
