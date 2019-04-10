@@ -5,9 +5,6 @@ html
 		meta(name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1, user-scalable=no")
 		link(rel='stylesheet', href='/css/admin.css?v=#{_v}')
 		link(href="/css/iconfont.css" rel="stylesheet")
-		script(src="/js/sys/mobile.js")
-		script(src="/js/sys/vue.js")
-		script(src="https://unpkg.com/axios/dist/axios.min.js")
 	body
 		.admin-box#app(style="height:100%;")
 			.admin-line-card
@@ -75,7 +72,6 @@ html
 						a(href="/admin/volunteer?type=-2&status=2")
 							img(src="/img/auth_admin.png")
 							label 权限管理
-		script(src="/js/admin/line.js?v=#{_v}")
 		.alert_msg
 			p
 		script.
@@ -90,3 +86,7 @@ html
 					}, time?time:2000);
 				}
 			}
+	script(src="/js/sys/mobile.js")
+	script(src="/js/sys/vue.js")
+	script(src="/js/sys/axios.min.js")		
+	script(src="/js/admin/line.js?v=#{_v}")

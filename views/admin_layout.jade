@@ -5,10 +5,10 @@ html
 		meta(name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1, user-scalable=no")
 		link(rel='stylesheet', href='/css/admin.css?v=#{_v}')
 		link(href="/css/iconfont.css" rel="stylesheet")
-		script(src="/js/sys/mobile.js")
-		script(src="/js/sys/vue.js")
-		script(src="/js/sys/vue-resource.js")
-		script(src="/js/sys/axios.min.js")
+		//script(src="/js/sys/mobile.js")
+		//script(src="/js/sys/vue.js")
+		//script(src="/js/sys/vue-resource.js")
+		//script(src="/js/sys/axios.min.js")
 	body
 		.admin-box#app
 			.admin-card
@@ -66,21 +66,20 @@ html
 		a.goto_h5(href="/#list") 回到前台
 		.alert_msg
 			p
-
-		script(src="/js/sys/mobile.js")
-		script(src="/js/sys/vue.js")
-		//script(src="/js/sys/vue-resource.js")
-		script(src="/js/sys/axios.min.js")
-		script.
-			function _alert(msg,callback,time){
-				document.querySelector(".alert_msg p").innerHTML=msg;
-				document.querySelector(".alert_msg").style.display='block';
-				if(time>0 || !time){
-					setTimeout(function(){
-					document.querySelector(".alert_msg").style.display='none';
-						if(callback)
-							callback();
-					}, time?time:2000);
-				}
+	script(src="/js/sys/mobile.js")
+	script(src="/js/sys/vue.js")
+	//script(src="/js/sys/vue-resource.js")
+	script(src="/js/sys/axios.min.js")
+	script.
+		function _alert(msg,callback,time){
+			document.querySelector(".alert_msg p").innerHTML=msg;
+			document.querySelector(".alert_msg").style.display='block';
+			if(time>0 || !time){
+				setTimeout(function(){
+				document.querySelector(".alert_msg").style.display='none';
+					if(callback)
+						callback();
+				}, time?time:2000);
 			}
+		}
 
